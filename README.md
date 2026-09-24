@@ -117,6 +117,7 @@ data/
 ├── fcm_results.pkl               # Kết quả huấn luyện ma trận độ thuộc Fuzzy C-Means
 ├── gmm_results.pkl               # Kết quả xác suất hậu nghiệm Gaussian Mixture Model
 │
+<<<<<<< HEAD
 ├── data/
 │   ├── datasets/                      # Các tập dữ liệu đặc trưng và tập holdout
 │   │   ├── features_all.csv           # 3.600 mẫu × 172 cột đặc trưng gốc & metadata
@@ -156,12 +157,26 @@ data/
 │       ├── 12_model_performance_comparison.png # So sánh hiệu năng 4 mô hình & Confusion Matrix
 │       ├── membership_*.png           # 7 biểu đồ hàm liên thuộc mờ trên 7 trục ngữ nghĩa
 │       └── viz_*.png                  # 6 biểu đồ phân tích âm phổ mẫu tiêu biểu cho 6 thể loại
+=======
+├── 01_genre_distribution.png     # Biểu đồ phân phối số lượng mẫu gốc và cân bằng
+├── 02_violin_comparison.png      # Violin plot so sánh mật độ phân phối đặc trưng giữa 6 thể loại
+├── 03_radar_chart.png            # Biểu đồ mạng nhện "dấu vân tay âm thanh" 8 chiều
+├── 04_pca_tsne.png               # Không gian đặc trưng giảm chiều 2D (PCA & t-SNE)
+├── 05_correlation.png            # Ma trận tương quan Pearson giữa các đặc trưng
+├── 06_optimal_k.png              # Xác định số cụm tối ưu qua Elbow, Silhouette và BIC
+├── 07_clustering_comparison.png  # So sánh 4 thuật toán (K-Means, GMM, FCM, DBSCAN vs Ground Truth)
+├── 08_fuzzy_profile_heatmap.png  # Bản đồ nhiệt hồ sơ mờ tổng hợp của 6 thể loại
+│
+├── membership_*.png              # 7 biểu đồ hàm liên thuộc mờ trên 7 trục ngữ nghĩa
+└── viz_*.png                     # 6 biểu đồ phân tích âm phổ mẫu tiêu biểu cho từng thể loại
+>>>>>>> 9bc78630dbc1d6daec0a198e0658b5a8fda16abb
 ```
 
 ---
 
 ## 5. Huấn Luyện Decision Tree, Random Forest & Trích Xuất Hệ Luật Mờ (`02_fuzzy_decision_tree_random_forest.ipynb`)
 
+<<<<<<< HEAD
 Pipeline đã thực hiện huấn luyện đối chứng 4 mô hình trên tập Train/Test (80/20 Stratified, 2.880 train / 720 test) từ 2 bảng dữ liệu mờ (3.600 mẫu cân bằng):
 
 ### Kết quả đối chứng hiệu năng phân loại:
@@ -179,3 +194,25 @@ Pipeline đã thực hiện huấn luyện đối chứng 4 mô hình trên tậ
 * `data/rules/rules_random_forest_aggregated.json`: 718 luật chất lượng cao tổng hợp từ 50 cây con của Random Forest Continuous.
 * `data/rules/rules_random_forest_crisp_top.json` & `rules_random_forest_top.json`: Top 5 luật vàng tiêu biểu cho từng thể loại.
 * `data/rules/rules_summary.csv`: Bảng tổng kết các luật vàng dạng văn bản dễ đọc.
+=======
+Pipeline đã thực hiện huấn luyện đối chứng 4 mô hình trên tập Train/Test (80/20 Stratified) từ 2 bảng dữ liệu mờ:
+
+### Kết quả đối chứng hiệu năng phân loại:
+* **1. Decision Tree (Crisp 7 trục)**: Accuracy = **43.89%** | F1-Score = **43.23%**
+* **2. Random Forest (Crisp 7 trục)**: Accuracy = **50.56%** | F1-Score = **50.37%**
+* **3. Decision Tree (Continuous 27 mức)**: Accuracy = **50.00%** | F1-Score = **48.70%**
+* **4. Random Forest (Continuous 27 mức)**: Accuracy = **58.61%** | F1-Score = **58.44%**
+
+> **Nhận xét học thuật**: Giữ lại các giá trị mức độ mờ liên tục [0, 1] giúp mô hình Random Forest tăng thêm hơn **8.0%** độ chính xác so với việc ép cứng thành 7 nhãn chữ, đồng thời vẫn bảo toàn 100% tính diễn giải ngôn ngữ tự nhiên.
+
+### Hệ thống file kết quả luật được tạo:
+* `data/rules_decision_tree_crisp.json`: 28 luật từ cây quyết định rời rạc.
+* `data/rules_decision_tree_continuous.json`: 29 luật từ cây quyết định mờ liên tục.
+* `data/rules_random_forest_all.json`: Toàn bộ 1.391 nhánh rẽ luật từ 50 cây con của Random Forest.
+* `data/rules_random_forest_top.json`: Top 5 luật vàng có độ tin cậy và độ phủ cao nhất cho từng thể loại.
+* `data/rules_summary.csv`: Bảng tổng kết các luật vàng dạng văn bản dễ đọc.
+* `data/09_decision_tree_crisp_graph.png`: Sơ đồ trực quan Cây quyết định Crisp.
+* `data/10_decision_tree_continuous_graph.png`: Sơ đồ trực quan Cây quyết định Mờ Continuous.
+* `data/11_rf_feature_importance.png`: Đồ thị tỷ trọng quan trọng của 27 mức độ mờ.
+* `data/12_model_performance_comparison.png`: Biểu đồ so sánh Accuracy 4 mô hình và Confusion Matrix.
+>>>>>>> 9bc78630dbc1d6daec0a198e0658b5a8fda16abb
