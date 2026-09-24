@@ -4,7 +4,7 @@
     "axes": {
       "Tempo": {
         "dominant": "Chậm",
-        "score": 0.364,
+        "score": 0.36398902468291466,
         "all": {
           "Nhanh": 0.275,
           "Vừa": 0.361,
@@ -13,7 +13,7 @@
       },
       "Pitch": {
         "dominant": "Trầm",
-        "score": 0.5026,
+        "score": 0.5025977084241795,
         "all": {
           "Cao": 0.03,
           "Trung": 0.467,
@@ -22,7 +22,7 @@
       },
       "Vibrato": {
         "dominant": "Vừa",
-        "score": 0.472,
+        "score": 0.4719952980761951,
         "all": {
           "Nhiều luyến": 0.176,
           "Vừa": 0.472,
@@ -31,7 +31,7 @@
       },
       "Energy": {
         "dominant": "Yếu",
-        "score": 0.6578,
+        "score": 0.6578432060705821,
         "all": {
           "Vừa": 0.282,
           "Mạnh": 0.06,
@@ -40,7 +40,7 @@
       },
       "Timbre": {
         "dominant": "Cao",
-        "score": 0.2996,
+        "score": 0.29964909740396256,
         "all": {
           "Trung bình": 0.239,
           "Thấp": 0.231,
@@ -50,7 +50,7 @@
       },
       "Harmony": {
         "dominant": "Thấp",
-        "score": 0.251,
+        "score": 0.25098330417346415,
         "all": {
           "Thấp": 0.251,
           "Cao": 0.25,
@@ -60,7 +60,7 @@
       },
       "Spectral": {
         "dominant": "Trung bình",
-        "score": 0.4077,
+        "score": 0.40774956846032917,
         "all": {
           "Trung bình": 0.408,
           "Cao": 0.29,
@@ -74,7 +74,7 @@
     "axes": {
       "Tempo": {
         "dominant": "Vừa",
-        "score": 0.8039,
+        "score": 0.8038892149961453,
         "all": {
           "Nhanh": 0.062,
           "Vừa": 0.804,
@@ -83,7 +83,7 @@
       },
       "Pitch": {
         "dominant": "Trung",
-        "score": 0.5578,
+        "score": 0.5577523798518719,
         "all": {
           "Cao": 0.076,
           "Trung": 0.558,
@@ -92,7 +92,7 @@
       },
       "Vibrato": {
         "dominant": "Vừa",
-        "score": 0.472,
+        "score": 0.4719543886072237,
         "all": {
           "Nhiều luyến": 0.093,
           "Vừa": 0.472,
@@ -101,7 +101,7 @@
       },
       "Energy": {
         "dominant": "Mạnh",
-        "score": 0.4181,
+        "score": 0.4180735411014561,
         "all": {
           "Vừa": 0.373,
           "Mạnh": 0.418,
@@ -110,7 +110,7 @@
       },
       "Timbre": {
         "dominant": "Cao",
-        "score": 0.2948,
+        "score": 0.2948121456110788,
         "all": {
           "Trung bình": 0.24,
           "Thấp": 0.233,
@@ -120,7 +120,7 @@
       },
       "Harmony": {
         "dominant": "Rất thấp",
-        "score": 0.2503,
+        "score": 0.2502635659380534,
         "all": {
           "Thấp": 0.25,
           "Cao": 0.25,
@@ -130,7 +130,7 @@
       },
       "Spectral": {
         "dominant": "Trung bình",
-        "score": 0.5515,
+        "score": 0.5514801521253884,
         "all": {
           "Trung bình": 0.551,
           "Cao": 0.229,
@@ -144,7 +144,7 @@
     "axes": {
       "Tempo": {
         "dominant": "Vừa",
-        "score": 0.3778,
+        "score": 0.3778370190050728,
         "all": {
           "Nhanh": 0.363,
           "Vừa": 0.378,
@@ -153,7 +153,7 @@
       },
       "Pitch": {
         "dominant": "Trầm",
-        "score": 0.764,
+        "score": 0.7640108310430767,
         "all": {
           "Cao": 0.083,
           "Trung": 0.153,
@@ -162,7 +162,7 @@
       },
       "Vibrato": {
         "dominant": "Ít luyến",
-        "score": 0.6961,
+        "score": 0.69607532827732,
         "all": {
           "Nhiều luyến": 0.057,
           "Vừa": 0.247,
@@ -171,7 +171,7 @@
       },
       "Energy": {
         "dominant": "Vừa",
-        "score": 0.4922,
+        "score": 0.49224934032750745,
         "all": {
           "Vừa": 0.492,
           "Mạnh": 0.266,
@@ -180,7 +180,7 @@
       },
       "Timbre": {
         "dominant": "Cao",
-        "score": 0.284,
+        "score": 0.2840419517162083,
         "all": {
           "Trung bình": 0.242,
           "Thấp": 0.237,
@@ -190,7 +190,7 @@
       },
       "Harmony": {
         "dominant": "Cao",
-        "score": 0.2501,
+        "score": 0.2501020934721809,
         "all": {
           "Thấp": 0.25,
           "Cao": 0.25,
@@ -200,7 +200,7 @@
       },
       "Spectral": {
         "dominant": "Trung bình",
-        "score": 0.4264,
+        "score": 0.426438572032638,
         "all": {
           "Trung bình": 0.426,
           "Cao": 0.425,
@@ -214,7 +214,7 @@
     "axes": {
       "Tempo": {
         "dominant": "Chậm",
-        "score": 0.4055,
+        "score": 0.40545716578141594,
         "all": {
           "Nhanh": 0.279,
           "Vừa": 0.316,
@@ -223,7 +223,7 @@
       },
       "Pitch": {
         "dominant": "Trung",
-        "score": 0.571,
+        "score": 0.5710407881847177,
         "all": {
           "Cao": 0.09,
           "Trung": 0.571,
@@ -232,7 +232,7 @@
       },
       "Vibrato": {
         "dominant": "Vừa",
-        "score": 0.425,
+        "score": 0.4250493323153508,
         "all": {
           "Nhiều luyến": 0.28,
           "Vừa": 0.425,
@@ -241,7 +241,7 @@
       },
       "Energy": {
         "dominant": "Yếu",
-        "score": 0.4915,
+        "score": 0.49154014099348453,
         "all": {
           "Vừa": 0.257,
           "Mạnh": 0.252,
@@ -250,7 +250,7 @@
       },
       "Timbre": {
         "dominant": "Rất thấp",
-        "score": 0.2686,
+        "score": 0.26857569394575553,
         "all": {
           "Trung bình": 0.264,
           "Thấp": 0.268,
@@ -260,7 +260,7 @@
       },
       "Harmony": {
         "dominant": "Thấp",
-        "score": 0.2501,
+        "score": 0.2500975385820095,
         "all": {
           "Thấp": 0.25,
           "Cao": 0.25,
@@ -270,7 +270,7 @@
       },
       "Spectral": {
         "dominant": "Trung bình",
-        "score": 0.5699,
+        "score": 0.5699405789778026,
         "all": {
           "Trung bình": 0.57,
           "Cao": 0.263,
@@ -284,7 +284,7 @@
     "axes": {
       "Tempo": {
         "dominant": "Vừa",
-        "score": 0.4703,
+        "score": 0.47034042201952264,
         "all": {
           "Nhanh": 0.243,
           "Vừa": 0.47,
@@ -293,7 +293,7 @@
       },
       "Pitch": {
         "dominant": "Trung",
-        "score": 0.5337,
+        "score": 0.5336538232127738,
         "all": {
           "Cao": 0.081,
           "Trung": 0.534,
@@ -302,7 +302,7 @@
       },
       "Vibrato": {
         "dominant": "Vừa",
-        "score": 0.518,
+        "score": 0.5179795922775065,
         "all": {
           "Nhiều luyến": 0.238,
           "Vừa": 0.518,
@@ -311,7 +311,7 @@
       },
       "Energy": {
         "dominant": "Yếu",
-        "score": 0.6061,
+        "score": 0.6061301944604252,
         "all": {
           "Vừa": 0.332,
           "Mạnh": 0.062,
@@ -320,7 +320,7 @@
       },
       "Timbre": {
         "dominant": "Rất thấp",
-        "score": 0.2665,
+        "score": 0.2665237108577125,
         "all": {
           "Trung bình": 0.262,
           "Thấp": 0.266,
@@ -330,7 +330,7 @@
       },
       "Harmony": {
         "dominant": "Thấp",
-        "score": 0.2505,
+        "score": 0.25047773898455733,
         "all": {
           "Thấp": 0.25,
           "Cao": 0.25,
@@ -340,7 +340,7 @@
       },
       "Spectral": {
         "dominant": "Trung bình",
-        "score": 0.3911,
+        "score": 0.39113335952039896,
         "all": {
           "Trung bình": 0.391,
           "Cao": 0.321,
@@ -354,7 +354,7 @@
     "axes": {
       "Tempo": {
         "dominant": "Vừa",
-        "score": 0.3539,
+        "score": 0.35392223290938774,
         "all": {
           "Nhanh": 0.335,
           "Vừa": 0.354,
@@ -363,7 +363,7 @@
       },
       "Pitch": {
         "dominant": "Trầm",
-        "score": 0.4949,
+        "score": 0.4949229948002584,
         "all": {
           "Cao": 0.023,
           "Trung": 0.482,
@@ -372,7 +372,7 @@
       },
       "Vibrato": {
         "dominant": "Vừa",
-        "score": 0.484,
+        "score": 0.48395394314072204,
         "all": {
           "Nhiều luyến": 0.14,
           "Vừa": 0.484,
@@ -381,7 +381,7 @@
       },
       "Energy": {
         "dominant": "Mạnh",
-        "score": 0.4105,
+        "score": 0.4105379211270228,
         "all": {
           "Vừa": 0.341,
           "Mạnh": 0.411,
@@ -390,7 +390,7 @@
       },
       "Timbre": {
         "dominant": "Rất thấp",
-        "score": 0.2653,
+        "score": 0.26534622133908353,
         "all": {
           "Trung bình": 0.26,
           "Thấp": 0.265,
@@ -400,7 +400,7 @@
       },
       "Harmony": {
         "dominant": "Trung bình",
-        "score": 0.2505,
+        "score": 0.2505419424377075,
         "all": {
           "Thấp": 0.249,
           "Cao": 0.25,
@@ -410,7 +410,7 @@
       },
       "Spectral": {
         "dominant": "Trung bình",
-        "score": 0.4531,
+        "score": 0.45313150846878725,
         "all": {
           "Trung bình": 0.453,
           "Cao": 0.262,

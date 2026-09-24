@@ -1,0 +1,254 @@
+{
+  "Ca trù": [
+    {
+      "rule_text": "Timbre_Rất_cao <= 0.170 AND Harmony_Cao <= 0.334 AND Harmony_Thấp > 0.332 AND Energy_Rất_yếu > 0.058 AND Timbre_Trung_bình <= 0.218",
+      "consequent": "Ca trù",
+      "confidence": 0.9,
+      "support": 36,
+      "score": 3.25,
+      "tree_id": 41
+    },
+    {
+      "rule_text": "Timbre_Thấp > 0.208 AND Energy_Rất_yếu > 0.115 AND Pitch_Trung <= 0.584 AND Timbre_Rất_cao > 0.117 AND Harmony_Thấp > 0.333",
+      "consequent": "Ca trù",
+      "confidence": 0.8052,
+      "support": 55,
+      "score": 3.241,
+      "tree_id": 32
+    },
+    {
+      "rule_text": "Timbre_Rất_cao <= 0.170 AND Energy_Rất_yếu > 0.121 AND Pitch_Cao <= 0.020 AND Harmony_Thấp > 0.333 AND Pitch_Rất_trầm <= 0.567",
+      "consequent": "Ca trù",
+      "confidence": 0.7813,
+      "support": 57,
+      "score": 3.172,
+      "tree_id": 4
+    },
+    {
+      "rule_text": "Timbre_Trung_bình > 0.207 AND Energy_Rất_yếu > 0.096 AND Harmony_Cao <= 0.334 AND Harmony_Thấp > 0.332 AND Tempo_Vừa > 0.049",
+      "consequent": "Ca trù",
+      "confidence": 0.695,
+      "support": 94,
+      "score": 3.165,
+      "tree_id": 2
+    },
+    {
+      "rule_text": "Timbre_Rất_thấp > 0.194 AND Energy_Rất_yếu > 0.074 AND Spectral_Trung_bình <= 0.243 AND Harmony_Cao > 0.332 AND Energy_Yếu <= 0.532",
+      "consequent": "Ca trù",
+      "confidence": 0.7935,
+      "support": 53,
+      "score": 3.165,
+      "tree_id": 22
+    }
+  ],
+  "Chèo": [
+    {
+      "rule_text": "Timbre_Trung_bình > 0.204 AND Energy_Rất_yếu > 0.120 AND Pitch_Trầm <= 0.328 AND Timbre_Rất_cao > 0.117 AND Energy_Yếu <= 0.419",
+      "consequent": "Chèo",
+      "confidence": 0.9091,
+      "support": 33,
+      "score": 3.206,
+      "tree_id": 45
+    },
+    {
+      "rule_text": "Timbre_Thấp > 0.209 AND Energy_Mạnh <= 0.029 AND Pitch_Trầm <= 0.270 AND Pitch_Rất_trầm <= 0.105 AND Harmony_Thấp <= 0.333",
+      "consequent": "Chèo",
+      "confidence": 0.9302,
+      "support": 29,
+      "score": 3.164,
+      "tree_id": 8
+    },
+    {
+      "rule_text": "Timbre_Cao <= 0.207 AND Energy_Rất_yếu > 0.096 AND Spectral_Trung_bình > 0.183 AND Vibrato_Nhiều_luyến > 0.052 AND Spectral_Trung_bình > 0.304",
+      "consequent": "Chèo",
+      "confidence": 0.7917,
+      "support": 48,
+      "score": 3.081,
+      "tree_id": 27
+    },
+    {
+      "rule_text": "Timbre_Trung_bình > 0.205 AND Pitch_Rất_trầm <= 0.297 AND Energy_Rất_mạnh <= 0.465 AND Pitch_Trầm <= 0.263 AND Energy_Vừa <= 0.167",
+      "consequent": "Chèo",
+      "confidence": 0.7531,
+      "support": 58,
+      "score": 3.071,
+      "tree_id": 42
+    },
+    {
+      "rule_text": "Timbre_Cao <= 0.208 AND Pitch_Rất_trầm <= 0.297 AND Energy_Rất_yếu > 0.067 AND Pitch_Cao > 0.022 AND Spectral_Cao <= 0.680",
+      "consequent": "Chèo",
+      "confidence": 0.8519,
+      "support": 35,
+      "score": 3.053,
+      "tree_id": 44
+    }
+  ],
+  "Chầu văn": [
+    {
+      "rule_text": "Timbre_Thấp <= 0.204 AND Energy_Rất_yếu <= 0.197 AND Energy_Rất_mạnh <= 0.026 AND Pitch_Rất_trầm > 0.613 AND Vibrato_Ít_luyến > 0.898",
+      "consequent": "Chầu văn",
+      "confidence": 0.9365,
+      "support": 37,
+      "score": 3.407,
+      "tree_id": 48
+    },
+    {
+      "rule_text": "Timbre_Cao > 0.206 AND Energy_Mạnh > 0.025 AND Pitch_Rất_trầm > 0.748 AND Energy_Vừa > 0.064 AND Timbre_Trung_bình <= 0.175",
+      "consequent": "Chầu văn",
+      "confidence": 0.9123,
+      "support": 40,
+      "score": 3.388,
+      "tree_id": 7
+    },
+    {
+      "rule_text": "Timbre_Thấp <= 0.206 AND Vibrato_Ít_luyến > 0.638 AND Spectral_Cao > 0.082 AND Spectral_Trung_bình > 0.336 AND Pitch_Rất_trầm > 0.123",
+      "consequent": "Chầu văn",
+      "confidence": 0.8824,
+      "support": 42,
+      "score": 3.319,
+      "tree_id": 12
+    },
+    {
+      "rule_text": "Timbre_Thấp <= 0.205 AND Energy_Rất_yếu <= 0.196 AND Pitch_Trung <= 0.076 AND Spectral_Thấp > 0.016 AND Timbre_Trung_bình <= 0.184",
+      "consequent": "Chầu văn",
+      "confidence": 0.7383,
+      "support": 88,
+      "score": 3.314,
+      "tree_id": 9
+    },
+    {
+      "rule_text": "Pitch_Rất_trầm > 0.452 AND Spectral_Thấp <= 0.094 AND Energy_Vừa > 0.052 AND Timbre_Trung_bình <= 0.237 AND Pitch_Cao <= 0.012",
+      "consequent": "Chầu văn",
+      "confidence": 0.7279,
+      "support": 89,
+      "score": 3.275,
+      "tree_id": 19
+    }
+  ],
+  "Cải lương": [
+    {
+      "rule_text": "Timbre_Thấp <= 0.209 AND Pitch_Trầm > 0.462 AND Energy_Rất_mạnh <= 0.021 AND Timbre_Rất_thấp <= 0.193 AND Energy_Rất_yếu > 0.040",
+      "consequent": "Cải lương",
+      "confidence": 0.8817,
+      "support": 52,
+      "score": 3.501,
+      "tree_id": 0
+    },
+    {
+      "rule_text": "Timbre_Rất_thấp <= 0.209 AND Energy_Mạnh <= 0.061 AND Vibrato_Ít_luyến <= 0.878 AND Timbre_Rất_thấp <= 0.184 AND Tempo_Vừa <= 0.649",
+      "consequent": "Cải lương",
+      "confidence": 0.8198,
+      "support": 67,
+      "score": 3.459,
+      "tree_id": 35
+    },
+    {
+      "rule_text": "Pitch_Rất_trầm <= 0.452 AND Tempo_Vừa <= 0.814 AND Timbre_Rất_cao > 0.173 AND Pitch_Trầm > 0.396 AND Energy_Mạnh <= 0.041",
+      "consequent": "Cải lương",
+      "confidence": 0.7941,
+      "support": 64,
+      "score": 3.315,
+      "tree_id": 19
+    },
+    {
+      "rule_text": "Timbre_Cao > 0.208 AND Energy_Rất_mạnh <= 0.015 AND Pitch_Trung > 0.087 AND Tempo_Vừa <= 0.814 AND Pitch_Cao <= 0.037",
+      "consequent": "Cải lương",
+      "confidence": 0.875,
+      "support": 43,
+      "score": 3.311,
+      "tree_id": 44
+    },
+    {
+      "rule_text": "Timbre_Rất_thấp <= 0.194 AND Energy_Mạnh <= 0.086 AND Pitch_Trầm > 0.163 AND Timbre_Rất_cao > 0.288 AND Tempo_Vừa <= 0.963",
+      "consequent": "Cải lương",
+      "confidence": 0.94,
+      "support": 32,
+      "score": 3.287,
+      "tree_id": 34
+    }
+  ],
+  "Hát xẩm": [
+    {
+      "rule_text": "Timbre_Trung_bình > 0.209 AND Energy_Mạnh > 0.142 AND Timbre_Cao <= 0.177 AND Energy_Mạnh <= 0.485 AND Energy_Rất_mạnh > 0.336",
+      "consequent": "Hát xẩm",
+      "confidence": 1.0,
+      "support": 33,
+      "score": 3.526,
+      "tree_id": 5
+    },
+    {
+      "rule_text": "Timbre_Thấp > 0.206 AND Energy_Rất_mạnh > 0.351 AND Energy_Mạnh <= 0.308 AND Energy_Vừa > 0.038 AND Pitch_Rất_cao <= 0.005",
+      "consequent": "Hát xẩm",
+      "confidence": 1.0,
+      "support": 33,
+      "score": 3.526,
+      "tree_id": 14
+    },
+    {
+      "rule_text": "Timbre_Trung_bình > 0.207 AND Energy_Rất_yếu <= 0.057 AND Timbre_Rất_cao <= 0.141 AND Timbre_Cao <= 0.178 AND Timbre_Trung_bình <= 0.238",
+      "consequent": "Hát xẩm",
+      "confidence": 0.8172,
+      "support": 65,
+      "score": 3.424,
+      "tree_id": 6
+    },
+    {
+      "rule_text": "Timbre_Thấp > 0.208 AND Energy_Rất_yếu <= 0.115 AND Spectral_Thấp > 0.025 AND Energy_Rất_mạnh > 0.433 AND Timbre_Cao <= 0.184",
+      "consequent": "Hát xẩm",
+      "confidence": 1.0,
+      "support": 29,
+      "score": 3.401,
+      "tree_id": 32
+    },
+    {
+      "rule_text": "Timbre_Rất_cao <= 0.170 AND Energy_Rất_yếu <= 0.067 AND Timbre_Cao <= 0.178 AND Timbre_Thấp <= 0.240 AND Pitch_Trung > 0.085",
+      "consequent": "Hát xẩm",
+      "confidence": 0.8974,
+      "support": 43,
+      "score": 3.396,
+      "tree_id": 49
+    }
+  ],
+  "Quan họ": [
+    {
+      "rule_text": "Timbre_Rất_cao > 0.170 AND Energy_Mạnh > 0.060 AND Spectral_Thấp <= 0.576 AND Tempo_Vừa > 0.649 AND Pitch_Trung > 0.122",
+      "consequent": "Quan họ",
+      "confidence": 0.9487,
+      "support": 71,
+      "score": 4.057,
+      "tree_id": 41
+    },
+    {
+      "rule_text": "Timbre_Thấp <= 0.210 AND Energy_Mạnh > 0.086 AND Pitch_Trung > 0.132 AND Energy_Vừa <= 0.513 AND Tempo_Vừa > 0.814",
+      "consequent": "Quan họ",
+      "confidence": 0.9891,
+      "support": 54,
+      "score": 3.964,
+      "tree_id": 37
+    },
+    {
+      "rule_text": "Pitch_Rất_trầm <= 0.452 AND Tempo_Vừa > 0.814 AND Energy_Mạnh > 0.047 AND Timbre_Cao > 0.191 AND Energy_Yếu <= 0.085",
+      "consequent": "Quan họ",
+      "confidence": 0.9767,
+      "support": 52,
+      "score": 3.878,
+      "tree_id": 19
+    },
+    {
+      "rule_text": "Pitch_Rất_trầm <= 0.326 AND Timbre_Cao > 0.199 AND Harmony_Thấp > 0.333 AND Tempo_Vừa > 0.649 AND Energy_Rất_mạnh > 0.010",
+      "consequent": "Quan họ",
+      "confidence": 0.9115,
+      "support": 67,
+      "score": 3.846,
+      "tree_id": 33
+    },
+    {
+      "rule_text": "Timbre_Cao > 0.207 AND Harmony_Thấp > 0.333 AND Energy_Rất_yếu <= 0.136 AND Spectral_Trung_bình > 0.210 AND Tempo_Vừa > 0.814",
+      "consequent": "Quan họ",
+      "confidence": 0.9027,
+      "support": 68,
+      "score": 3.822,
+      "tree_id": 27
+    }
+  ]
+}

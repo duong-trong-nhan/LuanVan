@@ -1,0 +1,1801 @@
+sample_idx,label,Energy,Harmony,Pitch,Spectral,Tempo,Timbre,Vibrato
+0,Cải lương,Rất yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+1,Cải lương,Yếu,Trung bình,Rất trầm,Thấp,Chậm,Trung bình,Vừa
+2,Cải lương,Yếu,Thấp,Trầm,Trung bình,Chậm,Cao,Vừa
+3,Cải lương,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất cao,Vừa
+4,Cải lương,Yếu,Thấp,Trầm,Cao,Chậm,Rất cao,Nhiều luyến
+5,Cải lương,Yếu,Cao,Trầm,Cao,Nhanh,Rất thấp,Ít luyến
+6,Cải lương,Rất yếu,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+7,Cải lương,Rất yếu,Cao,Rất cao,Cao,Chậm,Rất cao,Nhiều luyến
+8,Cải lương,Yếu,Trung bình,Trầm,Cao,Chậm,Rất cao,Vừa
+9,Cải lương,Rất yếu,Trung bình,Rất trầm,Thấp,Chậm,Cao,Ít luyến
+10,Cải lương,Rất yếu,Trung bình,Trung,Trung bình,Vừa,Rất cao,Vừa
+11,Cải lương,Rất yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Nhiều luyến
+12,Cải lương,Rất yếu,Trung bình,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+13,Cải lương,Rất yếu,Trung bình,Trung,Cao,Nhanh,Rất cao,Nhiều luyến
+14,Cải lương,Yếu,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Ít luyến
+15,Cải lương,Yếu,Cao,Trầm,Thấp,Vừa,Rất cao,Ít luyến
+16,Cải lương,Mạnh,Trung bình,Trầm,Cao,Nhanh,Cao,Vừa
+17,Cải lương,Yếu,Cao,Rất trầm,Cao,Vừa,Trung bình,Ít luyến
+18,Cải lương,Yếu,Cao,Cao,Trung bình,Nhanh,Rất cao,Nhiều luyến
+19,Cải lương,Rất yếu,Trung bình,Cao,Trung bình,Chậm,Rất cao,Vừa
+20,Cải lương,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Trung bình,Vừa
+21,Cải lương,Rất mạnh,Trung bình,Rất trầm,Thấp,Vừa,Cao,Vừa
+22,Cải lương,Rất yếu,Cao,Trầm,Thấp,Vừa,Rất thấp,Vừa
+23,Cải lương,Vừa,Trung bình,Rất trầm,Thấp,Chậm,Cao,Ít luyến
+24,Cải lương,Yếu,Trung bình,Rất trầm,Thấp,Vừa,Trung bình,Vừa
+25,Cải lương,Yếu,Trung bình,Trầm,Thấp,Vừa,Rất cao,Vừa
+26,Cải lương,Yếu,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+27,Cải lương,Yếu,Cao,Rất trầm,Thấp,Chậm,Trung bình,Vừa
+28,Cải lương,Vừa,Trung bình,Trung,Cao,Vừa,Rất cao,Nhiều luyến
+29,Cải lương,Rất yếu,Trung bình,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+30,Cải lương,Yếu,Thấp,Trung,Cao,Vừa,Rất cao,Nhiều luyến
+31,Cải lương,Rất yếu,Cao,Trầm,Cao,Vừa,Rất cao,Ít luyến
+32,Cải lương,Yếu,Trung bình,Trầm,Cao,Vừa,Rất cao,Ít luyến
+33,Cải lương,Rất yếu,Cao,Trầm,Trung bình,Nhanh,Rất cao,Vừa
+34,Cải lương,Rất yếu,Cao,Trầm,Trung bình,Chậm,Rất cao,Vừa
+35,Cải lương,Rất yếu,Trung bình,Trầm,Cao,Chậm,Rất cao,Ít luyến
+36,Cải lương,Yếu,Trung bình,Trung,Cao,Chậm,Cao,Vừa
+37,Cải lương,Rất yếu,Cao,Trầm,Cao,Nhanh,Rất cao,Ít luyến
+38,Cải lương,Yếu,Trung bình,Trầm,Cao,Nhanh,Rất cao,Vừa
+39,Cải lương,Rất yếu,Cao,Rất trầm,Cao,Vừa,Cao,Ít luyến
+40,Cải lương,Rất yếu,Trung bình,Trung,Trung bình,Chậm,Rất cao,Nhiều luyến
+41,Cải lương,Vừa,Cao,Trầm,Trung bình,Vừa,Rất cao,Vừa
+42,Cải lương,Vừa,Trung bình,Trung,Trung bình,Vừa,Cao,Vừa
+43,Cải lương,Rất mạnh,Trung bình,Rất trầm,Trung bình,Vừa,Trung bình,Vừa
+44,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Cao,Ít luyến
+45,Cải lương,Rất yếu,Cao,Trầm,Trung bình,Vừa,Trung bình,Nhiều luyến
+46,Cải lương,Vừa,Cao,Rất trầm,Thấp,Chậm,Cao,Ít luyến
+47,Cải lương,Rất yếu,Trung bình,Trung,Trung bình,Vừa,Rất cao,Nhiều luyến
+48,Cải lương,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất cao,Vừa
+49,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Cao,Ít luyến
+50,Cải lương,Yếu,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+51,Cải lương,Rất yếu,Cao,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+52,Cải lương,Vừa,Cao,Trầm,Thấp,Chậm,Rất cao,Ít luyến
+53,Cải lương,Rất yếu,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+54,Cải lương,Yếu,Cao,Trung,Trung bình,Chậm,Rất cao,Vừa
+55,Cải lương,Vừa,Trung bình,Trầm,Thấp,Vừa,Cao,Vừa
+56,Cải lương,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Cao,Vừa
+57,Cải lương,Yếu,Trung bình,Trung,Trung bình,Chậm,Rất cao,Nhiều luyến
+58,Cải lương,Rất yếu,Trung bình,Trầm,Thấp,Nhanh,Cao,Vừa
+59,Cải lương,Rất yếu,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+60,Cải lương,Yếu,Thấp,Trầm,Trung bình,Nhanh,Rất cao,Nhiều luyến
+61,Cải lương,Rất yếu,Cao,Trầm,Thấp,Vừa,Rất thấp,Ít luyến
+62,Cải lương,Yếu,Trung bình,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+63,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Cao,Ít luyến
+64,Cải lương,Vừa,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+65,Cải lương,Yếu,Trung bình,Trung,Cao,Chậm,Rất cao,Ít luyến
+66,Cải lương,Vừa,Trung bình,Trầm,Trung bình,Chậm,Trung bình,Nhiều luyến
+67,Cải lương,Vừa,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+68,Cải lương,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+69,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+70,Cải lương,Vừa,Trung bình,Trung,Trung bình,Chậm,Rất cao,Nhiều luyến
+71,Cải lương,Vừa,Cao,Trầm,Trung bình,Chậm,Rất cao,Vừa
+72,Cải lương,Rất yếu,Cao,Trầm,Thấp,Nhanh,Rất thấp,Ít luyến
+73,Cải lương,Yếu,Trung bình,Trung,Trung bình,Nhanh,Cao,Vừa
+74,Cải lương,Rất yếu,Cao,Trầm,Cao,Chậm,Trung bình,Vừa
+75,Cải lương,Vừa,Trung bình,Trầm,Trung bình,Chậm,Trung bình,Vừa
+76,Cải lương,Yếu,Trung bình,Trung,Trung bình,Chậm,Cao,Vừa
+77,Cải lương,Rất yếu,Trung bình,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+78,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Nhanh,Rất cao,Nhiều luyến
+79,Cải lương,Yếu,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Vừa
+80,Cải lương,Rất yếu,Cao,Trung,Cao,Vừa,Rất cao,Vừa
+81,Cải lương,Yếu,Trung bình,Trung,Thấp,Nhanh,Cao,Nhiều luyến
+82,Cải lương,Yếu,Cao,Trầm,Trung bình,Nhanh,Cao,Ít luyến
+83,Cải lương,Rất yếu,Trung bình,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+84,Cải lương,Vừa,Thấp,Trầm,Thấp,Vừa,Rất cao,Nhiều luyến
+85,Cải lương,Vừa,Trung bình,Trầm,Trung bình,Chậm,Cao,Ít luyến
+86,Cải lương,Yếu,Cao,Trầm,Thấp,Vừa,Rất cao,Vừa
+87,Cải lương,Rất yếu,Trung bình,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+88,Cải lương,Yếu,Thấp,Trầm,Cao,Vừa,Cao,Vừa
+89,Cải lương,Rất yếu,Trung bình,Rất cao,Thấp,Vừa,Rất cao,Nhiều luyến
+90,Cải lương,Yếu,Trung bình,Trung,Cao,Vừa,Rất cao,Vừa
+91,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Cao,Vừa
+92,Cải lương,Rất yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+93,Cải lương,Rất yếu,Thấp,Trầm,Cao,Nhanh,Trung bình,Vừa
+94,Cải lương,Yếu,Trung bình,Trầm,Cao,Chậm,Cao,Vừa
+95,Cải lương,Rất yếu,Thấp,Trầm,Trung bình,Vừa,Rất cao,Vừa
+96,Cải lương,Rất yếu,Cao,Rất trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+97,Cải lương,Yếu,Trung bình,Rất trầm,Trung bình,Chậm,Cao,Ít luyến
+98,Cải lương,Yếu,Cao,Trầm,Trung bình,Chậm,Rất cao,Vừa
+99,Cải lương,Mạnh,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+100,Cải lương,Rất yếu,Trung bình,Cao,Trung bình,Vừa,Rất cao,Vừa
+101,Cải lương,Yếu,Trung bình,Rất trầm,Trung bình,Chậm,Trung bình,Ít luyến
+102,Cải lương,Rất yếu,Trung bình,Rất trầm,Thấp,Vừa,Rất cao,Vừa
+103,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Nhanh,Rất cao,Vừa
+104,Cải lương,Rất yếu,Trung bình,Trung,Thấp,Vừa,Rất cao,Vừa
+105,Cải lương,Yếu,Cao,Trầm,Thấp,Chậm,Rất cao,Ít luyến
+106,Cải lương,Yếu,Trung bình,Cao,Cao,Chậm,Rất cao,Nhiều luyến
+107,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+108,Cải lương,Yếu,Trung bình,Trầm,Cao,Vừa,Cao,Nhiều luyến
+109,Cải lương,Rất yếu,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+110,Cải lương,Rất yếu,Cao,Trầm,Thấp,Nhanh,Cao,Vừa
+111,Cải lương,Yếu,Trung bình,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+112,Cải lương,Vừa,Trung bình,Rất trầm,Trung bình,Chậm,Cao,Vừa
+113,Cải lương,Yếu,Cao,Trầm,Trung bình,Nhanh,Rất cao,Vừa
+114,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+115,Cải lương,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Vừa
+116,Cải lương,Yếu,Cao,Trung,Cao,Vừa,Rất cao,Nhiều luyến
+117,Cải lương,Rất yếu,Trung bình,Trung,Trung bình,Vừa,Rất cao,Vừa
+118,Cải lương,Rất yếu,Cao,Trầm,Thấp,Nhanh,Rất cao,Vừa
+119,Cải lương,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+120,Cải lương,Rất yếu,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+121,Cải lương,Vừa,Trung bình,Trung,Cao,Nhanh,Cao,Nhiều luyến
+122,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất cao,Vừa
+123,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất cao,Vừa
+124,Cải lương,Vừa,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+125,Cải lương,Yếu,Trung bình,Trầm,Cao,Chậm,Cao,Ít luyến
+126,Cải lương,Vừa,Trung bình,Trầm,Cao,Vừa,Rất cao,Nhiều luyến
+127,Cải lương,Mạnh,Trung bình,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+128,Cải lương,Mạnh,Cao,Trung,Trung bình,Vừa,Rất cao,Vừa
+129,Cải lương,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất cao,Vừa
+130,Cải lương,Rất yếu,Cao,Rất trầm,Thấp,Vừa,Cao,Ít luyến
+131,Cải lương,Yếu,Cao,Trầm,Trung bình,Chậm,Rất cao,Vừa
+132,Cải lương,Yếu,Cao,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+133,Cải lương,Vừa,Trung bình,Trầm,Cao,Nhanh,Rất cao,Vừa
+134,Cải lương,Rất yếu,Trung bình,Trầm,Thấp,Nhanh,Trung bình,Nhiều luyến
+135,Cải lương,Yếu,Cao,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+136,Cải lương,Rất yếu,Trung bình,Rất trầm,Thấp,Nhanh,Cao,Ít luyến
+137,Cải lương,Mạnh,Cao,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+138,Cải lương,Yếu,Trung bình,Trung,Trung bình,Vừa,Trung bình,Nhiều luyến
+139,Cải lương,Vừa,Trung bình,Trung,Thấp,Vừa,Cao,Vừa
+140,Cải lương,Yếu,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Vừa
+141,Cải lương,Vừa,Cao,Trung,Trung bình,Vừa,Rất cao,Nhiều luyến
+142,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Vừa,Cao,Vừa
+143,Cải lương,Yếu,Trung bình,Cao,Trung bình,Chậm,Rất cao,Nhiều luyến
+144,Cải lương,Rất yếu,Cao,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+145,Cải lương,Rất yếu,Trung bình,Rất trầm,Cao,Nhanh,Cao,Vừa
+146,Cải lương,Rất yếu,Trung bình,Trầm,Thấp,Nhanh,Trung bình,Vừa
+147,Cải lương,Yếu,Trung bình,Trầm,Cao,Chậm,Rất cao,Vừa
+148,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+149,Cải lương,Vừa,Trung bình,Trầm,Trung bình,Nhanh,Cao,Vừa
+150,Cải lương,Yếu,Cao,Rất trầm,Thấp,Nhanh,Cao,Ít luyến
+151,Cải lương,Rất yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất thấp,Ít luyến
+152,Cải lương,Yếu,Trung bình,Rất trầm,Trung bình,Nhanh,Cao,Ít luyến
+153,Cải lương,Yếu,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+154,Cải lương,Yếu,Cao,Cao,Thấp,Vừa,Rất cao,Nhiều luyến
+155,Cải lương,Rất yếu,Trung bình,Trung,Cao,Vừa,Cao,Vừa
+156,Cải lương,Rất yếu,Trung bình,Trầm,Thấp,Chậm,Rất cao,Ít luyến
+157,Cải lương,Yếu,Cao,Trầm,Trung bình,Nhanh,Rất cao,Vừa
+158,Cải lương,Vừa,Trung bình,Trầm,Cao,Nhanh,Rất thấp,Vừa
+159,Cải lương,Rất yếu,Trung bình,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+160,Cải lương,Rất yếu,Thấp,Rất trầm,Trung bình,Nhanh,Rất cao,Vừa
+161,Cải lương,Yếu,Trung bình,Trầm,Cao,Chậm,Cao,Vừa
+162,Cải lương,Vừa,Trung bình,Trầm,Trung bình,Chậm,Rất cao,Vừa
+163,Cải lương,Yếu,Cao,Trung,Cao,Chậm,Cao,Vừa
+164,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất cao,Vừa
+165,Cải lương,Rất yếu,Trung bình,Trung,Cao,Vừa,Rất cao,Nhiều luyến
+166,Cải lương,Yếu,Trung bình,Trung,Trung bình,Vừa,Rất cao,Nhiều luyến
+167,Cải lương,Yếu,Trung bình,Cao,Thấp,Vừa,Rất cao,Ít luyến
+168,Cải lương,Yếu,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+169,Cải lương,Rất yếu,Trung bình,Trầm,Cao,Chậm,Rất thấp,Vừa
+170,Cải lương,Vừa,Trung bình,Trung,Cao,Chậm,Cao,Vừa
+171,Cải lương,Rất yếu,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+172,Cải lương,Yếu,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+173,Cải lương,Rất yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất thấp,Vừa
+174,Cải lương,Yếu,Trung bình,Trung,Trung bình,Chậm,Cao,Vừa
+175,Cải lương,Vừa,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+176,Cải lương,Vừa,Trung bình,Rất trầm,Trung bình,Vừa,Cao,Vừa
+177,Cải lương,Rất yếu,Trung bình,Rất trầm,Thấp,Chậm,Trung bình,Ít luyến
+178,Cải lương,Yếu,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+179,Cải lương,Rất yếu,Cao,Trầm,Cao,Chậm,Rất cao,Ít luyến
+180,Cải lương,Rất yếu,Trung bình,Trung,Thấp,Vừa,Rất cao,Nhiều luyến
+181,Cải lương,Yếu,Cao,Trầm,Trung bình,Chậm,Cao,Vừa
+182,Cải lương,Vừa,Cao,Rất trầm,Thấp,Vừa,Rất cao,Vừa
+183,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Vừa
+184,Cải lương,Vừa,Trung bình,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+185,Cải lương,Yếu,Trung bình,Trầm,Cao,Chậm,Rất cao,Vừa
+186,Cải lương,Yếu,Trung bình,Trung,Thấp,Chậm,Rất thấp,Vừa
+187,Cải lương,Rất yếu,Trung bình,Trung,Cao,Chậm,Rất cao,Vừa
+188,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Nhanh,Cao,Ít luyến
+189,Cải lương,Yếu,Cao,Trầm,Thấp,Nhanh,Rất cao,Vừa
+190,Cải lương,Rất yếu,Trung bình,Trầm,Cao,Chậm,Rất cao,Vừa
+191,Cải lương,Yếu,Cao,Trung,Cao,Vừa,Rất cao,Nhiều luyến
+192,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Trung bình,Ít luyến
+193,Cải lương,Rất yếu,Cao,Trầm,Thấp,Vừa,Rất cao,Vừa
+194,Cải lương,Yếu,Trung bình,Trầm,Cao,Chậm,Rất cao,Nhiều luyến
+195,Cải lương,Mạnh,Cao,Trung,Thấp,Vừa,Rất cao,Vừa
+196,Cải lương,Rất yếu,Trung bình,Cao,Thấp,Chậm,Cao,Nhiều luyến
+197,Cải lương,Vừa,Trung bình,Trầm,Trung bình,Nhanh,Rất cao,Vừa
+198,Cải lương,Yếu,Thấp,Trầm,Thấp,Vừa,Trung bình,Nhiều luyến
+199,Cải lương,Rất yếu,Thấp,Rất trầm,Trung bình,Vừa,Cao,Vừa
+200,Cải lương,Yếu,Cao,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+201,Cải lương,Rất yếu,Thấp,Rất trầm,Cao,Nhanh,Trung bình,Ít luyến
+202,Cải lương,Rất yếu,Thấp,Trầm,Cao,Chậm,Trung bình,Vừa
+203,Cải lương,Rất yếu,Cao,Trầm,Thấp,Vừa,Cao,Nhiều luyến
+204,Cải lương,Mạnh,Cao,Trung,Thấp,Vừa,Rất cao,Vừa
+205,Cải lương,Rất yếu,Cao,Trầm,Cao,Vừa,Rất cao,Vừa
+206,Cải lương,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+207,Cải lương,Rất yếu,Trung bình,Trầm,Thấp,Chậm,Cao,Ít luyến
+208,Cải lương,Yếu,Trung bình,Rất trầm,Thấp,Chậm,Rất thấp,Vừa
+209,Cải lương,Vừa,Trung bình,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+210,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất cao,Vừa
+211,Cải lương,Rất yếu,Trung bình,Trầm,Cao,Chậm,Rất cao,Ít luyến
+212,Cải lương,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất cao,Vừa
+213,Cải lương,Yếu,Cao,Trung,Cao,Chậm,Cao,Nhiều luyến
+214,Cải lương,Yếu,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+215,Cải lương,Rất yếu,Cao,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+216,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Vừa
+217,Cải lương,Vừa,Trung bình,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+218,Cải lương,Yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+219,Cải lương,Yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Vừa
+220,Cải lương,Mạnh,Trung bình,Trung,Cao,Chậm,Cao,Vừa
+221,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+222,Cải lương,Rất yếu,Trung bình,Trầm,Thấp,Nhanh,Rất cao,Nhiều luyến
+223,Cải lương,Rất yếu,Cao,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+224,Cải lương,Rất yếu,Cao,Trung,Trung bình,Vừa,Rất thấp,Vừa
+225,Cải lương,Yếu,Trung bình,Trung,Cao,Nhanh,Rất cao,Vừa
+226,Cải lương,Vừa,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Vừa
+227,Cải lương,Yếu,Cao,Trung,Cao,Vừa,Rất cao,Nhiều luyến
+228,Cải lương,Yếu,Cao,Trầm,Trung bình,Vừa,Trung bình,Vừa
+229,Cải lương,Vừa,Trung bình,Trầm,Trung bình,Chậm,Rất cao,Vừa
+230,Cải lương,Yếu,Cao,Trầm,Trung bình,Vừa,Rất cao,Vừa
+231,Cải lương,Rất yếu,Cao,Trung,Trung bình,Nhanh,Rất cao,Ít luyến
+232,Cải lương,Vừa,Trung bình,Trầm,Thấp,Chậm,Rất cao,Ít luyến
+233,Cải lương,Yếu,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+234,Cải lương,Vừa,Cao,Trung,Thấp,Chậm,Rất cao,Vừa
+235,Cải lương,Rất yếu,Cao,Trầm,Cao,Vừa,Rất cao,Nhiều luyến
+236,Cải lương,Rất yếu,Thấp,Trầm,Cao,Chậm,Rất cao,Vừa
+237,Cải lương,Rất yếu,Thấp,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+238,Cải lương,Rất yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Vừa
+239,Cải lương,Rất yếu,Trung bình,Trầm,Trung bình,Nhanh,Cao,Vừa
+240,Cải lương,Rất yếu,Cao,Rất trầm,Cao,Vừa,Rất cao,Vừa
+241,Cải lương,Yếu,Cao,Rất trầm,Trung bình,Chậm,Cao,Vừa
+242,Cải lương,Rất yếu,Thấp,Rất trầm,Cao,Chậm,Cao,Ít luyến
+243,Cải lương,Rất yếu,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+244,Cải lương,Mạnh,Trung bình,Trung,Cao,Chậm,Rất cao,Vừa
+245,Cải lương,Rất yếu,Cao,Trầm,Trung bình,Vừa,Rất cao,Vừa
+246,Cải lương,Rất yếu,Trung bình,Trung,Trung bình,Chậm,Rất cao,Nhiều luyến
+247,Cải lương,Rất yếu,Trung bình,Trung,Cao,Nhanh,Rất cao,Vừa
+248,Cải lương,Rất yếu,Trung bình,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+249,Cải lương,Yếu,Trung bình,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+250,Cải lương,Yếu,Trung bình,Trầm,Cao,Nhanh,Rất cao,Vừa
+251,Cải lương,Rất yếu,Trung bình,Trung,Cao,Nhanh,Rất cao,Vừa
+252,Cải lương,Rất yếu,Trung bình,Trung,Thấp,Vừa,Rất thấp,Vừa
+253,Cải lương,Yếu,Cao,Cao,Trung bình,Vừa,Rất cao,Nhiều luyến
+254,Cải lương,Yếu,Trung bình,Trung,Thấp,Chậm,Rất thấp,Nhiều luyến
+255,Cải lương,Rất yếu,Trung bình,Rất trầm,Cao,Vừa,Rất cao,Vừa
+256,Cải lương,Rất yếu,Cao,Cao,Thấp,Chậm,Rất cao,Vừa
+257,Cải lương,Vừa,Trung bình,Rất trầm,Cao,Chậm,Cao,Ít luyến
+258,Cải lương,Vừa,Trung bình,Trung,Thấp,Vừa,Rất cao,Nhiều luyến
+259,Cải lương,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+260,Cải lương,Rất yếu,Trung bình,Trung,Cao,Vừa,Rất cao,Nhiều luyến
+261,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất cao,Ít luyến
+262,Cải lương,Rất mạnh,Trung bình,Trầm,Trung bình,Chậm,Trung bình,Vừa
+263,Cải lương,Rất yếu,Cao,Trầm,Trung bình,Vừa,Rất cao,Vừa
+264,Cải lương,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Trung bình,Vừa
+265,Cải lương,Yếu,Cao,Trung,Thấp,Vừa,Cao,Vừa
+266,Cải lương,Rất yếu,Trung bình,Cao,Trung bình,Nhanh,Rất cao,Vừa
+267,Cải lương,Yếu,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+268,Cải lương,Yếu,Cao,Trầm,Trung bình,Vừa,Rất cao,Vừa
+269,Cải lương,Yếu,Trung bình,Trầm,Thấp,Vừa,Cao,Vừa
+270,Cải lương,Rất yếu,Cao,Trầm,Cao,Vừa,Rất cao,Ít luyến
+271,Cải lương,Rất yếu,Trung bình,Trầm,Cao,Vừa,Rất cao,Ít luyến
+272,Cải lương,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+273,Cải lương,Yếu,Trung bình,Trầm,Cao,Nhanh,Cao,Vừa
+274,Cải lương,Vừa,Trung bình,Trầm,Trung bình,Vừa,Cao,Ít luyến
+275,Cải lương,Rất yếu,Thấp,Trầm,Thấp,Nhanh,Rất thấp,Ít luyến
+276,Cải lương,Rất yếu,Trung bình,Trung,Cao,Vừa,Rất cao,Vừa
+277,Cải lương,Mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+278,Cải lương,Yếu,Trung bình,Trung,Cao,Vừa,Rất cao,Vừa
+279,Cải lương,Mạnh,Trung bình,Trầm,Trung bình,Chậm,Cao,Vừa
+280,Cải lương,Yếu,Trung bình,Trung,Cao,Chậm,Rất cao,Vừa
+281,Cải lương,Yếu,Cao,Trầm,Trung bình,Vừa,Trung bình,Vừa
+282,Cải lương,Yếu,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+283,Cải lương,Rất yếu,Thấp,Rất trầm,Cao,Vừa,Trung bình,Ít luyến
+284,Cải lương,Rất yếu,Cao,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+285,Cải lương,Rất yếu,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+286,Cải lương,Rất yếu,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Nhiều luyến
+287,Cải lương,Yếu,Trung bình,Trung,Cao,Nhanh,Rất cao,Vừa
+288,Cải lương,Yếu,Trung bình,Trung,Cao,Nhanh,Rất cao,Vừa
+289,Cải lương,Rất yếu,Trung bình,Trầm,Cao,Chậm,Rất cao,Ít luyến
+290,Cải lương,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Vừa
+291,Cải lương,Vừa,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+292,Cải lương,Yếu,Trung bình,Trung,Trung bình,Chậm,Cao,Nhiều luyến
+293,Cải lương,Rất yếu,Trung bình,Trung,Thấp,Chậm,Trung bình,Nhiều luyến
+294,Cải lương,Yếu,Trung bình,Trầm,Cao,Vừa,Cao,Vừa
+295,Cải lương,Rất yếu,Cao,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+296,Cải lương,Yếu,Cao,Rất trầm,Trung bình,Nhanh,Rất cao,Vừa
+297,Cải lương,Yếu,Trung bình,Trung,Cao,Chậm,Rất cao,Nhiều luyến
+298,Cải lương,Yếu,Trung bình,Trung,Thấp,Nhanh,Rất thấp,Vừa
+299,Cải lương,Rất yếu,Trung bình,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+300,Quan họ,Mạnh,Cao,Trung,Thấp,Vừa,Rất cao,Ít luyến
+301,Quan họ,Mạnh,Trung bình,Trung,Cao,Chậm,Rất cao,Vừa
+302,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+303,Quan họ,Rất yếu,Cao,Trung,Trung bình,Vừa,Rất cao,Nhiều luyến
+304,Quan họ,Rất mạnh,Thấp,Trầm,Trung bình,Vừa,Rất cao,Vừa
+305,Quan họ,Mạnh,Trung bình,Trung,Trung bình,Vừa,Trung bình,Vừa
+306,Quan họ,Yếu,Trung bình,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+307,Quan họ,Vừa,Cao,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+308,Quan họ,Vừa,Cao,Trầm,Trung bình,Vừa,Cao,Ít luyến
+309,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Nhiều luyến
+310,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+311,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Nhiều luyến
+312,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+313,Quan họ,Mạnh,Cao,Trung,Thấp,Vừa,Rất thấp,Vừa
+314,Quan họ,Mạnh,Thấp,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+315,Quan họ,Vừa,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+316,Quan họ,Vừa,Trung bình,Trầm,Thấp,Vừa,Rất cao,Ít luyến
+317,Quan họ,Mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+318,Quan họ,Rất mạnh,Thấp,Trầm,Trung bình,Vừa,Trung bình,Ít luyến
+319,Quan họ,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Cao,Ít luyến
+320,Quan họ,Mạnh,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+321,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Nhanh,Rất cao,Vừa
+322,Quan họ,Vừa,Thấp,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+323,Quan họ,Mạnh,Thấp,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+324,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Trung bình,Vừa
+325,Quan họ,Yếu,Cao,Rất trầm,Thấp,Vừa,Cao,Ít luyến
+326,Quan họ,Yếu,Cao,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+327,Quan họ,Vừa,Thấp,Trầm,Trung bình,Vừa,Trung bình,Vừa
+328,Quan họ,Mạnh,Trung bình,Rất cao,Trung bình,Vừa,Rất cao,Nhiều luyến
+329,Quan họ,Rất mạnh,Cao,Rất trầm,Thấp,Vừa,Trung bình,Vừa
+330,Quan họ,Mạnh,Cao,Trung,Cao,Vừa,Cao,Ít luyến
+331,Quan họ,Rất mạnh,Thấp,Trầm,Thấp,Vừa,Rất thấp,Vừa
+332,Quan họ,Mạnh,Thấp,Trung,Thấp,Vừa,Rất cao,Vừa
+333,Quan họ,Vừa,Thấp,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+334,Quan họ,Mạnh,Cao,Trầm,Thấp,Chậm,Cao,Vừa
+335,Quan họ,Mạnh,Trung bình,Trung,Cao,Chậm,Rất cao,Ít luyến
+336,Quan họ,Yếu,Trung bình,Trầm,Thấp,Vừa,Rất cao,Vừa
+337,Quan họ,Vừa,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+338,Quan họ,Yếu,Trung bình,Cao,Thấp,Vừa,Rất cao,Vừa
+339,Quan họ,Vừa,Cao,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+340,Quan họ,Vừa,Thấp,Trầm,Trung bình,Vừa,Trung bình,Ít luyến
+341,Quan họ,Mạnh,Cao,Rất trầm,Cao,Vừa,Cao,Ít luyến
+342,Quan họ,Mạnh,Trung bình,Trầm,Cao,Vừa,Rất cao,Vừa
+343,Quan họ,Vừa,Thấp,Trầm,Thấp,Vừa,Rất cao,Ít luyến
+344,Quan họ,Mạnh,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+345,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Trung bình,Ít luyến
+346,Quan họ,Rất yếu,Thấp,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+347,Quan họ,Vừa,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Vừa
+348,Quan họ,Vừa,Thấp,Trung,Thấp,Vừa,Rất cao,Nhiều luyến
+349,Quan họ,Mạnh,Trung bình,Trung,Trung bình,Chậm,Rất cao,Ít luyến
+350,Quan họ,Vừa,Trung bình,Trung,Cao,Vừa,Rất cao,Vừa
+351,Quan họ,Vừa,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+352,Quan họ,Rất yếu,Cao,Trầm,Trung bình,Vừa,Cao,Vừa
+353,Quan họ,Mạnh,Trung bình,Trầm,Trung bình,Vừa,Cao,Vừa
+354,Quan họ,Yếu,Thấp,Trầm,Thấp,Vừa,Rất cao,Ít luyến
+355,Quan họ,Mạnh,Trung bình,Trung,Trung bình,Vừa,Rất cao,Vừa
+356,Quan họ,Yếu,Thấp,Rất cao,Cao,Vừa,Rất thấp,Nhiều luyến
+357,Quan họ,Rất mạnh,Thấp,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+358,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Chậm,Rất cao,Ít luyến
+359,Quan họ,Rất yếu,Thấp,Rất cao,Trung bình,Vừa,Trung bình,Nhiều luyến
+360,Quan họ,Vừa,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+361,Quan họ,Vừa,Thấp,Trầm,Trung bình,Vừa,Rất cao,Vừa
+362,Quan họ,Vừa,Trung bình,Trung,Thấp,Vừa,Rất cao,Ít luyến
+363,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+364,Quan họ,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Vừa
+365,Quan họ,Vừa,Cao,Trung,Trung bình,Vừa,Trung bình,Ít luyến
+366,Quan họ,Rất yếu,Thấp,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+367,Quan họ,Vừa,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Vừa
+368,Quan họ,Vừa,Trung bình,Trung,Trung bình,Vừa,Rất cao,Nhiều luyến
+369,Quan họ,Mạnh,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+370,Quan họ,Mạnh,Thấp,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+371,Quan họ,Rất mạnh,Thấp,Trung,Thấp,Chậm,Rất cao,Vừa
+372,Quan họ,Mạnh,Trung bình,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+373,Quan họ,Mạnh,Trung bình,Trung,Trung bình,Vừa,Cao,Vừa
+374,Quan họ,Mạnh,Cao,Trầm,Trung bình,Vừa,Rất cao,Vừa
+375,Quan họ,Rất mạnh,Thấp,Trầm,Trung bình,Vừa,Cao,Vừa
+376,Quan họ,Mạnh,Trung bình,Trầm,Thấp,Vừa,Rất cao,Vừa
+377,Quan họ,Mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+378,Quan họ,Mạnh,Thấp,Rất trầm,Thấp,Vừa,Rất cao,Vừa
+379,Quan họ,Mạnh,Thấp,Trung,Thấp,Vừa,Rất cao,Vừa
+380,Quan họ,Mạnh,Trung bình,Trầm,Cao,Nhanh,Rất thấp,Ít luyến
+381,Quan họ,Mạnh,Trung bình,Trung,Trung bình,Vừa,Cao,Vừa
+382,Quan họ,Rất mạnh,Cao,Trung,Trung bình,Vừa,Rất thấp,Ít luyến
+383,Quan họ,Yếu,Trung bình,Trung,Trung bình,Vừa,Cao,Vừa
+384,Quan họ,Vừa,Cao,Trung,Trung bình,Vừa,Cao,Ít luyến
+385,Quan họ,Rất yếu,Cao,Rất trầm,Thấp,Chậm,Cao,Ít luyến
+386,Quan họ,Mạnh,Thấp,Trung,Cao,Vừa,Trung bình,Vừa
+387,Quan họ,Vừa,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Vừa
+388,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Nhiều luyến
+389,Quan họ,Mạnh,Thấp,Trầm,Trung bình,Vừa,Rất cao,Nhiều luyến
+390,Quan họ,Yếu,Thấp,Rất cao,Trung bình,Vừa,Rất thấp,Nhiều luyến
+391,Quan họ,Vừa,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Vừa
+392,Quan họ,Yếu,Thấp,Trầm,Trung bình,Vừa,Cao,Ít luyến
+393,Quan họ,Mạnh,Trung bình,Rất trầm,Trung bình,Vừa,Trung bình,Vừa
+394,Quan họ,Mạnh,Trung bình,Trung,Cao,Vừa,Rất cao,Ít luyến
+395,Quan họ,Vừa,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+396,Quan họ,Mạnh,Thấp,Trung,Cao,Vừa,Rất cao,Vừa
+397,Quan họ,Yếu,Thấp,Trầm,Thấp,Vừa,Cao,Ít luyến
+398,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+399,Quan họ,Rất mạnh,Trung bình,Rất trầm,Thấp,Vừa,Cao,Ít luyến
+400,Quan họ,Vừa,Trung bình,Cao,Thấp,Vừa,Rất cao,Vừa
+401,Quan họ,Mạnh,Thấp,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+402,Quan họ,Mạnh,Cao,Trung,Cao,Vừa,Rất cao,Vừa
+403,Quan họ,Yếu,Thấp,Cao,Cao,Vừa,Rất thấp,Nhiều luyến
+404,Quan họ,Vừa,Cao,Trầm,Trung bình,Vừa,Rất cao,Vừa
+405,Quan họ,Mạnh,Thấp,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+406,Quan họ,Yếu,Cao,Cao,Thấp,Chậm,Rất cao,Vừa
+407,Quan họ,Yếu,Cao,Cao,Thấp,Chậm,Rất cao,Vừa
+408,Quan họ,Vừa,Trung bình,Trung,Trung bình,Vừa,Cao,Vừa
+409,Quan họ,Yếu,Trung bình,Trầm,Thấp,Vừa,Rất cao,Ít luyến
+410,Quan họ,Mạnh,Cao,Rất trầm,Cao,Nhanh,Rất cao,Ít luyến
+411,Quan họ,Mạnh,Cao,Trầm,Thấp,Vừa,Cao,Vừa
+412,Quan họ,Vừa,Trung bình,Trung,Cao,Vừa,Rất cao,Vừa
+413,Quan họ,Mạnh,Thấp,Trung,Trung bình,Chậm,Rất thấp,Vừa
+414,Quan họ,Yếu,Thấp,Trung,Cao,Vừa,Rất thấp,Vừa
+415,Quan họ,Rất yếu,Cao,Trung,Trung bình,Vừa,Trung bình,Vừa
+416,Quan họ,Vừa,Trung bình,Rất cao,Trung bình,Chậm,Rất thấp,Ít luyến
+417,Quan họ,Mạnh,Cao,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+418,Quan họ,Mạnh,Trung bình,Trầm,Cao,Vừa,Rất cao,Vừa
+419,Quan họ,Mạnh,Thấp,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+420,Quan họ,Rất yếu,Thấp,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+421,Quan họ,Mạnh,Thấp,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+422,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+423,Quan họ,Rất yếu,Cao,Trầm,Trung bình,Vừa,Rất cao,Vừa
+424,Quan họ,Mạnh,Cao,Trung,Trung bình,Vừa,Trung bình,Vừa
+425,Quan họ,Rất mạnh,Thấp,Trầm,Trung bình,Vừa,Rất cao,Vừa
+426,Quan họ,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+427,Quan họ,Vừa,Thấp,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+428,Quan họ,Mạnh,Trung bình,Trung,Trung bình,Vừa,Rất cao,Vừa
+429,Quan họ,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+430,Quan họ,Mạnh,Thấp,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+431,Quan họ,Vừa,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+432,Quan họ,Yếu,Cao,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+433,Quan họ,Vừa,Thấp,Trầm,Thấp,Vừa,Cao,Vừa
+434,Quan họ,Rất yếu,Trung bình,Rất cao,Trung bình,Nhanh,Rất cao,Vừa
+435,Quan họ,Yếu,Thấp,Trầm,Cao,Vừa,Rất thấp,Vừa
+436,Quan họ,Mạnh,Thấp,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+437,Quan họ,Mạnh,Trung bình,Trầm,Cao,Vừa,Rất cao,Vừa
+438,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Cao,Vừa
+439,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+440,Quan họ,Vừa,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+441,Quan họ,Mạnh,Trung bình,Trầm,Cao,Vừa,Rất thấp,Ít luyến
+442,Quan họ,Yếu,Thấp,Trầm,Thấp,Vừa,Rất cao,Ít luyến
+443,Quan họ,Mạnh,Cao,Trung,Thấp,Vừa,Rất thấp,Vừa
+444,Quan họ,Vừa,Trung bình,Trung,Trung bình,Vừa,Rất thấp,Vừa
+445,Quan họ,Rất yếu,Cao,Cao,Cao,Vừa,Rất cao,Vừa
+446,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Trung bình,Vừa
+447,Quan họ,Rất yếu,Trung bình,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+448,Quan họ,Yếu,Cao,Rất trầm,Cao,Nhanh,Rất cao,Ít luyến
+449,Quan họ,Mạnh,Cao,Trung,Trung bình,Vừa,Cao,Ít luyến
+450,Quan họ,Vừa,Cao,Trầm,Trung bình,Vừa,Cao,Ít luyến
+451,Quan họ,Rất mạnh,Thấp,Trung,Thấp,Chậm,Rất cao,Vừa
+452,Quan họ,Yếu,Thấp,Trung,Thấp,Chậm,Rất cao,Ít luyến
+453,Quan họ,Rất yếu,Trung bình,Trung,Cao,Vừa,Rất cao,Vừa
+454,Quan họ,Yếu,Cao,Trầm,Trung bình,Vừa,Trung bình,Vừa
+455,Quan họ,Rất yếu,Trung bình,Trầm,Cao,Vừa,Rất cao,Vừa
+456,Quan họ,Rất yếu,Trung bình,Rất cao,Thấp,Vừa,Rất cao,Nhiều luyến
+457,Quan họ,Mạnh,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+458,Quan họ,Vừa,Trung bình,Trầm,Thấp,Vừa,Rất cao,Ít luyến
+459,Quan họ,Mạnh,Trung bình,Trầm,Cao,Vừa,Rất cao,Vừa
+460,Quan họ,Mạnh,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+461,Quan họ,Mạnh,Cao,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+462,Quan họ,Yếu,Cao,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+463,Quan họ,Yếu,Trung bình,Trung,Trung bình,Vừa,Cao,Vừa
+464,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+465,Quan họ,Vừa,Thấp,Cao,Trung bình,Vừa,Rất cao,Vừa
+466,Quan họ,Yếu,Cao,Cao,Cao,Chậm,Rất cao,Vừa
+467,Quan họ,Vừa,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+468,Quan họ,Mạnh,Trung bình,Rất trầm,Trung bình,Vừa,Trung bình,Ít luyến
+469,Quan họ,Mạnh,Cao,Rất cao,Cao,Vừa,Rất cao,Vừa
+470,Quan họ,Mạnh,Trung bình,Rất trầm,Trung bình,Vừa,Trung bình,Ít luyến
+471,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+472,Quan họ,Vừa,Cao,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+473,Quan họ,Mạnh,Cao,Trung,Cao,Vừa,Rất cao,Ít luyến
+474,Quan họ,Vừa,Cao,Trung,Thấp,Vừa,Rất thấp,Vừa
+475,Quan họ,Vừa,Cao,Rất cao,Thấp,Vừa,Rất cao,Ít luyến
+476,Quan họ,Rất yếu,Cao,Trầm,Trung bình,Vừa,Rất cao,Vừa
+477,Quan họ,Vừa,Thấp,Trầm,Cao,Chậm,Rất thấp,Vừa
+478,Quan họ,Mạnh,Cao,Trung,Thấp,Vừa,Rất thấp,Vừa
+479,Quan họ,Mạnh,Cao,Trung,Trung bình,Chậm,Rất cao,Ít luyến
+480,Quan họ,Mạnh,Cao,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+481,Quan họ,Rất mạnh,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+482,Quan họ,Rất yếu,Trung bình,Trung,Cao,Vừa,Rất cao,Vừa
+483,Quan họ,Yếu,Trung bình,Trầm,Trung bình,Vừa,Trung bình,Ít luyến
+484,Quan họ,Yếu,Trung bình,Trung,Trung bình,Vừa,Cao,Vừa
+485,Quan họ,Yếu,Thấp,Rất cao,Trung bình,Vừa,Rất cao,Nhiều luyến
+486,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+487,Quan họ,Mạnh,Thấp,Trung,Cao,Vừa,Rất cao,Vừa
+488,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+489,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+490,Quan họ,Yếu,Cao,Cao,Thấp,Chậm,Rất cao,Vừa
+491,Quan họ,Mạnh,Thấp,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+492,Quan họ,Vừa,Trung bình,Trầm,Cao,Vừa,Rất cao,Ít luyến
+493,Quan họ,Rất yếu,Trung bình,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+494,Quan họ,Vừa,Thấp,Cao,Trung bình,Vừa,Rất cao,Vừa
+495,Quan họ,Mạnh,Trung bình,Trầm,Trung bình,Chậm,Rất cao,Ít luyến
+496,Quan họ,Mạnh,Trung bình,Trung,Thấp,Vừa,Rất cao,Ít luyến
+497,Quan họ,Mạnh,Thấp,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+498,Quan họ,Yếu,Trung bình,Cao,Thấp,Vừa,Rất cao,Vừa
+499,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+500,Quan họ,Yếu,Trung bình,Trung,Trung bình,Vừa,Cao,Vừa
+501,Quan họ,Vừa,Cao,Cao,Trung bình,Chậm,Rất cao,Vừa
+502,Quan họ,Mạnh,Thấp,Trầm,Thấp,Vừa,Rất thấp,Ít luyến
+503,Quan họ,Yếu,Trung bình,Trung,Trung bình,Vừa,Cao,Vừa
+504,Quan họ,Rất yếu,Trung bình,Trung,Trung bình,Vừa,Rất thấp,Vừa
+505,Quan họ,Mạnh,Trung bình,Trung,Cao,Vừa,Cao,Vừa
+506,Quan họ,Mạnh,Thấp,Trầm,Cao,Vừa,Rất cao,Vừa
+507,Quan họ,Mạnh,Trung bình,Trung,Cao,Vừa,Cao,Ít luyến
+508,Quan họ,Vừa,Cao,Trung,Cao,Vừa,Rất cao,Vừa
+509,Quan họ,Mạnh,Cao,Rất trầm,Trung bình,Vừa,Cao,Vừa
+510,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Trung bình,Vừa
+511,Quan họ,Mạnh,Cao,Trung,Trung bình,Vừa,Cao,Nhiều luyến
+512,Quan họ,Mạnh,Thấp,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+513,Quan họ,Mạnh,Cao,Rất trầm,Trung bình,Nhanh,Cao,Ít luyến
+514,Quan họ,Mạnh,Cao,Trung,Cao,Vừa,Cao,Ít luyến
+515,Quan họ,Yếu,Thấp,Cao,Cao,Vừa,Rất thấp,Nhiều luyến
+516,Quan họ,Yếu,Thấp,Trung,Cao,Vừa,Rất cao,Vừa
+517,Quan họ,Yếu,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+518,Quan họ,Mạnh,Trung bình,Trung,Trung bình,Vừa,Rất cao,Vừa
+519,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Cao,Vừa
+520,Quan họ,Mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+521,Quan họ,Mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Vừa
+522,Quan họ,Mạnh,Cao,Trung,Trung bình,Vừa,Cao,Ít luyến
+523,Quan họ,Vừa,Cao,Trầm,Trung bình,Vừa,Cao,Ít luyến
+524,Quan họ,Mạnh,Thấp,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+525,Quan họ,Rất yếu,Thấp,Trung,Thấp,Vừa,Rất cao,Ít luyến
+526,Quan họ,Mạnh,Cao,Trung,Cao,Vừa,Cao,Vừa
+527,Quan họ,Yếu,Trung bình,Trung,Trung bình,Vừa,Rất thấp,Ít luyến
+528,Quan họ,Yếu,Cao,Trung,Trung bình,Vừa,Rất cao,Vừa
+529,Quan họ,Mạnh,Trung bình,Trung,Trung bình,Vừa,Cao,Vừa
+530,Quan họ,Mạnh,Cao,Trung,Trung bình,Vừa,Trung bình,Vừa
+531,Quan họ,Mạnh,Thấp,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+532,Quan họ,Mạnh,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+533,Quan họ,Mạnh,Cao,Rất cao,Trung bình,Vừa,Rất cao,Nhiều luyến
+534,Quan họ,Rất yếu,Trung bình,Cao,Thấp,Vừa,Rất cao,Vừa
+535,Quan họ,Rất yếu,Trung bình,Rất cao,Trung bình,Nhanh,Rất cao,Vừa
+536,Quan họ,Vừa,Trung bình,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+537,Quan họ,Rất mạnh,Cao,Trầm,Trung bình,Vừa,Cao,Vừa
+538,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+539,Quan họ,Vừa,Thấp,Trầm,Trung bình,Vừa,Rất cao,Vừa
+540,Quan họ,Vừa,Trung bình,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+541,Quan họ,Yếu,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+542,Quan họ,Vừa,Thấp,Rất cao,Cao,Vừa,Rất cao,Nhiều luyến
+543,Quan họ,Rất yếu,Thấp,Trung,Cao,Vừa,Rất cao,Ít luyến
+544,Quan họ,Mạnh,Thấp,Trầm,Trung bình,Vừa,Rất cao,Vừa
+545,Quan họ,Mạnh,Thấp,Trầm,Trung bình,Vừa,Rất cao,Vừa
+546,Quan họ,Vừa,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+547,Quan họ,Rất mạnh,Thấp,Trung,Trung bình,Chậm,Rất cao,Vừa
+548,Quan họ,Mạnh,Cao,Cao,Trung bình,Vừa,Cao,Vừa
+549,Quan họ,Vừa,Thấp,Trung,Thấp,Vừa,Rất cao,Vừa
+550,Quan họ,Mạnh,Cao,Trung,Thấp,Vừa,Rất thấp,Vừa
+551,Quan họ,Rất mạnh,Cao,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+552,Quan họ,Vừa,Trung bình,Cao,Cao,Vừa,Rất cao,Vừa
+553,Quan họ,Mạnh,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+554,Quan họ,Yếu,Cao,Trung,Trung bình,Vừa,Rất cao,Nhiều luyến
+555,Quan họ,Mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Vừa
+556,Quan họ,Mạnh,Thấp,Trung,Thấp,Vừa,Rất thấp,Vừa
+557,Quan họ,Vừa,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+558,Quan họ,Yếu,Thấp,Rất trầm,Cao,Chậm,Rất thấp,Vừa
+559,Quan họ,Mạnh,Thấp,Trung,Cao,Vừa,Rất cao,Ít luyến
+560,Quan họ,Yếu,Trung bình,Cao,Thấp,Vừa,Rất cao,Vừa
+561,Quan họ,Mạnh,Cao,Rất trầm,Thấp,Vừa,Trung bình,Ít luyến
+562,Quan họ,Mạnh,Thấp,Trung,Cao,Vừa,Trung bình,Vừa
+563,Quan họ,Vừa,Thấp,Trầm,Trung bình,Chậm,Trung bình,Ít luyến
+564,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+565,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Cao,Vừa
+566,Quan họ,Vừa,Cao,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+567,Quan họ,Mạnh,Thấp,Trầm,Trung bình,Vừa,Rất cao,Vừa
+568,Quan họ,Mạnh,Cao,Trung,Cao,Vừa,Rất thấp,Vừa
+569,Quan họ,Mạnh,Thấp,Trầm,Cao,Vừa,Rất cao,Ít luyến
+570,Quan họ,Vừa,Thấp,Rất trầm,Trung bình,Vừa,Rất cao,Vừa
+571,Quan họ,Mạnh,Thấp,Trầm,Cao,Vừa,Rất cao,Ít luyến
+572,Quan họ,Yếu,Trung bình,Trầm,Trung bình,Vừa,Cao,Ít luyến
+573,Quan họ,Rất mạnh,Cao,Trầm,Trung bình,Chậm,Cao,Vừa
+574,Quan họ,Vừa,Thấp,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+575,Quan họ,Rất mạnh,Thấp,Trầm,Trung bình,Vừa,Cao,Ít luyến
+576,Quan họ,Rất yếu,Cao,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+577,Quan họ,Yếu,Thấp,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+578,Quan họ,Rất yếu,Trung bình,Trầm,Cao,Chậm,Rất thấp,Vừa
+579,Quan họ,Mạnh,Trung bình,Rất trầm,Trung bình,Vừa,Trung bình,Ít luyến
+580,Quan họ,Mạnh,Thấp,Trung,Thấp,Vừa,Rất cao,Vừa
+581,Quan họ,Mạnh,Thấp,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+582,Quan họ,Vừa,Trung bình,Trầm,Cao,Vừa,Rất cao,Ít luyến
+583,Quan họ,Yếu,Cao,Trầm,Trung bình,Vừa,Cao,Vừa
+584,Quan họ,Yếu,Cao,Cao,Thấp,Chậm,Rất cao,Vừa
+585,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+586,Quan họ,Vừa,Thấp,Cao,Thấp,Vừa,Rất thấp,Nhiều luyến
+587,Quan họ,Vừa,Thấp,Cao,Trung bình,Vừa,Rất cao,Vừa
+588,Quan họ,Rất yếu,Thấp,Trầm,Cao,Vừa,Rất cao,Ít luyến
+589,Quan họ,Mạnh,Thấp,Trung,Trung bình,Vừa,Cao,Nhiều luyến
+590,Quan họ,Vừa,Trung bình,Trung,Cao,Vừa,Rất cao,Vừa
+591,Quan họ,Mạnh,Trung bình,Trung,Trung bình,Vừa,Rất cao,Vừa
+592,Quan họ,Rất yếu,Thấp,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+593,Quan họ,Mạnh,Cao,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+594,Quan họ,Mạnh,Cao,Trung,Cao,Vừa,Rất cao,Ít luyến
+595,Quan họ,Mạnh,Thấp,Trầm,Trung bình,Vừa,Cao,Ít luyến
+596,Quan họ,Rất yếu,Cao,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+597,Quan họ,Mạnh,Trung bình,Trung,Thấp,Vừa,Rất cao,Nhiều luyến
+598,Quan họ,Yếu,Cao,Trầm,Trung bình,Vừa,Trung bình,Ít luyến
+599,Quan họ,Mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Vừa
+600,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+601,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Cao,Ít luyến
+602,Chầu văn,Vừa,Trung bình,Trầm,Thấp,Chậm,Rất cao,Vừa
+603,Chầu văn,Mạnh,Cao,Rất trầm,Trung bình,Nhanh,Cao,Ít luyến
+604,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+605,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+606,Chầu văn,Rất yếu,Cao,Cao,Trung bình,Nhanh,Rất thấp,Vừa
+607,Chầu văn,Vừa,Cao,Trung,Trung bình,Nhanh,Rất cao,Ít luyến
+608,Chầu văn,Vừa,Cao,Rất trầm,Cao,Vừa,Rất thấp,Vừa
+609,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+610,Chầu văn,Mạnh,Thấp,Trầm,Cao,Chậm,Rất cao,Ít luyến
+611,Chầu văn,Vừa,Cao,Trầm,Cao,Chậm,Cao,Ít luyến
+612,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Nhanh,Cao,Ít luyến
+613,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+614,Chầu văn,Mạnh,Cao,Rất cao,Cao,Chậm,Rất cao,Vừa
+615,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+616,Chầu văn,Vừa,Trung bình,Rất cao,Cao,Nhanh,Rất cao,Ít luyến
+617,Chầu văn,Vừa,Cao,Trầm,Trung bình,Vừa,Rất cao,Vừa
+618,Chầu văn,Vừa,Cao,Trầm,Cao,Nhanh,Rất cao,Ít luyến
+619,Chầu văn,Mạnh,Cao,Trung,Cao,Vừa,Cao,Ít luyến
+620,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+621,Chầu văn,Yếu,Trung bình,Cao,Cao,Chậm,Rất cao,Vừa
+622,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+623,Chầu văn,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+624,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Nhanh,Rất cao,Ít luyến
+625,Chầu văn,Mạnh,Cao,Rất cao,Trung bình,Nhanh,Rất cao,Nhiều luyến
+626,Chầu văn,Vừa,Cao,Rất cao,Trung bình,Chậm,Rất cao,Vừa
+627,Chầu văn,Rất mạnh,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+628,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+629,Chầu văn,Rất yếu,Cao,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+630,Chầu văn,Mạnh,Cao,Cao,Cao,Nhanh,Cao,Nhiều luyến
+631,Chầu văn,Vừa,Cao,Rất trầm,Cao,Vừa,Rất thấp,Ít luyến
+632,Chầu văn,Vừa,Trung bình,Rất trầm,Cao,Chậm,Cao,Ít luyến
+633,Chầu văn,Vừa,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+634,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Vừa,Trung bình,Vừa
+635,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+636,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+637,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+638,Chầu văn,Yếu,Cao,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+639,Chầu văn,Mạnh,Cao,Trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+640,Chầu văn,Mạnh,Cao,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+641,Chầu văn,Mạnh,Trung bình,Trầm,Trung bình,Chậm,Cao,Ít luyến
+642,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+643,Chầu văn,Vừa,Cao,Trầm,Trung bình,Nhanh,Rất cao,Vừa
+644,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Nhanh,Cao,Ít luyến
+645,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+646,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Rất cao,Ít luyến
+647,Chầu văn,Vừa,Cao,Trầm,Cao,Vừa,Rất thấp,Ít luyến
+648,Chầu văn,Vừa,Trung bình,Cao,Trung bình,Chậm,Cao,Vừa
+649,Chầu văn,Mạnh,Cao,Cao,Cao,Vừa,Rất cao,Ít luyến
+650,Chầu văn,Vừa,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+651,Chầu văn,Mạnh,Cao,Trầm,Cao,Chậm,Rất thấp,Ít luyến
+652,Chầu văn,Yếu,Cao,Trầm,Trung bình,Chậm,Cao,Ít luyến
+653,Chầu văn,Yếu,Cao,Rất trầm,Cao,Nhanh,Rất cao,Ít luyến
+654,Chầu văn,Vừa,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Vừa
+655,Chầu văn,Rất yếu,Cao,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+656,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+657,Chầu văn,Yếu,Thấp,Trung,Cao,Nhanh,Rất cao,Vừa
+658,Chầu văn,Yếu,Thấp,Trầm,Cao,Chậm,Rất thấp,Nhiều luyến
+659,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+660,Chầu văn,Vừa,Trung bình,Trầm,Trung bình,Chậm,Rất cao,Ít luyến
+661,Chầu văn,Yếu,Thấp,Trầm,Trung bình,Nhanh,Trung bình,Vừa
+662,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Chậm,Cao,Ít luyến
+663,Chầu văn,Vừa,Cao,Trung,Cao,Chậm,Trung bình,Ít luyến
+664,Chầu văn,Yếu,Cao,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+665,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+666,Chầu văn,Mạnh,Cao,Trầm,Cao,Nhanh,Rất thấp,Ít luyến
+667,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Vừa,Cao,Vừa
+668,Chầu văn,Mạnh,Cao,Rất trầm,Trung bình,Nhanh,Cao,Ít luyến
+669,Chầu văn,Vừa,Thấp,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+670,Chầu văn,Yếu,Thấp,Cao,Thấp,Vừa,Rất cao,Nhiều luyến
+671,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Vừa,Trung bình,Ít luyến
+672,Chầu văn,Rất yếu,Trung bình,Rất trầm,Cao,Vừa,Cao,Ít luyến
+673,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Cao,Ít luyến
+674,Chầu văn,Vừa,Thấp,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+675,Chầu văn,Yếu,Trung bình,Rất cao,Trung bình,Vừa,Rất cao,Nhiều luyến
+676,Chầu văn,Vừa,Cao,Rất cao,Cao,Chậm,Rất cao,Nhiều luyến
+677,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+678,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+679,Chầu văn,Mạnh,Cao,Rất trầm,Trung bình,Nhanh,Cao,Ít luyến
+680,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Trung bình,Ít luyến
+681,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+682,Chầu văn,Yếu,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+683,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+684,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Cao,Ít luyến
+685,Chầu văn,Vừa,Cao,Trầm,Cao,Vừa,Trung bình,Vừa
+686,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Cao,Ít luyến
+687,Chầu văn,Vừa,Cao,Rất trầm,Cao,Chậm,Rất thấp,Vừa
+688,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Cao,Ít luyến
+689,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+690,Chầu văn,Yếu,Cao,Rất trầm,Thấp,Vừa,Rất thấp,Ít luyến
+691,Chầu văn,Mạnh,Cao,Trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+692,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+693,Chầu văn,Yếu,Trung bình,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+694,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+695,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Rất cao,Ít luyến
+696,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+697,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+698,Chầu văn,Vừa,Cao,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+699,Chầu văn,Mạnh,Cao,Trầm,Trung bình,Nhanh,Cao,Vừa
+700,Chầu văn,Yếu,Trung bình,Rất cao,Trung bình,Vừa,Rất cao,Nhiều luyến
+701,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Rất cao,Ít luyến
+702,Chầu văn,Mạnh,Cao,Trầm,Cao,Nhanh,Cao,Ít luyến
+703,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+704,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+705,Chầu văn,Vừa,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Vừa
+706,Chầu văn,Mạnh,Trung bình,Rất cao,Cao,Nhanh,Cao,Nhiều luyến
+707,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+708,Chầu văn,Vừa,Trung bình,Cao,Trung bình,Chậm,Cao,Vừa
+709,Chầu văn,Vừa,Cao,Trầm,Cao,Nhanh,Trung bình,Ít luyến
+710,Chầu văn,Mạnh,Cao,Trung,Cao,Chậm,Trung bình,Ít luyến
+711,Chầu văn,Vừa,Trung bình,Rất trầm,Cao,Vừa,Cao,Ít luyến
+712,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+713,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+714,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+715,Chầu văn,Yếu,Cao,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+716,Chầu văn,Rất mạnh,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+717,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+718,Chầu văn,Vừa,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+719,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất thấp,Ít luyến
+720,Chầu văn,Vừa,Cao,Rất trầm,Cao,Vừa,Rất thấp,Vừa
+721,Chầu văn,Mạnh,Cao,Trầm,Trung bình,Nhanh,Cao,Vừa
+722,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+723,Chầu văn,Vừa,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+724,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+725,Chầu văn,Mạnh,Cao,Trầm,Cao,Nhanh,Cao,Ít luyến
+726,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+727,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+728,Chầu văn,Mạnh,Thấp,Cao,Cao,Chậm,Rất thấp,Nhiều luyến
+729,Chầu văn,Vừa,Cao,Rất trầm,Cao,Vừa,Rất thấp,Ít luyến
+730,Chầu văn,Vừa,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Vừa
+731,Chầu văn,Mạnh,Trung bình,Rất trầm,Cao,Chậm,Rất thấp,Ít luyến
+732,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+733,Chầu văn,Vừa,Cao,Rất trầm,Cao,Nhanh,Cao,Vừa
+734,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+735,Chầu văn,Vừa,Cao,Rất trầm,Trung bình,Nhanh,Cao,Ít luyến
+736,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+737,Chầu văn,Rất yếu,Thấp,Rất trầm,Trung bình,Chậm,Rất thấp,Vừa
+738,Chầu văn,Vừa,Trung bình,Cao,Trung bình,Vừa,Rất cao,Nhiều luyến
+739,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+740,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Chậm,Trung bình,Vừa
+741,Chầu văn,Mạnh,Cao,Trầm,Cao,Nhanh,Rất cao,Vừa
+742,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+743,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Nhanh,Cao,Vừa
+744,Chầu văn,Vừa,Cao,Rất trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+745,Chầu văn,Yếu,Trung bình,Rất cao,Trung bình,Nhanh,Rất cao,Vừa
+746,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+747,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+748,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+749,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+750,Chầu văn,Vừa,Cao,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+751,Chầu văn,Yếu,Trung bình,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+752,Chầu văn,Yếu,Trung bình,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+753,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Vừa,Cao,Ít luyến
+754,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+755,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+756,Chầu văn,Yếu,Trung bình,Cao,Trung bình,Vừa,Rất cao,Ít luyến
+757,Chầu văn,Yếu,Cao,Rất trầm,Cao,Nhanh,Cao,Ít luyến
+758,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+759,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+760,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+761,Chầu văn,Vừa,Thấp,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+762,Chầu văn,Mạnh,Cao,Rất cao,Trung bình,Chậm,Rất cao,Vừa
+763,Chầu văn,Mạnh,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+764,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+765,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+766,Chầu văn,Rất yếu,Trung bình,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+767,Chầu văn,Yếu,Trung bình,Cao,Cao,Vừa,Rất thấp,Vừa
+768,Chầu văn,Rất yếu,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+769,Chầu văn,Mạnh,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+770,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Chậm,Cao,Ít luyến
+771,Chầu văn,Vừa,Trung bình,Trung,Thấp,Vừa,Rất cao,Vừa
+772,Chầu văn,Rất yếu,Trung bình,Rất trầm,Cao,Chậm,Cao,Ít luyến
+773,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+774,Chầu văn,Vừa,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+775,Chầu văn,Rất mạnh,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+776,Chầu văn,Yếu,Cao,Trầm,Cao,Nhanh,Rất thấp,Vừa
+777,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+778,Chầu văn,Vừa,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+779,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+780,Chầu văn,Yếu,Trung bình,Cao,Thấp,Chậm,Rất cao,Ít luyến
+781,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+782,Chầu văn,Yếu,Thấp,Trầm,Trung bình,Vừa,Rất cao,Vừa
+783,Chầu văn,Mạnh,Cao,Trầm,Cao,Nhanh,Rất cao,Ít luyến
+784,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+785,Chầu văn,Yếu,Trung bình,Cao,Trung bình,Vừa,Rất cao,Nhiều luyến
+786,Chầu văn,Vừa,Trung bình,Trầm,Cao,Vừa,Rất thấp,Ít luyến
+787,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+788,Chầu văn,Rất mạnh,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+789,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+790,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+791,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+792,Chầu văn,Yếu,Cao,Trầm,Cao,Vừa,Trung bình,Vừa
+793,Chầu văn,Mạnh,Cao,Trầm,Cao,Chậm,Rất thấp,Nhiều luyến
+794,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Vừa,Rất thấp,Ít luyến
+795,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+796,Chầu văn,Vừa,Cao,Rất cao,Cao,Nhanh,Rất thấp,Nhiều luyến
+797,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+798,Chầu văn,Yếu,Trung bình,Cao,Trung bình,Vừa,Rất cao,Vừa
+799,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+800,Chầu văn,Rất yếu,Thấp,Cao,Trung bình,Chậm,Rất cao,Vừa
+801,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+802,Chầu văn,Rất yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+803,Chầu văn,Vừa,Cao,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+804,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+805,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Vừa
+806,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+807,Chầu văn,Rất yếu,Thấp,Cao,Trung bình,Nhanh,Rất cao,Ít luyến
+808,Chầu văn,Vừa,Cao,Trầm,Cao,Nhanh,Rất cao,Ít luyến
+809,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Trung bình,Ít luyến
+810,Chầu văn,Mạnh,Trung bình,Trung,Cao,Nhanh,Rất thấp,Vừa
+811,Chầu văn,Vừa,Cao,Trầm,Cao,Vừa,Rất thấp,Vừa
+812,Chầu văn,Yếu,Cao,Trầm,Trung bình,Chậm,Cao,Ít luyến
+813,Chầu văn,Vừa,Thấp,Cao,Cao,Chậm,Rất thấp,Vừa
+814,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+815,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+816,Chầu văn,Yếu,Trung bình,Trầm,Cao,Vừa,Rất cao,Ít luyến
+817,Chầu văn,Rất yếu,Trung bình,Rất trầm,Cao,Nhanh,Rất cao,Ít luyến
+818,Chầu văn,Mạnh,Cao,Rất cao,Cao,Vừa,Rất thấp,Ít luyến
+819,Chầu văn,Vừa,Cao,Trầm,Cao,Vừa,Cao,Ít luyến
+820,Chầu văn,Rất mạnh,Cao,Trầm,Trung bình,Nhanh,Cao,Ít luyến
+821,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+822,Chầu văn,Yếu,Cao,Trầm,Trung bình,Chậm,Cao,Vừa
+823,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+824,Chầu văn,Rất yếu,Thấp,Rất trầm,Trung bình,Chậm,Rất thấp,Vừa
+825,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Vừa,Cao,Vừa
+826,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+827,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Trung bình,Vừa
+828,Chầu văn,Vừa,Cao,Rất trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+829,Chầu văn,Vừa,Cao,Rất trầm,Cao,Nhanh,Rất cao,Ít luyến
+830,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+831,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+832,Chầu văn,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+833,Chầu văn,Yếu,Cao,Rất trầm,Trung bình,Vừa,Trung bình,Ít luyến
+834,Chầu văn,Vừa,Thấp,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+835,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+836,Chầu văn,Mạnh,Trung bình,Rất trầm,Cao,Vừa,Cao,Ít luyến
+837,Chầu văn,Vừa,Thấp,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+838,Chầu văn,Yếu,Thấp,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+839,Chầu văn,Rất yếu,Trung bình,Rất trầm,Thấp,Chậm,Trung bình,Ít luyến
+840,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+841,Chầu văn,Yếu,Cao,Rất trầm,Trung bình,Chậm,Rất thấp,Vừa
+842,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Chậm,Cao,Ít luyến
+843,Chầu văn,Yếu,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+844,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Vừa,Trung bình,Ít luyến
+845,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+846,Chầu văn,Mạnh,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+847,Chầu văn,Mạnh,Thấp,Rất trầm,Trung bình,Vừa,Trung bình,Vừa
+848,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+849,Chầu văn,Yếu,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+850,Chầu văn,Mạnh,Cao,Rất trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+851,Chầu văn,Mạnh,Thấp,Rất trầm,Cao,Nhanh,Rất thấp,Vừa
+852,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+853,Chầu văn,Mạnh,Cao,Trầm,Cao,Vừa,Rất thấp,Vừa
+854,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+855,Chầu văn,Yếu,Thấp,Trầm,Cao,Nhanh,Rất thấp,Vừa
+856,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+857,Chầu văn,Mạnh,Cao,Trầm,Cao,Chậm,Trung bình,Ít luyến
+858,Chầu văn,Mạnh,Cao,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+859,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+860,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+861,Chầu văn,Rất yếu,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+862,Chầu văn,Yếu,Cao,Trầm,Trung bình,Chậm,Cao,Vừa
+863,Chầu văn,Vừa,Cao,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+864,Chầu văn,Yếu,Cao,Rất trầm,Cao,Nhanh,Cao,Ít luyến
+865,Chầu văn,Mạnh,Trung bình,Trầm,Cao,Vừa,Rất thấp,Ít luyến
+866,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Vừa,Rất thấp,Ít luyến
+867,Chầu văn,Mạnh,Trung bình,Trầm,Cao,Vừa,Cao,Vừa
+868,Chầu văn,Mạnh,Trung bình,Rất trầm,Cao,Chậm,Rất thấp,Ít luyến
+869,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+870,Chầu văn,Yếu,Thấp,Trầm,Trung bình,Nhanh,Trung bình,Vừa
+871,Chầu văn,Vừa,Cao,Rất trầm,Cao,Vừa,Rất thấp,Ít luyến
+872,Chầu văn,Mạnh,Cao,Trầm,Cao,Nhanh,Cao,Ít luyến
+873,Chầu văn,Mạnh,Cao,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+874,Chầu văn,Mạnh,Thấp,Trầm,Cao,Vừa,Rất thấp,Ít luyến
+875,Chầu văn,Yếu,Thấp,Trầm,Cao,Vừa,Rất thấp,Vừa
+876,Chầu văn,Rất mạnh,Cao,Trầm,Cao,Vừa,Rất thấp,Vừa
+877,Chầu văn,Mạnh,Cao,Trầm,Trung bình,Chậm,Rất cao,Ít luyến
+878,Chầu văn,Vừa,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Vừa
+879,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+880,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+881,Chầu văn,Mạnh,Cao,Trầm,Cao,Nhanh,Cao,Ít luyến
+882,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Vừa,Trung bình,Vừa
+883,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+884,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+885,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Vừa,Rất thấp,Vừa
+886,Chầu văn,Mạnh,Cao,Trầm,Cao,Nhanh,Rất thấp,Ít luyến
+887,Chầu văn,Vừa,Trung bình,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+888,Chầu văn,Mạnh,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+889,Chầu văn,Yếu,Trung bình,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+890,Chầu văn,Mạnh,Cao,Trầm,Cao,Vừa,Rất thấp,Ít luyến
+891,Chầu văn,Yếu,Trung bình,Rất trầm,Cao,Vừa,Rất thấp,Ít luyến
+892,Chầu văn,Vừa,Cao,Trung,Cao,Chậm,Rất thấp,Vừa
+893,Chầu văn,Vừa,Cao,Rất cao,Cao,Chậm,Trung bình,Vừa
+894,Chầu văn,Mạnh,Cao,Rất cao,Cao,Vừa,Rất thấp,Ít luyến
+895,Chầu văn,Rất yếu,Trung bình,Rất trầm,Thấp,Chậm,Trung bình,Ít luyến
+896,Chầu văn,Mạnh,Cao,Trầm,Trung bình,Nhanh,Cao,Vừa
+897,Chầu văn,Vừa,Thấp,Trầm,Trung bình,Vừa,Rất cao,Vừa
+898,Chầu văn,Vừa,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+899,Chầu văn,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+900,Chèo,Rất mạnh,Trung bình,Rất trầm,Trung bình,Nhanh,Rất thấp,Vừa
+901,Chèo,Rất yếu,Cao,Trầm,Cao,Vừa,Rất cao,Vừa
+902,Chèo,Rất yếu,Trung bình,Trung,Trung bình,Chậm,Trung bình,Vừa
+903,Chèo,Rất yếu,Trung bình,Trung,Cao,Chậm,Rất thấp,Nhiều luyến
+904,Chèo,Rất yếu,Thấp,Trầm,Trung bình,Nhanh,Trung bình,Vừa
+905,Chèo,Vừa,Trung bình,Rất trầm,Cao,Vừa,Cao,Ít luyến
+906,Chèo,Yếu,Thấp,Trung,Trung bình,Nhanh,Rất thấp,Nhiều luyến
+907,Chèo,Mạnh,Trung bình,Rất trầm,Trung bình,Nhanh,Cao,Ít luyến
+908,Chèo,Rất yếu,Cao,Rất trầm,Thấp,Nhanh,Trung bình,Ít luyến
+909,Chèo,Rất yếu,Cao,Trung,Trung bình,Chậm,Trung bình,Nhiều luyến
+910,Chèo,Mạnh,Trung bình,Trung,Trung bình,Nhanh,Rất cao,Vừa
+911,Chèo,Rất yếu,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Nhiều luyến
+912,Chèo,Rất mạnh,Cao,Trung,Trung bình,Nhanh,Trung bình,Vừa
+913,Chèo,Vừa,Trung bình,Trung,Trung bình,Vừa,Rất thấp,Vừa
+914,Chèo,Rất yếu,Trung bình,Trung,Trung bình,Vừa,Cao,Nhiều luyến
+915,Chèo,Mạnh,Cao,Rất trầm,Cao,Chậm,Cao,Ít luyến
+916,Chèo,Mạnh,Thấp,Trung,Trung bình,Nhanh,Trung bình,Nhiều luyến
+917,Chèo,Yếu,Trung bình,Trầm,Trung bình,Chậm,Cao,Vừa
+918,Chèo,Mạnh,Trung bình,Trung,Cao,Vừa,Cao,Vừa
+919,Chèo,Yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Vừa
+920,Chèo,Mạnh,Trung bình,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+921,Chèo,Rất mạnh,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+922,Chèo,Vừa,Thấp,Trầm,Cao,Chậm,Rất thấp,Nhiều luyến
+923,Chèo,Rất mạnh,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+924,Chèo,Rất yếu,Cao,Rất trầm,Cao,Nhanh,Rất cao,Ít luyến
+925,Chèo,Yếu,Thấp,Trung,Trung bình,Chậm,Trung bình,Nhiều luyến
+926,Chèo,Rất mạnh,Cao,Rất trầm,Trung bình,Chậm,Cao,Ít luyến
+927,Chèo,Rất yếu,Trung bình,Trung,Trung bình,Vừa,Rất thấp,Vừa
+928,Chèo,Rất yếu,Trung bình,Rất cao,Cao,Vừa,Rất thấp,Nhiều luyến
+929,Chèo,Rất yếu,Trung bình,Rất cao,Trung bình,Chậm,Cao,Nhiều luyến
+930,Chèo,Rất yếu,Cao,Trung,Trung bình,Vừa,Rất thấp,Vừa
+931,Chèo,Rất yếu,Cao,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+932,Chèo,Vừa,Cao,Trầm,Trung bình,Vừa,Rất thấp,Nhiều luyến
+933,Chèo,Rất yếu,Cao,Trầm,Thấp,Chậm,Rất thấp,Vừa
+934,Chèo,Yếu,Thấp,Trầm,Thấp,Chậm,Rất thấp,Ít luyến
+935,Chèo,Rất yếu,Cao,Trung,Cao,Vừa,Rất thấp,Nhiều luyến
+936,Chèo,Rất mạnh,Trung bình,Trung,Cao,Chậm,Rất thấp,Vừa
+937,Chèo,Yếu,Cao,Trung,Trung bình,Nhanh,Rất thấp,Vừa
+938,Chèo,Rất yếu,Trung bình,Trung,Thấp,Chậm,Rất cao,Nhiều luyến
+939,Chèo,Vừa,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+940,Chèo,Rất yếu,Cao,Rất trầm,Cao,Vừa,Rất thấp,Ít luyến
+941,Chèo,Vừa,Trung bình,Trung,Cao,Vừa,Rất thấp,Vừa
+942,Chèo,Vừa,Trung bình,Trung,Trung bình,Nhanh,Rất thấp,Vừa
+943,Chèo,Yếu,Cao,Trầm,Trung bình,Vừa,Cao,Ít luyến
+944,Chèo,Vừa,Trung bình,Rất cao,Cao,Nhanh,Trung bình,Nhiều luyến
+945,Chèo,Rất mạnh,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Vừa
+946,Chèo,Rất mạnh,Cao,Rất cao,Cao,Vừa,Rất cao,Vừa
+947,Chèo,Yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Vừa
+948,Chèo,Yếu,Cao,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+949,Chèo,Yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+950,Chèo,Rất yếu,Cao,Rất trầm,Cao,Chậm,Rất thấp,Ít luyến
+951,Chèo,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Rất cao,Vừa
+952,Chèo,Rất yếu,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Ít luyến
+953,Chèo,Yếu,Thấp,Trầm,Thấp,Chậm,Rất cao,Ít luyến
+954,Chèo,Rất mạnh,Cao,Rất trầm,Trung bình,Chậm,Cao,Ít luyến
+955,Chèo,Yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Ít luyến
+956,Chèo,Rất yếu,Trung bình,Cao,Cao,Nhanh,Rất thấp,Nhiều luyến
+957,Chèo,Rất mạnh,Cao,Trung,Trung bình,Vừa,Cao,Vừa
+958,Chèo,Yếu,Thấp,Trầm,Thấp,Chậm,Rất cao,Ít luyến
+959,Chèo,Rất yếu,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+960,Chèo,Mạnh,Cao,Trung,Trung bình,Chậm,Cao,Ít luyến
+961,Chèo,Vừa,Cao,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+962,Chèo,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Vừa
+963,Chèo,Mạnh,Thấp,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+964,Chèo,Rất yếu,Trung bình,Rất cao,Trung bình,Nhanh,Rất cao,Nhiều luyến
+965,Chèo,Yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+966,Chèo,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+967,Chèo,Rất mạnh,Trung bình,Trung,Trung bình,Vừa,Rất thấp,Nhiều luyến
+968,Chèo,Rất yếu,Trung bình,Trung,Trung bình,Chậm,Cao,Nhiều luyến
+969,Chèo,Rất yếu,Trung bình,Trầm,Cao,Chậm,Rất thấp,Vừa
+970,Chèo,Rất yếu,Cao,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+971,Chèo,Rất yếu,Trung bình,Cao,Cao,Vừa,Trung bình,Vừa
+972,Chèo,Rất mạnh,Cao,Rất trầm,Trung bình,Nhanh,Cao,Ít luyến
+973,Chèo,Mạnh,Cao,Rất trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+974,Chèo,Vừa,Thấp,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+975,Chèo,Mạnh,Cao,Trung,Trung bình,Chậm,Trung bình,Vừa
+976,Chèo,Yếu,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+977,Chèo,Yếu,Cao,Trầm,Cao,Nhanh,Cao,Vừa
+978,Chèo,Vừa,Cao,Rất trầm,Cao,Chậm,Trung bình,Ít luyến
+979,Chèo,Mạnh,Cao,Trung,Trung bình,Nhanh,Rất thấp,Vừa
+980,Chèo,Rất yếu,Trung bình,Trung,Trung bình,Vừa,Rất thấp,Vừa
+981,Chèo,Yếu,Cao,Rất trầm,Cao,Vừa,Rất thấp,Vừa
+982,Chèo,Rất mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+983,Chèo,Vừa,Thấp,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+984,Chèo,Rất yếu,Trung bình,Trung,Cao,Vừa,Rất thấp,Nhiều luyến
+985,Chèo,Rất yếu,Cao,Rất trầm,Thấp,Nhanh,Rất thấp,Vừa
+986,Chèo,Mạnh,Cao,Rất trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+987,Chèo,Rất yếu,Trung bình,Rất cao,Cao,Vừa,Rất thấp,Nhiều luyến
+988,Chèo,Rất yếu,Trung bình,Trung,Trung bình,Nhanh,Trung bình,Nhiều luyến
+989,Chèo,Mạnh,Cao,Trung,Cao,Nhanh,Trung bình,Vừa
+990,Chèo,Rất mạnh,Cao,Trung,Trung bình,Nhanh,Trung bình,Vừa
+991,Chèo,Mạnh,Thấp,Trầm,Thấp,Vừa,Rất thấp,Vừa
+992,Chèo,Yếu,Cao,Cao,Trung bình,Vừa,Rất thấp,Nhiều luyến
+993,Chèo,Yếu,Trung bình,Cao,Cao,Chậm,Rất thấp,Nhiều luyến
+994,Chèo,Vừa,Thấp,Trung,Trung bình,Vừa,Rất cao,Vừa
+995,Chèo,Yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+996,Chèo,Mạnh,Trung bình,Trung,Trung bình,Nhanh,Cao,Vừa
+997,Chèo,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Rất cao,Vừa
+998,Chèo,Rất mạnh,Thấp,Rất trầm,Cao,Chậm,Rất thấp,Ít luyến
+999,Chèo,Rất yếu,Cao,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1000,Chèo,Rất yếu,Trung bình,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+1001,Chèo,Rất yếu,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Ít luyến
+1002,Chèo,Mạnh,Thấp,Trung,Trung bình,Chậm,Cao,Vừa
+1003,Chèo,Mạnh,Thấp,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+1004,Chèo,Rất mạnh,Cao,Rất trầm,Trung bình,Chậm,Cao,Ít luyến
+1005,Chèo,Yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1006,Chèo,Rất yếu,Cao,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1007,Chèo,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1008,Chèo,Vừa,Thấp,Trầm,Trung bình,Vừa,Trung bình,Ít luyến
+1009,Chèo,Yếu,Cao,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1010,Chèo,Yếu,Cao,Rất trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1011,Chèo,Mạnh,Trung bình,Trầm,Cao,Nhanh,Cao,Vừa
+1012,Chèo,Yếu,Cao,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1013,Chèo,Yếu,Trung bình,Trung,Trung bình,Nhanh,Rất thấp,Nhiều luyến
+1014,Chèo,Rất yếu,Cao,Trầm,Cao,Nhanh,Cao,Ít luyến
+1015,Chèo,Rất mạnh,Cao,Trung,Cao,Vừa,Rất cao,Vừa
+1016,Chèo,Vừa,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1017,Chèo,Rất yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1018,Chèo,Mạnh,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+1019,Chèo,Mạnh,Thấp,Trung,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1020,Chèo,Vừa,Trung bình,Trung,Cao,Vừa,Rất thấp,Vừa
+1021,Chèo,Vừa,Cao,Trung,Cao,Chậm,Trung bình,Vừa
+1022,Chèo,Yếu,Cao,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1023,Chèo,Yếu,Trung bình,Trung,Cao,Vừa,Rất thấp,Vừa
+1024,Chèo,Rất yếu,Cao,Trung,Thấp,Chậm,Rất thấp,Nhiều luyến
+1025,Chèo,Rất mạnh,Thấp,Trung,Cao,Nhanh,Trung bình,Ít luyến
+1026,Chèo,Yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1027,Chèo,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1028,Chèo,Mạnh,Cao,Trung,Trung bình,Chậm,Trung bình,Vừa
+1029,Chèo,Rất mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1030,Chèo,Vừa,Trung bình,Cao,Trung bình,Nhanh,Rất thấp,Nhiều luyến
+1031,Chèo,Rất yếu,Cao,Trung,Trung bình,Vừa,Rất thấp,Vừa
+1032,Chèo,Rất yếu,Cao,Rất trầm,Trung bình,Chậm,Trung bình,Ít luyến
+1033,Chèo,Yếu,Trung bình,Trung,Trung bình,Vừa,Rất thấp,Vừa
+1034,Chèo,Mạnh,Thấp,Trung,Trung bình,Nhanh,Cao,Nhiều luyến
+1035,Chèo,Vừa,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1036,Chèo,Yếu,Cao,Trung,Trung bình,Nhanh,Rất thấp,Vừa
+1037,Chèo,Mạnh,Thấp,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1038,Chèo,Mạnh,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1039,Chèo,Mạnh,Cao,Trầm,Cao,Chậm,Rất thấp,Ít luyến
+1040,Chèo,Rất yếu,Trung bình,Cao,Trung bình,Chậm,Rất thấp,Vừa
+1041,Chèo,Rất yếu,Trung bình,Rất cao,Trung bình,Vừa,Cao,Nhiều luyến
+1042,Chèo,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1043,Chèo,Rất mạnh,Thấp,Trung,Trung bình,Chậm,Rất cao,Nhiều luyến
+1044,Chèo,Yếu,Cao,Trầm,Thấp,Chậm,Trung bình,Vừa
+1045,Chèo,Rất mạnh,Cao,Trầm,Thấp,Chậm,Cao,Vừa
+1046,Chèo,Rất mạnh,Cao,Rất trầm,Trung bình,Chậm,Cao,Ít luyến
+1047,Chèo,Yếu,Trung bình,Trung,Trung bình,Vừa,Rất thấp,Vừa
+1048,Chèo,Rất mạnh,Thấp,Trầm,Trung bình,Chậm,Trung bình,Ít luyến
+1049,Chèo,Yếu,Trung bình,Trung,Trung bình,Nhanh,Rất thấp,Vừa
+1050,Chèo,Rất mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1051,Chèo,Yếu,Cao,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+1052,Chèo,Mạnh,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Nhiều luyến
+1053,Chèo,Rất yếu,Cao,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+1054,Chèo,Yếu,Trung bình,Trung,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1055,Chèo,Yếu,Trung bình,Trung,Trung bình,Vừa,Rất thấp,Vừa
+1056,Chèo,Rất yếu,Cao,Rất trầm,Cao,Nhanh,Rất cao,Ít luyến
+1057,Chèo,Rất mạnh,Cao,Rất trầm,Trung bình,Nhanh,Cao,Ít luyến
+1058,Chèo,Rất yếu,Trung bình,Trung,Trung bình,Vừa,Rất thấp,Ít luyến
+1059,Chèo,Rất yếu,Trung bình,Rất cao,Trung bình,Vừa,Cao,Nhiều luyến
+1060,Chèo,Rất yếu,Cao,Trung,Trung bình,Vừa,Trung bình,Vừa
+1061,Chèo,Vừa,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1062,Chèo,Yếu,Cao,Trung,Thấp,Nhanh,Cao,Vừa
+1063,Chèo,Mạnh,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1064,Chèo,Rất yếu,Trung bình,Trung,Thấp,Chậm,Rất cao,Nhiều luyến
+1065,Chèo,Mạnh,Cao,Trầm,Trung bình,Nhanh,Cao,Vừa
+1066,Chèo,Mạnh,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1067,Chèo,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1068,Chèo,Yếu,Cao,Trung,Trung bình,Nhanh,Rất thấp,Vừa
+1069,Chèo,Mạnh,Cao,Trầm,Trung bình,Chậm,Trung bình,Vừa
+1070,Chèo,Mạnh,Thấp,Trung,Trung bình,Chậm,Cao,Vừa
+1071,Chèo,Mạnh,Cao,Trầm,Cao,Chậm,Trung bình,Ít luyến
+1072,Chèo,Yếu,Thấp,Rất cao,Cao,Chậm,Trung bình,Nhiều luyến
+1073,Chèo,Yếu,Cao,Trung,Cao,Chậm,Rất thấp,Vừa
+1074,Chèo,Rất mạnh,Thấp,Trung,Trung bình,Chậm,Cao,Vừa
+1075,Chèo,Rất yếu,Cao,Trầm,Trung bình,Vừa,Trung bình,Nhiều luyến
+1076,Chèo,Rất yếu,Trung bình,Trung,Cao,Nhanh,Rất cao,Ít luyến
+1077,Chèo,Yếu,Trung bình,Trung,Cao,Vừa,Rất thấp,Vừa
+1078,Chèo,Vừa,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1079,Chèo,Rất yếu,Thấp,Cao,Trung bình,Nhanh,Rất thấp,Nhiều luyến
+1080,Chèo,Rất yếu,Cao,Rất cao,Cao,Vừa,Trung bình,Nhiều luyến
+1081,Chèo,Yếu,Trung bình,Trầm,Cao,Chậm,Rất thấp,Ít luyến
+1082,Chèo,Mạnh,Trung bình,Trung,Cao,Nhanh,Trung bình,Ít luyến
+1083,Chèo,Vừa,Trung bình,Trung,Trung bình,Nhanh,Rất thấp,Vừa
+1084,Chèo,Rất yếu,Cao,Trung,Trung bình,Vừa,Rất thấp,Vừa
+1085,Chèo,Mạnh,Cao,Trung,Trung bình,Vừa,Rất cao,Vừa
+1086,Chèo,Yếu,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1087,Chèo,Yếu,Cao,Trung,Cao,Nhanh,Rất thấp,Ít luyến
+1088,Chèo,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1089,Chèo,Rất yếu,Cao,Cao,Trung bình,Vừa,Rất thấp,Vừa
+1090,Chèo,Yếu,Trung bình,Trầm,Cao,Chậm,Rất thấp,Vừa
+1091,Chèo,Mạnh,Thấp,Trung,Trung bình,Nhanh,Cao,Vừa
+1092,Chèo,Rất yếu,Cao,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+1093,Chèo,Yếu,Trung bình,Trầm,Trung bình,Chậm,Cao,Vừa
+1094,Chèo,Rất yếu,Trung bình,Rất trầm,Trung bình,Chậm,Cao,Ít luyến
+1095,Chèo,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1096,Chèo,Mạnh,Thấp,Trầm,Trung bình,Nhanh,Cao,Vừa
+1097,Chèo,Vừa,Thấp,Trung,Thấp,Vừa,Cao,Vừa
+1098,Chèo,Mạnh,Thấp,Trung,Trung bình,Nhanh,Cao,Nhiều luyến
+1099,Chèo,Yếu,Thấp,Trung,Thấp,Nhanh,Rất thấp,Vừa
+1100,Chèo,Rất yếu,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Ít luyến
+1101,Chèo,Rất yếu,Trung bình,Rất trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1102,Chèo,Vừa,Trung bình,Trung,Trung bình,Nhanh,Rất thấp,Nhiều luyến
+1103,Chèo,Rất yếu,Trung bình,Trầm,Cao,Vừa,Trung bình,Vừa
+1104,Chèo,Rất yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1105,Chèo,Mạnh,Thấp,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1106,Chèo,Rất mạnh,Cao,Rất cao,Cao,Vừa,Rất cao,Vừa
+1107,Chèo,Mạnh,Thấp,Trung,Trung bình,Chậm,Cao,Vừa
+1108,Chèo,Rất yếu,Cao,Rất trầm,Cao,Chậm,Rất thấp,Ít luyến
+1109,Chèo,Rất mạnh,Trung bình,Trầm,Trung bình,Vừa,Trung bình,Ít luyến
+1110,Chèo,Rất yếu,Trung bình,Cao,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1111,Chèo,Yếu,Trung bình,Trung,Thấp,Vừa,Rất thấp,Nhiều luyến
+1112,Chèo,Yếu,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1113,Chèo,Vừa,Cao,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1114,Chèo,Rất mạnh,Trung bình,Trầm,Trung bình,Vừa,Trung bình,Ít luyến
+1115,Chèo,Vừa,Cao,Trung,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1116,Chèo,Mạnh,Trung bình,Rất trầm,Trung bình,Chậm,Rất thấp,Vừa
+1117,Chèo,Rất yếu,Cao,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1118,Chèo,Rất yếu,Thấp,Trung,Thấp,Chậm,Cao,Nhiều luyến
+1119,Chèo,Yếu,Cao,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1120,Chèo,Vừa,Trung bình,Trung,Cao,Vừa,Rất thấp,Ít luyến
+1121,Chèo,Yếu,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1122,Chèo,Yếu,Cao,Rất trầm,Thấp,Vừa,Cao,Ít luyến
+1123,Chèo,Rất yếu,Trung bình,Trầm,Cao,Vừa,Trung bình,Vừa
+1124,Chèo,Rất yếu,Cao,Trung,Cao,Nhanh,Cao,Nhiều luyến
+1125,Chèo,Yếu,Trung bình,Trung,Trung bình,Nhanh,Rất thấp,Nhiều luyến
+1126,Chèo,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1127,Chèo,Vừa,Trung bình,Trung,Trung bình,Chậm,Trung bình,Nhiều luyến
+1128,Chèo,Yếu,Thấp,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1129,Chèo,Rất mạnh,Cao,Trung,Trung bình,Nhanh,Trung bình,Vừa
+1130,Chèo,Yếu,Cao,Trung,Thấp,Nhanh,Cao,Vừa
+1131,Chèo,Mạnh,Thấp,Trung,Trung bình,Vừa,Rất thấp,Ít luyến
+1132,Chèo,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1133,Chèo,Rất yếu,Thấp,Cao,Trung bình,Nhanh,Rất thấp,Nhiều luyến
+1134,Chèo,Mạnh,Trung bình,Trung,Cao,Chậm,Thấp,Vừa
+1135,Chèo,Vừa,Thấp,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1136,Chèo,Yếu,Trung bình,Trầm,Cao,Chậm,Rất thấp,Vừa
+1137,Chèo,Mạnh,Cao,Rất trầm,Cao,Chậm,Rất thấp,Ít luyến
+1138,Chèo,Rất yếu,Trung bình,Cao,Cao,Vừa,Trung bình,Vừa
+1139,Chèo,Vừa,Trung bình,Rất cao,Trung bình,Nhanh,Rất thấp,Nhiều luyến
+1140,Chèo,Rất yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1141,Chèo,Rất yếu,Trung bình,Rất trầm,Cao,Chậm,Rất thấp,Ít luyến
+1142,Chèo,Rất yếu,Trung bình,Rất trầm,Cao,Nhanh,Rất cao,Ít luyến
+1143,Chèo,Yếu,Thấp,Trầm,Thấp,Chậm,Rất thấp,Ít luyến
+1144,Chèo,Yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1145,Chèo,Rất yếu,Thấp,Trung,Thấp,Chậm,Cao,Nhiều luyến
+1146,Chèo,Rất yếu,Thấp,Trung,Cao,Chậm,Trung bình,Nhiều luyến
+1147,Chèo,Rất yếu,Thấp,Trung,Cao,Chậm,Cao,Nhiều luyến
+1148,Chèo,Vừa,Cao,Trung,Thấp,Chậm,Rất thấp,Vừa
+1149,Chèo,Yếu,Trung bình,Rất cao,Trung bình,Chậm,Cao,Nhiều luyến
+1150,Chèo,Vừa,Thấp,Trung,Thấp,Chậm,Rất thấp,Vừa
+1151,Chèo,Rất yếu,Cao,Trung,Trung bình,Vừa,Rất thấp,Vừa
+1152,Chèo,Yếu,Trung bình,Cao,Cao,Chậm,Rất thấp,Nhiều luyến
+1153,Chèo,Yếu,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1154,Chèo,Rất yếu,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Nhiều luyến
+1155,Chèo,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1156,Chèo,Mạnh,Thấp,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1157,Chèo,Yếu,Cao,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1158,Chèo,Mạnh,Trung bình,Trung,Cao,Chậm,Rất thấp,Ít luyến
+1159,Chèo,Mạnh,Trung bình,Trầm,Trung bình,Nhanh,Cao,Vừa
+1160,Chèo,Yếu,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1161,Chèo,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1162,Chèo,Yếu,Trung bình,Trung,Trung bình,Chậm,Trung bình,Nhiều luyến
+1163,Chèo,Vừa,Cao,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1164,Chèo,Yếu,Thấp,Trung,Trung bình,Nhanh,Rất thấp,Vừa
+1165,Chèo,Yếu,Trung bình,Trung,Thấp,Vừa,Rất thấp,Vừa
+1166,Chèo,Yếu,Cao,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1167,Chèo,Mạnh,Cao,Trung,Trung bình,Nhanh,Rất thấp,Vừa
+1168,Chèo,Vừa,Thấp,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+1169,Chèo,Vừa,Trung bình,Trung,Cao,Vừa,Rất thấp,Nhiều luyến
+1170,Chèo,Vừa,Thấp,Trung,Trung bình,Vừa,Rất cao,Ít luyến
+1171,Chèo,Rất mạnh,Cao,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1172,Chèo,Yếu,Trung bình,Trung,Thấp,Chậm,Rất thấp,Nhiều luyến
+1173,Chèo,Rất yếu,Trung bình,Cao,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1174,Chèo,Rất yếu,Cao,Trầm,Cao,Chậm,Rất thấp,Nhiều luyến
+1175,Chèo,Rất yếu,Trung bình,Trung,Trung bình,Vừa,Rất cao,Nhiều luyến
+1176,Chèo,Vừa,Trung bình,Trung,Cao,Vừa,Rất thấp,Nhiều luyến
+1177,Chèo,Vừa,Trung bình,Rất cao,Cao,Nhanh,Rất thấp,Nhiều luyến
+1178,Chèo,Vừa,Thấp,Rất cao,Trung bình,Vừa,Rất cao,Nhiều luyến
+1179,Chèo,Mạnh,Trung bình,Trung,Trung bình,Nhanh,Rất cao,Vừa
+1180,Chèo,Vừa,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1181,Chèo,Mạnh,Cao,Rất trầm,Cao,Chậm,Cao,Ít luyến
+1182,Chèo,Mạnh,Cao,Rất trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1183,Chèo,Mạnh,Trung bình,Rất trầm,Trung bình,Nhanh,Cao,Ít luyến
+1184,Chèo,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1185,Chèo,Vừa,Thấp,Trầm,Cao,Chậm,Rất thấp,Nhiều luyến
+1186,Chèo,Vừa,Cao,Trung,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1187,Chèo,Vừa,Cao,Trầm,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1188,Chèo,Mạnh,Cao,Trầm,Trung bình,Chậm,Rất cao,Vừa
+1189,Chèo,Yếu,Trung bình,Trung,Cao,Chậm,Trung bình,Nhiều luyến
+1190,Chèo,Mạnh,Cao,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1191,Chèo,Yếu,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1192,Chèo,Vừa,Trung bình,Cao,Cao,Vừa,Rất thấp,Nhiều luyến
+1193,Chèo,Mạnh,Thấp,Trung,Trung bình,Nhanh,Cao,Vừa
+1194,Chèo,Yếu,Trung bình,Rất cao,Trung bình,Chậm,Cao,Nhiều luyến
+1195,Chèo,Rất yếu,Trung bình,Cao,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1196,Chèo,Rất yếu,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1197,Chèo,Rất mạnh,Cao,Trầm,Thấp,Chậm,Cao,Vừa
+1198,Chèo,Mạnh,Trung bình,Trung,Cao,Nhanh,Cao,Nhiều luyến
+1199,Chèo,Rất yếu,Cao,Trầm,Trung bình,Chậm,Cao,Vừa
+1200,Ca trù,Vừa,Trung bình,Trầm,Cao,Vừa,Trung bình,Vừa
+1201,Ca trù,Rất yếu,Thấp,Trầm,Thấp,Nhanh,Rất cao,Nhiều luyến
+1202,Ca trù,Rất mạnh,Trung bình,Trầm,Cao,Nhanh,Rất thấp,Nhiều luyến
+1203,Ca trù,Yếu,Trung bình,Trầm,Cao,Vừa,Trung bình,Vừa
+1204,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1205,Ca trù,Vừa,Thấp,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1206,Ca trù,Rất yếu,Trung bình,Trầm,Cao,Chậm,Cao,Vừa
+1207,Ca trù,Rất yếu,Thấp,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1208,Ca trù,Yếu,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1209,Ca trù,Vừa,Trung bình,Trung,Thấp,Nhanh,Rất thấp,Vừa
+1210,Ca trù,Rất yếu,Trung bình,Trung,Cao,Vừa,Cao,Vừa
+1211,Ca trù,Rất yếu,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1212,Ca trù,Vừa,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1213,Ca trù,Vừa,Cao,Rất trầm,Thấp,Nhanh,Rất thấp,Ít luyến
+1214,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Chậm,Cao,Vừa
+1215,Ca trù,Rất yếu,Thấp,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+1216,Ca trù,Vừa,Trung bình,Trung,Thấp,Vừa,Rất thấp,Vừa
+1217,Ca trù,Yếu,Thấp,Rất trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1218,Ca trù,Vừa,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+1219,Ca trù,Vừa,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1220,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1221,Ca trù,Rất yếu,Trung bình,Trầm,Cao,Chậm,Rất thấp,Vừa
+1222,Ca trù,Vừa,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1223,Ca trù,Vừa,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1224,Ca trù,Vừa,Trung bình,Trung,Cao,Nhanh,Rất thấp,Vừa
+1225,Ca trù,Vừa,Thấp,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1226,Ca trù,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Vừa
+1227,Ca trù,Yếu,Thấp,Trầm,Thấp,Nhanh,Rất thấp,Nhiều luyến
+1228,Ca trù,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1229,Ca trù,Vừa,Cao,Trung,Cao,Vừa,Trung bình,Nhiều luyến
+1230,Ca trù,Rất yếu,Trung bình,Trầm,Cao,Vừa,Trung bình,Vừa
+1231,Ca trù,Rất yếu,Thấp,Cao,Trung bình,Chậm,Rất thấp,Vừa
+1232,Ca trù,Mạnh,Cao,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1233,Ca trù,Rất yếu,Thấp,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1234,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1235,Ca trù,Yếu,Trung bình,Trung,Cao,Nhanh,Rất thấp,Nhiều luyến
+1236,Ca trù,Yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Nhiều luyến
+1237,Ca trù,Rất yếu,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+1238,Ca trù,Yếu,Trung bình,Trung,Thấp,Vừa,Rất thấp,Nhiều luyến
+1239,Ca trù,Rất yếu,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+1240,Ca trù,Vừa,Trung bình,Rất trầm,Thấp,Chậm,Trung bình,Ít luyến
+1241,Ca trù,Vừa,Trung bình,Trầm,Cao,Vừa,Cao,Vừa
+1242,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1243,Ca trù,Vừa,Trung bình,Trầm,Cao,Vừa,Cao,Vừa
+1244,Ca trù,Yếu,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1245,Ca trù,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Nhiều luyến
+1246,Ca trù,Vừa,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Ít luyến
+1247,Ca trù,Yếu,Cao,Trung,Thấp,Chậm,Rất thấp,Vừa
+1248,Ca trù,Vừa,Cao,Trầm,Thấp,Nhanh,Rất cao,Ít luyến
+1249,Ca trù,Vừa,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1250,Ca trù,Rất yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+1251,Ca trù,Vừa,Thấp,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1252,Ca trù,Rất mạnh,Cao,Trầm,Trung bình,Chậm,Rất cao,Vừa
+1253,Ca trù,Vừa,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1254,Ca trù,Rất yếu,Thấp,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+1255,Ca trù,Rất yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+1256,Ca trù,Yếu,Cao,Rất cao,Cao,Chậm,Rất thấp,Nhiều luyến
+1257,Ca trù,Vừa,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1258,Ca trù,Yếu,Thấp,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1259,Ca trù,Rất yếu,Trung bình,Rất cao,Cao,Vừa,Cao,Nhiều luyến
+1260,Ca trù,Rất yếu,Thấp,Trầm,Cao,Vừa,Rất thấp,Vừa
+1261,Ca trù,Rất yếu,Cao,Cao,Cao,Vừa,Rất cao,Nhiều luyến
+1262,Ca trù,Yếu,Thấp,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1263,Ca trù,Yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1264,Ca trù,Rất yếu,Thấp,Trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1265,Ca trù,Rất yếu,Trung bình,Trung,Trung bình,Chậm,Rất cao,Nhiều luyến
+1266,Ca trù,Rất yếu,Thấp,Trầm,Cao,Vừa,Rất thấp,Vừa
+1267,Ca trù,Yếu,Trung bình,Trầm,Cao,Vừa,Rất cao,Ít luyến
+1268,Ca trù,Rất yếu,Thấp,Trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1269,Ca trù,Yếu,Trung bình,Trung,Trung bình,Chậm,Cao,Vừa
+1270,Ca trù,Vừa,Trung bình,Trầm,Cao,Vừa,Cao,Ít luyến
+1271,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Trung bình,Vừa
+1272,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Vừa,Trung bình,Vừa
+1273,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1274,Ca trù,Vừa,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1275,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1276,Ca trù,Rất yếu,Trung bình,Rất cao,Cao,Chậm,Rất cao,Nhiều luyến
+1277,Ca trù,Vừa,Cao,Trung,Cao,Nhanh,Rất thấp,Nhiều luyến
+1278,Ca trù,Vừa,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1279,Ca trù,Rất yếu,Thấp,Trầm,Cao,Nhanh,Rất thấp,Vừa
+1280,Ca trù,Yếu,Cao,Rất cao,Cao,Chậm,Rất thấp,Nhiều luyến
+1281,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1282,Ca trù,Rất yếu,Thấp,Trầm,Trung bình,Vừa,Trung bình,Vừa
+1283,Ca trù,Yếu,Trung bình,Rất cao,Cao,Nhanh,Rất thấp,Ít luyến
+1284,Ca trù,Rất yếu,Trung bình,Trầm,Cao,Chậm,Cao,Nhiều luyến
+1285,Ca trù,Vừa,Trung bình,Trung,Cao,Nhanh,Rất thấp,Vừa
+1286,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1287,Ca trù,Yếu,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1288,Ca trù,Rất yếu,Thấp,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1289,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1290,Ca trù,Vừa,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1291,Ca trù,Vừa,Thấp,Trung,Trung bình,Nhanh,Rất thấp,Nhiều luyến
+1292,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1293,Ca trù,Rất yếu,Trung bình,Trầm,Cao,Vừa,Trung bình,Vừa
+1294,Ca trù,Rất yếu,Trung bình,Rất trầm,Cao,Chậm,Rất thấp,Ít luyến
+1295,Ca trù,Vừa,Trung bình,Trầm,Cao,Vừa,Trung bình,Vừa
+1296,Ca trù,Mạnh,Cao,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1297,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1298,Ca trù,Rất yếu,Thấp,Trầm,Cao,Vừa,Rất thấp,Ít luyến
+1299,Ca trù,Yếu,Thấp,Rất cao,Trung bình,Vừa,Rất cao,Nhiều luyến
+1300,Ca trù,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1301,Ca trù,Rất yếu,Thấp,Trầm,Thấp,Vừa,Trung bình,Vừa
+1302,Ca trù,Rất yếu,Cao,Trung,Thấp,Vừa,Rất cao,Ít luyến
+1303,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1304,Ca trù,Rất yếu,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1305,Ca trù,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Vừa
+1306,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Vừa,Cao,Vừa
+1307,Ca trù,Yếu,Trung bình,Trung,Cao,Vừa,Rất thấp,Nhiều luyến
+1308,Ca trù,Yếu,Trung bình,Trung,Cao,Nhanh,Rất cao,Vừa
+1309,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1310,Ca trù,Rất yếu,Thấp,Rất trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1311,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Cao,Ít luyến
+1312,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1313,Ca trù,Rất mạnh,Trung bình,Trầm,Cao,Nhanh,Rất thấp,Nhiều luyến
+1314,Ca trù,Rất yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+1315,Ca trù,Yếu,Cao,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1316,Ca trù,Yếu,Trung bình,Trầm,Thấp,Chậm,Cao,Vừa
+1317,Ca trù,Vừa,Thấp,Trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1318,Ca trù,Yếu,Cao,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1319,Ca trù,Vừa,Thấp,Trầm,Trung bình,Vừa,Cao,Ít luyến
+1320,Ca trù,Vừa,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1321,Ca trù,Vừa,Trung bình,Trung,Cao,Vừa,Rất thấp,Vừa
+1322,Ca trù,Yếu,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1323,Ca trù,Rất yếu,Trung bình,Trung,Thấp,Chậm,Rất thấp,Nhiều luyến
+1324,Ca trù,Yếu,Cao,Trầm,Cao,Vừa,Rất thấp,Vừa
+1325,Ca trù,Rất yếu,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+1326,Ca trù,Rất yếu,Cao,Trầm,Cao,Vừa,Cao,Ít luyến
+1327,Ca trù,Yếu,Thấp,Trầm,Thấp,Chậm,Rất thấp,Nhiều luyến
+1328,Ca trù,Vừa,Cao,Trầm,Cao,Vừa,Trung bình,Nhiều luyến
+1329,Ca trù,Yếu,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1330,Ca trù,Vừa,Cao,Trầm,Cao,Vừa,Trung bình,Nhiều luyến
+1331,Ca trù,Vừa,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+1332,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1333,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Vừa,Cao,Vừa
+1334,Ca trù,Yếu,Thấp,Rất cao,Cao,Chậm,Rất thấp,Nhiều luyến
+1335,Ca trù,Rất yếu,Thấp,Trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1336,Ca trù,Yếu,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1337,Ca trù,Yếu,Trung bình,Trung,Trung bình,Chậm,Cao,Vừa
+1338,Ca trù,Vừa,Cao,Trung,Cao,Vừa,Trung bình,Nhiều luyến
+1339,Ca trù,Vừa,Cao,Trầm,Thấp,Chậm,Rất cao,Vừa
+1340,Ca trù,Yếu,Thấp,Cao,Cao,Vừa,Rất thấp,Nhiều luyến
+1341,Ca trù,Rất yếu,Cao,Trầm,Trung bình,Vừa,Rất cao,Vừa
+1342,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Nhanh,Trung bình,Vừa
+1343,Ca trù,Vừa,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Ít luyến
+1344,Ca trù,Yếu,Trung bình,Trung,Thấp,Vừa,Rất thấp,Nhiều luyến
+1345,Ca trù,Rất yếu,Cao,Cao,Cao,Chậm,Rất cao,Ít luyến
+1346,Ca trù,Yếu,Cao,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1347,Ca trù,Yếu,Thấp,Cao,Cao,Chậm,Rất thấp,Vừa
+1348,Ca trù,Vừa,Thấp,Trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1349,Ca trù,Rất yếu,Thấp,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+1350,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1351,Ca trù,Yếu,Thấp,Trung,Thấp,Nhanh,Rất thấp,Vừa
+1352,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1353,Ca trù,Yếu,Thấp,Trầm,Cao,Vừa,Rất thấp,Vừa
+1354,Ca trù,Rất yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+1355,Ca trù,Vừa,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1356,Ca trù,Rất yếu,Cao,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1357,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Chậm,Cao,Ít luyến
+1358,Ca trù,Rất yếu,Cao,Trung,Thấp,Nhanh,Rất cao,Nhiều luyến
+1359,Ca trù,Yếu,Thấp,Cao,Cao,Nhanh,Rất thấp,Vừa
+1360,Ca trù,Yếu,Cao,Trung,Cao,Chậm,Trung bình,Nhiều luyến
+1361,Ca trù,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Vừa
+1362,Ca trù,Yếu,Cao,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1363,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1364,Ca trù,Vừa,Cao,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+1365,Ca trù,Rất yếu,Trung bình,Trung,Cao,Vừa,Cao,Nhiều luyến
+1366,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1367,Ca trù,Vừa,Cao,Trung,Cao,Chậm,Rất thấp,Nhiều luyến
+1368,Ca trù,Yếu,Trung bình,Trung,Cao,Vừa,Rất thấp,Nhiều luyến
+1369,Ca trù,Vừa,Trung bình,Trung,Thấp,Nhanh,Rất thấp,Nhiều luyến
+1370,Ca trù,Yếu,Cao,Trầm,Cao,Nhanh,Cao,Vừa
+1371,Ca trù,Rất yếu,Cao,Cao,Cao,Vừa,Rất thấp,Nhiều luyến
+1372,Ca trù,Rất yếu,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1373,Ca trù,Rất yếu,Trung bình,Cao,Trung bình,Vừa,Cao,Vừa
+1374,Ca trù,Rất yếu,Cao,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1375,Ca trù,Yếu,Thấp,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1376,Ca trù,Rất yếu,Cao,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+1377,Ca trù,Yếu,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1378,Ca trù,Rất yếu,Thấp,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+1379,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1380,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1381,Ca trù,Rất yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1382,Ca trù,Rất yếu,Trung bình,Trầm,Cao,Vừa,Rất cao,Ít luyến
+1383,Ca trù,Vừa,Trung bình,Trầm,Cao,Vừa,Rất thấp,Ít luyến
+1384,Ca trù,Yếu,Thấp,Cao,Cao,Nhanh,Rất thấp,Nhiều luyến
+1385,Ca trù,Vừa,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1386,Ca trù,Rất yếu,Cao,Cao,Cao,Vừa,Rất cao,Nhiều luyến
+1387,Ca trù,Yếu,Thấp,Cao,Cao,Vừa,Rất thấp,Nhiều luyến
+1388,Ca trù,Vừa,Trung bình,Trung,Thấp,Chậm,Trung bình,Vừa
+1389,Ca trù,Yếu,Thấp,Trầm,Cao,Chậm,Rất thấp,Nhiều luyến
+1390,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1391,Ca trù,Yếu,Cao,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1392,Ca trù,Vừa,Thấp,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1393,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Cao,Ít luyến
+1394,Ca trù,Vừa,Trung bình,Trầm,Thấp,Chậm,Trung bình,Vừa
+1395,Ca trù,Rất yếu,Trung bình,Trung,Trung bình,Chậm,Rất cao,Nhiều luyến
+1396,Ca trù,Yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Ít luyến
+1397,Ca trù,Vừa,Thấp,Trầm,Trung bình,Vừa,Trung bình,Vừa
+1398,Ca trù,Rất yếu,Thấp,Trung,Thấp,Chậm,Rất cao,Nhiều luyến
+1399,Ca trù,Vừa,Cao,Trầm,Cao,Nhanh,Rất thấp,Ít luyến
+1400,Ca trù,Rất yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Ít luyến
+1401,Ca trù,Rất yếu,Thấp,Trung,Trung bình,Vừa,Rất thấp,Vừa
+1402,Ca trù,Yếu,Thấp,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1403,Ca trù,Rất yếu,Thấp,Trầm,Trung bình,Vừa,Trung bình,Nhiều luyến
+1404,Ca trù,Yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Ít luyến
+1405,Ca trù,Rất yếu,Cao,Cao,Cao,Vừa,Rất cao,Vừa
+1406,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1407,Ca trù,Rất yếu,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Nhiều luyến
+1408,Ca trù,Yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Nhiều luyến
+1409,Ca trù,Vừa,Thấp,Trầm,Cao,Chậm,Rất thấp,Ít luyến
+1410,Ca trù,Yếu,Trung bình,Trầm,Cao,Vừa,Cao,Vừa
+1411,Ca trù,Vừa,Thấp,Trung,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1412,Ca trù,Yếu,Thấp,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1413,Ca trù,Rất yếu,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1414,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1415,Ca trù,Vừa,Trung bình,Trầm,Trung bình,Vừa,Cao,Ít luyến
+1416,Ca trù,Rất yếu,Cao,Trung,Thấp,Chậm,Rất cao,Vừa
+1417,Ca trù,Rất yếu,Thấp,Cao,Trung bình,Chậm,Rất thấp,Vừa
+1418,Ca trù,Yếu,Cao,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+1419,Ca trù,Yếu,Trung bình,Trung,Cao,Vừa,Rất thấp,Vừa
+1420,Ca trù,Vừa,Trung bình,Trung,Trung bình,Nhanh,Rất thấp,Vừa
+1421,Ca trù,Yếu,Cao,Trầm,Cao,Chậm,Rất thấp,Vừa
+1422,Ca trù,Vừa,Cao,Trung,Cao,Nhanh,Rất thấp,Nhiều luyến
+1423,Ca trù,Yếu,Thấp,Trầm,Cao,Chậm,Rất thấp,Vừa
+1424,Ca trù,Yếu,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1425,Ca trù,Vừa,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+1426,Ca trù,Vừa,Thấp,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1427,Ca trù,Rất yếu,Cao,Cao,Cao,Vừa,Rất cao,Nhiều luyến
+1428,Ca trù,Rất yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1429,Ca trù,Yếu,Cao,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1430,Ca trù,Yếu,Thấp,Cao,Cao,Vừa,Rất thấp,Nhiều luyến
+1431,Ca trù,Rất yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1432,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1433,Ca trù,Rất yếu,Trung bình,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+1434,Ca trù,Yếu,Cao,Trầm,Cao,Vừa,Rất thấp,Vừa
+1435,Ca trù,Vừa,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1436,Ca trù,Rất yếu,Cao,Cao,Cao,Vừa,Rất cao,Vừa
+1437,Ca trù,Rất yếu,Trung bình,Rất trầm,Thấp,Chậm,Rất thấp,Ít luyến
+1438,Ca trù,Yếu,Trung bình,Rất trầm,Cao,Chậm,Trung bình,Ít luyến
+1439,Ca trù,Vừa,Thấp,Rất trầm,Thấp,Nhanh,Rất thấp,Vừa
+1440,Ca trù,Yếu,Trung bình,Trung,Cao,Vừa,Rất thấp,Vừa
+1441,Ca trù,Rất yếu,Trung bình,Cao,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1442,Ca trù,Yếu,Trung bình,Rất trầm,Thấp,Nhanh,Rất cao,Vừa
+1443,Ca trù,Yếu,Trung bình,Rất cao,Cao,Vừa,Cao,Nhiều luyến
+1444,Ca trù,Rất yếu,Thấp,Trầm,Cao,Vừa,Rất thấp,Ít luyến
+1445,Ca trù,Vừa,Thấp,Trầm,Cao,Chậm,Rất thấp,Vừa
+1446,Ca trù,Rất yếu,Thấp,Trung,Trung bình,Nhanh,Rất thấp,Nhiều luyến
+1447,Ca trù,Yếu,Trung bình,Trung,Trung bình,Chậm,Cao,Vừa
+1448,Ca trù,Yếu,Thấp,Trầm,Trung bình,Vừa,Cao,Vừa
+1449,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Vừa,Trung bình,Vừa
+1450,Ca trù,Rất yếu,Thấp,Trung,Trung bình,Vừa,Rất thấp,Vừa
+1451,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1452,Ca trù,Rất yếu,Cao,Trầm,Cao,Chậm,Rất cao,Vừa
+1453,Ca trù,Rất yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1454,Ca trù,Rất yếu,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1455,Ca trù,Rất yếu,Trung bình,Trầm,Thấp,Chậm,Cao,Vừa
+1456,Ca trù,Yếu,Cao,Trầm,Cao,Vừa,Rất thấp,Nhiều luyến
+1457,Ca trù,Rất yếu,Cao,Rất trầm,Trung bình,Vừa,Rất thấp,Vừa
+1458,Ca trù,Rất yếu,Cao,Trầm,Thấp,Chậm,Rất cao,Vừa
+1459,Ca trù,Rất yếu,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1460,Ca trù,Rất yếu,Trung bình,Trung,Trung bình,Vừa,Rất thấp,Vừa
+1461,Ca trù,Yếu,Thấp,Trầm,Thấp,Nhanh,Rất thấp,Nhiều luyến
+1462,Ca trù,Rất yếu,Trung bình,Trầm,Cao,Chậm,Rất thấp,Nhiều luyến
+1463,Ca trù,Rất yếu,Cao,Trầm,Cao,Vừa,Rất thấp,Ít luyến
+1464,Ca trù,Rất yếu,Thấp,Trung,Trung bình,Vừa,Rất thấp,Vừa
+1465,Ca trù,Rất yếu,Cao,Cao,Cao,Vừa,Rất cao,Vừa
+1466,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1467,Ca trù,Yếu,Trung bình,Trung,Cao,Vừa,Rất thấp,Nhiều luyến
+1468,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Chậm,Cao,Ít luyến
+1469,Ca trù,Rất yếu,Thấp,Trầm,Trung bình,Nhanh,Trung bình,Vừa
+1470,Ca trù,Vừa,Trung bình,Trung,Thấp,Chậm,Rất thấp,Vừa
+1471,Ca trù,Vừa,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Nhiều luyến
+1472,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1473,Ca trù,Vừa,Cao,Rất trầm,Thấp,Nhanh,Rất thấp,Ít luyến
+1474,Ca trù,Rất yếu,Thấp,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1475,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1476,Ca trù,Yếu,Trung bình,Trung,Thấp,Chậm,Rất thấp,Vừa
+1477,Ca trù,Yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+1478,Ca trù,Vừa,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+1479,Ca trù,Vừa,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1480,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1481,Ca trù,Yếu,Trung bình,Rất trầm,Cao,Vừa,Cao,Ít luyến
+1482,Ca trù,Yếu,Thấp,Trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1483,Ca trù,Rất yếu,Cao,Rất trầm,Cao,Nhanh,Rất cao,Ít luyến
+1484,Ca trù,Yếu,Thấp,Rất trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1485,Ca trù,Rất yếu,Cao,Cao,Cao,Vừa,Rất cao,Nhiều luyến
+1486,Ca trù,Yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1487,Ca trù,Rất yếu,Trung bình,Trầm,Cao,Chậm,Rất thấp,Vừa
+1488,Ca trù,Vừa,Cao,Trung,Cao,Vừa,Cao,Nhiều luyến
+1489,Ca trù,Vừa,Cao,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1490,Ca trù,Rất yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+1491,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1492,Ca trù,Rất yếu,Trung bình,Trầm,Cao,Vừa,Trung bình,Vừa
+1493,Ca trù,Vừa,Cao,Trung,Cao,Vừa,Rất thấp,Nhiều luyến
+1494,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Cao,Nhiều luyến
+1495,Ca trù,Vừa,Trung bình,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1496,Ca trù,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1497,Ca trù,Rất yếu,Trung bình,Trầm,Cao,Vừa,Trung bình,Vừa
+1498,Ca trù,Rất yếu,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1499,Ca trù,Yếu,Cao,Rất trầm,Thấp,Chậm,Rất thấp,Ít luyến
+1500,Hát xẩm,Yếu,Cao,Trung,Cao,Vừa,Rất thấp,Ít luyến
+1501,Hát xẩm,Rất mạnh,Thấp,Trung,Thấp,Vừa,Rất thấp,Vừa
+1502,Hát xẩm,Yếu,Cao,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1503,Hát xẩm,Rất mạnh,Thấp,Trung,Trung bình,Chậm,Rất thấp,Ít luyến
+1504,Hát xẩm,Yếu,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1505,Hát xẩm,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+1506,Hát xẩm,Rất mạnh,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+1507,Hát xẩm,Rất mạnh,Cao,Rất trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1508,Hát xẩm,Rất mạnh,Thấp,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1509,Hát xẩm,Vừa,Cao,Trung,Cao,Chậm,Rất thấp,Nhiều luyến
+1510,Hát xẩm,Rất yếu,Trung bình,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+1511,Hát xẩm,Rất mạnh,Thấp,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1512,Hát xẩm,Vừa,Cao,Rất trầm,Trung bình,Nhanh,Trung bình,Ít luyến
+1513,Hát xẩm,Vừa,Cao,Trung,Cao,Nhanh,Rất thấp,Nhiều luyến
+1514,Hát xẩm,Mạnh,Cao,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1515,Hát xẩm,Yếu,Thấp,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1516,Hát xẩm,Vừa,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1517,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1518,Hát xẩm,Vừa,Cao,Rất trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1519,Hát xẩm,Mạnh,Cao,Trung,Cao,Chậm,Rất thấp,Vừa
+1520,Hát xẩm,Rất mạnh,Thấp,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1521,Hát xẩm,Vừa,Cao,Trầm,Cao,Vừa,Rất cao,Ít luyến
+1522,Hát xẩm,Vừa,Cao,Rất trầm,Cao,Nhanh,Trung bình,Ít luyến
+1523,Hát xẩm,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+1524,Hát xẩm,Rất mạnh,Trung bình,Trung,Thấp,Vừa,Cao,Nhiều luyến
+1525,Hát xẩm,Rất mạnh,Cao,Rất cao,Trung bình,Chậm,Rất thấp,Vừa
+1526,Hát xẩm,Vừa,Thấp,Trung,Trung bình,Vừa,Cao,Nhiều luyến
+1527,Hát xẩm,Rất mạnh,Cao,Trung,Trung bình,Nhanh,Rất thấp,Vừa
+1528,Hát xẩm,Rất mạnh,Cao,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1529,Hát xẩm,Yếu,Trung bình,Trầm,Cao,Chậm,Rất thấp,Vừa
+1530,Hát xẩm,Vừa,Cao,Rất trầm,Cao,Nhanh,Cao,Ít luyến
+1531,Hát xẩm,Rất mạnh,Trung bình,Rất trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1532,Hát xẩm,Yếu,Cao,Trầm,Cao,Vừa,Rất thấp,Vừa
+1533,Hát xẩm,Rất yếu,Thấp,Trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1534,Hát xẩm,Vừa,Cao,Rất trầm,Trung bình,Nhanh,Trung bình,Ít luyến
+1535,Hát xẩm,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Rất thấp,Vừa
+1536,Hát xẩm,Yếu,Thấp,Rất trầm,Trung bình,Nhanh,Trung bình,Ít luyến
+1537,Hát xẩm,Yếu,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+1538,Hát xẩm,Vừa,Cao,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1539,Hát xẩm,Vừa,Cao,Trung,Thấp,Chậm,Rất cao,Vừa
+1540,Hát xẩm,Mạnh,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1541,Hát xẩm,Mạnh,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1542,Hát xẩm,Rất mạnh,Trung bình,Trung,Thấp,Vừa,Cao,Vừa
+1543,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1544,Hát xẩm,Mạnh,Cao,Trầm,Thấp,Nhanh,Rất thấp,Nhiều luyến
+1545,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1546,Hát xẩm,Mạnh,Cao,Trung,Trung bình,Nhanh,Rất cao,Vừa
+1547,Hát xẩm,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1548,Hát xẩm,Rất mạnh,Trung bình,Trung,Thấp,Vừa,Trung bình,Vừa
+1549,Hát xẩm,Rất mạnh,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+1550,Hát xẩm,Mạnh,Thấp,Trầm,Thấp,Vừa,Trung bình,Ít luyến
+1551,Hát xẩm,Yếu,Thấp,Trầm,Cao,Nhanh,Rất thấp,Nhiều luyến
+1552,Hát xẩm,Rất mạnh,Thấp,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1553,Hát xẩm,Mạnh,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+1554,Hát xẩm,Mạnh,Cao,Rất trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1555,Hát xẩm,Mạnh,Cao,Trầm,Thấp,Nhanh,Rất thấp,Nhiều luyến
+1556,Hát xẩm,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Vừa
+1557,Hát xẩm,Mạnh,Trung bình,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+1558,Hát xẩm,Rất yếu,Cao,Trầm,Trung bình,Vừa,Cao,Ít luyến
+1559,Hát xẩm,Rất mạnh,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1560,Hát xẩm,Yếu,Thấp,Trầm,Cao,Chậm,Rất thấp,Ít luyến
+1561,Hát xẩm,Rất yếu,Trung bình,Trung,Cao,Chậm,Rất thấp,Vừa
+1562,Hát xẩm,Vừa,Cao,Cao,Cao,Chậm,Rất cao,Ít luyến
+1563,Hát xẩm,Vừa,Cao,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1564,Hát xẩm,Rất mạnh,Cao,Rất trầm,Thấp,Vừa,Rất thấp,Vừa
+1565,Hát xẩm,Mạnh,Cao,Trầm,Thấp,Nhanh,Trung bình,Vừa
+1566,Hát xẩm,Rất mạnh,Thấp,Trầm,Thấp,Nhanh,Rất cao,Vừa
+1567,Hát xẩm,Yếu,Cao,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1568,Hát xẩm,Rất mạnh,Cao,Trầm,Cao,Nhanh,Rất thấp,Vừa
+1569,Hát xẩm,Yếu,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1570,Hát xẩm,Mạnh,Cao,Rất trầm,Trung bình,Chậm,Rất cao,Ít luyến
+1571,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1572,Hát xẩm,Mạnh,Cao,Rất trầm,Thấp,Vừa,Rất cao,Ít luyến
+1573,Hát xẩm,Yếu,Cao,Trầm,Cao,Nhanh,Rất thấp,Vừa
+1574,Hát xẩm,Mạnh,Thấp,Trung,Cao,Chậm,Rất thấp,Nhiều luyến
+1575,Hát xẩm,Rất mạnh,Thấp,Trung,Thấp,Vừa,Trung bình,Nhiều luyến
+1576,Hát xẩm,Mạnh,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+1577,Hát xẩm,Vừa,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1578,Hát xẩm,Yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1579,Hát xẩm,Rất mạnh,Cao,Trầm,Thấp,Chậm,Rất thấp,Ít luyến
+1580,Hát xẩm,Yếu,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1581,Hát xẩm,Rất yếu,Cao,Trầm,Cao,Vừa,Rất cao,Ít luyến
+1582,Hát xẩm,Yếu,Cao,Trầm,Cao,Vừa,Cao,Vừa
+1583,Hát xẩm,Vừa,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1584,Hát xẩm,Mạnh,Cao,Rất trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1585,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1586,Hát xẩm,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Trung bình,Vừa
+1587,Hát xẩm,Rất mạnh,Thấp,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1588,Hát xẩm,Rất mạnh,Trung bình,Rất trầm,Thấp,Nhanh,Rất thấp,Ít luyến
+1589,Hát xẩm,Vừa,Cao,Cao,Cao,Chậm,Rất cao,Ít luyến
+1590,Hát xẩm,Rất mạnh,Thấp,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1591,Hát xẩm,Rất mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1592,Hát xẩm,Rất mạnh,Thấp,Trung,Thấp,Vừa,Rất thấp,Ít luyến
+1593,Hát xẩm,Rất mạnh,Thấp,Rất trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1594,Hát xẩm,Vừa,Cao,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+1595,Hát xẩm,Yếu,Thấp,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1596,Hát xẩm,Yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+1597,Hát xẩm,Rất mạnh,Thấp,Trung,Thấp,Nhanh,Rất cao,Vừa
+1598,Hát xẩm,Yếu,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Ít luyến
+1599,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1600,Hát xẩm,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Trung bình,Vừa
+1601,Hát xẩm,Yếu,Cao,Trầm,Cao,Nhanh,Rất thấp,Vừa
+1602,Hát xẩm,Vừa,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1603,Hát xẩm,Vừa,Cao,Trầm,Cao,Vừa,Trung bình,Ít luyến
+1604,Hát xẩm,Rất yếu,Thấp,Trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1605,Hát xẩm,Rất mạnh,Trung bình,Trung,Thấp,Vừa,Cao,Vừa
+1606,Hát xẩm,Mạnh,Cao,Rất trầm,Trung bình,Nhanh,Rất cao,Ít luyến
+1607,Hát xẩm,Rất mạnh,Thấp,Trung,Thấp,Vừa,Rất thấp,Vừa
+1608,Hát xẩm,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1609,Hát xẩm,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Cao,Ít luyến
+1610,Hát xẩm,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Trung bình,Vừa
+1611,Hát xẩm,Vừa,Thấp,Trung,Cao,Nhanh,Rất thấp,Nhiều luyến
+1612,Hát xẩm,Rất mạnh,Cao,Trầm,Cao,Nhanh,Rất thấp,Vừa
+1613,Hát xẩm,Mạnh,Cao,Trầm,Thấp,Nhanh,Trung bình,Vừa
+1614,Hát xẩm,Yếu,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+1615,Hát xẩm,Rất yếu,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+1616,Hát xẩm,Mạnh,Cao,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+1617,Hát xẩm,Rất mạnh,Thấp,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1618,Hát xẩm,Vừa,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1619,Hát xẩm,Yếu,Cao,Trầm,Trung bình,Nhanh,Trung bình,Vừa
+1620,Hát xẩm,Rất mạnh,Cao,Trung,Trung bình,Nhanh,Rất thấp,Vừa
+1621,Hát xẩm,Rất mạnh,Thấp,Trung,Cao,Chậm,Rất thấp,Nhiều luyến
+1622,Hát xẩm,Rất mạnh,Thấp,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1623,Hát xẩm,Yếu,Trung bình,Trầm,Cao,Vừa,Cao,Vừa
+1624,Hát xẩm,Rất mạnh,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1625,Hát xẩm,Yếu,Cao,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1626,Hát xẩm,Vừa,Cao,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1627,Hát xẩm,Vừa,Cao,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1628,Hát xẩm,Rất yếu,Trung bình,Trầm,Cao,Chậm,Rất thấp,Ít luyến
+1629,Hát xẩm,Rất mạnh,Thấp,Rất trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1630,Hát xẩm,Mạnh,Cao,Trầm,Trung bình,Chậm,Cao,Ít luyến
+1631,Hát xẩm,Vừa,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1632,Hát xẩm,Rất mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1633,Hát xẩm,Rất mạnh,Cao,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1634,Hát xẩm,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Rất thấp,Vừa
+1635,Hát xẩm,Vừa,Cao,Trung,Trung bình,Nhanh,Rất cao,Vừa
+1636,Hát xẩm,Yếu,Cao,Rất trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1637,Hát xẩm,Mạnh,Thấp,Trung,Cao,Nhanh,Rất thấp,Nhiều luyến
+1638,Hát xẩm,Vừa,Cao,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+1639,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1640,Hát xẩm,Rất mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1641,Hát xẩm,Yếu,Cao,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1642,Hát xẩm,Rất mạnh,Thấp,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1643,Hát xẩm,Yếu,Thấp,Trầm,Thấp,Nhanh,Cao,Ít luyến
+1644,Hát xẩm,Vừa,Cao,Trung,Cao,Chậm,Rất thấp,Nhiều luyến
+1645,Hát xẩm,Mạnh,Trung bình,Trung,Trung bình,Chậm,Rất cao,Vừa
+1646,Hát xẩm,Rất yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+1647,Hát xẩm,Mạnh,Cao,Trung,Trung bình,Vừa,Rất cao,Nhiều luyến
+1648,Hát xẩm,Rất mạnh,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1649,Hát xẩm,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Cao,Ít luyến
+1650,Hát xẩm,Mạnh,Thấp,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1651,Hát xẩm,Vừa,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+1652,Hát xẩm,Rất mạnh,Thấp,Trung,Trung bình,Chậm,Rất thấp,Vừa
+1653,Hát xẩm,Mạnh,Cao,Rất trầm,Cao,Vừa,Rất cao,Ít luyến
+1654,Hát xẩm,Vừa,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1655,Hát xẩm,Rất mạnh,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1656,Hát xẩm,Vừa,Cao,Trầm,Cao,Vừa,Cao,Ít luyến
+1657,Hát xẩm,Yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+1658,Hát xẩm,Yếu,Cao,Rất trầm,Cao,Nhanh,Rất thấp,Ít luyến
+1659,Hát xẩm,Yếu,Thấp,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1660,Hát xẩm,Vừa,Cao,Rất trầm,Trung bình,Chậm,Rất cao,Vừa
+1661,Hát xẩm,Rất mạnh,Thấp,Trung,Thấp,Vừa,Cao,Vừa
+1662,Hát xẩm,Yếu,Cao,Rất trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1663,Hát xẩm,Yếu,Cao,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1664,Hát xẩm,Yếu,Thấp,Trầm,Cao,Nhanh,Rất thấp,Nhiều luyến
+1665,Hát xẩm,Vừa,Cao,Rất trầm,Cao,Nhanh,Cao,Ít luyến
+1666,Hát xẩm,Vừa,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1667,Hát xẩm,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Rất cao,Ít luyến
+1668,Hát xẩm,Vừa,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1669,Hát xẩm,Vừa,Thấp,Cao,Cao,Vừa,Rất thấp,Nhiều luyến
+1670,Hát xẩm,Rất mạnh,Thấp,Trung,Cao,Nhanh,Rất thấp,Nhiều luyến
+1671,Hát xẩm,Vừa,Cao,Rất trầm,Trung bình,Chậm,Rất cao,Vừa
+1672,Hát xẩm,Yếu,Cao,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1673,Hát xẩm,Yếu,Trung bình,Trung,Thấp,Chậm,Rất thấp,Vừa
+1674,Hát xẩm,Rất mạnh,Thấp,Rất trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1675,Hát xẩm,Rất mạnh,Thấp,Trung,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1676,Hát xẩm,Yếu,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1677,Hát xẩm,Yếu,Thấp,Trung,Cao,Nhanh,Rất thấp,Vừa
+1678,Hát xẩm,Yếu,Thấp,Trung,Cao,Nhanh,Rất thấp,Vừa
+1679,Hát xẩm,Rất mạnh,Thấp,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1680,Hát xẩm,Rất mạnh,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1681,Hát xẩm,Yếu,Cao,Trầm,Cao,Nhanh,Rất thấp,Vừa
+1682,Hát xẩm,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1683,Hát xẩm,Yếu,Trung bình,Rất trầm,Thấp,Chậm,Rất thấp,Ít luyến
+1684,Hát xẩm,Rất mạnh,Thấp,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1685,Hát xẩm,Mạnh,Cao,Trầm,Trung bình,Chậm,Cao,Ít luyến
+1686,Hát xẩm,Vừa,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1687,Hát xẩm,Yếu,Cao,Trầm,Trung bình,Nhanh,Trung bình,Vừa
+1688,Hát xẩm,Vừa,Cao,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1689,Hát xẩm,Yếu,Thấp,Trầm,Cao,Nhanh,Rất thấp,Nhiều luyến
+1690,Hát xẩm,Mạnh,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+1691,Hát xẩm,Rất mạnh,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1692,Hát xẩm,Mạnh,Thấp,Trung,Cao,Chậm,Rất thấp,Nhiều luyến
+1693,Hát xẩm,Rất mạnh,Thấp,Trung,Cao,Chậm,Rất thấp,Nhiều luyến
+1694,Hát xẩm,Rất yếu,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1695,Hát xẩm,Rất mạnh,Thấp,Trung,Thấp,Vừa,Rất thấp,Ít luyến
+1696,Hát xẩm,Yếu,Thấp,Trầm,Cao,Nhanh,Rất thấp,Vừa
+1697,Hát xẩm,Mạnh,Cao,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+1698,Hát xẩm,Rất mạnh,Trung bình,Rất trầm,Cao,Vừa,Rất thấp,Ít luyến
+1699,Hát xẩm,Vừa,Thấp,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1700,Hát xẩm,Rất mạnh,Thấp,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1701,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1702,Hát xẩm,Vừa,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1703,Hát xẩm,Vừa,Cao,Trung,Thấp,Chậm,Rất cao,Vừa
+1704,Hát xẩm,Vừa,Cao,Trung,Cao,Chậm,Rất thấp,Nhiều luyến
+1705,Hát xẩm,Yếu,Cao,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1706,Hát xẩm,Mạnh,Cao,Trung,Cao,Chậm,Rất thấp,Vừa
+1707,Hát xẩm,Rất mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1708,Hát xẩm,Rất yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+1709,Hát xẩm,Rất mạnh,Cao,Trung,Cao,Chậm,Rất thấp,Nhiều luyến
+1710,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1711,Hát xẩm,Yếu,Cao,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1712,Hát xẩm,Yếu,Thấp,Trầm,Cao,Chậm,Rất thấp,Vừa
+1713,Hát xẩm,Rất mạnh,Cao,Trầm,Cao,Nhanh,Rất thấp,Vừa
+1714,Hát xẩm,Rất mạnh,Cao,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1715,Hát xẩm,Mạnh,Trung bình,Trung,Thấp,Vừa,Rất thấp,Ít luyến
+1716,Hát xẩm,Mạnh,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+1717,Hát xẩm,Rất mạnh,Trung bình,Rất trầm,Cao,Vừa,Rất thấp,Ít luyến
+1718,Hát xẩm,Rất mạnh,Trung bình,Trung,Thấp,Nhanh,Rất cao,Nhiều luyến
+1719,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1720,Hát xẩm,Rất mạnh,Cao,Trung,Thấp,Vừa,Rất thấp,Nhiều luyến
+1721,Hát xẩm,Yếu,Thấp,Trầm,Cao,Nhanh,Rất thấp,Nhiều luyến
+1722,Hát xẩm,Rất mạnh,Thấp,Trung,Thấp,Nhanh,Trung bình,Vừa
+1723,Hát xẩm,Yếu,Cao,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1724,Hát xẩm,Mạnh,Cao,Trung,Trung bình,Nhanh,Rất cao,Vừa
+1725,Hát xẩm,Rất yếu,Trung bình,Trầm,Cao,Chậm,Rất thấp,Ít luyến
+1726,Hát xẩm,Mạnh,Thấp,Trung,Cao,Chậm,Rất thấp,Nhiều luyến
+1727,Hát xẩm,Yếu,Thấp,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1728,Hát xẩm,Rất mạnh,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1729,Hát xẩm,Rất mạnh,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1730,Hát xẩm,Rất yếu,Cao,Trầm,Trung bình,Vừa,Cao,Ít luyến
+1731,Hát xẩm,Yếu,Thấp,Rất trầm,Thấp,Chậm,Cao,Ít luyến
+1732,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1733,Hát xẩm,Rất mạnh,Thấp,Trầm,Trung bình,Nhanh,Rất cao,Vừa
+1734,Hát xẩm,Rất mạnh,Trung bình,Trung,Thấp,Vừa,Cao,Vừa
+1735,Hát xẩm,Mạnh,Cao,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+1736,Hát xẩm,Yếu,Cao,Trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1737,Hát xẩm,Rất mạnh,Trung bình,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1738,Hát xẩm,Mạnh,Cao,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+1739,Hát xẩm,Vừa,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1740,Hát xẩm,Rất mạnh,Trung bình,Trung,Thấp,Nhanh,Rất cao,Nhiều luyến
+1741,Hát xẩm,Rất mạnh,Thấp,Trầm,Thấp,Nhanh,Rất cao,Vừa
+1742,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1743,Hát xẩm,Rất mạnh,Cao,Rất trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1744,Hát xẩm,Yếu,Cao,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1745,Hát xẩm,Rất mạnh,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1746,Hát xẩm,Rất mạnh,Cao,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1747,Hát xẩm,Mạnh,Cao,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+1748,Hát xẩm,Rất mạnh,Cao,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1749,Hát xẩm,Yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+1750,Hát xẩm,Vừa,Cao,Trung,Trung bình,Chậm,Rất cao,Vừa
+1751,Hát xẩm,Rất yếu,Trung bình,Rất trầm,Trung bình,Vừa,Cao,Ít luyến
+1752,Hát xẩm,Rất mạnh,Trung bình,Trung,Thấp,Vừa,Trung bình,Ít luyến
+1753,Hát xẩm,Mạnh,Thấp,Trung,Cao,Chậm,Rất thấp,Nhiều luyến
+1754,Hát xẩm,Rất mạnh,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Vừa
+1755,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1756,Hát xẩm,Vừa,Cao,Cao,Trung bình,Vừa,Rất thấp,Nhiều luyến
+1757,Hát xẩm,Yếu,Cao,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1758,Hát xẩm,Rất mạnh,Cao,Rất trầm,Trung bình,Vừa,Rất thấp,Ít luyến
+1759,Hát xẩm,Vừa,Cao,Rất trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1760,Hát xẩm,Mạnh,Cao,Trung,Trung bình,Chậm,Rất cao,Vừa
+1761,Hát xẩm,Vừa,Cao,Rất trầm,Cao,Nhanh,Trung bình,Ít luyến
+1762,Hát xẩm,Yếu,Cao,Trầm,Cao,Vừa,Rất thấp,Vừa
+1763,Hát xẩm,Rất mạnh,Thấp,Rất trầm,Trung bình,Chậm,Rất thấp,Ít luyến
+1764,Hát xẩm,Rất mạnh,Cao,Trầm,Trung bình,Nhanh,Rất thấp,Vừa
+1765,Hát xẩm,Rất mạnh,Trung bình,Trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1766,Hát xẩm,Vừa,Trung bình,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+1767,Hát xẩm,Vừa,Thấp,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1768,Hát xẩm,Rất mạnh,Cao,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+1769,Hát xẩm,Rất mạnh,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1770,Hát xẩm,Rất mạnh,Cao,Trầm,Thấp,Chậm,Rất cao,Vừa
+1771,Hát xẩm,Mạnh,Thấp,Trung,Thấp,Vừa,Rất cao,Nhiều luyến
+1772,Hát xẩm,Vừa,Cao,Rất trầm,Trung bình,Nhanh,Rất thấp,Ít luyến
+1773,Hát xẩm,Vừa,Cao,Trung,Thấp,Chậm,Rất cao,Vừa
+1774,Hát xẩm,Mạnh,Cao,Cao,Trung bình,Nhanh,Rất cao,Vừa
+1775,Hát xẩm,Yếu,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1776,Hát xẩm,Mạnh,Cao,Rất trầm,Thấp,Chậm,Rất cao,Ít luyến
+1777,Hát xẩm,Yếu,Cao,Trầm,Cao,Vừa,Cao,Vừa
+1778,Hát xẩm,Mạnh,Cao,Trầm,Cao,Chậm,Rất thấp,Ít luyến
+1779,Hát xẩm,Rất yếu,Trung bình,Rất trầm,Trung bình,Vừa,Rất cao,Ít luyến
+1780,Hát xẩm,Rất mạnh,Trung bình,Trung,Thấp,Vừa,Trung bình,Ít luyến
+1781,Hát xẩm,Rất mạnh,Thấp,Trầm,Trung bình,Chậm,Rất thấp,Vừa
+1782,Hát xẩm,Rất mạnh,Trung bình,Trầm,Trung bình,Vừa,Rất thấp,Vừa
+1783,Hát xẩm,Rất yếu,Trung bình,Trầm,Thấp,Chậm,Rất thấp,Ít luyến
+1784,Hát xẩm,Rất mạnh,Trung bình,Trầm,Thấp,Vừa,Rất thấp,Vừa
+1785,Hát xẩm,Rất yếu,Cao,Rất trầm,Trung bình,Vừa,Cao,Vừa
+1786,Hát xẩm,Vừa,Cao,Trầm,Cao,Vừa,Cao,Ít luyến
+1787,Hát xẩm,Vừa,Cao,Trung,Trung bình,Chậm,Rất thấp,Nhiều luyến
+1788,Hát xẩm,Yếu,Thấp,Trầm,Cao,Nhanh,Rất thấp,Nhiều luyến
+1789,Hát xẩm,Yếu,Cao,Trầm,Thấp,Nhanh,Rất cao,Ít luyến
+1790,Hát xẩm,Rất mạnh,Cao,Trầm,Cao,Nhanh,Rất thấp,Vừa
+1791,Hát xẩm,Mạnh,Cao,Rất trầm,Thấp,Nhanh,Rất cao,Ít luyến
+1792,Hát xẩm,Mạnh,Cao,Trung,Trung bình,Chậm,Rất cao,Vừa
+1793,Hát xẩm,Rất mạnh,Thấp,Rất trầm,Thấp,Vừa,Rất thấp,Ít luyến
+1794,Hát xẩm,Yếu,Trung bình,Trầm,Cao,Vừa,Rất thấp,Vừa
+1795,Hát xẩm,Mạnh,Cao,Trầm,Cao,Chậm,Rất thấp,Ít luyến
+1796,Hát xẩm,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Vừa
+1797,Hát xẩm,Rất yếu,Trung bình,Trầm,Trung bình,Vừa,Trung bình,Vừa
+1798,Hát xẩm,Rất mạnh,Cao,Rất trầm,Cao,Chậm,Rất cao,Ít luyến
+1799,Hát xẩm,Yếu,Trung bình,Trầm,Thấp,Nhanh,Rất thấp,Vừa

@@ -1,0 +1,198 @@
+[
+  {
+    "rule_text": "Pitch == 'Rất trầm' AND Energy IN ['Rất yếu', 'Yếu'] AND Timbre IN ['Rất thấp', 'Thấp']",
+    "consequent": "Hát xẩm",
+    "confidence": 0.3023,
+    "support": 43,
+    "score": 1.144
+  },
+  {
+    "rule_text": "Pitch == 'Rất trầm' AND Energy IN ['Vừa', 'Mạnh'] AND Timbre IN ['Rất thấp', 'Thấp']",
+    "consequent": "Chầu văn",
+    "confidence": 0.6667,
+    "support": 39,
+    "score": 2.459
+  },
+  {
+    "rule_text": "Pitch == 'Trầm' AND Energy IN ['Rất yếu', 'Yếu', 'Vừa'] AND Timbre IN ['Rất thấp', 'Thấp']",
+    "consequent": "Ca trù",
+    "confidence": 0.4912,
+    "support": 228,
+    "score": 2.669
+  },
+  {
+    "rule_text": "Pitch == 'Trầm' AND Energy == 'Mạnh' AND Timbre IN ['Rất thấp', 'Thấp']",
+    "consequent": "Chầu văn",
+    "confidence": 0.2593,
+    "support": 27,
+    "score": 0.864
+  },
+  {
+    "rule_text": "Pitch IN ['Trung', 'Cao', 'Rất cao'] AND Energy IN ['Rất yếu', 'Yếu', 'Vừa', 'Mạnh'] AND Timbre IN ['Rất thấp', 'Thấp'] AND Spectral == 'Thấp'",
+    "consequent": "Chèo",
+    "confidence": 0.2917,
+    "support": 24,
+    "score": 0.939
+  },
+  {
+    "rule_text": "Pitch IN ['Trung', 'Cao', 'Rất cao'] AND Energy IN ['Rất yếu', 'Yếu', 'Vừa', 'Mạnh'] AND Timbre IN ['Rất thấp', 'Thấp'] AND Spectral == 'Trung bình'",
+    "consequent": "Chèo",
+    "confidence": 0.7381,
+    "support": 84,
+    "score": 3.279
+  },
+  {
+    "rule_text": "Pitch IN ['Trung', 'Cao', 'Rất cao'] AND Energy IN ['Rất yếu', 'Yếu', 'Vừa'] AND Timbre IN ['Rất thấp', 'Thấp'] AND Spectral == 'Cao'",
+    "consequent": "Ca trù",
+    "confidence": 0.4348,
+    "support": 46,
+    "score": 1.674
+  },
+  {
+    "rule_text": "Pitch IN ['Trung', 'Cao', 'Rất cao'] AND Energy == 'Mạnh' AND Timbre IN ['Rất thấp', 'Thấp'] AND Spectral == 'Cao'",
+    "consequent": "Hát xẩm",
+    "confidence": 0.5,
+    "support": 12,
+    "score": 1.282
+  },
+  {
+    "rule_text": "Pitch IN ['Rất trầm', 'Trầm'] AND Energy == 'Rất mạnh' AND Timbre IN ['Rất thấp', 'Thấp'] AND Harmony == 'Thấp'",
+    "consequent": "Hát xẩm",
+    "confidence": 0.9333,
+    "support": 15,
+    "score": 2.588
+  },
+  {
+    "rule_text": "Pitch IN ['Trung', 'Cao', 'Rất cao'] AND Energy == 'Rất mạnh' AND Timbre IN ['Rất thấp', 'Thấp'] AND Harmony == 'Thấp'",
+    "consequent": "Hát xẩm",
+    "confidence": 1.0,
+    "support": 12,
+    "score": 2.565
+  },
+  {
+    "rule_text": "Energy == 'Rất mạnh' AND Timbre IN ['Rất thấp', 'Thấp'] AND Harmony IN ['Trung bình', 'Cao'] AND Spectral == 'Thấp'",
+    "consequent": "Hát xẩm",
+    "confidence": 1.0,
+    "support": 13,
+    "score": 2.639
+  },
+  {
+    "rule_text": "Energy == 'Rất mạnh' AND Timbre IN ['Rất thấp', 'Thấp'] AND Harmony == 'Trung bình' AND Spectral IN ['Trung bình', 'Cao']",
+    "consequent": "Hát xẩm",
+    "confidence": 0.5625,
+    "support": 16,
+    "score": 1.594
+  },
+  {
+    "rule_text": "Energy == 'Rất mạnh' AND Timbre IN ['Rất thấp', 'Thấp'] AND Harmony == 'Cao' AND Spectral IN ['Trung bình', 'Cao']",
+    "consequent": "Hát xẩm",
+    "confidence": 0.84,
+    "support": 25,
+    "score": 2.737
+  },
+  {
+    "rule_text": "Tempo IN ['Chậm', 'Vừa'] AND Pitch == 'Rất trầm' AND Energy == 'Rất yếu' AND Timbre IN ['Trung bình', 'Cao', 'Rất cao']",
+    "consequent": "Cải lương",
+    "confidence": 0.5106,
+    "support": 47,
+    "score": 1.977
+  },
+  {
+    "rule_text": "Tempo == 'Nhanh' AND Pitch == 'Rất trầm' AND Energy == 'Rất yếu' AND Timbre IN ['Trung bình', 'Cao', 'Rất cao']",
+    "consequent": "Chèo",
+    "confidence": 0.3636,
+    "support": 11,
+    "score": 0.904
+  },
+  {
+    "rule_text": "Pitch == 'Rất trầm' AND Energy == 'Yếu' AND Timbre IN ['Trung bình', 'Cao', 'Rất cao'] AND Harmony IN ['Thấp', 'Trung bình']",
+    "consequent": "Chầu văn",
+    "confidence": 0.7031,
+    "support": 64,
+    "score": 2.935
+  },
+  {
+    "rule_text": "Pitch == 'Rất trầm' AND Energy == 'Yếu' AND Timbre IN ['Trung bình', 'Cao', 'Rất cao'] AND Harmony == 'Cao'",
+    "consequent": "Cải lương",
+    "confidence": 0.4211,
+    "support": 19,
+    "score": 1.261
+  },
+  {
+    "rule_text": "Pitch == 'Trầm' AND Energy IN ['Rất yếu', 'Yếu'] AND Timbre IN ['Trung bình', 'Cao']",
+    "consequent": "Cải lương",
+    "confidence": 0.3488,
+    "support": 86,
+    "score": 1.558
+  },
+  {
+    "rule_text": "Pitch IN ['Trung', 'Cao', 'Rất cao'] AND Energy IN ['Rất yếu', 'Yếu'] AND Timbre IN ['Trung bình', 'Cao']",
+    "consequent": "Chèo",
+    "confidence": 0.4419,
+    "support": 43,
+    "score": 1.672
+  },
+  {
+    "rule_text": "Pitch IN ['Trầm', 'Trung'] AND Energy IN ['Rất yếu', 'Yếu'] AND Timbre == 'Rất cao'",
+    "consequent": "Cải lương",
+    "confidence": 0.6364,
+    "support": 121,
+    "score": 3.057
+  },
+  {
+    "rule_text": "Pitch IN ['Cao', 'Rất cao'] AND Energy IN ['Rất yếu', 'Yếu'] AND Timbre == 'Rất cao'",
+    "consequent": "Chầu văn",
+    "confidence": 0.3056,
+    "support": 36,
+    "score": 1.103
+  },
+  {
+    "rule_text": "Tempo == 'Chậm' AND Energy IN ['Vừa', 'Mạnh', 'Rất mạnh'] AND Timbre IN ['Trung bình', 'Cao', 'Rất cao'] AND Harmony == 'Thấp'",
+    "consequent": "Chèo",
+    "confidence": 0.6,
+    "support": 10,
+    "score": 1.439
+  },
+  {
+    "rule_text": "Tempo IN ['Vừa', 'Nhanh'] AND Energy IN ['Vừa', 'Mạnh', 'Rất mạnh'] AND Vibrato IN ['Ít luyến', 'Vừa'] AND Timbre IN ['Trung bình', 'Cao', 'Rất cao'] AND Harmony == 'Thấp'",
+    "consequent": "Quan họ",
+    "confidence": 0.8228,
+    "support": 79,
+    "score": 3.605
+  },
+  {
+    "rule_text": "Tempo IN ['Vừa', 'Nhanh'] AND Energy IN ['Vừa', 'Mạnh', 'Rất mạnh'] AND Vibrato == 'Nhiều luyến' AND Timbre IN ['Trung bình', 'Cao', 'Rất cao'] AND Harmony == 'Thấp'",
+    "consequent": "Quan họ",
+    "confidence": 0.4,
+    "support": 10,
+    "score": 0.959
+  },
+  {
+    "rule_text": "Tempo == 'Chậm' AND Energy IN ['Vừa', 'Mạnh', 'Rất mạnh'] AND Timbre IN ['Trung bình', 'Cao', 'Rất cao'] AND Harmony IN ['Trung bình', 'Cao']",
+    "consequent": "Chầu văn",
+    "confidence": 0.2979,
+    "support": 94,
+    "score": 1.356
+  },
+  {
+    "rule_text": "Tempo == 'Vừa' AND Energy IN ['Vừa', 'Mạnh', 'Rất mạnh'] AND Timbre IN ['Trung bình', 'Cao', 'Rất cao'] AND Harmony IN ['Trung bình', 'Cao']",
+    "consequent": "Quan họ",
+    "confidence": 0.4968,
+    "support": 157,
+    "score": 2.515
+  },
+  {
+    "rule_text": "Tempo == 'Nhanh' AND Energy IN ['Vừa', 'Mạnh', 'Rất mạnh'] AND Timbre IN ['Trung bình', 'Cao', 'Rất cao'] AND Harmony IN ['Trung bình', 'Cao'] AND Spectral == 'Thấp'",
+    "consequent": "Hát xẩm",
+    "confidence": 0.5833,
+    "support": 12,
+    "score": 1.496
+  },
+  {
+    "rule_text": "Tempo == 'Nhanh' AND Energy IN ['Vừa', 'Mạnh', 'Rất mạnh'] AND Timbre IN ['Trung bình', 'Cao', 'Rất cao'] AND Harmony IN ['Trung bình', 'Cao'] AND Spectral IN ['Trung bình', 'Cao']",
+    "consequent": "Chầu văn",
+    "confidence": 0.5224,
+    "support": 67,
+    "score": 2.204
+  }
+]

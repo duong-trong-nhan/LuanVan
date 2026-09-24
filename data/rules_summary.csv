@@ -1,0 +1,61 @@
+﻿Tập dữ liệu,Thể loại,Xếp hạng,Acc,Số mẫu (Support),Tần suất cây,Điều kiện luật (IF)
+Crisp (7 trục chữ),Ca trù,Top 1,55.0%,85,2/50,"Tempo IN ['Vừa', 'Nhanh'] AND Energy IN ['Rất yếu', 'Yếu', 'Vừa'] AND Timbre IN ['Rất thấp', 'Thấp', 'Trung bình'] AND Harmony IN ['Thấp', 'Trung bình'] AND Spectral == 'Thấp'"
+Crisp (7 trục chữ),Ca trù,Top 2,71.0%,45,1/50,"Tempo IN ['Chậm', 'Vừa'] AND Pitch IN ['Trầm', 'Trung', 'Cao', 'Rất cao'] AND Energy IN ['Rất yếu', 'Yếu', 'Vừa'] AND Timbre IN ['Rất thấp', 'Thấp', 'Trung bình', 'Cao'] AND Harmony == 'Thấp'"
+Crisp (7 trục chữ),Ca trù,Top 3,61.0%,83,1/50,"Pitch IN ['Rất trầm', 'Trầm'] AND Energy IN ['Rất yếu', 'Yếu', 'Vừa', 'Mạnh'] AND Vibrato IN ['Vừa', 'Nhiều luyến'] AND Timbre IN ['Rất thấp', 'Thấp'] AND Spectral IN ['Thấp', 'Trung bình']"
+Crisp (7 trục chữ),Ca trù,Top 4,57.2%,102,1/50,"Tempo IN ['Chậm', 'Vừa'] AND Pitch == 'Trầm' AND Vibrato IN ['Vừa', 'Nhiều luyến'] AND Timbre IN ['Rất thấp', 'Thấp']"
+Crisp (7 trục chữ),Ca trù,Top 5,53.0%,144,1/50,"Pitch == 'Trầm' AND Energy IN ['Rất yếu', 'Yếu', 'Vừa'] AND Timbre IN ['Rất thấp', 'Thấp', 'Trung bình'] AND Harmony IN ['Thấp', 'Trung bình']"
+Crisp (7 trục chữ),Chèo,Top 1,96.4%,19,1/50,"Pitch IN ['Trung', 'Cao', 'Rất cao'] AND Energy == 'Rất yếu' AND Timbre IN ['Rất thấp', 'Thấp', 'Trung bình'] AND Harmony IN ['Trung bình', 'Cao']"
+Crisp (7 trục chữ),Chèo,Top 2,67.0%,71,1/50,"Pitch IN ['Trung', 'Cao', 'Rất cao'] AND Energy IN ['Rất yếu', 'Yếu', 'Vừa', 'Mạnh'] AND Timbre IN ['Rất thấp', 'Thấp'] AND Harmony IN ['Trung bình', 'Cao'] AND Spectral IN ['Trung bình', 'Cao']"
+Crisp (7 trục chữ),Chèo,Top 3,67.6%,60,1/50,"Pitch IN ['Trung', 'Cao', 'Rất cao'] AND Energy IN ['Rất yếu', 'Yếu', 'Vừa', 'Mạnh'] AND Vibrato IN ['Vừa', 'Nhiều luyến'] AND Timbre IN ['Rất thấp', 'Thấp'] AND Spectral IN ['Thấp', 'Trung bình']"
+Crisp (7 trục chữ),Chèo,Top 4,70.8%,49,1/50,"Pitch IN ['Trung', 'Cao', 'Rất cao'] AND Energy IN ['Rất yếu', 'Yếu'] AND Timbre IN ['Rất thấp', 'Thấp', 'Trung bình'] AND Spectral IN ['Thấp', 'Trung bình']"
+Crisp (7 trục chữ),Chèo,Top 5,66.7%,60,1/50,"Pitch IN ['Trung', 'Cao', 'Rất cao'] AND Energy IN ['Rất yếu', 'Yếu', 'Vừa'] AND Timbre IN ['Rất thấp', 'Thấp', 'Trung bình'] AND Spectral IN ['Thấp', 'Trung bình']"
+Crisp (7 trục chữ),Chầu văn,Top 1,63.2%,19,2/50,"Pitch == 'Rất trầm' AND Energy IN ['Yếu', 'Vừa'] AND Vibrato == 'Ít luyến' AND Harmony IN ['Thấp', 'Trung bình']"
+Crisp (7 trục chữ),Chầu văn,Top 2,67.6%,34,3/50,"Pitch IN ['Cao', 'Rất cao'] AND Energy IN ['Mạnh', 'Rất mạnh']"
+Crisp (7 trục chữ),Chầu văn,Top 3,66.1%,78,2/50,"Pitch == 'Rất trầm' AND Energy IN ['Yếu', 'Vừa', 'Mạnh', 'Rất mạnh'] AND Vibrato == 'Ít luyến' AND Harmony == 'Cao' AND Spectral == 'Cao'"
+Crisp (7 trục chữ),Chầu văn,Top 4,65.2%,68,2/50,"Energy IN ['Mạnh', 'Rất mạnh'] AND Vibrato == 'Ít luyến' AND Harmony == 'Cao' AND Spectral == 'Cao'"
+Crisp (7 trục chữ),Chầu văn,Top 5,88.6%,28,1/50,"Pitch IN ['Rất trầm', 'Trầm'] AND Energy == 'Mạnh' AND Timbre IN ['Rất thấp', 'Thấp', 'Trung bình', 'Cao'] AND Spectral == 'Cao'"
+Crisp (7 trục chữ),Cải lương,Top 1,50.0%,282,2/50,"Pitch IN ['Trầm', 'Trung'] AND Energy IN ['Rất yếu', 'Yếu', 'Vừa'] AND Timbre IN ['Cao', 'Rất cao'] AND Harmony IN ['Trung bình', 'Cao']"
+Crisp (7 trục chữ),Cải lương,Top 2,66.4%,88,1/50,"Pitch == 'Trầm' AND Energy IN ['Rất yếu', 'Yếu'] AND Timbre IN ['Cao', 'Rất cao']"
+Crisp (7 trục chữ),Cải lương,Top 3,49.5%,58,2/50,"Pitch == 'Rất trầm' AND Energy IN ['Rất yếu', 'Yếu'] AND Timbre IN ['Trung bình', 'Cao', 'Rất cao'] AND Harmony == 'Cao'"
+Crisp (7 trục chữ),Cải lương,Top 4,70.0%,54,1/50,"Energy IN ['Rất yếu', 'Yếu'] AND Vibrato == 'Vừa' AND Timbre == 'Rất cao'"
+Crisp (7 trục chữ),Cải lương,Top 5,59.8%,107,1/50,"Pitch IN ['Trầm', 'Trung', 'Cao', 'Rất cao'] AND Energy IN ['Rất yếu', 'Yếu'] AND Timbre == 'Rất cao'"
+Crisp (7 trục chữ),Hát xẩm,Top 1,91.8%,65,4/50,"Energy == 'Rất mạnh' AND Timbre IN ['Rất thấp', 'Thấp'] AND Harmony == 'Thấp'"
+Crisp (7 trục chữ),Hát xẩm,Top 2,93.4%,38,2/50,"Pitch IN ['Trầm', 'Trung', 'Cao', 'Rất cao'] AND Energy == 'Rất mạnh' AND Spectral == 'Thấp'"
+Crisp (7 trục chữ),Hát xẩm,Top 3,92.8%,34,2/50,"Tempo == 'Chậm' AND Energy == 'Rất mạnh' AND Timbre IN ['Rất thấp', 'Thấp']"
+Crisp (7 trục chữ),Hát xẩm,Top 4,89.5%,35,2/50,"Energy == 'Rất mạnh' AND Timbre IN ['Rất thấp', 'Thấp'] AND Harmony == 'Cao'"
+Crisp (7 trục chữ),Hát xẩm,Top 5,78.0%,48,2/50,"Energy IN ['Mạnh', 'Rất mạnh'] AND Timbre IN ['Rất thấp', 'Thấp', 'Trung bình'] AND Spectral == 'Thấp'"
+Crisp (7 trục chữ),Quan họ,Top 1,85.8%,45,2/50,"Tempo IN ['Chậm', 'Vừa'] AND Energy IN ['Vừa', 'Mạnh', 'Rất mạnh'] AND Vibrato == 'Ít luyến' AND Timbre IN ['Trung bình', 'Cao', 'Rất cao'] AND Harmony == 'Thấp'"
+Crisp (7 trục chữ),Quan họ,Top 2,83.5%,28,2/50,"Energy == 'Rất mạnh' AND Timbre IN ['Trung bình', 'Cao', 'Rất cao'] AND Harmony == 'Thấp'"
+Crisp (7 trục chữ),Quan họ,Top 3,76.0%,34,2/50,"Energy == 'Vừa' AND Timbre IN ['Cao', 'Rất cao'] AND Harmony == 'Thấp'"
+Crisp (7 trục chữ),Quan họ,Top 4,63.9%,60,2/50,"Pitch IN ['Trung', 'Cao', 'Rất cao'] AND Vibrato IN ['Vừa', 'Nhiều luyến'] AND Timbre IN ['Cao', 'Rất cao'] AND Harmony == 'Thấp'"
+Crisp (7 trục chữ),Quan họ,Top 5,83.1%,77,1/50,"Tempo == 'Vừa' AND Energy == 'Mạnh' AND Timbre IN ['Thấp', 'Trung bình', 'Cao', 'Rất cao']"
+Continuous (27 mức mờ),Ca trù,Top 1,90.0%,36,Tree #41,Timbre_Rất_cao <= 0.170 AND Harmony_Cao <= 0.334 AND Harmony_Thấp > 0.332 AND Energy_Rất_yếu > 0.058 AND Timbre_Trung_bình <= 0.218
+Continuous (27 mức mờ),Ca trù,Top 2,80.5%,55,Tree #32,Timbre_Thấp > 0.208 AND Energy_Rất_yếu > 0.115 AND Pitch_Trung <= 0.584 AND Timbre_Rất_cao > 0.117 AND Harmony_Thấp > 0.333
+Continuous (27 mức mờ),Ca trù,Top 3,78.1%,57,Tree #4,Timbre_Rất_cao <= 0.170 AND Energy_Rất_yếu > 0.121 AND Pitch_Cao <= 0.020 AND Harmony_Thấp > 0.333 AND Pitch_Rất_trầm <= 0.567
+Continuous (27 mức mờ),Ca trù,Top 4,69.5%,94,Tree #2,Timbre_Trung_bình > 0.207 AND Energy_Rất_yếu > 0.096 AND Harmony_Cao <= 0.334 AND Harmony_Thấp > 0.332 AND Tempo_Vừa > 0.049
+Continuous (27 mức mờ),Ca trù,Top 5,79.3%,53,Tree #22,Timbre_Rất_thấp > 0.194 AND Energy_Rất_yếu > 0.074 AND Spectral_Trung_bình <= 0.243 AND Harmony_Cao > 0.332 AND Energy_Yếu <= 0.532
+Continuous (27 mức mờ),Chèo,Top 1,90.9%,33,Tree #45,Timbre_Trung_bình > 0.204 AND Energy_Rất_yếu > 0.120 AND Pitch_Trầm <= 0.328 AND Timbre_Rất_cao > 0.117 AND Energy_Yếu <= 0.419
+Continuous (27 mức mờ),Chèo,Top 2,93.0%,29,Tree #8,Timbre_Thấp > 0.209 AND Energy_Mạnh <= 0.029 AND Pitch_Trầm <= 0.270 AND Pitch_Rất_trầm <= 0.105 AND Harmony_Thấp <= 0.333
+Continuous (27 mức mờ),Chèo,Top 3,79.2%,48,Tree #27,Timbre_Cao <= 0.207 AND Energy_Rất_yếu > 0.096 AND Spectral_Trung_bình > 0.183 AND Vibrato_Nhiều_luyến > 0.052 AND Spectral_Trung_bình > 0.304
+Continuous (27 mức mờ),Chèo,Top 4,75.3%,58,Tree #42,Timbre_Trung_bình > 0.205 AND Pitch_Rất_trầm <= 0.297 AND Energy_Rất_mạnh <= 0.465 AND Pitch_Trầm <= 0.263 AND Energy_Vừa <= 0.167
+Continuous (27 mức mờ),Chèo,Top 5,85.2%,35,Tree #44,Timbre_Cao <= 0.208 AND Pitch_Rất_trầm <= 0.297 AND Energy_Rất_yếu > 0.067 AND Pitch_Cao > 0.022 AND Spectral_Cao <= 0.680
+Continuous (27 mức mờ),Chầu văn,Top 1,93.7%,37,Tree #48,Timbre_Thấp <= 0.204 AND Energy_Rất_yếu <= 0.197 AND Energy_Rất_mạnh <= 0.026 AND Pitch_Rất_trầm > 0.613 AND Vibrato_Ít_luyến > 0.898
+Continuous (27 mức mờ),Chầu văn,Top 2,91.2%,40,Tree #7,Timbre_Cao > 0.206 AND Energy_Mạnh > 0.025 AND Pitch_Rất_trầm > 0.748 AND Energy_Vừa > 0.064 AND Timbre_Trung_bình <= 0.175
+Continuous (27 mức mờ),Chầu văn,Top 3,88.2%,42,Tree #12,Timbre_Thấp <= 0.206 AND Vibrato_Ít_luyến > 0.638 AND Spectral_Cao > 0.082 AND Spectral_Trung_bình > 0.336 AND Pitch_Rất_trầm > 0.123
+Continuous (27 mức mờ),Chầu văn,Top 4,73.8%,88,Tree #9,Timbre_Thấp <= 0.205 AND Energy_Rất_yếu <= 0.196 AND Pitch_Trung <= 0.076 AND Spectral_Thấp > 0.016 AND Timbre_Trung_bình <= 0.184
+Continuous (27 mức mờ),Chầu văn,Top 5,72.8%,89,Tree #19,Pitch_Rất_trầm > 0.452 AND Spectral_Thấp <= 0.094 AND Energy_Vừa > 0.052 AND Timbre_Trung_bình <= 0.237 AND Pitch_Cao <= 0.012
+Continuous (27 mức mờ),Cải lương,Top 1,88.2%,52,Tree #0,Timbre_Thấp <= 0.209 AND Pitch_Trầm > 0.462 AND Energy_Rất_mạnh <= 0.021 AND Timbre_Rất_thấp <= 0.193 AND Energy_Rất_yếu > 0.040
+Continuous (27 mức mờ),Cải lương,Top 2,82.0%,67,Tree #35,Timbre_Rất_thấp <= 0.209 AND Energy_Mạnh <= 0.061 AND Vibrato_Ít_luyến <= 0.878 AND Timbre_Rất_thấp <= 0.184 AND Tempo_Vừa <= 0.649
+Continuous (27 mức mờ),Cải lương,Top 3,79.4%,64,Tree #19,Pitch_Rất_trầm <= 0.452 AND Tempo_Vừa <= 0.814 AND Timbre_Rất_cao > 0.173 AND Pitch_Trầm > 0.396 AND Energy_Mạnh <= 0.041
+Continuous (27 mức mờ),Cải lương,Top 4,87.5%,43,Tree #44,Timbre_Cao > 0.208 AND Energy_Rất_mạnh <= 0.015 AND Pitch_Trung > 0.087 AND Tempo_Vừa <= 0.814 AND Pitch_Cao <= 0.037
+Continuous (27 mức mờ),Cải lương,Top 5,94.0%,32,Tree #34,Timbre_Rất_thấp <= 0.194 AND Energy_Mạnh <= 0.086 AND Pitch_Trầm > 0.163 AND Timbre_Rất_cao > 0.288 AND Tempo_Vừa <= 0.963
+Continuous (27 mức mờ),Hát xẩm,Top 1,100.0%,33,Tree #5,Timbre_Trung_bình > 0.209 AND Energy_Mạnh > 0.142 AND Timbre_Cao <= 0.177 AND Energy_Mạnh <= 0.485 AND Energy_Rất_mạnh > 0.336
+Continuous (27 mức mờ),Hát xẩm,Top 2,100.0%,33,Tree #14,Timbre_Thấp > 0.206 AND Energy_Rất_mạnh > 0.351 AND Energy_Mạnh <= 0.308 AND Energy_Vừa > 0.038 AND Pitch_Rất_cao <= 0.005
+Continuous (27 mức mờ),Hát xẩm,Top 3,81.7%,65,Tree #6,Timbre_Trung_bình > 0.207 AND Energy_Rất_yếu <= 0.057 AND Timbre_Rất_cao <= 0.141 AND Timbre_Cao <= 0.178 AND Timbre_Trung_bình <= 0.238
+Continuous (27 mức mờ),Hát xẩm,Top 4,100.0%,29,Tree #32,Timbre_Thấp > 0.208 AND Energy_Rất_yếu <= 0.115 AND Spectral_Thấp > 0.025 AND Energy_Rất_mạnh > 0.433 AND Timbre_Cao <= 0.184
+Continuous (27 mức mờ),Hát xẩm,Top 5,89.7%,43,Tree #49,Timbre_Rất_cao <= 0.170 AND Energy_Rất_yếu <= 0.067 AND Timbre_Cao <= 0.178 AND Timbre_Thấp <= 0.240 AND Pitch_Trung > 0.085
+Continuous (27 mức mờ),Quan họ,Top 1,94.9%,71,Tree #41,Timbre_Rất_cao > 0.170 AND Energy_Mạnh > 0.060 AND Spectral_Thấp <= 0.576 AND Tempo_Vừa > 0.649 AND Pitch_Trung > 0.122
+Continuous (27 mức mờ),Quan họ,Top 2,98.9%,54,Tree #37,Timbre_Thấp <= 0.210 AND Energy_Mạnh > 0.086 AND Pitch_Trung > 0.132 AND Energy_Vừa <= 0.513 AND Tempo_Vừa > 0.814
+Continuous (27 mức mờ),Quan họ,Top 3,97.7%,52,Tree #19,Pitch_Rất_trầm <= 0.452 AND Tempo_Vừa > 0.814 AND Energy_Mạnh > 0.047 AND Timbre_Cao > 0.191 AND Energy_Yếu <= 0.085
+Continuous (27 mức mờ),Quan họ,Top 4,91.1%,67,Tree #33,Pitch_Rất_trầm <= 0.326 AND Timbre_Cao > 0.199 AND Harmony_Thấp > 0.333 AND Tempo_Vừa > 0.649 AND Energy_Rất_mạnh > 0.010
+Continuous (27 mức mờ),Quan họ,Top 5,90.3%,68,Tree #27,Timbre_Cao > 0.207 AND Harmony_Thấp > 0.333 AND Energy_Rất_yếu <= 0.136 AND Spectral_Trung_bình > 0.210 AND Tempo_Vừa > 0.814
