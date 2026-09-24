@@ -1,0 +1,446 @@
+{
+  "Ca trù": {
+    "name": "Ca trù",
+    "axes": {
+      "Energy": {
+        "dominant": "Rất yếu",
+        "score": 0.4253,
+        "all": {
+          "Rất mạnh": 0.036,
+          "Rất yếu": 0.425,
+          "Mạnh": 0.081,
+          "Vừa": 0.297,
+          "Yếu": 0.161
+        }
+      },
+      "Harmony": {
+        "dominant": "Thấp",
+        "score": 0.3334,
+        "all": {
+          "Trung bình": 0.333,
+          "Thấp": 0.333,
+          "Cao": 0.333
+        }
+      },
+      "Pitch": {
+        "dominant": "Trầm",
+        "score": 0.5532,
+        "all": {
+          "Trung": 0.176,
+          "Rất cao": 0.028,
+          "Rất trầm": 0.211,
+          "Trầm": 0.553,
+          "Cao": 0.032
+        }
+      },
+      "Spectral": {
+        "dominant": "Trung bình",
+        "score": 0.4105,
+        "all": {
+          "Thấp": 0.304,
+          "Trung bình": 0.41,
+          "Cao": 0.286
+        }
+      },
+      "Tempo": {
+        "dominant": "Vừa",
+        "score": 0.4617,
+        "all": {
+          "Nhanh": 0.224,
+          "Chậm": 0.314,
+          "Vừa": 0.462
+        }
+      },
+      "Timbre": {
+        "dominant": "Rất thấp",
+        "score": 0.218,
+        "all": {
+          "Rất cao": 0.163,
+          "Rất thấp": 0.218,
+          "Cao": 0.2,
+          "Thấp": 0.218,
+          "Trung bình": 0.201
+        }
+      },
+      "Vibrato": {
+        "dominant": "Vừa",
+        "score": 0.5253,
+        "all": {
+          "Vừa": 0.525,
+          "Nhiều luyến": 0.228,
+          "Ít luyến": 0.247
+        }
+      }
+    }
+  },
+  "Chèo": {
+    "name": "Chèo",
+    "axes": {
+      "Energy": {
+        "dominant": "Vừa",
+        "score": 0.2568,
+        "all": {
+          "Rất mạnh": 0.113,
+          "Rất yếu": 0.221,
+          "Mạnh": 0.202,
+          "Vừa": 0.257,
+          "Yếu": 0.207
+        }
+      },
+      "Harmony": {
+        "dominant": "Cao",
+        "score": 0.3334,
+        "all": {
+          "Trung bình": 0.333,
+          "Thấp": 0.333,
+          "Cao": 0.333
+        }
+      },
+      "Pitch": {
+        "dominant": "Trung",
+        "score": 0.3724,
+        "all": {
+          "Trung": 0.372,
+          "Rất cao": 0.054,
+          "Rất trầm": 0.189,
+          "Trầm": 0.305,
+          "Cao": 0.08
+        }
+      },
+      "Spectral": {
+        "dominant": "Trung bình",
+        "score": 0.6057,
+        "all": {
+          "Thấp": 0.182,
+          "Trung bình": 0.606,
+          "Cao": 0.213
+        }
+      },
+      "Tempo": {
+        "dominant": "Chậm",
+        "score": 0.3905,
+        "all": {
+          "Nhanh": 0.299,
+          "Chậm": 0.39,
+          "Vừa": 0.311
+        }
+      },
+      "Timbre": {
+        "dominant": "Rất thấp",
+        "score": 0.2189,
+        "all": {
+          "Rất cao": 0.157,
+          "Rất thấp": 0.219,
+          "Cao": 0.202,
+          "Thấp": 0.219,
+          "Trung bình": 0.203
+        }
+      },
+      "Vibrato": {
+        "dominant": "Vừa",
+        "score": 0.4188,
+        "all": {
+          "Vừa": 0.419,
+          "Nhiều luyến": 0.287,
+          "Ít luyến": 0.294
+        }
+      }
+    }
+  },
+  "Chầu văn": {
+    "name": "Chầu văn",
+    "axes": {
+      "Energy": {
+        "dominant": "Yếu",
+        "score": 0.4034,
+        "all": {
+          "Rất mạnh": 0.089,
+          "Rất yếu": 0.11,
+          "Mạnh": 0.266,
+          "Vừa": 0.133,
+          "Yếu": 0.403
+        }
+      },
+      "Harmony": {
+        "dominant": "Cao",
+        "score": 0.3335,
+        "all": {
+          "Trung bình": 0.333,
+          "Thấp": 0.333,
+          "Cao": 0.334
+        }
+      },
+      "Pitch": {
+        "dominant": "Rất trầm",
+        "score": 0.5348,
+        "all": {
+          "Trung": 0.107,
+          "Rất cao": 0.095,
+          "Rất trầm": 0.535,
+          "Trầm": 0.181,
+          "Cao": 0.082
+        }
+      },
+      "Spectral": {
+        "dominant": "Trung bình",
+        "score": 0.4436,
+        "all": {
+          "Thấp": 0.153,
+          "Trung bình": 0.444,
+          "Cao": 0.403
+        }
+      },
+      "Tempo": {
+        "dominant": "Vừa",
+        "score": 0.4237,
+        "all": {
+          "Nhanh": 0.332,
+          "Chậm": 0.244,
+          "Vừa": 0.424
+        }
+      },
+      "Timbre": {
+        "dominant": "Rất cao",
+        "score": 0.2228,
+        "all": {
+          "Rất cao": 0.223,
+          "Rất thấp": 0.186,
+          "Cao": 0.203,
+          "Thấp": 0.186,
+          "Trung bình": 0.202
+        }
+      },
+      "Vibrato": {
+        "dominant": "Ít luyến",
+        "score": 0.6626,
+        "all": {
+          "Vừa": 0.26,
+          "Nhiều luyến": 0.077,
+          "Ít luyến": 0.663
+        }
+      }
+    }
+  },
+  "Cải lương": {
+    "name": "Cải lương",
+    "axes": {
+      "Energy": {
+        "dominant": "Yếu",
+        "score": 0.2944,
+        "all": {
+          "Rất mạnh": 0.044,
+          "Rất yếu": 0.231,
+          "Mạnh": 0.138,
+          "Vừa": 0.293,
+          "Yếu": 0.294
+        }
+      },
+      "Harmony": {
+        "dominant": "Cao",
+        "score": 0.3341,
+        "all": {
+          "Trung bình": 0.333,
+          "Thấp": 0.333,
+          "Cao": 0.334
+        }
+      },
+      "Pitch": {
+        "dominant": "Trầm",
+        "score": 0.4407,
+        "all": {
+          "Trung": 0.225,
+          "Rất cao": 0.013,
+          "Rất trầm": 0.268,
+          "Trầm": 0.441,
+          "Cao": 0.054
+        }
+      },
+      "Spectral": {
+        "dominant": "Trung bình",
+        "score": 0.4199,
+        "all": {
+          "Thấp": 0.317,
+          "Trung bình": 0.42,
+          "Cao": 0.263
+        }
+      },
+      "Tempo": {
+        "dominant": "Chậm",
+        "score": 0.3926,
+        "all": {
+          "Nhanh": 0.242,
+          "Chậm": 0.393,
+          "Vừa": 0.365
+        }
+      },
+      "Timbre": {
+        "dominant": "Rất cao",
+        "score": 0.2524,
+        "all": {
+          "Rất cao": 0.252,
+          "Rất thấp": 0.17,
+          "Cao": 0.204,
+          "Thấp": 0.171,
+          "Trung bình": 0.202
+        }
+      },
+      "Vibrato": {
+        "dominant": "Vừa",
+        "score": 0.4826,
+        "all": {
+          "Vừa": 0.483,
+          "Nhiều luyến": 0.113,
+          "Ít luyến": 0.405
+        }
+      }
+    }
+  },
+  "Hát xẩm": {
+    "name": "Hát xẩm",
+    "axes": {
+      "Energy": {
+        "dominant": "Rất mạnh",
+        "score": 0.261,
+        "all": {
+          "Rất mạnh": 0.261,
+          "Rất yếu": 0.13,
+          "Mạnh": 0.183,
+          "Vừa": 0.19,
+          "Yếu": 0.236
+        }
+      },
+      "Harmony": {
+        "dominant": "Thấp",
+        "score": 0.3339,
+        "all": {
+          "Trung bình": 0.333,
+          "Thấp": 0.334,
+          "Cao": 0.333
+        }
+      },
+      "Pitch": {
+        "dominant": "Trầm",
+        "score": 0.4433,
+        "all": {
+          "Trung": 0.251,
+          "Rất cao": 0.006,
+          "Rất trầm": 0.269,
+          "Trầm": 0.443,
+          "Cao": 0.031
+        }
+      },
+      "Spectral": {
+        "dominant": "Trung bình",
+        "score": 0.4744,
+        "all": {
+          "Thấp": 0.298,
+          "Trung bình": 0.474,
+          "Cao": 0.228
+        }
+      },
+      "Tempo": {
+        "dominant": "Nhanh",
+        "score": 0.3535,
+        "all": {
+          "Nhanh": 0.353,
+          "Chậm": 0.308,
+          "Vừa": 0.338
+        }
+      },
+      "Timbre": {
+        "dominant": "Rất thấp",
+        "score": 0.218,
+        "all": {
+          "Rất cao": 0.167,
+          "Rất thấp": 0.218,
+          "Cao": 0.198,
+          "Thấp": 0.217,
+          "Trung bình": 0.199
+        }
+      },
+      "Vibrato": {
+        "dominant": "Vừa",
+        "score": 0.4706,
+        "all": {
+          "Vừa": 0.471,
+          "Nhiều luyến": 0.162,
+          "Ít luyến": 0.367
+        }
+      }
+    }
+  },
+  "Quan họ": {
+    "name": "Quan họ",
+    "axes": {
+      "Energy": {
+        "dominant": "Mạnh",
+        "score": 0.4311,
+        "all": {
+          "Rất mạnh": 0.24,
+          "Rất yếu": 0.046,
+          "Mạnh": 0.431,
+          "Vừa": 0.095,
+          "Yếu": 0.187
+        }
+      },
+      "Harmony": {
+        "dominant": "Thấp",
+        "score": 0.3338,
+        "all": {
+          "Trung bình": 0.333,
+          "Thấp": 0.334,
+          "Cao": 0.333
+        }
+      },
+      "Pitch": {
+        "dominant": "Trung",
+        "score": 0.3432,
+        "all": {
+          "Trung": 0.343,
+          "Rất cao": 0.053,
+          "Rất trầm": 0.226,
+          "Trầm": 0.304,
+          "Cao": 0.074
+        }
+      },
+      "Spectral": {
+        "dominant": "Trung bình",
+        "score": 0.5784,
+        "all": {
+          "Thấp": 0.218,
+          "Trung bình": 0.578,
+          "Cao": 0.203
+        }
+      },
+      "Tempo": {
+        "dominant": "Vừa",
+        "score": 0.7896,
+        "all": {
+          "Nhanh": 0.068,
+          "Chậm": 0.142,
+          "Vừa": 0.79
+        }
+      },
+      "Timbre": {
+        "dominant": "Rất cao",
+        "score": 0.239,
+        "all": {
+          "Rất cao": 0.239,
+          "Rất thấp": 0.176,
+          "Cao": 0.205,
+          "Thấp": 0.177,
+          "Trung bình": 0.204
+        }
+      },
+      "Vibrato": {
+        "dominant": "Ít luyến",
+        "score": 0.452,
+        "all": {
+          "Vừa": 0.435,
+          "Nhiều luyến": 0.112,
+          "Ít luyến": 0.452
+        }
+      }
+    }
+  }
+}
