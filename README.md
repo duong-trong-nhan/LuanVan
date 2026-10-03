@@ -117,13 +117,15 @@ data/
 ├── fcm_results.pkl               # Kết quả huấn luyện ma trận độ thuộc Fuzzy C-Means
 ├── gmm_results.pkl               # Kết quả xác suất hậu nghiệm Gaussian Mixture Model
 │
-<<<<<<< HEAD
 ├── data/
 │   ├── datasets/                      # Các tập dữ liệu đặc trưng và tập holdout
 │   │   ├── features_all.csv           # 3.600 mẫu × 172 cột đặc trưng gốc & metadata
 │   │   ├── features_fuzzy_crisp.csv   # 3.600 mẫu × 11 cột (7 trục nhãn chữ)
 │   │   ├── features_fuzzy_continuous.csv # 3.600 mẫu × 31 cột (27 mức độ mờ liên tục)
 │   │   ├── holdout_samples_for_inference.csv # 18 bài hát độc lập (3 bài/thể loại)
+│   │   ├── holdout_features_all.csv   # 167 đặc trưng âm học của 18 bài holdout
+│   │   ├── holdout_fuzzy_crisp.csv    # Hồ sơ mờ Crisp của 18 bài holdout
+│   │   ├── holdout_fuzzy_continuous.csv # Độ thuộc liên tục [0, 1] của 18 bài holdout
 │   │   └── features_cache.pkl         # Cache nạp nhanh đặc trưng âm thanh
 │   │
 │   ├── models/                        # Mô hình phân cụm và hồ sơ mờ
@@ -139,8 +141,10 @@ data/
 │   │   ├── rules_random_forest_crisp_top.json
 │   │   ├── rules_random_forest_all.json
 │   │   ├── rules_random_forest_aggregated.json
-│   │   ├── rules_random_forest_top.json
-│   │   └── rules_summary.csv          # Bảng tổng kết các luật vàng dạng văn bản dễ đọc
+│   │   ├── rules_summary.csv          # Bảng tổng kết các luật vàng dạng văn bản dễ đọc
+│   │   ├── common_rule_conditions_top5_per_genre.csv # Điểm chung điều kiện (tần số >= 3/5) trong Top 5 luật
+│   │   ├── holdout_top5_rules_summary.csv # Bảng tổng hợp Top 5 luật mờ cho 18 bài holdout
+│   │   └── holdout_top5_rules_explanation.json # Giải thích chi tiết độ khớp và kích hoạt luật
 │   │
 │   └── plots/                         # Toàn bộ biểu đồ và hình ảnh trực quan hóa
 │       ├── 01_genre_distribution.png  # Phân phối file gốc theo thể loại
@@ -155,28 +159,17 @@ data/
 │       ├── 10_decision_tree_continuous_graph.png # Sơ đồ Cây quyết định Continuous
 │       ├── 11_rf_feature_importance.png # Tỷ trọng quan trọng của 27 mức độ mờ
 │       ├── 12_model_performance_comparison.png # So sánh hiệu năng 4 mô hình & Confusion Matrix
+│       ├── 13_holdout_rule_activation_summary.png # Thống kê số lượng luật kích hoạt trên 18 bài holdout
+│       ├── 14_genre_fuzzy_archetypes_common_patterns.png # Heatmap đặc tính cốt lõi (Archetype) & Độ tin cậy
+│       ├── holdout_rules_dashboard.html # Giao diện tra cứu trực quan tương tác Top luật
 │       ├── membership_*.png           # 7 biểu đồ hàm liên thuộc mờ trên 7 trục ngữ nghĩa
 │       └── viz_*.png                  # 6 biểu đồ phân tích âm phổ mẫu tiêu biểu cho 6 thể loại
-=======
-├── 01_genre_distribution.png     # Biểu đồ phân phối số lượng mẫu gốc và cân bằng
-├── 02_violin_comparison.png      # Violin plot so sánh mật độ phân phối đặc trưng giữa 6 thể loại
-├── 03_radar_chart.png            # Biểu đồ mạng nhện "dấu vân tay âm thanh" 8 chiều
-├── 04_pca_tsne.png               # Không gian đặc trưng giảm chiều 2D (PCA & t-SNE)
-├── 05_correlation.png            # Ma trận tương quan Pearson giữa các đặc trưng
-├── 06_optimal_k.png              # Xác định số cụm tối ưu qua Elbow, Silhouette và BIC
-├── 07_clustering_comparison.png  # So sánh 4 thuật toán (K-Means, GMM, FCM, DBSCAN vs Ground Truth)
-├── 08_fuzzy_profile_heatmap.png  # Bản đồ nhiệt hồ sơ mờ tổng hợp của 6 thể loại
-│
-├── membership_*.png              # 7 biểu đồ hàm liên thuộc mờ trên 7 trục ngữ nghĩa
-└── viz_*.png                     # 6 biểu đồ phân tích âm phổ mẫu tiêu biểu cho từng thể loại
->>>>>>> 9bc78630dbc1d6daec0a198e0658b5a8fda16abb
 ```
 
 ---
 
 ## 5. Huấn Luyện Decision Tree, Random Forest & Trích Xuất Hệ Luật Mờ (`02_fuzzy_decision_tree_random_forest.ipynb`)
 
-<<<<<<< HEAD
 Pipeline đã thực hiện huấn luyện đối chứng 4 mô hình trên tập Train/Test (80/20 Stratified, 2.880 train / 720 test) từ 2 bảng dữ liệu mờ (3.600 mẫu cân bằng):
 
 ### Kết quả đối chứng hiệu năng phân loại:
@@ -187,32 +180,18 @@ Pipeline đã thực hiện huấn luyện đối chứng 4 mô hình trên tậ
 
 > **Nhận xét học thuật**: Giữ lại các giá trị mức độ mờ liên tục [0, 1] giúp mô hình Random Forest tăng thêm hơn **8.2%** độ chính xác so với việc ép cứng thành 7 nhãn chữ (đạt 64.17%), đồng thời vẫn bảo toàn 100% tính diễn giải ngôn ngữ tự nhiên thông qua hệ luật IF-THEN.
 
-### Hệ thống file kết quả luật được lưu trong `data/rules/`:
-* `data/rules/rules_decision_tree_crisp.json`: 29 luật từ cây quyết định rời rạc.
-* `data/rules/rules_decision_tree_continuous.json`: 30 luật từ cây quyết định mờ liên tục.
-* `data/rules/rules_random_forest_crisp_aggregated.json`: 1.408 luật tổng hợp từ 50 cây con của Random Forest Crisp.
-* `data/rules/rules_random_forest_aggregated.json`: 718 luật chất lượng cao tổng hợp từ 50 cây con của Random Forest Continuous.
-* `data/rules/rules_random_forest_crisp_top.json` & `rules_random_forest_top.json`: Top 5 luật vàng tiêu biểu cho từng thể loại.
-* `data/rules/rules_summary.csv`: Bảng tổng kết các luật vàng dạng văn bản dễ đọc.
-=======
-Pipeline đã thực hiện huấn luyện đối chứng 4 mô hình trên tập Train/Test (80/20 Stratified) từ 2 bảng dữ liệu mờ:
+---
 
-### Kết quả đối chứng hiệu năng phân loại:
-* **1. Decision Tree (Crisp 7 trục)**: Accuracy = **43.89%** | F1-Score = **43.23%**
-* **2. Random Forest (Crisp 7 trục)**: Accuracy = **50.56%** | F1-Score = **50.37%**
-* **3. Decision Tree (Continuous 27 mức)**: Accuracy = **50.00%** | F1-Score = **48.70%**
-* **4. Random Forest (Continuous 27 mức)**: Accuracy = **58.61%** | F1-Score = **58.44%**
+## 6. Kiểm Nghiệm & Giải Thích Suy Luận Mờ (XAI) Trên 18 Mẫu Hold-out (`03_inference_and_rule_explanation.ipynb`)
 
-> **Nhận xét học thuật**: Giữ lại các giá trị mức độ mờ liên tục [0, 1] giúp mô hình Random Forest tăng thêm hơn **8.0%** độ chính xác so với việc ép cứng thành 7 nhãn chữ, đồng thời vẫn bảo toàn 100% tính diễn giải ngôn ngữ tự nhiên.
-
-### Hệ thống file kết quả luật được tạo:
-* `data/rules_decision_tree_crisp.json`: 28 luật từ cây quyết định rời rạc.
-* `data/rules_decision_tree_continuous.json`: 29 luật từ cây quyết định mờ liên tục.
-* `data/rules_random_forest_all.json`: Toàn bộ 1.391 nhánh rẽ luật từ 50 cây con của Random Forest.
-* `data/rules_random_forest_top.json`: Top 5 luật vàng có độ tin cậy và độ phủ cao nhất cho từng thể loại.
-* `data/rules_summary.csv`: Bảng tổng kết các luật vàng dạng văn bản dễ đọc.
-* `data/09_decision_tree_crisp_graph.png`: Sơ đồ trực quan Cây quyết định Crisp.
-* `data/10_decision_tree_continuous_graph.png`: Sơ đồ trực quan Cây quyết định Mờ Continuous.
-* `data/11_rf_feature_importance.png`: Đồ thị tỷ trọng quan trọng của 27 mức độ mờ.
-* `data/12_model_performance_comparison.png`: Biểu đồ so sánh Accuracy 4 mô hình và Confusion Matrix.
->>>>>>> 9bc78630dbc1d6daec0a198e0658b5a8fda16abb
+Notebook thứ ba thực hiện kiểm nghiệm thực tế và giải thích suy luận trên **18 mẫu bài hát độc lập** (3 bài/thể loại) chưa từng tham gia huấn luyện:
+1. **Trích xuất âm học & Chiếu không gian mờ**: Chiếu đặc trưng 18 bài sang dạng Crisp (7 nhãn chữ) và Continuous (27 độ thuộc [0, 1]).
+2. **Kích hoạt & Xếp hạng Top 5 luật phù hợp nhất**: So khớp từng bài với 1.408 luật Crisp và 718 luật Continuous, lọc ra các luật thỏa mãn điều kiện và xếp hạng theo tiêu chí `(is_correct, score, confidence)`.
+3. **Phân tích điểm chung cốt lõi (Archetype Profile)**:
+   - **Ca trù**: Nhịp *Chậm - Vừa*, Âm vực *Trầm*, Năng lượng *Rất yếu - Yếu*, Âm sắc *Rất thấp*, Hòa âm *Thấp - Trung bình*.
+   - **Chèo**: Hòa âm *Cao*, Âm vực *Trung - Cao*, Luyến láy *Vừa - Nhiều luyến*.
+   - **Chầu văn**: Âm vực *Rất trầm* (tiếng đàn Nguyệt), Luyến láy *Ít luyến* (nhịp dồn dập hầu đồng), Hòa âm *Cao*.
+   - **Cải lương**: Luyến láy *Vừa - Nhiều luyến* (vọng cổ ngân sâu), Âm sắc *Cao - Rất cao*, Hòa âm *Cao*.
+   - **Hát xẩm**: Âm sắc *Rất thấp - Thấp*, Luyến láy *Ít luyến*, Phổ tần *Thấp - Trung bình* (tính tự sự đường phố).
+   - **Quan họ**: Năng lượng *Mạnh - Rất mạnh* (Vang - Rền - Nền - Nảy), Nhịp *Vừa*, Âm sắc *Rất cao*.
+4. **Dashboard tra cứu trực quan**: Tra cứu chi tiết và thân thiện qua [holdout_rules_dashboard.html](data/plots/holdout_rules_dashboard.html) và đồ thị [14_genre_fuzzy_archetypes_common_patterns.png](data/plots/14_genre_fuzzy_archetypes_common_patterns.png).

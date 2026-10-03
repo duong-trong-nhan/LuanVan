@@ -1,0 +1,2234 @@
+[
+  {
+    "sample_idx": 0,
+    "label": "Ca trù",
+    "audio_path": "ca_tru/audio_0_007.wav",
+    "crisp_profile": {
+      "Tempo": "Moderate",
+      "Pitch": "Low",
+      "Energy": "Weak",
+      "Vibrato": "Light Ornament",
+      "Timbre": "Very Low",
+      "Harmony": "Medium",
+      "Spectral": "High"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Tempo IN ['Slow', 'Moderate'] AND Pitch == 'Low' AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Timbre IN ['Very Low', 'Low']",
+        "consequent": "Ca trù",
+        "confidence": 0.5994,
+        "total_support": 211,
+        "tree_frequency": "1/50",
+        "score": 3.211,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Low' AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Timbre == 'Very Low'",
+        "consequent": "Ca trù",
+        "confidence": 0.5652,
+        "total_support": 237,
+        "tree_frequency": "1/50",
+        "score": 3.093,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Vibrato IN ['Light Ornament', 'Moderate'] AND Timbre IN ['Very Low', 'Low'] AND Harmony == 'Medium'",
+        "consequent": "Ca trù",
+        "confidence": 0.8025,
+        "total_support": 45,
+        "tree_frequency": "1/50",
+        "score": 3.072,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Low' AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Timbre IN ['Very Low', 'Low']",
+        "consequent": "Ca trù",
+        "confidence": 0.5278,
+        "total_support": 290,
+        "tree_frequency": "1/50",
+        "score": 2.994,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Timbre IN ['Very Low', 'Low'] AND Harmony == 'Medium'",
+        "consequent": "Ca trù",
+        "confidence": 0.7761,
+        "total_support": 45,
+        "tree_frequency": "1/50",
+        "score": 2.971,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.7497,
+        "total_support": 260,
+        "tree_frequency": "3/50",
+        "score": 7.226,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato == 'Light Ornament' AND Timbre IN ['Very Low', 'Low'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.5515,
+        "total_support": 107,
+        "tree_frequency": "5/50",
+        "score": 5.774,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low'] AND Energy == 'Very Weak' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.7018,
+        "total_support": 149,
+        "tree_frequency": "2/50",
+        "score": 4.973,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low', 'Medium', 'High'] AND Spectral IN ['Medium', 'High']",
+        "consequent": "Ca trù",
+        "confidence": 0.5885,
+        "total_support": 286,
+        "tree_frequency": "2/50",
+        "score": 4.711,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre == 'Very Low' AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.4977,
+        "total_support": 424,
+        "tree_frequency": "2/50",
+        "score": 4.26,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 49,
+      "correct_matched_crisp": 17,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 232
+    }
+  },
+  {
+    "sample_idx": 1,
+    "label": "Ca trù",
+    "audio_path": "ca_tru/audio_37_006.wav",
+    "crisp_profile": {
+      "Tempo": "Moderate",
+      "Pitch": "Medium",
+      "Energy": "Very Weak",
+      "Vibrato": "Moderate",
+      "Timbre": "Very High",
+      "Harmony": "Low",
+      "Spectral": "Low"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato == 'Moderate' AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.7388,
+        "total_support": 79,
+        "tree_frequency": "1/50",
+        "score": 3.237,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy == 'Very Weak' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.4822,
+        "total_support": 86,
+        "tree_frequency": "2/50",
+        "score": 3.045,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low', 'Medium'] AND Energy IN ['Very Weak', 'Weak', 'Moderate', 'Strong'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Harmony IN ['Low', 'Medium'] AND Spectral == 'Low'",
+        "consequent": "Ca trù",
+        "confidence": 0.6222,
+        "total_support": 114,
+        "tree_frequency": "1/50",
+        "score": 2.952,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Slow', 'Moderate'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Harmony IN ['Low', 'Medium'] AND Spectral == 'Low'",
+        "consequent": "Ca trù",
+        "confidence": 0.6357,
+        "total_support": 84,
+        "tree_frequency": "1/50",
+        "score": 2.824,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato IN ['Light Ornament', 'Moderate'] AND Harmony == 'Low' AND Spectral == 'Low'",
+        "consequent": "Ca trù",
+        "confidence": 0.8095,
+        "total_support": 25,
+        "tree_frequency": "1/50",
+        "score": 2.637,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.7497,
+        "total_support": 260,
+        "tree_frequency": "3/50",
+        "score": 7.226,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato == 'Light Ornament' AND Timbre IN ['Very Low', 'Low'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.5515,
+        "total_support": 107,
+        "tree_frequency": "5/50",
+        "score": 5.774,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low'] AND Energy == 'Very Weak' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.7018,
+        "total_support": 149,
+        "tree_frequency": "2/50",
+        "score": 4.973,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low', 'Medium', 'High'] AND Spectral IN ['Medium', 'High']",
+        "consequent": "Ca trù",
+        "confidence": 0.5885,
+        "total_support": 286,
+        "tree_frequency": "2/50",
+        "score": 4.711,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre == 'Very Low' AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.4977,
+        "total_support": 424,
+        "tree_frequency": "2/50",
+        "score": 4.26,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 49,
+      "correct_matched_crisp": 16,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 232
+    }
+  },
+  {
+    "sample_idx": 2,
+    "label": "Ca trù",
+    "audio_path": "ca_tru/audio_29_009.wav",
+    "crisp_profile": {
+      "Tempo": "Slow",
+      "Pitch": "Low",
+      "Energy": "Strong",
+      "Vibrato": "Moderate",
+      "Timbre": "Very Low",
+      "Harmony": "Medium",
+      "Spectral": "Medium"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre == 'Very Low' AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.4977,
+        "total_support": 424,
+        "tree_frequency": "2/50",
+        "score": 4.26,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Vibrato IN ['Light Ornament', 'Moderate'] AND Timbre IN ['Very Low', 'Low'] AND Harmony == 'Medium'",
+        "consequent": "Ca trù",
+        "confidence": 0.8025,
+        "total_support": 45,
+        "tree_frequency": "1/50",
+        "score": 3.072,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Slow', 'Moderate'] AND Pitch == 'Low' AND Energy IN ['Very Weak', 'Weak', 'Moderate', 'Strong'] AND Timbre IN ['Very Low', 'Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.5395,
+        "total_support": 244,
+        "tree_frequency": "1/50",
+        "score": 2.968,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low'] AND Energy IN ['Very Weak', 'Weak', 'Moderate', 'Strong'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.5468,
+        "total_support": 196,
+        "tree_frequency": "1/50",
+        "score": 2.889,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy IN ['Very Weak', 'Weak', 'Moderate', 'Strong'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low'] AND Harmony IN ['Low', 'Medium'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.5271,
+        "total_support": 215,
+        "tree_frequency": "1/50",
+        "score": 2.833,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.7497,
+        "total_support": 260,
+        "tree_frequency": "3/50",
+        "score": 7.226,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato == 'Light Ornament' AND Timbre IN ['Very Low', 'Low'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.5515,
+        "total_support": 107,
+        "tree_frequency": "5/50",
+        "score": 5.774,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low'] AND Energy == 'Very Weak' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.7018,
+        "total_support": 149,
+        "tree_frequency": "2/50",
+        "score": 4.973,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low', 'Medium', 'High'] AND Spectral IN ['Medium', 'High']",
+        "consequent": "Ca trù",
+        "confidence": 0.5885,
+        "total_support": 286,
+        "tree_frequency": "2/50",
+        "score": 4.711,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre == 'Very Low' AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Ca trù",
+        "confidence": 0.4977,
+        "total_support": 424,
+        "tree_frequency": "2/50",
+        "score": 4.26,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 46,
+      "correct_matched_crisp": 12,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 232
+    }
+  },
+  {
+    "sample_idx": 3,
+    "label": "Chèo",
+    "audio_path": "cheo/audio_12_029.wav",
+    "crisp_profile": {
+      "Tempo": "Fast",
+      "Pitch": "Very Low",
+      "Energy": "Very Strong",
+      "Vibrato": "Moderate",
+      "Timbre": "Low",
+      "Harmony": "High",
+      "Spectral": "Medium"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Tempo == 'Fast' AND Timbre IN ['Low', 'Medium'] AND Spectral == 'Medium'",
+        "consequent": "Chèo",
+        "confidence": 0.5333,
+        "total_support": 32,
+        "tree_frequency": "1/50",
+        "score": 1.865,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Timbre IN ['Very Low', 'Low'] AND Harmony == 'High' AND Spectral == 'Medium'",
+        "consequent": "Chèo",
+        "confidence": 0.5278,
+        "total_support": 25,
+        "tree_frequency": "1/50",
+        "score": 1.72,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low', 'Medium'] AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.4216,
+        "total_support": 57,
+        "tree_frequency": "1/50",
+        "score": 1.712,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Vibrato == 'Moderate' AND Harmony == 'High' AND Spectral == 'Medium'",
+        "consequent": "Chèo",
+        "confidence": 0.3167,
+        "total_support": 175,
+        "tree_frequency": "1/50",
+        "score": 1.637,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High'] AND Spectral == 'Medium'",
+        "consequent": "Chèo",
+        "confidence": 0.39,
+        "total_support": 64,
+        "tree_frequency": "1/50",
+        "score": 1.628,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low'] AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.7665,
+        "total_support": 152,
+        "tree_frequency": "2/50",
+        "score": 5.453,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate', 'Strong'] AND Timbre == 'Very Low' AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.685,
+        "total_support": 165,
+        "tree_frequency": "2/50",
+        "score": 4.953,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Timbre == 'Very Low' AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.8087,
+        "total_support": 71,
+        "tree_frequency": "1/50",
+        "score": 3.459,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy == 'Moderate' AND Timbre IN ['Very Low', 'Low'] AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.8313,
+        "total_support": 44,
+        "tree_frequency": "1/50",
+        "score": 3.164,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Timbre == 'Very Low' AND Harmony == 'High' AND Spectral IN ['Medium', 'High']",
+        "consequent": "Chèo",
+        "confidence": 0.7624,
+        "total_support": 61,
+        "tree_frequency": "1/50",
+        "score": 3.147,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 48,
+      "correct_matched_crisp": 10,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 243
+    }
+  },
+  {
+    "sample_idx": 4,
+    "label": "Chèo",
+    "audio_path": "cheo/audio_4_122.wav",
+    "crisp_profile": {
+      "Tempo": "Moderate",
+      "Pitch": "Medium",
+      "Energy": "Very Weak",
+      "Vibrato": "Moderate",
+      "Timbre": "Very High",
+      "Harmony": "High",
+      "Spectral": "High"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Tempo IN ['Slow', 'Moderate'] AND Pitch IN ['Medium', 'High', 'Very High'] AND Energy == 'Very Weak' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.5714,
+        "total_support": 42,
+        "tree_frequency": "1/50",
+        "score": 2.149,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy == 'Very Weak' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.5522,
+        "total_support": 39,
+        "tree_frequency": "1/50",
+        "score": 2.037,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy == 'Very Weak' AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.5062,
+        "total_support": 51,
+        "tree_frequency": "1/50",
+        "score": 2.0,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Slow', 'Moderate'] AND Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Harmony == 'High' AND Spectral IN ['Medium', 'High']",
+        "consequent": "Chèo",
+        "confidence": 0.3936,
+        "total_support": 108,
+        "tree_frequency": "1/50",
+        "score": 1.847,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Slow', 'Moderate'] AND Pitch IN ['Medium', 'High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament']",
+        "consequent": "Chèo",
+        "confidence": 0.2969,
+        "total_support": 199,
+        "tree_frequency": "1/50",
+        "score": 1.573,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low'] AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.7665,
+        "total_support": 152,
+        "tree_frequency": "2/50",
+        "score": 5.453,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate', 'Strong'] AND Timbre == 'Very Low' AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.685,
+        "total_support": 165,
+        "tree_frequency": "2/50",
+        "score": 4.953,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Timbre == 'Very Low' AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.8087,
+        "total_support": 71,
+        "tree_frequency": "1/50",
+        "score": 3.459,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy == 'Moderate' AND Timbre IN ['Very Low', 'Low'] AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.8313,
+        "total_support": 44,
+        "tree_frequency": "1/50",
+        "score": 3.164,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Timbre == 'Very Low' AND Harmony == 'High' AND Spectral IN ['Medium', 'High']",
+        "consequent": "Chèo",
+        "confidence": 0.7624,
+        "total_support": 61,
+        "tree_frequency": "1/50",
+        "score": 3.147,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 50,
+      "correct_matched_crisp": 6,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 243
+    }
+  },
+  {
+    "sample_idx": 5,
+    "label": "Chèo",
+    "audio_path": "cheo/audio_4_108.wav",
+    "crisp_profile": {
+      "Tempo": "Slow",
+      "Pitch": "Low",
+      "Energy": "Weak",
+      "Vibrato": "Heavy Ornament",
+      "Timbre": "Very Low",
+      "Harmony": "High",
+      "Spectral": "Medium"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Vibrato == 'Heavy Ornament' AND Timbre == 'Very Low' AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.7143,
+        "total_support": 48,
+        "tree_frequency": "1/50",
+        "score": 2.78,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Weak', 'Moderate', 'Strong', 'Very Strong'] AND Timbre IN ['Very Low', 'Low', 'Medium'] AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.4739,
+        "total_support": 190,
+        "tree_frequency": "1/50",
+        "score": 2.489,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low', 'Medium'] AND Harmony == 'High' AND Spectral IN ['Medium', 'High']",
+        "consequent": "Chèo",
+        "confidence": 0.4855,
+        "total_support": 159,
+        "tree_frequency": "1/50",
+        "score": 2.464,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Slow' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Timbre IN ['Very Low', 'Low', 'Medium', 'High'] AND Harmony == 'High' AND Spectral IN ['Medium', 'High']",
+        "consequent": "Chèo",
+        "confidence": 0.5398,
+        "total_support": 80,
+        "tree_frequency": "1/50",
+        "score": 2.372,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy IN ['Weak', 'Moderate'] AND Timbre IN ['Very Low', 'Low', 'Medium'] AND Harmony == 'High' AND Spectral IN ['Medium', 'High']",
+        "consequent": "Chèo",
+        "confidence": 0.4923,
+        "total_support": 120,
+        "tree_frequency": "1/50",
+        "score": 2.361,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low'] AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.7665,
+        "total_support": 152,
+        "tree_frequency": "2/50",
+        "score": 5.453,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate', 'Strong'] AND Timbre == 'Very Low' AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.685,
+        "total_support": 165,
+        "tree_frequency": "2/50",
+        "score": 4.953,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Timbre == 'Very Low' AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.8087,
+        "total_support": 71,
+        "tree_frequency": "1/50",
+        "score": 3.459,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy == 'Moderate' AND Timbre IN ['Very Low', 'Low'] AND Harmony == 'High'",
+        "consequent": "Chèo",
+        "confidence": 0.8313,
+        "total_support": 44,
+        "tree_frequency": "1/50",
+        "score": 3.164,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Timbre == 'Very Low' AND Harmony == 'High' AND Spectral IN ['Medium', 'High']",
+        "consequent": "Chèo",
+        "confidence": 0.7624,
+        "total_support": 61,
+        "tree_frequency": "1/50",
+        "score": 3.147,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 48,
+      "correct_matched_crisp": 21,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 243
+    }
+  },
+  {
+    "sample_idx": 6,
+    "label": "Chầu văn",
+    "audio_path": "chau_van/audio_5_077.wav",
+    "crisp_profile": {
+      "Tempo": "Fast",
+      "Pitch": "Very Low",
+      "Energy": "Weak",
+      "Vibrato": "Light Ornament",
+      "Timbre": "Very High",
+      "Harmony": "High",
+      "Spectral": "Low"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Tempo IN ['Moderate', 'Fast'] AND Pitch == 'Very Low' AND Energy IN ['Weak', 'Moderate', 'Strong', 'Very Strong'] AND Vibrato == 'Light Ornament' AND Harmony == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.5857,
+        "total_support": 277,
+        "tree_frequency": "2/50",
+        "score": 4.662,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy IN ['Weak', 'Moderate'] AND Vibrato == 'Light Ornament' AND Timbre IN ['High', 'Very High']",
+        "consequent": "Chầu văn",
+        "confidence": 0.4977,
+        "total_support": 268,
+        "tree_frequency": "2/50",
+        "score": 3.938,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy == 'Weak' AND Timbre IN ['High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.619,
+        "total_support": 88,
+        "tree_frequency": "1/50",
+        "score": 2.778,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato == 'Light Ornament' AND Timbre IN ['Low', 'Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.5339,
+        "total_support": 152,
+        "tree_frequency": "1/50",
+        "score": 2.686,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy IN ['Weak', 'Moderate'] AND Vibrato == 'Light Ornament' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.5,
+        "total_support": 167,
+        "tree_frequency": "1/50",
+        "score": 2.562,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Tempo IN ['Moderate', 'Fast'] AND Pitch == 'Very Low' AND Energy IN ['Weak', 'Moderate', 'Strong', 'Very Strong'] AND Vibrato == 'Light Ornament' AND Harmony == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.5857,
+        "total_support": 277,
+        "tree_frequency": "2/50",
+        "score": 4.662,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy IN ['Weak', 'Moderate'] AND Vibrato == 'Light Ornament' AND Timbre IN ['High', 'Very High']",
+        "consequent": "Chầu văn",
+        "confidence": 0.4977,
+        "total_support": 268,
+        "tree_frequency": "2/50",
+        "score": 3.938,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Energy == 'Strong' AND Vibrato == 'Light Ornament' AND Timbre IN ['Medium', 'High', 'Very High']",
+        "consequent": "Chầu văn",
+        "confidence": 0.6809,
+        "total_support": 55,
+        "tree_frequency": "2/50",
+        "score": 3.876,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Slow' AND Pitch == 'Very Low' AND Harmony == 'Low' AND Spectral IN ['Medium', 'High']",
+        "consequent": "Chầu văn",
+        "confidence": 0.5778,
+        "total_support": 83,
+        "tree_frequency": "2/50",
+        "score": 3.621,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Energy == 'Strong' AND Timbre IN ['High', 'Very High'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Chầu văn",
+        "confidence": 0.5576,
+        "total_support": 73,
+        "tree_frequency": "2/50",
+        "score": 3.394,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 48,
+      "correct_matched_crisp": 41,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 287
+    }
+  },
+  {
+    "sample_idx": 7,
+    "label": "Chầu văn",
+    "audio_path": "chau_van/audio_5_178.wav",
+    "crisp_profile": {
+      "Tempo": "Fast",
+      "Pitch": "Very Low",
+      "Energy": "Strong",
+      "Vibrato": "Light Ornament",
+      "Timbre": "Low",
+      "Harmony": "High",
+      "Spectral": "High"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Tempo IN ['Moderate', 'Fast'] AND Pitch == 'Very Low' AND Energy IN ['Weak', 'Moderate', 'Strong', 'Very Strong'] AND Vibrato == 'Light Ornament' AND Harmony == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.5857,
+        "total_support": 277,
+        "tree_frequency": "2/50",
+        "score": 4.662,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Moderate', 'Fast'] AND Energy IN ['Strong', 'Very Strong'] AND Vibrato IN ['Light Ornament', 'Moderate'] AND Timbre IN ['Very Low', 'Low', 'Medium'] AND Spectral == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.8158,
+        "total_support": 53,
+        "tree_frequency": "1/50",
+        "score": 3.254,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy IN ['Strong', 'Very Strong'] AND Vibrato == 'Light Ornament' AND Timbre IN ['Very Low', 'Low'] AND Spectral == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.9744,
+        "total_support": 24,
+        "tree_frequency": "1/50",
+        "score": 3.136,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy IN ['Weak', 'Moderate', 'Strong'] AND Vibrato == 'Light Ornament' AND Spectral IN ['Medium', 'High']",
+        "consequent": "Chầu văn",
+        "confidence": 0.5596,
+        "total_support": 225,
+        "tree_frequency": "1/50",
+        "score": 3.033,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Moderate', 'Fast'] AND Energy IN ['Strong', 'Very Strong'] AND Vibrato == 'Light Ornament' AND Timbre IN ['Very Low', 'Low', 'Medium'] AND Spectral == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.9355,
+        "total_support": 24,
+        "tree_frequency": "1/50",
+        "score": 3.011,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Tempo IN ['Moderate', 'Fast'] AND Pitch == 'Very Low' AND Energy IN ['Weak', 'Moderate', 'Strong', 'Very Strong'] AND Vibrato == 'Light Ornament' AND Harmony == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.5857,
+        "total_support": 277,
+        "tree_frequency": "2/50",
+        "score": 4.662,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy IN ['Weak', 'Moderate'] AND Vibrato == 'Light Ornament' AND Timbre IN ['High', 'Very High']",
+        "consequent": "Chầu văn",
+        "confidence": 0.4977,
+        "total_support": 268,
+        "tree_frequency": "2/50",
+        "score": 3.938,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Energy == 'Strong' AND Vibrato == 'Light Ornament' AND Timbre IN ['Medium', 'High', 'Very High']",
+        "consequent": "Chầu văn",
+        "confidence": 0.6809,
+        "total_support": 55,
+        "tree_frequency": "2/50",
+        "score": 3.876,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Slow' AND Pitch == 'Very Low' AND Harmony == 'Low' AND Spectral IN ['Medium', 'High']",
+        "consequent": "Chầu văn",
+        "confidence": 0.5778,
+        "total_support": 83,
+        "tree_frequency": "2/50",
+        "score": 3.621,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Energy == 'Strong' AND Timbre IN ['High', 'Very High'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Chầu văn",
+        "confidence": 0.5576,
+        "total_support": 73,
+        "tree_frequency": "2/50",
+        "score": 3.394,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 49,
+      "correct_matched_crisp": 47,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 287
+    }
+  },
+  {
+    "sample_idx": 8,
+    "label": "Chầu văn",
+    "audio_path": "chau_van/audio_5_001.wav",
+    "crisp_profile": {
+      "Tempo": "Slow",
+      "Pitch": "Very Low",
+      "Energy": "Weak",
+      "Vibrato": "Light Ornament",
+      "Timbre": "Very High",
+      "Harmony": "High",
+      "Spectral": "Low"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy IN ['Weak', 'Moderate'] AND Vibrato == 'Light Ornament' AND Timbre IN ['High', 'Very High']",
+        "consequent": "Chầu văn",
+        "confidence": 0.4977,
+        "total_support": 268,
+        "tree_frequency": "2/50",
+        "score": 3.938,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy == 'Weak' AND Timbre IN ['High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.619,
+        "total_support": 88,
+        "tree_frequency": "1/50",
+        "score": 2.778,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato == 'Light Ornament' AND Timbre IN ['Low', 'Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.5339,
+        "total_support": 152,
+        "tree_frequency": "1/50",
+        "score": 2.686,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy IN ['Weak', 'Moderate'] AND Vibrato == 'Light Ornament' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.5,
+        "total_support": 167,
+        "tree_frequency": "1/50",
+        "score": 2.562,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Weak' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.4829,
+        "total_support": 191,
+        "tree_frequency": "1/50",
+        "score": 2.539,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Tempo IN ['Moderate', 'Fast'] AND Pitch == 'Very Low' AND Energy IN ['Weak', 'Moderate', 'Strong', 'Very Strong'] AND Vibrato == 'Light Ornament' AND Harmony == 'High'",
+        "consequent": "Chầu văn",
+        "confidence": 0.5857,
+        "total_support": 277,
+        "tree_frequency": "2/50",
+        "score": 4.662,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy IN ['Weak', 'Moderate'] AND Vibrato == 'Light Ornament' AND Timbre IN ['High', 'Very High']",
+        "consequent": "Chầu văn",
+        "confidence": 0.4977,
+        "total_support": 268,
+        "tree_frequency": "2/50",
+        "score": 3.938,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Energy == 'Strong' AND Vibrato == 'Light Ornament' AND Timbre IN ['Medium', 'High', 'Very High']",
+        "consequent": "Chầu văn",
+        "confidence": 0.6809,
+        "total_support": 55,
+        "tree_frequency": "2/50",
+        "score": 3.876,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Slow' AND Pitch == 'Very Low' AND Harmony == 'Low' AND Spectral IN ['Medium', 'High']",
+        "consequent": "Chầu văn",
+        "confidence": 0.5778,
+        "total_support": 83,
+        "tree_frequency": "2/50",
+        "score": 3.621,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Energy == 'Strong' AND Timbre IN ['High', 'Very High'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Chầu văn",
+        "confidence": 0.5576,
+        "total_support": 73,
+        "tree_frequency": "2/50",
+        "score": 3.394,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 49,
+      "correct_matched_crisp": 29,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 287
+    }
+  },
+  {
+    "sample_idx": 9,
+    "label": "Cải lương",
+    "audio_path": "cailuong/audio_16_008.wav",
+    "crisp_profile": {
+      "Tempo": "Moderate",
+      "Pitch": "Low",
+      "Energy": "Weak",
+      "Vibrato": "Moderate",
+      "Timbre": "Very High",
+      "Harmony": "High",
+      "Spectral": "Low"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Energy IN ['Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['High', 'Very High'] AND Harmony IN ['Medium', 'High']",
+        "consequent": "Cải lương",
+        "confidence": 0.66,
+        "total_support": 133,
+        "tree_frequency": "1/50",
+        "score": 3.233,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low', 'Medium'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['High', 'Very High'] AND Harmony IN ['Medium', 'High']",
+        "consequent": "Cải lương",
+        "confidence": 0.6542,
+        "total_support": 138,
+        "tree_frequency": "1/50",
+        "score": 3.228,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Low' AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Timbre == 'Very High'",
+        "consequent": "Cải lương",
+        "confidence": 0.6634,
+        "total_support": 128,
+        "tree_frequency": "1/50",
+        "score": 3.224,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low'] AND Energy IN ['Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Medium', 'High', 'Very High']",
+        "consequent": "Cải lương",
+        "confidence": 0.6815,
+        "total_support": 98,
+        "tree_frequency": "1/50",
+        "score": 3.132,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Low' AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.6239,
+        "total_support": 148,
+        "tree_frequency": "1/50",
+        "score": 3.122,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy == 'Moderate' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.6719,
+        "total_support": 149,
+        "tree_frequency": "2/50",
+        "score": 4.761,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.7104,
+        "total_support": 71,
+        "tree_frequency": "2/50",
+        "score": 4.296,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy == 'Moderate' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.7375,
+        "total_support": 39,
+        "tree_frequency": "2/50",
+        "score": 3.847,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato == 'Light Ornament' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.565,
+        "total_support": 111,
+        "tree_frequency": "2/50",
+        "score": 3.77,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Moderate' AND Timbre == 'Very High' AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.822,
+        "total_support": 71,
+        "tree_frequency": "1/50",
+        "score": 3.515,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 50,
+      "correct_matched_crisp": 42,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 244
+    }
+  },
+  {
+    "sample_idx": 10,
+    "label": "Cải lương",
+    "audio_path": "cailuong/audio_10_040.wav",
+    "crisp_profile": {
+      "Tempo": "Slow",
+      "Pitch": "Medium",
+      "Energy": "Weak",
+      "Vibrato": "Moderate",
+      "Timbre": "High",
+      "Harmony": "Low",
+      "Spectral": "Low"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Tempo == 'Slow' AND Energy IN ['Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High']",
+        "consequent": "Cải lương",
+        "confidence": 0.6312,
+        "total_support": 95,
+        "tree_frequency": "1/50",
+        "score": 2.881,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Low', 'Medium'] AND Energy IN ['Weak', 'Moderate'] AND Timbre IN ['High', 'Very High']",
+        "consequent": "Cải lương",
+        "confidence": 0.5129,
+        "total_support": 227,
+        "tree_frequency": "1/50",
+        "score": 2.785,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy IN ['Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Cải lương",
+        "confidence": 0.3533,
+        "total_support": 153,
+        "tree_frequency": "2/50",
+        "score": 2.517,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Slow' AND Energy IN ['Weak', 'Moderate'] AND Timbre IN ['Medium', 'High', 'Very High'] AND Spectral == 'Low'",
+        "consequent": "Cải lương",
+        "confidence": 0.6462,
+        "total_support": 40,
+        "tree_frequency": "1/50",
+        "score": 2.4,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Slow' AND Pitch IN ['Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['High', 'Very High']",
+        "consequent": "Cải lương",
+        "confidence": 0.6129,
+        "total_support": 40,
+        "tree_frequency": "1/50",
+        "score": 2.276,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy == 'Moderate' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.6719,
+        "total_support": 149,
+        "tree_frequency": "2/50",
+        "score": 4.761,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.7104,
+        "total_support": 71,
+        "tree_frequency": "2/50",
+        "score": 4.296,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy == 'Moderate' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.7375,
+        "total_support": 39,
+        "tree_frequency": "2/50",
+        "score": 3.847,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato == 'Light Ornament' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.565,
+        "total_support": 111,
+        "tree_frequency": "2/50",
+        "score": 3.77,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Moderate' AND Timbre == 'Very High' AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.822,
+        "total_support": 71,
+        "tree_frequency": "1/50",
+        "score": 3.515,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 48,
+      "correct_matched_crisp": 20,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 244
+    }
+  },
+  {
+    "sample_idx": 11,
+    "label": "Cải lương",
+    "audio_path": "cailuong/audio_10_046.wav",
+    "crisp_profile": {
+      "Tempo": "Slow",
+      "Pitch": "Medium",
+      "Energy": "Moderate",
+      "Vibrato": "Heavy Ornament",
+      "Timbre": "High",
+      "Harmony": "High",
+      "Spectral": "Medium"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy == 'Moderate' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.6719,
+        "total_support": 149,
+        "tree_frequency": "2/50",
+        "score": 4.761,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy IN ['Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['High', 'Very High'] AND Harmony IN ['Medium', 'High']",
+        "consequent": "Cải lương",
+        "confidence": 0.66,
+        "total_support": 133,
+        "tree_frequency": "1/50",
+        "score": 3.233,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low', 'Medium'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['High', 'Very High'] AND Harmony IN ['Medium', 'High']",
+        "consequent": "Cải lương",
+        "confidence": 0.6542,
+        "total_support": 138,
+        "tree_frequency": "1/50",
+        "score": 3.228,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Moderate' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.77,
+        "total_support": 57,
+        "tree_frequency": "1/50",
+        "score": 3.127,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low', 'Medium'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.6282,
+        "total_support": 142,
+        "tree_frequency": "1/50",
+        "score": 3.118,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy == 'Moderate' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.6719,
+        "total_support": 149,
+        "tree_frequency": "2/50",
+        "score": 4.761,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.7104,
+        "total_support": 71,
+        "tree_frequency": "2/50",
+        "score": 4.296,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch == 'Very Low' AND Energy == 'Moderate' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.7375,
+        "total_support": 39,
+        "tree_frequency": "2/50",
+        "score": 3.847,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Very Weak' AND Vibrato == 'Light Ornament' AND Timbre IN ['Medium', 'High', 'Very High'] AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.565,
+        "total_support": 111,
+        "tree_frequency": "2/50",
+        "score": 3.77,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy == 'Moderate' AND Timbre == 'Very High' AND Harmony == 'High'",
+        "consequent": "Cải lương",
+        "confidence": 0.822,
+        "total_support": 71,
+        "tree_frequency": "1/50",
+        "score": 3.515,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 49,
+      "correct_matched_crisp": 30,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 244
+    }
+  },
+  {
+    "sample_idx": 12,
+    "label": "Hát xẩm",
+    "audio_path": "hat_xam/audio_8_007.wav",
+    "crisp_profile": {
+      "Tempo": "Moderate",
+      "Pitch": "Low",
+      "Energy": "Weak",
+      "Vibrato": "Light Ornament",
+      "Timbre": "Very Low",
+      "Harmony": "High",
+      "Spectral": "Medium"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Tempo IN ['Moderate', 'Fast'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato == 'Light Ornament' AND Timbre IN ['Very Low', 'Low', 'Medium', 'High'] AND Spectral IN ['Medium', 'High']",
+        "consequent": "Hát xẩm",
+        "confidence": 0.328,
+        "total_support": 125,
+        "tree_frequency": "1/50",
+        "score": 1.586,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low'] AND Energy IN ['Weak', 'Moderate'] AND Vibrato == 'Light Ornament' AND Timbre == 'Very Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.3426,
+        "total_support": 66,
+        "tree_frequency": "1/50",
+        "score": 1.441,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Moderate', 'Fast'] AND Pitch == 'Low' AND Vibrato == 'Light Ornament' AND Timbre IN ['Very Low', 'Low', 'Medium']",
+        "consequent": "Hát xẩm",
+        "confidence": 0.2818,
+        "total_support": 60,
+        "tree_frequency": "1/50",
+        "score": 1.158,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato == 'Light Ornament' AND Timbre IN ['Very Low', 'Low']",
+        "consequent": "Hát xẩm",
+        "confidence": 0.2737,
+        "total_support": 57,
+        "tree_frequency": "1/50",
+        "score": 1.111,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Slow', 'Moderate'] AND Pitch == 'Low' AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Timbre IN ['Very Low', 'Low']",
+        "consequent": "Ca trù",
+        "confidence": 0.5994,
+        "total_support": 211,
+        "tree_frequency": "1/50",
+        "score": 3.211,
+        "is_correct": false,
+        "status": "WARNING (Misclassified)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Energy == 'Very Strong' AND Timbre IN ['Very Low', 'Low'] AND Spectral == 'Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.8654,
+        "total_support": 88,
+        "tree_frequency": "2/50",
+        "score": 5.493,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Energy == 'Very Strong' AND Timbre IN ['Very Low', 'Low', 'Medium'] AND Spectral == 'Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.9677,
+        "total_support": 31,
+        "tree_frequency": "2/50",
+        "score": 4.743,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy == 'Very Strong' AND Timbre == 'Very Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.745,
+        "total_support": 68,
+        "tree_frequency": "2/50",
+        "score": 4.461,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Slow' AND Energy IN ['Strong', 'Very Strong'] AND Timbre == 'Very Low' AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Hát xẩm",
+        "confidence": 0.6098,
+        "total_support": 125,
+        "tree_frequency": "2/50",
+        "score": 4.171,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy IN ['Strong', 'Very Strong'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low'] AND Spectral == 'Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.6233,
+        "total_support": 98,
+        "tree_frequency": "2/50",
+        "score": 4.051,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 50,
+      "correct_matched_crisp": 4,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 214
+    }
+  },
+  {
+    "sample_idx": 13,
+    "label": "Hát xẩm",
+    "audio_path": "hat_xam/audio_2_107.wav",
+    "crisp_profile": {
+      "Tempo": "Slow",
+      "Pitch": "Low",
+      "Energy": "Very Strong",
+      "Vibrato": "Heavy Ornament",
+      "Timbre": "Very Low",
+      "Harmony": "Low",
+      "Spectral": "Low"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Energy == 'Very Strong' AND Timbre IN ['Very Low', 'Low'] AND Spectral == 'Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.8654,
+        "total_support": 88,
+        "tree_frequency": "2/50",
+        "score": 5.493,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Slow' AND Energy IN ['Strong', 'Very Strong'] AND Timbre == 'Very Low' AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Hát xẩm",
+        "confidence": 0.6098,
+        "total_support": 125,
+        "tree_frequency": "2/50",
+        "score": 4.171,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy IN ['Strong', 'Very Strong'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low'] AND Spectral == 'Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.6233,
+        "total_support": 98,
+        "tree_frequency": "2/50",
+        "score": 4.051,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Slow' AND Energy == 'Very Strong' AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Hát xẩm",
+        "confidence": 0.5477,
+        "total_support": 115,
+        "tree_frequency": "2/50",
+        "score": 3.682,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low'] AND Energy == 'Very Strong' AND Timbre == 'Very Low' AND Harmony == 'Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.869,
+        "total_support": 55,
+        "tree_frequency": "1/50",
+        "score": 3.498,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Energy == 'Very Strong' AND Timbre IN ['Very Low', 'Low'] AND Spectral == 'Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.8654,
+        "total_support": 88,
+        "tree_frequency": "2/50",
+        "score": 5.493,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Energy == 'Very Strong' AND Timbre IN ['Very Low', 'Low', 'Medium'] AND Spectral == 'Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.9677,
+        "total_support": 31,
+        "tree_frequency": "2/50",
+        "score": 4.743,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy == 'Very Strong' AND Timbre == 'Very Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.745,
+        "total_support": 68,
+        "tree_frequency": "2/50",
+        "score": 4.461,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Slow' AND Energy IN ['Strong', 'Very Strong'] AND Timbre == 'Very Low' AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Hát xẩm",
+        "confidence": 0.6098,
+        "total_support": 125,
+        "tree_frequency": "2/50",
+        "score": 4.171,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy IN ['Strong', 'Very Strong'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low'] AND Spectral == 'Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.6233,
+        "total_support": 98,
+        "tree_frequency": "2/50",
+        "score": 4.051,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 45,
+      "correct_matched_crisp": 35,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 214
+    }
+  },
+  {
+    "sample_idx": 14,
+    "label": "Hát xẩm",
+    "audio_path": "hat_xam/audio_3_007.wav",
+    "crisp_profile": {
+      "Tempo": "Fast",
+      "Pitch": "Very Low",
+      "Energy": "Very Weak",
+      "Vibrato": "Light Ornament",
+      "Timbre": "Very Low",
+      "Harmony": "Low",
+      "Spectral": "Medium"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Pitch == 'Very Low' AND Vibrato == 'Light Ornament' AND Timbre IN ['Very Low', 'Low'] AND Harmony IN ['Low', 'Medium'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Hát xẩm",
+        "confidence": 0.6197,
+        "total_support": 41,
+        "tree_frequency": "1/50",
+        "score": 2.316,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Vibrato == 'Light Ornament' AND Timbre == 'Very Low' AND Harmony IN ['Low', 'Medium'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Hát xẩm",
+        "confidence": 0.5217,
+        "total_support": 63,
+        "tree_frequency": "1/50",
+        "score": 2.17,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Pitch == 'Very Low' AND Timbre IN ['Very Low', 'Low'] AND Harmony IN ['Low', 'Medium'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Hát xẩm",
+        "confidence": 0.7391,
+        "total_support": 15,
+        "tree_frequency": "1/50",
+        "score": 2.049,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Very Low', 'Low'] AND Vibrato == 'Light Ornament' AND Timbre IN ['Very Low', 'Low'] AND Harmony IN ['Low', 'Medium'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Hát xẩm",
+        "confidence": 0.4393,
+        "total_support": 70,
+        "tree_frequency": "1/50",
+        "score": 1.873,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Energy IN ['Very Weak', 'Weak', 'Moderate'] AND Vibrato == 'Light Ornament' AND Timbre == 'Very Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.5,
+        "total_support": 28,
+        "tree_frequency": "1/50",
+        "score": 1.684,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Energy == 'Very Strong' AND Timbre IN ['Very Low', 'Low'] AND Spectral == 'Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.8654,
+        "total_support": 88,
+        "tree_frequency": "2/50",
+        "score": 5.493,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Fast' AND Energy == 'Very Strong' AND Timbre IN ['Very Low', 'Low', 'Medium'] AND Spectral == 'Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.9677,
+        "total_support": 31,
+        "tree_frequency": "2/50",
+        "score": 4.743,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Pitch IN ['Medium', 'High', 'Very High'] AND Energy == 'Very Strong' AND Timbre == 'Very Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.745,
+        "total_support": 68,
+        "tree_frequency": "2/50",
+        "score": 4.461,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Slow' AND Energy IN ['Strong', 'Very Strong'] AND Timbre == 'Very Low' AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Hát xẩm",
+        "confidence": 0.6098,
+        "total_support": 125,
+        "tree_frequency": "2/50",
+        "score": 4.171,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Energy IN ['Strong', 'Very Strong'] AND Vibrato IN ['Moderate', 'Heavy Ornament'] AND Timbre IN ['Very Low', 'Low'] AND Spectral == 'Low'",
+        "consequent": "Hát xẩm",
+        "confidence": 0.6233,
+        "total_support": 98,
+        "tree_frequency": "2/50",
+        "score": 4.051,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 46,
+      "correct_matched_crisp": 12,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 214
+    }
+  },
+  {
+    "sample_idx": 15,
+    "label": "Quan họ",
+    "audio_path": "quanho/audio_2_107.wav",
+    "crisp_profile": {
+      "Tempo": "Moderate",
+      "Pitch": "Medium",
+      "Energy": "Strong",
+      "Vibrato": "Moderate",
+      "Timbre": "Very High",
+      "Harmony": "Low",
+      "Spectral": "Low"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.8397,
+        "total_support": 327,
+        "tree_frequency": "2/50",
+        "score": 6.879,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.7183,
+        "total_support": 362,
+        "tree_frequency": "2/50",
+        "score": 5.987,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.8282,
+        "total_support": 169,
+        "tree_frequency": "1/50",
+        "score": 4.253,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.775,
+        "total_support": 179,
+        "tree_frequency": "1/50",
+        "score": 4.025,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Slow', 'Moderate'] AND Energy IN ['Strong', 'Very Strong'] AND Vibrato IN ['Light Ornament', 'Moderate'] AND Timbre IN ['Medium', 'High', 'Very High'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.7484,
+        "total_support": 206,
+        "tree_frequency": "1/50",
+        "score": 3.991,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.8397,
+        "total_support": 327,
+        "tree_frequency": "2/50",
+        "score": 6.879,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.7183,
+        "total_support": 362,
+        "tree_frequency": "2/50",
+        "score": 5.987,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.8282,
+        "total_support": 169,
+        "tree_frequency": "1/50",
+        "score": 4.253,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.775,
+        "total_support": 179,
+        "tree_frequency": "1/50",
+        "score": 4.025,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Slow', 'Moderate'] AND Energy IN ['Strong', 'Very Strong'] AND Vibrato IN ['Light Ornament', 'Moderate'] AND Timbre IN ['Medium', 'High', 'Very High'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.7484,
+        "total_support": 206,
+        "tree_frequency": "1/50",
+        "score": 3.991,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 48,
+      "correct_matched_crisp": 46,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 188
+    }
+  },
+  {
+    "sample_idx": 16,
+    "label": "Quan họ",
+    "audio_path": "quanho/audio_7_013.wav",
+    "crisp_profile": {
+      "Tempo": "Moderate",
+      "Pitch": "Very Low",
+      "Energy": "Strong",
+      "Vibrato": "Light Ornament",
+      "Timbre": "Very High",
+      "Harmony": "Low",
+      "Spectral": "High"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Very Low', 'Low'] AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['Medium', 'High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.6954,
+        "total_support": 119,
+        "tree_frequency": "1/50",
+        "score": 3.329,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Energy IN ['Strong', 'Very Strong'] AND Vibrato == 'Light Ornament' AND Timbre IN ['Medium', 'High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.6805,
+        "total_support": 95,
+        "tree_frequency": "1/50",
+        "score": 3.106,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Slow', 'Moderate'] AND Energy == 'Strong' AND Vibrato == 'Light Ornament' AND Timbre IN ['Medium', 'High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.516,
+        "total_support": 125,
+        "tree_frequency": "1/50",
+        "score": 2.496,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch == 'Very Low' AND Energy IN ['Strong', 'Very Strong'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.6279,
+        "total_support": 47,
+        "tree_frequency": "1/50",
+        "score": 2.431,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch == 'Very Low' AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.5882,
+        "total_support": 61,
+        "tree_frequency": "1/50",
+        "score": 2.428,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.8397,
+        "total_support": 327,
+        "tree_frequency": "2/50",
+        "score": 6.879,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.7183,
+        "total_support": 362,
+        "tree_frequency": "2/50",
+        "score": 5.987,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.8282,
+        "total_support": 169,
+        "tree_frequency": "1/50",
+        "score": 4.253,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.775,
+        "total_support": 179,
+        "tree_frequency": "1/50",
+        "score": 4.025,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Slow', 'Moderate'] AND Energy IN ['Strong', 'Very Strong'] AND Vibrato IN ['Light Ornament', 'Moderate'] AND Timbre IN ['Medium', 'High', 'Very High'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.7484,
+        "total_support": 206,
+        "tree_frequency": "1/50",
+        "score": 3.991,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 50,
+      "correct_matched_crisp": 17,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 188
+    }
+  },
+  {
+    "sample_idx": 17,
+    "label": "Quan họ",
+    "audio_path": "quanho/audio_2_113.wav",
+    "crisp_profile": {
+      "Tempo": "Moderate",
+      "Pitch": "Low",
+      "Energy": "Very Strong",
+      "Vibrato": "Moderate",
+      "Timbre": "Very High",
+      "Harmony": "Low",
+      "Spectral": "Medium"
+    },
+    "top5_crisp_rules": [
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.8397,
+        "total_support": 327,
+        "tree_frequency": "2/50",
+        "score": 6.879,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.7183,
+        "total_support": 362,
+        "tree_frequency": "2/50",
+        "score": 5.987,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.8282,
+        "total_support": 169,
+        "tree_frequency": "1/50",
+        "score": 4.253,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.775,
+        "total_support": 179,
+        "tree_frequency": "1/50",
+        "score": 4.025,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Slow', 'Moderate'] AND Energy IN ['Strong', 'Very Strong'] AND Vibrato IN ['Light Ornament', 'Moderate'] AND Timbre IN ['Medium', 'High', 'Very High'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.7484,
+        "total_support": 206,
+        "tree_frequency": "1/50",
+        "score": 3.991,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "top5_continuous_rules": [
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.8397,
+        "total_support": 327,
+        "tree_frequency": "2/50",
+        "score": 6.879,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Harmony IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.7183,
+        "total_support": 362,
+        "tree_frequency": "2/50",
+        "score": 5.987,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Pitch IN ['Low', 'Medium', 'High', 'Very High'] AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High']",
+        "consequent": "Quan họ",
+        "confidence": 0.8282,
+        "total_support": 169,
+        "tree_frequency": "1/50",
+        "score": 4.253,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo == 'Moderate' AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['Low', 'Medium', 'High', 'Very High'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.775,
+        "total_support": 179,
+        "tree_frequency": "1/50",
+        "score": 4.025,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      },
+      {
+        "rule_text": "Tempo IN ['Slow', 'Moderate'] AND Energy IN ['Strong', 'Very Strong'] AND Vibrato IN ['Light Ornament', 'Moderate'] AND Timbre IN ['Medium', 'High', 'Very High'] AND Spectral IN ['Low', 'Medium']",
+        "consequent": "Quan họ",
+        "confidence": 0.7484,
+        "total_support": 206,
+        "tree_frequency": "1/50",
+        "score": 3.991,
+        "is_correct": true,
+        "status": "VALID (Correct Prediction)"
+      }
+    ],
+    "stats": {
+      "total_matched_crisp": 48,
+      "correct_matched_crisp": 43,
+      "total_matched_cont": 1408,
+      "correct_matched_cont": 188
+    }
+  }
+]

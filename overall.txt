@@ -1,0 +1,159 @@
+========================================================================================
+AI SLIDE GENERATION PROMPT: CONCISE ACADEMIC SPECIFICATION
+Project: HerittageFNS — Interpretable Fuzzy Neuro-Symbolic Audio Classification 
+Target Audience: Academic Professor & Thesis Committee
+Presentation Style: Concise, direct, high information density, publication-grade
+Structure: Exactly 8 Focused Slides following the User Workflow
+========================================================================================
+
+SYSTEM INSTRUCTION FOR AI SLIDE BUILDER:
+Build a streamlined, high-impact 8-slide presentation strictly following the 8 workflow steps below. Avoid introductory fluff, lengthy prose, or generic filler. Use concise bullet points, quantitative numbers, explicit feature listings, mathematical rigor, and direct plot references.
+
+Design Rules:
+- Language: English (keep Vietnamese traditional genre names as proper nouns: Ca trù, Chèo, Chầu văn, Cải lương, Hát xẩm, Quan họ).
+- Theme: Clean academic dark-slate or modern white, high contrast, sharp typography, generous whitespace.
+- Notation: Plain text and Unicode symbols only (ABSOLUTELY NO LaTeX syntax or dollar signs).
+- Visuals: Use only the designated plots for each slide.
+
+========================================================================================
+SLIDE 1: DATA ACQUISITION & PREPROCESSING FROM HUGGING FACE
+========================================================================================
+Title: Dataset Acquisition & Standardized Audio Preprocessing
+Data Pipeline:
+• Source: Curated Vietnamese traditional audio corpus sourced from Hugging Face Hub.
+• Scope: 6 UNESCO-recognized and traditional genres (Ca trù, Chèo, Chầu văn, Cải lương, Hát xẩm, Quan họ).
+• Scale: 1,800 raw high-fidelity recordings (300 recordings per genre).
+• Standardized Slicing: Two representative 12-second non-overlapping segments per song -> 3,600 balanced audio samples (600 samples per genre).
+• Signal Standardization: Resampled to 22,050 Hz, single-channel mono, 16-bit PCM WAV.
+[Illustration: ./data/plots/01_genre_distribution.png]
+Image Description: Balanced distribution chart demonstrating 3,600 standardized audio segments across the 6 traditional music genres.
+
+========================================================================================
+SLIDE 2: ACOUSTIC EXTRACTION: 167 PHYSICAL VS. 30 SEMANTIC FEATURES
+========================================================================================
+Title: Acoustic Feature Extraction & Dimensionality Reduction
+Signal Processing with Librosa:
+• Extracted 167 physical audio features spanning 9 signal domains:
+  - F0 / Pitch (5), Rhythm & Tempo (3), Vibrato (2), RMS Energy (4), MFCC & Deltas (106), Chroma (25), Spectral & ZCR (15), Tonnetz (6), Mel Energy (2).
+  - Plus 5 tracking metadata columns (sample_idx, label, audio_path, segment_id, segment_time) = 172 DataFrame columns.
+Dimensionality Reduction (Mitigating the Curse of Dimensionality):
+• The Problem: Generating fuzzy logic rules over 167 continuous dimensions causes exponential combinatorial explosion and destroys model interpretability.
+• The Solution: Filtered down to exactly 30 core features for semantic modeling.
+• Empirical Justification: The 30 semantic features retain sufficient acoustic variance to achieve classification performance comparable to black-box models trained on all 167 raw features, while preserving 100% human interpretability.
+[Illustration: ./data/plots/05_correlation.png]
+Image Description: Correlation heatmap demonstrating high collinearity among raw feature blocks and validating the reduction from 167 down to 30 core features.
+
+========================================================================================
+SLIDE 3: 7 SEMANTIC AXES & MUSICOLOGICAL FEATURE MAPPING
+========================================================================================
+Title: 7-Axis Semantic Grouping Grounded in Scientific Literature
+Axis Construction & Fuzzy Granularity:
+• Based on domain literature and ethnomusicology, the 30 features are grouped into 7 perceptual axes:
+1. Energy (Năng lượng) [5 Fuzzy Levels: Very Weak, Weak, Moderate, Strong, Very Strong]:
+   • Features (2): energy_mean, dynamic_range
+2. Harmony (Hòa âm) [3 Fuzzy Levels: Low, Medium, High]:
+   • Features (7): chroma_C_mean, chroma_D_mean, chroma_E_mean, chroma_F_mean, chroma_G_mean, chroma_A_mean, chroma_B_mean
+3. Pitch (Cao độ) [5 Fuzzy Levels: Very Low, Low, Medium, High, Very High]:
+   • Features (2): pitch_mean, pitch_range
+4. Spectral (Độ sáng phổ) [3 Fuzzy Levels: Low, Medium, High]:
+   • Features (3): spectral_centroid_mean, spectral_bandwidth_mean, spectral_rolloff_mean
+5. Tempo (Nhịp độ) [3 Fuzzy Levels: Slow, Moderate, Fast]:
+   • Features (1): tempo
+6. Timbre (Âm sắc) [5 Fuzzy Levels: Very Low, Low, Medium, High, Very High]:
+   • Features (13): mfcc_01_mean through mfcc_13_mean
+7. Vibrato (Luyến láy) [3 Fuzzy Levels: Light Ornament, Moderate, Heavy Ornament]:
+   • Features (2): vibrato_extent, vibrato_energy
+Total: Exactly 30 features structured into 27 linguistic fuzzy sets.
+[Illustration: ./data/plots/03_radar_chart.png]
+Image Description: Multi-axis radar charts displaying the 7-dimensional acoustic profile of each Vietnamese traditional genre.
+
+========================================================================================
+SLIDE 4: FUZZY C-MEANS & 4 CRITERIA FOR REPRESENTATIVE X-AXIS SELECTION
+========================================================================================
+Title: Fuzzy C-Means Modeling & 4 Criteria for Representative Features
+Fuzzy Clustering:
+• Applied Fuzzy C-Means (FCM, fuzziness parameter m = 2.0) across each semantic axis to establish data-driven membership functions satisfying Ruspini partition of unity (Sum of mu_i = 1.0).
+The 4 Selection Criteria for the Representative X-Axis Feature:
+1. Direct Semantic Definition: The feature must directly define the physical and perceptual quantity of the axis (e.g., tempo for Tempo, pitch_mean for Pitch, energy_mean for Energy).
+2. Monotonic Mean Progression: The representative feature MUST exhibit strictly increasing mean values across successive fuzzy levels (Level 1 < Level 2 < ... < Level k) to guarantee ordinal consistency.
+3. Highest Variance Separation Ratio: The feature must achieve the highest between-cluster to within-cluster variance ratio (ANOVA F-statistic / Fisher criterion) among candidate features in that group.
+4. Academic Extension for Multi-Dimensional Axes: For high-dimensional axes without a single scalar definition:
+   • Timbre (13 MFCCs): mfcc_01_mean is selected as it captures the primary spectral envelope and dominant acoustic power.
+   • Harmony (7 Chromas): Mean pitch-class energy is used to represent modal harmonic fullness.
+[Illustration: ./data/plots/fuzzy_logic_graphs_all_axes.png]
+Image Description: Comprehensive 7-axis fuzzy membership function graphs showing Ruspini partitions, peaks (mu = 1.0), feet (mu = 0.0), and alpha = 0.5 crossover points.
+
+========================================================================================
+SLIDE 5: GENERATION OF NEW CRISP & CONTINUOUS FUZZY DATASETS
+========================================================================================
+Title: Generating Dual Fuzzy Datasets from Membership Logic
+Transformation Engine:
+• The continuous acoustic samples are mapped into two distinct, structured fuzzy datasets:
+1. Crisp Linguistic Dataset (features_fuzzy_crisp.csv):
+   • 7 categorical attributes mapping each sample to its maximum membership set:
+     x -> argmax_i mu_i(x) (e.g., Tempo = 'Moderate', Energy = 'Very Weak', Timbre = 'Low').
+   • Shape: 3,600 samples x 9 columns (7 linguistic axes + sample_idx + label).
+2. Continuous Fuzzy Membership Dataset (features_fuzzy_continuous.csv):
+   • 27 continuous attributes in range [0, 1] preserving exact membership degrees across all fuzzy sets:
+     [mu_Tempo_Slow, mu_Tempo_Mod, mu_Tempo_Fast, ..., mu_Spectral_High].
+   • Shape: 3,600 samples x 29 columns (27 fuzzy membership degrees + sample_idx + label).
+Key Takeaway: Eliminates artificial hard boundary splits and preserves micro-variation gradient information.
+[Illustration: ./data/plots/08_fuzzy_profile_heatmap.png]
+Image Description: Heatmap showing dominant fuzzy membership values across the 7 axes for all 6 traditional music genres.
+
+========================================================================================
+SLIDE 6: WHITE-BOX MODEL TRAINING & BENCHMARKING (DT & RF)
+========================================================================================
+Title: White-Box Model Induction & Performance Benchmarking
+Model Architectures (Trained on the New Fuzzy Datasets):
+• Decision Tree & Random Forest (50 trees) with complexity control (max_depth = 5, min_samples_leaf = 10) to guarantee transparent, shallow decision branches.
+Quantitative Evaluation (80/20 Stratified Split, 720 Test Samples):
+• Decision Tree (Crisp 7 Axes):       Accuracy = 51.25% | Macro F1 = 50.58%
+• Random Forest (Crisp 7 Axes):       Accuracy = 55.97% | Macro F1 = 55.04%
+• Decision Tree (Continuous 27 MFs):  Accuracy = 56.53% | Macro F1 = 56.06%
+• Random Forest (Continuous 27 MFs):  Accuracy = 64.17% | Macro F1 = 63.71%
+Core Takeaways:
+• Continuous fuzzy degrees improve Random Forest accuracy by +8.20% over crisp categorical labels.
+• Random Forest ensemble improves accuracy by +7.64% over single Decision Tree.
+• High class precision (> 80%) on Ca trù, Quan họ, and Cải lương.
+[Illustration: ./data/plots/12_model_performance_comparison.png]
+Image Description: Model performance comparison bar chart and confusion matrix for Continuous Fuzzy Random Forest.
+
+========================================================================================
+SLIDE 7: AUTOMATED SYMBOLIC RULE EXTRACTION FROM DT & RF
+========================================================================================
+Title: Automated Symbolic IF-THEN Rule Extraction
+Extraction Methodology:
+• Traversed all 50 constituent decision trees in the Random Forest ensemble.
+• Converted all decision pathways from root to leaf into Disjunctive Normal Form (DNF) IF-THEN rules:
+  IF (Condition 1) AND (Condition 2) ... AND (Condition k) THEN -> Genre [Confidence, Support, Frequency]
+Pruning & Statistical Significance Thresholds:
+• Minimum Confidence >= 50.0% (rule precision on training set).
+• Minimum Support >= 10 samples (statistical validity).
+• Tree Voting Frequency: Number of trees independently activating the identical rule (e.g., 3/50, 4/50 trees).
+Selected Discovered Golden Rules:
+• Ca trù: IF Energy == 'Very Weak' AND Vibrato IN ['Moderate', 'Heavy'] AND Timbre IN ['Very Low', 'Low'] THEN -> Ca trù (Conf: 75.0%, Supp: 260)
+• Quan họ: IF Tempo == 'Moderate' AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['High', 'Very High'] THEN -> Quan họ (Conf: 84.0%, Supp: 327)
+• Cải lương: IF Vibrato == 'Heavy Ornament' AND Timbre IN ['High', 'Very High'] AND Harmony == 'High' THEN -> Cải lương (Conf: 78.4%, Supp: 218)
+[Illustration: ./data/plots/09_decision_tree_crisp_graph.png]
+Image Description: High-contrast visualization of the Crisp Decision Tree, displaying root splits on Timbre and Energy and explicit path-to-rule branches.
+
+========================================================================================
+SLIDE 8: HOLDOUT VALIDATION, TOP-5 MATCHING & COMMON PATTERN DISCOVERY
+========================================================================================
+Title: Holdout Validation on 18 Unseen Samples & Common Pattern Discovery
+Experimental Protocol:
+• Reserved 18 completely independent unseen recordings (3 separate songs per genre * 6 genres).
+• Extracted 30 features -> computed fuzzy membership -> evaluated against the extracted DT and RF rule sets.
+• Retrieved the Top 5 best matching rules per sample ranked by firing strength and confidence.
+Statistical Aggregation & Invariant Common Archetypes (from common_rule_conditions_top5_per_genre.csv):
+• Ca trù (3/3 samples): 100% agreement on [Energy == 'Very Weak'] AND [Timbre IN ('Very Low', 'Low')] (Chamber quietude).
+• Quan họ (3/3 samples): 100% agreement on [Energy IN ('Strong', 'Very Strong')] AND [Timbre IN ('High', 'Very High')] (Acoustic proof of Vang - Ren - Nen - Nay).
+• Cải lương (3/3 samples): 100% agreement on [Vibrato == 'Heavy Ornament'] AND [Harmony == 'High'] (Vong Co sobbing vibrato + multi-instrumental backing).
+• Chầu văn (3/3 samples): 100% agreement on [Pitch == 'Very Low'] AND [Harmony == 'High'] (Dan Nguyet bass fundamental).
+Conclusion:
+• Verifies that the model learns invariant ethnomusicological archetypes rather than sample-specific noise.
+[Illustration: ./data/plots/14_genre_fuzzy_archetypes_common_patterns.png]
+Image Description: Synthesized Acoustic Archetype heatmap from common_rule_conditions_top5_per_genre.csv and rule activation distribution across hold-out samples.
+========================================================================================
+END OF PRESENTATION SPECIFICATION

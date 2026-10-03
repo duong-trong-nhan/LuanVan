@@ -1,0 +1,18 @@
+genre,axis,condition,frequency,percentage
+Ca trù,Energy,Energy == 'Very Weak',4/5,80%
+Ca trù,Vibrato,"Vibrato IN ['Moderate', 'Heavy Ornament']",4/5,80%
+Ca trù,Harmony,"Harmony IN ['Low', 'Medium']",4/5,80%
+Chèo,Pitch,"Pitch IN ['Medium', 'High', 'Very High']",5/5,100%
+Chèo,Harmony,Harmony == 'High',5/5,100%
+Chèo,Energy,"Energy IN ['Very Weak', 'Weak', 'Moderate']",3/5,60%
+Chèo,Timbre,Timbre == 'Very Low',3/5,60%
+Chầu văn,Pitch,Pitch == 'Very Low',3/5,60%
+Chầu văn,Vibrato,Vibrato == 'Light Ornament',3/5,60%
+Cải lương,Harmony,Harmony == 'High',5/5,100%
+Cải lương,Energy,Energy == 'Moderate',3/5,60%
+Cải lương,Timbre,"Timbre IN ['Medium', 'High', 'Very High']",3/5,60%
+Hát xẩm,Energy,Energy == 'Very Strong',3/5,60%
+Hát xẩm,Spectral,Spectral == 'Low',3/5,60%
+Quan họ,Energy,"Energy IN ['Strong', 'Very Strong']",5/5,100%
+Quan họ,Tempo,Tempo == 'Moderate',4/5,80%
+Quan họ,Pitch,"Pitch IN ['Low', 'Medium', 'High', 'Very High']",3/5,60%
