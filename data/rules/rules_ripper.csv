@@ -1,0 +1,109 @@
+rule_text,consequent,confidence,support,antecedents_count
+Energy == 'Very Weak' AND Pitch == 'Low' AND Timbre == 'Very Low' AND Harmony == 'Low' AND Spectral == 'Medium',Ca trù,0.878,41,5
+Energy == 'Very Weak' AND Spectral == 'High' AND Vibrato == 'Heavy Ornament' AND Harmony == 'Low' AND Tempo == 'Fast',Ca trù,1.0,6,5
+Energy == 'Very Weak' AND Spectral == 'High' AND Pitch == 'Low' AND Vibrato == 'Moderate' AND Tempo == 'Moderate' AND Timbre == 'Very Low',Ca trù,0.7778,9,6
+Energy == 'Very Weak' AND Pitch == 'Low' AND Harmony == 'Medium' AND Tempo == 'Moderate',Ca trù,0.9333,15,4
+Energy == 'Very Weak' AND Harmony == 'Low' AND Spectral == 'Low' AND Vibrato == 'Moderate' AND Timbre == 'Very High',Ca trù,1.0,12,5
+Energy == 'Very Weak' AND Harmony == 'Low' AND Spectral == 'Low',Ca trù,0.7551,49,3
+Energy == 'Very Weak' AND Spectral == 'High' AND Vibrato == 'Heavy Ornament',Ca trù,0.7941,34,3
+Pitch == 'Low' AND Energy == 'Moderate' AND Timbre == 'Very Low' AND Spectral == 'Low' AND Harmony == 'Low' AND Vibrato == 'Moderate' AND Tempo == 'Fast',Ca trù,1.0,6,7
+Pitch == 'Low' AND Energy == 'Moderate' AND Timbre == 'Very Low' AND Spectral == 'Low' AND Harmony == 'Low',Ca trù,0.9024,41,5
+Energy == 'Very Weak' AND Pitch == 'Low' AND Spectral == 'High' AND Timbre == 'High',Ca trù,1.0,5,4
+Energy == 'Very Weak' AND Pitch == 'Low' AND Spectral == 'High' AND Timbre == 'Low',Ca trù,1.0,8,4
+Energy == 'Very Weak' AND Pitch == 'Low' AND Timbre == 'Low',Ca trù,0.913,23,3
+Energy == 'Very Weak' AND Pitch == 'Low' AND Timbre == 'Very Low' AND Vibrato == 'Heavy Ornament',Ca trù,0.8148,27,4
+Energy == 'Very Weak' AND Spectral == 'High' AND Timbre == 'Very Low' AND Pitch == 'Very Low',Ca trù,0.6364,11,4
+Timbre == 'Very Low' AND Energy == 'Moderate' AND Spectral == 'Low' AND Harmony == 'Medium' AND Tempo == 'Slow',Ca trù,0.8571,7,5
+Energy == 'Very Weak' AND Spectral == 'High' AND Tempo == 'Slow' AND Timbre == 'Very Low',Ca trù,0.6957,23,4
+Energy == 'Moderate' AND Timbre == 'Very Low' AND Pitch == 'Low' AND Tempo == 'Moderate' AND Vibrato == 'Moderate',Ca trù,0.7674,43,5
+Energy == 'Very Weak' AND Spectral == 'High' AND Vibrato == 'Moderate' AND Pitch == 'Low',Ca trù,0.7,40,4
+Timbre == 'Very Low' AND Energy == 'Moderate' AND Spectral == 'Low' AND Harmony == 'Low' AND Vibrato == 'Moderate',Ca trù,0.8919,37,5
+Energy == 'Very Weak' AND Timbre == 'Low' AND Harmony == 'Medium',Ca trù,1.0,8,3
+Timbre == 'Very Low' AND Harmony == 'High' AND Spectral == 'Medium' AND Pitch == 'Medium' AND Energy == 'Very Weak',Chèo,0.8824,17,5
+Pitch == 'Medium' AND Timbre == 'Very Low' AND Energy == 'Moderate' AND Spectral == 'Medium' AND Harmony == 'High',Chèo,0.8276,29,5
+Spectral == 'Medium' AND Vibrato == 'Heavy Ornament' AND Timbre == 'Medium' AND Tempo == 'Fast',Chèo,1.0,6,4
+Timbre == 'Very Low' AND Harmony == 'High' AND Spectral == 'Medium' AND Energy == 'Very Weak' AND Pitch == 'Very Low',Chèo,0.7647,17,5
+Pitch == 'Medium' AND Tempo == 'Slow' AND Timbre == 'High' AND Vibrato == 'Heavy Ornament',Chèo,0.8333,6,4
+Timbre == 'Very Low' AND Harmony == 'High' AND Energy == 'Moderate' AND Tempo == 'Fast',Chèo,0.6364,33,4
+Pitch == 'Medium' AND Timbre == 'Very Low' AND Spectral == 'Medium' AND Energy == 'Moderate',Chèo,0.7222,54,4
+Vibrato == 'Heavy Ornament' AND Spectral == 'Medium' AND Pitch == 'Medium' AND Energy == 'Strong' AND Harmony == 'Low' AND Tempo == 'Slow',Chèo,1.0,8,6
+Pitch == 'Medium' AND Vibrato == 'Heavy Ornament' AND Harmony == 'High' AND Energy == 'Very Weak' AND Spectral == 'Low',Chèo,1.0,5,5
+Pitch == 'Medium' AND Tempo == 'Fast' AND Spectral == 'Medium' AND Timbre == 'High',Chèo,0.75,12,4
+Timbre == 'Very Low' AND Harmony == 'High' AND Spectral == 'Medium' AND Vibrato == 'Heavy Ornament' AND Tempo == 'Fast',Chèo,0.8,10,5
+Pitch == 'Medium' AND Vibrato == 'Heavy Ornament' AND Spectral == 'Medium' AND Timbre == 'Medium',Chèo,0.9,10,4
+Timbre == 'Very Low' AND Harmony == 'High' AND Spectral == 'Medium' AND Tempo == 'Slow' AND Energy == 'Very Weak',Chèo,0.8095,21,5
+Timbre == 'Very Low' AND Harmony == 'High' AND Spectral == 'Medium' AND Energy == 'Moderate' AND Vibrato == 'Heavy Ornament',Chèo,0.8462,26,5
+Tempo == 'Slow' AND Spectral == 'Medium' AND Energy == 'Very Strong' AND Timbre == 'High',Chèo,0.875,8,4
+Timbre == 'Very Low' AND Pitch == 'High' AND Harmony == 'High' AND Energy == 'Very Weak',Chèo,1.0,5,4
+Timbre == 'Very Low' AND Spectral == 'Medium' AND Pitch == 'Medium' AND Energy == 'Weak' AND Vibrato == 'Moderate',Chèo,1.0,6,5
+Pitch == 'Very Low' AND Energy == 'Weak' AND Harmony == 'High' AND Spectral == 'Medium' AND Timbre == 'Very High' AND Tempo == 'Slow',Chầu văn,1.0,5,6
+Pitch == 'Very Low' AND Energy == 'Weak' AND Spectral == 'Medium' AND Harmony == 'High',Chầu văn,0.746,63,4
+Pitch == 'Very Low' AND Spectral == 'High' AND Energy == 'Strong' AND Tempo == 'Moderate' AND Timbre == 'Very High' AND Harmony == 'Low',Chầu văn,1.0,6,6
+Pitch == 'Very Low' AND Spectral == 'High' AND Energy == 'Strong' AND Tempo == 'Fast' AND Harmony == 'High' AND Timbre == 'Very Low',Chầu văn,1.0,12,6
+Pitch == 'Very Low' AND Energy == 'Weak' AND Harmony == 'High' AND Tempo == 'Moderate' AND Spectral == 'Low' AND Timbre == 'Very High',Chầu văn,0.625,24,6
+Pitch == 'Very Low' AND Spectral == 'High' AND Energy == 'Strong' AND Tempo == 'Moderate',Chầu văn,0.8462,26,4
+Vibrato == 'Light Ornament' AND Energy == 'Weak' AND Harmony == 'High' AND Pitch == 'High',Chầu văn,0.8,10,4
+Pitch == 'Very Low' AND Spectral == 'High' AND Energy == 'Strong' AND Harmony == 'Low',Chầu văn,0.8108,37,4
+Energy == 'Weak' AND Pitch == 'High' AND Harmony == 'High',Chầu văn,0.7826,23,3
+Pitch == 'Very Low' AND Energy == 'Weak' AND Tempo == 'Fast' AND Spectral == 'Low',Chầu văn,0.6471,17,4
+Pitch == 'Very Low' AND Energy == 'Strong' AND Tempo == 'Fast' AND Timbre == 'High',Chầu văn,0.9091,11,4
+Vibrato == 'Light Ornament' AND Spectral == 'High' AND Timbre == 'Very Low' AND Energy == 'Strong',Chầu văn,0.8788,33,4
+Energy == 'Weak' AND Pitch == 'Very High' AND Harmony == 'High' AND Vibrato == 'Moderate',Chầu văn,1.0,9,4
+Vibrato == 'Light Ornament' AND Spectral == 'High' AND Energy == 'Very Strong' AND Tempo == 'Moderate' AND Harmony == 'Low',Chầu văn,1.0,6,5
+Vibrato == 'Light Ornament' AND Spectral == 'High' AND Energy == 'Weak' AND Timbre == 'Very Low' AND Tempo == 'Moderate' AND Pitch == 'Very Low',Chầu văn,0.875,8,6
+Vibrato == 'Light Ornament' AND Pitch == 'Very Low' AND Energy == 'Weak' AND Spectral == 'Medium' AND Tempo == 'Slow',Chầu văn,0.875,16,5
+Vibrato == 'Light Ornament' AND Energy == 'Weak' AND Harmony == 'High' AND Pitch == 'Medium' AND Spectral == 'Low',Chầu văn,1.0,6,5
+Vibrato == 'Light Ornament' AND Spectral == 'High' AND Harmony == 'High' AND Energy == 'Weak' AND Pitch == 'Medium',Chầu văn,0.7143,7,5
+Spectral == 'High' AND Pitch == 'Very High' AND Harmony == 'Low' AND Energy == 'Strong',Chầu văn,0.6429,14,4
+Vibrato == 'Light Ornament' AND Pitch == 'Very Low' AND Energy == 'Strong' AND Spectral == 'Medium' AND Harmony == 'Low' AND Tempo == 'Slow' AND Timbre == 'High',Chầu văn,1.0,5,7
+Pitch == 'Very Low' AND Timbre == 'Very High' AND Tempo == 'Fast' AND Spectral == 'Medium' AND Harmony == 'Low',Chầu văn,0.7,10,5
+Harmony == 'High' AND Timbre == 'Very High' AND Energy == 'Moderate' AND Vibrato == 'Moderate' AND Spectral == 'High',Cải lương,1.0,9,5
+Harmony == 'High' AND Timbre == 'Very High' AND Energy == 'Moderate',Cải lương,0.7843,102,3
+Harmony == 'High' AND Timbre == 'Very High' AND Pitch == 'Low' AND Energy == 'Weak' AND Vibrato == 'Moderate',Cải lương,0.8276,29,5
+Harmony == 'High' AND Timbre == 'Very High' AND Energy == 'Very Weak' AND Spectral == 'Medium' AND Vibrato == 'Moderate',Cải lương,0.7857,14,5
+Harmony == 'High' AND Timbre == 'Very High' AND Energy == 'Very Weak' AND Spectral == 'Low',Cải lương,0.8,15,4
+Harmony == 'High' AND Timbre == 'Very High' AND Energy == 'Very Weak',Cải lương,0.5818,110,3
+Harmony == 'High' AND Tempo == 'Slow' AND Energy == 'Weak' AND Pitch == 'Low',Cải lương,0.7561,41,4
+Harmony == 'High' AND Pitch == 'Low' AND Energy == 'Strong' AND Tempo == 'Slow',Cải lương,0.6,20,4
+Timbre == 'Very High' AND Energy == 'Moderate' AND Vibrato == 'Moderate' AND Pitch == 'Low',Cải lương,0.8611,36,4
+Harmony == 'High' AND Energy == 'Weak' AND Tempo == 'Slow' AND Pitch == 'Medium' AND Vibrato == 'Heavy Ornament',Cải lương,0.8333,6,5
+Harmony == 'High' AND Pitch == 'Low' AND Timbre == 'High' AND Spectral == 'Low',Cải lương,0.7143,14,4
+Timbre == 'Very High' AND Tempo == 'Slow' AND Energy == 'Weak' AND Spectral == 'High' AND Pitch == 'Medium',Cải lương,1.0,5,5
+Timbre == 'Very High' AND Energy == 'Very Weak' AND Spectral == 'Medium' AND Tempo == 'Moderate',Cải lương,0.675,40,4
+Harmony == 'High' AND Pitch == 'Low' AND Timbre == 'Medium' AND Energy == 'Moderate',Cải lương,1.0,6,4
+Harmony == 'High' AND Pitch == 'Low' AND Timbre == 'Very High' AND Tempo == 'Fast',Cải lương,1.0,22,4
+Harmony == 'High' AND Pitch == 'Low' AND Timbre == 'High' AND Tempo == 'Slow',Cải lương,0.6667,21,4
+Timbre == 'Very High' AND Energy == 'Moderate' AND Pitch == 'Low' AND Spectral == 'Medium',Cải lương,0.84,25,4
+Harmony == 'High' AND Spectral == 'Low' AND Tempo == 'Slow' AND Energy == 'Weak',Cải lương,0.6333,30,4
+Energy == 'Very Strong' AND Timbre == 'Very Low' AND Spectral == 'Low' AND Tempo == 'Fast',Hát xẩm,1.0,17,4
+Energy == 'Very Strong' AND Timbre == 'Very Low' AND Spectral == 'Low' AND Tempo == 'Slow',Hát xẩm,1.0,18,4
+Timbre == 'Very Low' AND Energy == 'Very Strong' AND Vibrato == 'Moderate',Hát xẩm,0.7895,95,3
+Timbre == 'Very Low' AND Energy == 'Very Strong' AND Vibrato == 'Heavy Ornament' AND Spectral == 'High',Hát xẩm,1.0,8,4
+Timbre == 'Very Low' AND Harmony == 'Low' AND Spectral == 'Medium' AND Tempo == 'Fast' AND Pitch == 'Very Low' AND Energy == 'Moderate',Hát xẩm,1.0,6,6
+Timbre == 'Very Low' AND Harmony == 'Low' AND Spectral == 'Medium' AND Tempo == 'Fast' AND Energy == 'Very Strong',Hát xẩm,0.8,20,5
+Timbre == 'Very Low' AND Harmony == 'Low' AND Vibrato == 'Light Ornament' AND Spectral == 'Low' AND Pitch == 'Very Low',Hát xẩm,0.7692,13,5
+Energy == 'Very Strong' AND Spectral == 'Low' AND Tempo == 'Fast' AND Pitch == 'Medium',Hát xẩm,1.0,14,4
+Timbre == 'Very Low' AND Pitch == 'Low' AND Tempo == 'Fast' AND Energy == 'Weak' AND Harmony == 'High' AND Spectral == 'Medium',Hát xẩm,0.6,15,6
+Timbre == 'Very Low' AND Pitch == 'Low' AND Energy == 'Weak' AND Tempo == 'Moderate' AND Spectral == 'Low',Hát xẩm,0.6667,9,5
+Timbre == 'Very Low' AND Energy == 'Weak' AND Tempo == 'Fast' AND Pitch == 'Very Low' AND Spectral == 'Medium',Hát xẩm,1.0,4,5
+Energy == 'Strong' AND Tempo == 'Moderate' AND Spectral == 'Medium' AND Timbre == 'Very High' AND Vibrato == 'Moderate',Quan họ,0.9608,51,5
+Tempo == 'Moderate' AND Energy == 'Strong' AND Spectral == 'Medium' AND Vibrato == 'Light Ornament' AND Pitch == 'Low',Quan họ,0.8788,33,5
+Tempo == 'Moderate' AND Energy == 'Strong' AND Spectral == 'Medium' AND Timbre == 'High',Quan họ,0.8293,41,4
+Tempo == 'Moderate' AND Energy == 'Strong' AND Harmony == 'Low' AND Spectral == 'Low',Quan họ,0.8611,36,4
+Tempo == 'Moderate' AND Timbre == 'Very High' AND Harmony == 'Low' AND Pitch == 'Medium' AND Energy == 'Very Strong',Quan họ,1.0,22,5
+Tempo == 'Moderate' AND Energy == 'Strong' AND Spectral == 'Medium' AND Timbre == 'Very High' AND Harmony == 'Low' AND Vibrato == 'Heavy Ornament',Quan họ,1.0,7,6
+Tempo == 'Moderate' AND Harmony == 'Low' AND Timbre == 'Very High' AND Pitch == 'Medium' AND Energy == 'Weak' AND Vibrato == 'Light Ornament',Quan họ,1.0,4,6
+Tempo == 'Moderate' AND Energy == 'Strong' AND Spectral == 'Medium' AND Vibrato == 'Light Ornament' AND Harmony == 'Medium',Quan họ,1.0,7,5
+Tempo == 'Moderate' AND Timbre == 'Very High' AND Harmony == 'Low' AND Energy == 'Strong',Quan họ,0.8455,123,4
+Tempo == 'Moderate' AND Energy == 'Very Strong' AND Timbre == 'Very High' AND Vibrato == 'Moderate',Quan họ,0.9474,38,4
+Tempo == 'Moderate' AND Energy == 'Very Strong' AND Timbre == 'High' AND Spectral == 'Medium',Quan họ,0.9231,13,4
+Tempo == 'Moderate' AND Energy == 'Strong' AND Spectral == 'Medium' AND Vibrato == 'Light Ornament' AND Pitch == 'Medium',Quan họ,0.8125,16,5
+Tempo == 'Moderate' AND Harmony == 'Low' AND Timbre == 'Very High' AND Energy == 'Weak' AND Vibrato == 'Moderate',Quan họ,0.8095,21,5
+Tempo == 'Moderate' AND Energy == 'Very Strong' AND Timbre == 'Very High' AND Spectral == 'Medium',Quan họ,0.9231,39,4
+Tempo == 'Moderate' AND Harmony == 'Low' AND Vibrato == 'Light Ornament' AND Spectral == 'Low' AND Timbre == 'Very High' AND Energy == 'Moderate',Quan họ,0.875,8,6
+Tempo == 'Moderate' AND Harmony == 'Low' AND Energy == 'Weak' AND Spectral == 'Medium' AND Timbre == 'High',Quan họ,1.0,7,5
+Energy == 'Strong' AND Tempo == 'Moderate' AND Timbre == 'Very High' AND Pitch == 'Medium',Quan họ,0.8904,73,4
+Tempo == 'Moderate' AND Energy == 'Very Strong' AND Timbre == 'Very High' AND Spectral == 'Low',Quan họ,1.0,6,4
+Energy == 'Strong' AND Tempo == 'Moderate' AND Spectral == 'Medium' AND Pitch == 'High',Quan họ,0.9091,11,4
+Tempo == 'Moderate' AND Harmony == 'Low' AND Vibrato == 'Light Ornament' AND Spectral == 'Low' AND Timbre == 'High',Quan họ,0.9167,12,5
+Tempo == 'Moderate' AND Harmony == 'Low' AND Timbre == 'Medium' AND Spectral == 'Medium' AND Energy == 'Weak',Quan họ,1.0,3,5

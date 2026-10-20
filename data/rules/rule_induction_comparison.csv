@@ -1,0 +1,5 @@
+Paradigm / Model,Rule Count,Avg Antecedents,Test Accuracy (%),Test Macro F1 (%),Interpretability
+Decision Tree Crisp (Tree Induction),29,3.76,51.25,50.58,"High (Transparent shallow tree, disjoint partitions)"
+Random Forest Crisp (Ensemble Tree Induction),1465,4.17,55.97,55.04,"Medium (Large ensemble, requires aggregation & ranking)"
+RIPPER (Separate-and-Conquer Rule Pruning),108,4.56,53.5,52.8,"Very High (Minimalist ruleset, Occam's razor principle)"
+CN2 (Beam Search Sequential Covering),150,2.96,52.08,51.38,Very High (Ordered IF-THEN rules with Laplace scoring)

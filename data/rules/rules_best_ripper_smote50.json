@@ -1,0 +1,882 @@
+[
+  {
+    "rule_text": "Energy == 'Very Weak' AND Pitch == 'Low' AND Timbre == 'Very Low' AND Harmony == 'Low' AND Spectral == 'Medium' AND Vibrato == 'Heavy Ornament'",
+    "consequent": "Ca trù",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Pitch == 'Low' AND Timbre == 'Very Low' AND Harmony == 'Low' AND Spectral == 'Medium' AND Vibrato == 'Moderate' AND Tempo == 'Moderate'",
+    "consequent": "Ca trù",
+    "antecedents_count": 7
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Pitch == 'Low' AND Timbre == 'Very Low' AND Harmony == 'Low' AND Spectral == 'Medium'",
+    "consequent": "Ca trù",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Harmony == 'Low' AND Spectral == 'Low' AND Vibrato == 'Moderate' AND Timbre == 'Very High'",
+    "consequent": "Ca trù",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Spectral == 'High' AND Vibrato == 'Heavy Ornament' AND Harmony == 'Low' AND Tempo == 'Fast'",
+    "consequent": "Ca trù",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Pitch == 'Low' AND Vibrato == 'Moderate' AND Spectral == 'High' AND Tempo == 'Moderate'",
+    "consequent": "Ca trù",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Harmony == 'Low' AND Vibrato == 'Heavy Ornament' AND Tempo == 'Moderate' AND Pitch == 'Low'",
+    "consequent": "Ca trù",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Energy == 'Moderate' AND Spectral == 'Low' AND Harmony == 'Low' AND Pitch == 'Low'",
+    "consequent": "Ca trù",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Harmony == 'Low' AND Spectral == 'Low'",
+    "consequent": "Ca trù",
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Pitch == 'Low' AND Timbre == 'Low'",
+    "consequent": "Ca trù",
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Spectral == 'High' AND Timbre == 'Very Low' AND Pitch == 'Medium'",
+    "consequent": "Ca trù",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Spectral == 'High' AND Timbre == 'High'",
+    "consequent": "Ca trù",
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Pitch == 'Low' AND Energy == 'Moderate' AND Harmony == 'Low' AND Tempo == 'Moderate'",
+    "consequent": "Ca trù",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Energy == 'Moderate' AND Spectral == 'Low'",
+    "consequent": "Ca trù",
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Spectral == 'High' AND Timbre == 'Very Low'",
+    "consequent": "Ca trù",
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Vibrato == 'Heavy Ornament' AND Pitch == 'Low' AND Tempo == 'Moderate'",
+    "consequent": "Ca trù",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Harmony == 'Medium' AND Pitch == 'Low' AND Tempo == 'Moderate'",
+    "consequent": "Ca trù",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Pitch == 'Low' AND Timbre == 'Medium' AND Tempo == 'Slow'",
+    "consequent": "Ca trù",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Timbre == 'Low' AND Harmony == 'Medium'",
+    "consequent": "Ca trù",
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Pitch == 'Low' AND Energy == 'Moderate' AND Harmony == 'Low' AND Spectral == 'Medium' AND Tempo == 'Fast'",
+    "consequent": "Ca trù",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Spectral == 'High' AND Vibrato == 'Heavy Ornament' AND Harmony == 'Low'",
+    "consequent": "Ca trù",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Pitch == 'Low' AND Energy == 'Moderate' AND Harmony == 'Medium'",
+    "consequent": "Ca trù",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Vibrato == 'Heavy Ornament' AND Pitch == 'Very High'",
+    "consequent": "Ca trù",
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "Energy == 'Very Weak' AND Pitch == 'Low' AND Timbre == 'Very Low' AND Tempo == 'Moderate' AND Vibrato == 'Moderate'",
+    "consequent": "Ca trù",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Pitch == 'Low' AND Energy == 'Moderate' AND Tempo == 'Moderate' AND Spectral == 'High'",
+    "consequent": "Ca trù",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Pitch == 'Low' AND Energy == 'Weak' AND Spectral == 'High' AND Tempo == 'Moderate'",
+    "consequent": "Ca trù",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Pitch == 'Medium' AND Timbre == 'Very Low' AND Harmony == 'High' AND Spectral == 'Medium' AND Energy == 'Very Weak' AND Tempo == 'Fast'",
+    "consequent": "Chèo",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'High' AND Spectral == 'Medium' AND Pitch == 'Medium' AND Energy == 'Moderate'",
+    "consequent": "Chèo",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'High' AND Spectral == 'Medium' AND Energy == 'Very Weak' AND Tempo == 'Slow' AND Vibrato == 'Moderate' AND Pitch == 'Low'",
+    "consequent": "Chèo",
+    "antecedents_count": 7
+  },
+  {
+    "rule_text": "Pitch == 'Medium' AND Timbre == 'Very Low' AND Spectral == 'Medium' AND Harmony == 'High' AND Energy == 'Very Weak'",
+    "consequent": "Chèo",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Vibrato == 'Heavy Ornament' AND Spectral == 'Medium' AND Timbre == 'High' AND Energy == 'Strong' AND Tempo == 'Slow'",
+    "consequent": "Chèo",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Spectral == 'Medium' AND Timbre == 'Very Low' AND Harmony == 'High' AND Vibrato == 'Light Ornament' AND Tempo == 'Slow'",
+    "consequent": "Chèo",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'High' AND Spectral == 'Medium' AND Energy == 'Very Weak' AND Tempo == 'Fast'",
+    "consequent": "Chèo",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Vibrato == 'Heavy Ornament' AND Timbre == 'Medium' AND Spectral == 'Medium' AND Tempo == 'Fast'",
+    "consequent": "Chèo",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'High' AND Energy == 'Moderate' AND Spectral == 'Medium' AND Vibrato == 'Heavy Ornament'",
+    "consequent": "Chèo",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Pitch == 'Medium' AND Spectral == 'Medium' AND Timbre == 'Very Low' AND Energy == 'Strong' AND Tempo == 'Moderate' AND Harmony == 'Low'",
+    "consequent": "Chèo",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Pitch == 'Medium' AND Tempo == 'Slow' AND Energy == 'Strong' AND Vibrato == 'Heavy Ornament' AND Harmony == 'Low' AND Spectral == 'Medium'",
+    "consequent": "Chèo",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Pitch == 'Medium' AND Timbre == 'Very Low' AND Spectral == 'Medium' AND Energy == 'Moderate' AND Tempo == 'Moderate' AND Harmony == 'Low' AND Vibrato == 'Moderate'",
+    "consequent": "Chèo",
+    "antecedents_count": 7
+  },
+  {
+    "rule_text": "Pitch == 'Medium' AND Tempo == 'Slow' AND Timbre == 'High' AND Harmony == 'Low'",
+    "consequent": "Chèo",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'High' AND Pitch == 'Medium' AND Tempo == 'Slow' AND Energy == 'Very Weak'",
+    "consequent": "Chèo",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Vibrato == 'Heavy Ornament' AND Pitch == 'Very High' AND Tempo == 'Fast' AND Energy == 'Moderate'",
+    "consequent": "Chèo",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'High' AND Energy == 'Moderate' AND Spectral == 'Medium' AND Pitch == 'Low'",
+    "consequent": "Chèo",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'High' AND Energy == 'Very Weak' AND Pitch == 'High'",
+    "consequent": "Chèo",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Spectral == 'Medium' AND Pitch == 'Medium' AND Tempo == 'Fast' AND Timbre == 'High'",
+    "consequent": "Chèo",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Tempo == 'Slow' AND Spectral == 'Medium' AND Harmony == 'Medium' AND Energy == 'Strong'",
+    "consequent": "Chèo",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Pitch == 'Medium' AND Spectral == 'Medium' AND Timbre == 'Medium' AND Harmony == 'High'",
+    "consequent": "Chèo",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'High' AND Pitch == 'High' AND Spectral == 'High'",
+    "consequent": "Chèo",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'High' AND Energy == 'Very Weak' AND Pitch == 'Very Low' AND Vibrato == 'Moderate'",
+    "consequent": "Chèo",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Spectral == 'Medium' AND Tempo == 'Slow' AND Timbre == 'High' AND Pitch == 'High'",
+    "consequent": "Chèo",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Vibrato == 'Heavy Ornament' AND Pitch == 'Very High' AND Spectral == 'High' AND Energy == 'Weak' AND Tempo == 'Fast'",
+    "consequent": "Chèo",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Spectral == 'Medium' AND Tempo == 'Slow' AND Timbre == 'High' AND Energy == 'Very Strong'",
+    "consequent": "Chèo",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Energy == 'Weak' AND Harmony == 'High' AND Spectral == 'Medium'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Spectral == 'High' AND Energy == 'Strong' AND Tempo == 'Fast' AND Timbre == 'Very Low'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Spectral == 'High' AND Energy == 'Strong' AND Tempo == 'Moderate' AND Timbre == 'Very High' AND Harmony == 'Low'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Energy == 'Weak' AND Timbre == 'Very High' AND Spectral == 'Low' AND Harmony == 'High'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Spectral == 'High' AND Energy == 'Strong' AND Tempo == 'Moderate' AND Harmony == 'High'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Spectral == 'High' AND Energy == 'Strong' AND Harmony == 'Low' AND Tempo == 'Fast'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Spectral == 'High' AND Energy == 'Strong' AND Timbre == 'Very Low' AND Harmony == 'High'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Energy == 'Weak' AND Pitch == 'High' AND Spectral == 'Medium' AND Vibrato == 'Light Ornament'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Spectral == 'High' AND Energy == 'Strong' AND Harmony == 'Low' AND Vibrato == 'Moderate'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Spectral == 'High' AND Tempo == 'Moderate' AND Harmony == 'Low' AND Timbre == 'Very Low' AND Energy == 'Weak'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Energy == 'Weak' AND Pitch == 'High' AND Vibrato == 'Moderate' AND Timbre == 'Low'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Energy == 'Weak' AND Timbre == 'Very High' AND Pitch == 'Very High' AND Tempo == 'Slow' AND Harmony == 'High'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Spectral == 'High' AND Energy == 'Strong' AND Timbre == 'High'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Spectral == 'Medium' AND Timbre == 'High' AND Tempo == 'Fast' AND Energy == 'Strong'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Spectral == 'High' AND Timbre == 'Low' AND Pitch == 'Very Low' AND Harmony == 'High' AND Energy == 'Weak'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Spectral == 'High' AND Tempo == 'Fast' AND Energy == 'Strong' AND Harmony == 'Low'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Spectral == 'High' AND Energy == 'Very Strong' AND Tempo == 'Moderate'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Energy == 'Weak' AND Pitch == 'Medium' AND Harmony == 'High' AND Spectral == 'Low'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Energy == 'Weak' AND Pitch == 'Very Low' AND Spectral == 'Medium' AND Tempo == 'Slow'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Spectral == 'Medium' AND Tempo == 'Slow' AND Harmony == 'Low' AND Timbre == 'Very High' AND Energy == 'Very Strong'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Spectral == 'High' AND Energy == 'Strong' AND Tempo == 'Moderate'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Energy == 'Weak' AND Timbre == 'Very High' AND Pitch == 'Very High' AND Harmony == 'High'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Energy == 'Weak' AND Pitch == 'High'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 2
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Energy == 'Weak' AND Pitch == 'Medium' AND Spectral == 'High'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Spectral == 'Medium' AND Energy == 'Moderate' AND Harmony == 'High' AND Tempo == 'Moderate' AND Vibrato == 'Light Ornament'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Spectral == 'Medium' AND Harmony == 'Low' AND Timbre == 'Very High' AND Tempo == 'Fast'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Pitch == 'Very Low' AND Spectral == 'Medium' AND Tempo == 'Slow' AND Harmony == 'Low' AND Energy == 'Moderate'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Spectral == 'High' AND Energy == 'Strong' AND Pitch == 'Very High' AND Timbre == 'High'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Spectral == 'High' AND Energy == 'Strong' AND Timbre == 'Very Low' AND Tempo == 'Moderate'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Pitch == 'Very Low' AND Energy == 'Weak' AND Timbre == 'Very High' AND Harmony == 'Medium'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Pitch == 'Very Low' AND Spectral == 'High' AND Energy == 'Weak' AND Harmony == 'High' AND Timbre == 'High'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Energy == 'Weak' AND Timbre == 'Very High' AND Pitch == 'Medium' AND Harmony == 'High' AND Spectral == 'Low'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Pitch == 'Very High' AND Vibrato == 'Moderate' AND Harmony == 'High' AND Spectral == 'Medium'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Pitch == 'Very Low' AND Spectral == 'Medium' AND Timbre == 'Low' AND Tempo == 'Moderate'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Spectral == 'Medium' AND Pitch == 'Very Low' AND Tempo == 'Slow' AND Harmony == 'Low' AND Timbre == 'High' AND Energy == 'Strong'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 7
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Energy == 'Weak' AND Timbre == 'Very High' AND Pitch == 'Medium' AND Harmony == 'High' AND Tempo == 'Moderate'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Tempo == 'Fast' AND Timbre == 'High' AND Harmony == 'Low' AND Energy == 'Strong'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Pitch == 'Very High' AND Vibrato == 'Moderate' AND Energy == 'Weak' AND Tempo == 'Slow'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Energy == 'Strong' AND Tempo == 'Fast' AND Spectral == 'Medium' AND Timbre == 'Very High' AND Vibrato == 'Heavy Ornament'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Spectral == 'High' AND Pitch == 'Very High' AND Vibrato == 'Moderate' AND Timbre == 'Very Low' AND Energy == 'Weak'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Vibrato == 'Light Ornament' AND Timbre == 'Very High' AND Spectral == 'Medium' AND Harmony == 'Low' AND Energy == 'Moderate' AND Pitch == 'Very Low'",
+    "consequent": "Chầu văn",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Timbre == 'Very High' AND Pitch == 'Low' AND Tempo == 'Fast'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Timbre == 'Very High' AND Energy == 'Moderate' AND Spectral == 'High'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Timbre == 'Very High' AND Vibrato == 'Moderate' AND Energy == 'Moderate' AND Pitch == 'Medium' AND Spectral == 'Low'",
+    "consequent": "Cải lương",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Timbre == 'Very High' AND Energy == 'Very Weak'",
+    "consequent": "Cải lương",
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Pitch == 'Low' AND Timbre == 'Very High' AND Tempo == 'Slow' AND Energy == 'Weak' AND Vibrato == 'Moderate'",
+    "consequent": "Cải lương",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Energy == 'Moderate' AND Timbre == 'Very High' AND Pitch == 'Low' AND Spectral == 'Medium'",
+    "consequent": "Cải lương",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Timbre == 'Very High' AND Energy == 'Moderate'",
+    "consequent": "Cải lương",
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Pitch == 'Low' AND Energy == 'Weak' AND Tempo == 'Slow' AND Timbre == 'High'",
+    "consequent": "Cải lương",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Pitch == 'Low' AND Timbre == 'Very High' AND Spectral == 'High'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Tempo == 'Slow' AND Energy == 'Weak' AND Vibrato == 'Moderate' AND Spectral == 'Low'",
+    "consequent": "Cải lương",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Tempo == 'Slow' AND Energy == 'Weak' AND Pitch == 'Medium' AND Vibrato == 'Heavy Ornament'",
+    "consequent": "Cải lương",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Timbre == 'High' AND Spectral == 'Low' AND Energy == 'Strong'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Pitch == 'Low' AND Timbre == 'Medium' AND Tempo == 'Slow'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Timbre == 'Very High' AND Energy == 'Moderate' AND Vibrato == 'Moderate' AND Pitch == 'Low'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Timbre == 'Very High' AND Vibrato == 'Moderate' AND Energy == 'Weak' AND Pitch == 'Low'",
+    "consequent": "Cải lương",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very High' AND Tempo == 'Slow' AND Vibrato == 'Moderate' AND Spectral == 'High' AND Pitch == 'Medium'",
+    "consequent": "Cải lương",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Spectral == 'Low' AND Energy == 'Strong' AND Vibrato == 'Moderate'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Spectral == 'Low' AND Timbre == 'Medium' AND Tempo == 'Moderate'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Timbre == 'High' AND Tempo == 'Fast' AND Energy == 'Moderate'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Timbre == 'High' AND Spectral == 'Low' AND Energy == 'Weak'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Timbre == 'Very High' AND Tempo == 'Slow' AND Energy == 'Weak' AND Pitch == 'Medium'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Timbre == 'Very High' AND Energy == 'Very Weak' AND Spectral == 'Medium' AND Tempo == 'Moderate'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Timbre == 'High' AND Spectral == 'High' AND Pitch == 'Low' AND Energy == 'Weak'",
+    "consequent": "Cải lương",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Tempo == 'Slow' AND Timbre == 'Low' AND Energy == 'Moderate'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Harmony == 'High' AND Tempo == 'Slow' AND Energy == 'Strong' AND Pitch == 'Low' AND Timbre == 'Low'",
+    "consequent": "Cải lương",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very High' AND Spectral == 'High' AND Energy == 'Weak' AND Tempo == 'Fast' AND Pitch == 'Very Low' AND Harmony == 'Low'",
+    "consequent": "Cải lương",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Timbre == 'Very High' AND Spectral == 'Low' AND Pitch == 'Very Low' AND Tempo == 'Slow' AND Harmony == 'High' AND Energy == 'Weak'",
+    "consequent": "Cải lương",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Timbre == 'Very High' AND Energy == 'Very Weak' AND Spectral == 'High' AND Pitch == 'Low'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Timbre == 'Very High' AND Energy == 'Moderate' AND Vibrato == 'Heavy Ornament' AND Pitch == 'High'",
+    "consequent": "Cải lương",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Energy == 'Very Strong' AND Timbre == 'Very Low' AND Tempo == 'Fast'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "Energy == 'Very Strong' AND Timbre == 'Very Low' AND Tempo == 'Slow' AND Spectral == 'Low'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Energy == 'Very Strong' AND Harmony == 'Low' AND Tempo == 'Slow' AND Vibrato == 'Moderate'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'Low' AND Energy == 'Very Strong' AND Vibrato == 'Heavy Ornament' AND Spectral == 'High'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'Low' AND Energy == 'Very Strong' AND Pitch == 'Very Low'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'Low' AND Pitch == 'Medium' AND Energy == 'Very Strong'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'Low' AND Spectral == 'Medium' AND Energy == 'Very Strong' AND Vibrato == 'Heavy Ornament'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'Low' AND Spectral == 'Medium' AND Pitch == 'Very Low' AND Tempo == 'Fast' AND Energy == 'Moderate'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Energy == 'Very Strong' AND Spectral == 'Low' AND Harmony == 'High'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Energy == 'Very Strong' AND Spectral == 'Low' AND Tempo == 'Fast'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'Low' AND Tempo == 'Fast' AND Energy == 'Weak' AND Vibrato == 'Light Ornament'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'Low' AND Spectral == 'Medium' AND Pitch == 'Very Low' AND Energy == 'Very Weak' AND Tempo == 'Moderate'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Harmony == 'Low' AND Energy == 'Weak' AND Pitch == 'Low' AND Vibrato == 'Moderate' AND Timbre == 'Medium'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'Low' AND Pitch == 'Medium' AND Vibrato == 'Heavy Ornament' AND Spectral == 'High' AND Energy == 'Moderate'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'Low' AND Spectral == 'Medium' AND Energy == 'Weak' AND Pitch == 'Low' AND Tempo == 'Fast'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'Low' AND Spectral == 'Medium' AND Energy == 'Moderate' AND Pitch == 'Very Low' AND Tempo == 'Moderate'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Pitch == 'Low' AND Energy == 'Weak' AND Tempo == 'Moderate' AND Timbre == 'Very Low' AND Spectral == 'Low' AND Harmony == 'Low' AND Vibrato == 'Moderate'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 7
+  },
+  {
+    "rule_text": "Pitch == 'Low' AND Energy == 'Weak' AND Timbre == 'Low' AND Tempo == 'Moderate'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Pitch == 'Low' AND Energy == 'Weak' AND Tempo == 'Moderate' AND Timbre == 'High' AND Spectral == 'High' AND Harmony == 'Low'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Tempo == 'Slow' AND Energy == 'Very Strong' AND Spectral == 'Low' AND Harmony == 'High'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Pitch == 'Low' AND Energy == 'Weak' AND Spectral == 'Medium' AND Tempo == 'Moderate' AND Harmony == 'High' AND Vibrato == 'Light Ornament' AND Timbre == 'Very High'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 7
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Harmony == 'Low' AND Pitch == 'Very Low' AND Spectral == 'Low' AND Energy == 'Strong'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Timbre == 'Very Low' AND Vibrato == 'Light Ornament' AND Spectral == 'Low' AND Tempo == 'Moderate' AND Pitch == 'Very Low'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Pitch == 'Low' AND Tempo == 'Fast' AND Timbre == 'Low' AND Energy == 'Weak'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Energy == 'Very Strong' AND Spectral == 'Low' AND Harmony == 'Medium'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "Tempo == 'Slow' AND Energy == 'Strong' AND Timbre == 'Very High' AND Pitch == 'Very Low' AND Spectral == 'High'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Energy == 'Moderate' AND Spectral == 'Medium' AND Harmony == 'Low' AND Timbre == 'High'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Energy == 'Moderate' AND Harmony == 'Low' AND Spectral == 'Medium' AND Tempo == 'Fast' AND Pitch == 'Medium'",
+    "consequent": "Hát xẩm",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Strong' AND Spectral == 'Medium' AND Timbre == 'Very High' AND Vibrato == 'Moderate' AND Harmony == 'Low'",
+    "consequent": "Quan họ",
+    "antecedents_count": 6
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Strong' AND Spectral == 'Medium' AND Vibrato == 'Light Ornament' AND Timbre == 'High'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Strong' AND Spectral == 'Medium' AND Timbre == 'Very High' AND Vibrato == 'Heavy Ornament'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Strong' AND Spectral == 'Medium' AND Vibrato == 'Light Ornament' AND Harmony == 'Low'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Harmony == 'Low' AND Timbre == 'Very High' AND Energy == 'Very Strong' AND Pitch == 'Medium'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Strong' AND Pitch == 'Medium' AND Timbre == 'Very High'",
+    "consequent": "Quan họ",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Harmony == 'Low' AND Timbre == 'Very High' AND Energy == 'Weak'",
+    "consequent": "Quan họ",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Strong' AND Spectral == 'Medium' AND Timbre == 'High' AND Vibrato == 'Moderate'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Very Strong' AND Timbre == 'Very High' AND Pitch == 'High'",
+    "consequent": "Quan họ",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Strong' AND Timbre == 'Very High' AND Pitch == 'Low'",
+    "consequent": "Quan họ",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Very Strong' AND Timbre == 'Very High' AND Vibrato == 'Moderate' AND Spectral == 'High'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Very Strong' AND Spectral == 'Medium' AND Timbre == 'Very High' AND Vibrato == 'Light Ornament'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Strong' AND Spectral == 'Low' AND Harmony == 'Low'",
+    "consequent": "Quan họ",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Very Strong' AND Timbre == 'High' AND Harmony == 'Low'",
+    "consequent": "Quan họ",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Very Strong' AND Pitch == 'Low' AND Spectral == 'Medium' AND Timbre == 'High'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Energy == 'Strong' AND Timbre == 'Very High' AND Vibrato == 'Moderate' AND Spectral == 'Medium' AND Pitch == 'Low'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Very Strong' AND Timbre == 'Very High' AND Spectral == 'Medium'",
+    "consequent": "Quan họ",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Harmony == 'Low' AND Timbre == 'Very High' AND Tempo == 'Moderate' AND Pitch == 'Very High' AND Spectral == 'Low'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Tempo == 'Moderate' AND Energy == 'Very Strong' AND Vibrato == 'Light Ornament' AND Harmony == 'High' AND Spectral == 'Low'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Energy == 'Strong' AND Tempo == 'Moderate' AND Harmony == 'Medium'",
+    "consequent": "Quan họ",
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "Energy == 'Strong' AND Tempo == 'Moderate' AND Pitch == 'Very High' AND Harmony == 'High'",
+    "consequent": "Quan họ",
+    "antecedents_count": 4
+  },
+  {
+    "rule_text": "Harmony == 'Low' AND Tempo == 'Moderate' AND Energy == 'Very Strong' AND Spectral == 'Medium' AND Timbre == 'Medium'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Harmony == 'Low' AND Timbre == 'Very High' AND Energy == 'Strong' AND Vibrato == 'Moderate' AND Pitch == 'Medium'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Harmony == 'Low' AND Tempo == 'Moderate' AND Spectral == 'Low' AND Vibrato == 'Light Ornament' AND Pitch == 'Low'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Harmony == 'Low' AND Tempo == 'Moderate' AND Timbre == 'High' AND Spectral == 'Medium' AND Energy == 'Weak'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Harmony == 'Low' AND Timbre == 'Very High' AND Energy == 'Strong' AND Pitch == 'High' AND Vibrato == 'Moderate'",
+    "consequent": "Quan họ",
+    "antecedents_count": 5
+  },
+  {
+    "rule_text": "Harmony == 'Low' AND Vibrato == 'Light Ornament' AND Spectral == 'Low' AND Energy == 'Moderate' AND Timbre == 'Very High' AND Tempo == 'Moderate' AND Pitch == 'Very Low'",
+    "consequent": "Quan họ",
+    "antecedents_count": 7
+  }
+]

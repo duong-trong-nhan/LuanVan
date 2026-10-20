@@ -1,0 +1,6 @@
+Phương pháp tăng cường,Số mẫu Train,DT Acc (%),DT F1 (%),DT Số luật,DT Đ.Dài TB,RF Acc (%),RF F1 (%),RF Số luật,RF Đ.Dài TB,RIPPER Acc (%),RIPPER F1 (%),RIPPER Số luật,RIPPER Đ.Dài TB,CN2 Acc (%),CN2 F1 (%),CN2 Số luật,CN2 Đ.Dài TB,Thuật toán đỉnh nhất (Crisp),RF Cont Acc (Tham chiếu %)
+Baseline (No Augmentation),2880,51.25,50.58,29,4.9,55.97,55.04,1465,4.91,50.69,52.35,108,4.56,52.08,51.38,150,2.96,Random Forest Crisp (55.97%),64.17
+Gaussian Jittering (+100%),5760,50.69,50.11,31,4.97,55.0,54.12,1548,4.97,49.17,50.36,221,5.07,50.28,49.73,198,2.99,Random Forest Crisp (55.00%),65.56
+SMOTE (+50% to 720/class),4320,51.53,51.08,32,5.0,56.11,55.16,1530,4.96,52.36,53.84,176,4.71,49.72,49.54,171,2.99,Random Forest Crisp (56.11%),63.61
+SMOTE (+100% to 960/class),5760,51.94,52.07,32,5.0,55.56,54.79,1544,4.97,50.97,52.99,264,5.0,51.81,51.08,195,2.99,Random Forest Crisp (55.56%),64.72
+Combined SMOTE + Gaussian Noise,7200,51.25,50.93,31,4.97,54.72,53.88,1565,4.98,47.08,49.32,288,5.17,48.61,48.08,201,3.0,Random Forest Crisp (54.72%),64.58
