@@ -1,2 +1,5 @@
 data/datasets
 dataset
+data/chromadb
+__pycache__
+.vscode

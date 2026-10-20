@@ -1,0 +1,14 @@
+exp_id,exp_name,model_name,spec_type,strategy,test_accuracy,macro_f1,delta_vs_baseline,training_time_min,trainable_params,timestamp,f1_Ca_trù,f1_Chèo,f1_Chầu_văn,f1_Cải_lương,f1_Hát_xẩm,f1_Quan_họ
+1,EXP-01_efficientnet_b0_mel_frozen,efficientnet_b0,mel,frozen,66.25,66.0062,0.69,35.32,329478,11/10/2026 11:56,77.59,56.12,64.89,66.0,65.38,66.06
+2,EXP-02_efficientnet_b0_mel_partial,efficientnet_b0,mel,partial,69.7222,68.8535,4.1622,71.98,4028366,11/10/2026 13:35,83.4,51.37,69.79,68.39,72.06,68.11
+3,EXP-03_efficientnet_b0_mel_full,efficientnet_b0,mel,full,82.7778,82.2103,17.2178,16.66,4337026,15/10/2026 16:37,91.41,68.02,85.0,81.7,82.4,84.73
+4,EXP-04_efficientnet_b0_cqt_partial,efficientnet_b0,cqt,partial,83.75,83.6976,18.19,13.72,4028366,15/10/2026 16:51,85.07,82.2,81.58,89.58,80.63,83.13
+5,EXP-05_mobilenet_v2_mel_frozen,mobilenet_v2,mel,frozen,66.25,64.9475,0.69,9.22,7686,15/10/2026 17:00,78.03,41.18,64.97,67.91,63.73,73.87
+6,EXP-06_mobilenet_v2_mel_partial,mobilenet_v2,mel,partial,71.8056,69.5562,6.2456,11.73,1689030,15/10/2026 16:06,85.6,37.09,74.88,72.59,69.29,77.89
+7,EXP-07_mobilenet_v2_cqt_partial,mobilenet_v2,cqt,partial,74.1667,74.072,8.6067,12.68,1689030,15/10/2026 17:13,80.56,55.1,75.11,85.83,66.45,81.39
+8,EXP-08_resnet50_mel_partial,resnet50,mel,partial,75.4167,75.2343,9.8567,14.42,15490822,2026-10-16 00:14,83.04,59.79,74.89,78.81,70.16,84.72
+9,EXP-09_resnet50_cqt_partial,resnet50,cqt,partial,78.4722,78.1024,12.9122,13.98,15490822,2026-10-16 00:28,85.23,63.54,74.17,89.16,73.61,82.91
+10,EXP-10_vgg16_mel_frozen,vgg16,mel,frozen,86.1111,86.0824,20.5511,9.53,6424326,2026-10-16 00:37,93.23,80.34,83.33,86.96,84.43,88.21
+11,EXP-11_vgg16_mel_partial,vgg16,mel,partial,87.6389,87.5129,22.0789,12.69,13503750,2026-10-16 00:50,93.55,80.0,86.05,89.36,86.32,89.8
+12,EXP-12_efficientnet_b2_mel_partial,efficientnet_b2,mel,partial,84.3056,84.1024,18.7456,14.09,7929694,2026-10-16 01:04,88.8,77.51,85.83,91.83,77.82,82.82
+13,EXP-13_efficientnet_b0_mel+cqt_partial,efficientnet_b0,mel+cqt,partial,89.3056,89.1899,23.7456,13.28,4028366,2026-10-16 01:18,92.49,84.85,90.61,93.88,86.11,87.2
