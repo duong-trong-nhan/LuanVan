@@ -3,3 +3,4 @@ dataset
 data/chromadb
 __pycache__
 .vscode
+roboflowdataset
