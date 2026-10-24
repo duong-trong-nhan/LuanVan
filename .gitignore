@@ -4,3 +4,11 @@ data/chromadb
 __pycache__
 .vscode
 roboflowdataset
+data/temp_infer
+data/frames
+*.zip
+.agent
+temp
+howtorun.txt
+data/models
+data/yolo_dataset
