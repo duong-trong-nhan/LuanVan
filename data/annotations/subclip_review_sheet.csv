@@ -1,334 +1,334 @@
-﻿subclip_id,genre,video_file,split,duration,frame_count,thumbnail_path,guitar_phim_lom,dan_kim_dan_nguyet,dan_co_dan_nhi,dan_tranh,dan_bau,dan_day,ban_phach_trong_chau,trong_cheo_mo_quat_giay,dao_cu_hau_dong_kiem_cung_mam,senh_tien_trong_manh,khong_nhac_cu,co_trang_mao_giap_dinh_hat,ao_dai_ao_ba_ba,ao_thao_khan_nhieu_ao_the,ao_tu_than_yem_dao,trang_phuc_he_cheo,khan_chau_ao_ngu_hau_dong,non_quai_thao_khan_mo_qua_ao_mo_ba,ao_nau_kinh_den_mu_cat,san_khau_kich_hat,doi_hinh_3_nguoi_ca_tru,chieu_cheo_san_dinh,dien_tho_hau_dong,doi_dap_nam_nu_quan_ho,chieu_xam_duong_pho_cho
-cailuong_tienghosonghau_01_sub00,Cải lương,cailuong_tienghosonghau_01.mp4,test,60.0,11.0,data/frames/cailuong/cailuong_tienghosonghau_01_sub00_f08.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_tienghosonghau_02_sub00,Cải lương,cailuong_tienghosonghau_02.mp4,val,62.13333333333333,0.0,,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_tienghosonghau_09_sub00,Cải lương,cailuong_tienghosonghau_09.mp4,train,72.03333333333333,0.0,,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_tienghosonghau_10_sub00,Cải lương,cailuong_tienghosonghau_10.mp4,train,84.73333333333333,0.0,,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_tienghosonghau_08_sub00,Cải lương,cailuong_tienghosonghau_08.mp4,val,60.0,0.0,,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_tienghosonghau_06_sub00,Cải lương,cailuong_tienghosonghau_06.mp4,train,60.0,0.0,,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_tienghosonghau_05_sub00,Cải lương,cailuong_tienghosonghau_05.mp4,train,24.033333333333335,0.0,,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_tienghosonghau_04_sub00,Cải lương,cailuong_tienghosonghau_04.mp4,train,48.266666666666666,0.0,,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_tienghosonghau_03_sub00,Cải lương,cailuong_tienghosonghau_03.mp4,test,60.0,0.0,,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_tienghosonghau_07_sub00,Cải lương,cailuong_tienghosonghau_07.mp4,train,66.03333333333333,0.0,,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_maunhuomsanchua_02_sub00,Cải lương,cailuong_maunhuomsanchua_02.mp4,train,60.0,8.0,data/frames/cailuong/cailuong_maunhuomsanchua_02_sub00_f01.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_maunhuomsanchua_03_sub00,Cải lương,cailuong_maunhuomsanchua_03.mp4,train,68.56,6.0,data/frames/cailuong/cailuong_maunhuomsanchua_03_sub00_f04.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_maunhuomsanchua_04_sub00,Cải lương,cailuong_maunhuomsanchua_04.mp4,train,51.64,6.0,data/frames/cailuong/cailuong_maunhuomsanchua_04_sub00_f03.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_maunhuomsanchua_05_sub00,Cải lương,cailuong_maunhuomsanchua_05.mp4,train,60.0,9.0,data/frames/cailuong/cailuong_maunhuomsanchua_05_sub00_f00.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_maunhuomsanchua_05_sub01,Cải lương,cailuong_maunhuomsanchua_05.mp4,train,45.0,6.0,data/frames/cailuong/cailuong_maunhuomsanchua_05_sub01_f05.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_maunhuomsanchua_06_sub00,Cải lương,cailuong_maunhuomsanchua_06.mp4,train,82.84,13.0,data/frames/cailuong/cailuong_maunhuomsanchua_06_sub00_f08.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_maunhuomsanchua_07_sub00,Cải lương,cailuong_maunhuomsanchua_07.mp4,val,60.0,2.0,data/frames/cailuong/cailuong_maunhuomsanchua_07_sub00_f01.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_maunhuomsanchua_09_sub00,Cải lương,cailuong_maunhuomsanchua_09.mp4,val,40.32,3.0,data/frames/cailuong/cailuong_maunhuomsanchua_09_sub00_f02.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_maunhuomsanchua_08_sub00,Cải lương,cailuong_maunhuomsanchua_08.mp4,val,78.96,6.0,data/frames/cailuong/cailuong_maunhuomsanchua_08_sub00_f05.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_maunhuomsanchua_10_sub00,Cải lương,cailuong_maunhuomsanchua_10.mp4,train,62.4,2.0,data/frames/cailuong/cailuong_maunhuomsanchua_10_sub00_f01.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_maunhuomsanchua_01_sub00,Cải lương,cailuong_maunhuomsanchua_01.mp4,val,31.72,6.0,data/frames/cailuong/cailuong_maunhuomsanchua_01_sub00_f02.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_doicoluu_01_sub00,Cải lương,cailuong_doicoluu_01.mp4,train,44.21083333333333,8.0,data/frames/cailuong/cailuong_doicoluu_01_sub00_f06.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_doicoluu_02_sub00,Cải lương,cailuong_doicoluu_02.mp4,val,37.9379,4.0,data/frames/cailuong/cailuong_doicoluu_02_sub00_f01.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_doicoluu_03_sub00,Cải lương,cailuong_doicoluu_03.mp4,train,61.89516666666667,9.0,data/frames/cailuong/cailuong_doicoluu_03_sub00_f05.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_doicoluu_04_sub00,Cải lương,cailuong_doicoluu_04.mp4,train,73.64023333333334,9.0,data/frames/cailuong/cailuong_doicoluu_04_sub00_f06.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_doicoluu_05_sub00,Cải lương,cailuong_doicoluu_05.mp4,train,25.258566666666667,3.0,data/frames/cailuong/cailuong_doicoluu_05_sub00_f01.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_doicoluu_06_sub00,Cải lương,cailuong_doicoluu_06.mp4,val,72.13873333333333,11.0,data/frames/cailuong/cailuong_doicoluu_06_sub00_f09.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_doicoluu_07_sub00,Cải lương,cailuong_doicoluu_07.mp4,train,36.236200000000004,6.0,data/frames/cailuong/cailuong_doicoluu_07_sub00_f00.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_doicoluu_08_sub00,Cải lương,cailuong_doicoluu_08.mp4,val,29.8298,6.0,data/frames/cailuong/cailuong_doicoluu_08_sub00_f04.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_doicoluu_09_sub00,Cải lương,cailuong_doicoluu_09.mp4,train,60.0,8.0,data/frames/cailuong/cailuong_doicoluu_09_sub00_f05.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_doicoluu_10_sub00,Cải lương,cailuong_doicoluu_10.mp4,train,56.122733333333336,6.0,data/frames/cailuong/cailuong_doicoluu_10_sub00_f05.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_vongcolatrau_sub00,Cải lương,cailuong_vongcolatrau.mp4,train,60.0,12.0,data/frames/cailuong/cailuong_vongcolatrau_sub00_f01.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_vongcolatrau_sub01,Cải lương,cailuong_vongcolatrau.mp4,train,60.0,15.0,data/frames/cailuong/cailuong_vongcolatrau_sub01_f07.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_vongcolatrau_sub02,Cải lương,cailuong_vongcolatrau.mp4,train,60.0,10.0,data/frames/cailuong/cailuong_vongcolatrau_sub02_f05.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_vongcolatrau_sub03,Cải lương,cailuong_vongcolatrau.mp4,train,60.0,15.0,data/frames/cailuong/cailuong_vongcolatrau_sub03_f12.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_vongcolatrau_sub04,Cải lương,cailuong_vongcolatrau.mp4,train,60.0,10.0,data/frames/cailuong/cailuong_vongcolatrau_sub04_f08.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_vongcolatrau_sub05,Cải lương,cailuong_vongcolatrau.mp4,train,60.0,15.0,data/frames/cailuong/cailuong_vongcolatrau_sub05_f07.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_hoamuatrang_sub00,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,9.0,data/frames/cailuong/cailuong_hoamuatrang_sub00_f07.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_hoamuatrang_sub01,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,7.0,data/frames/cailuong/cailuong_hoamuatrang_sub01_f03.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_hoamuatrang_sub02,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,11.0,data/frames/cailuong/cailuong_hoamuatrang_sub02_f09.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_hoamuatrang_sub03,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,9.0,data/frames/cailuong/cailuong_hoamuatrang_sub03_f06.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_hoamuatrang_sub04,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,10.0,data/frames/cailuong/cailuong_hoamuatrang_sub04_f04.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_hoamuatrang_sub05,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,9.0,data/frames/cailuong/cailuong_hoamuatrang_sub05_f04.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_hoamuatrang_sub06,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,3.0,data/frames/cailuong/cailuong_hoamuatrang_sub06_f01.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_dongsongqueem_sub00,Cải lương,cailuong_dongsongqueem.mp4,train,60.0,11.0,data/frames/cailuong/cailuong_dongsongqueem_sub00_f00.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_dongsongqueem_sub01,Cải lương,cailuong_dongsongqueem.mp4,train,60.0,8.0,data/frames/cailuong/cailuong_dongsongqueem_sub01_f01.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_dongsongqueem_sub02,Cải lương,cailuong_dongsongqueem.mp4,train,60.0,8.0,data/frames/cailuong/cailuong_dongsongqueem_sub02_f04.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_dongsongqueem_sub03,Cải lương,cailuong_dongsongqueem.mp4,train,60.0,9.0,data/frames/cailuong/cailuong_dongsongqueem_sub03_f05.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_dongsongqueem_sub04,Cải lương,cailuong_dongsongqueem.mp4,train,60.0,5.0,data/frames/cailuong/cailuong_dongsongqueem_sub04_f02.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_dongsongqueem_sub05,Cải lương,cailuong_dongsongqueem.mp4,train,60.0,10.0,data/frames/cailuong/cailuong_dongsongqueem_sub05_f09.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_hoatimbanglang_sub00,Cải lương,cailuong_hoatimbanglang.mp4,train,60.0,14.0,data/frames/cailuong/cailuong_hoatimbanglang_sub00_f07.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_hoatimbanglang_sub01,Cải lương,cailuong_hoatimbanglang.mp4,train,60.0,14.0,data/frames/cailuong/cailuong_hoatimbanglang_sub01_f04.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_hoatimbanglang_sub02,Cải lương,cailuong_hoatimbanglang.mp4,train,60.0,13.0,data/frames/cailuong/cailuong_hoatimbanglang_sub02_f04.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_hoatimbanglang_sub03,Cải lương,cailuong_hoatimbanglang.mp4,train,60.0,13.0,data/frames/cailuong/cailuong_hoatimbanglang_sub03_f00.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_hoatimbanglang_sub04,Cải lương,cailuong_hoatimbanglang.mp4,train,60.0,14.0,data/frames/cailuong/cailuong_hoatimbanglang_sub04_f08.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-cailuong_hoatimbanglang_sub05,Cải lương,cailuong_hoatimbanglang.mp4,train,60.0,13.0,data/frames/cailuong/cailuong_hoatimbanglang_sub05_f04.jpg,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0
-catru_honghongtuyettuyet_sub00,Ca trù,catru_honghongtuyettuyet.mp4,val,60.0,0.0,,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_honghongtuyettuyet_sub01,Ca trù,catru_honghongtuyettuyet.mp4,val,60.0,1.0,data/frames/catru/catru_honghongtuyettuyet_sub01_f00.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_honghongtuyettuyet_sub02,Ca trù,catru_honghongtuyettuyet.mp4,val,60.0,0.0,,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_honghongtuyettuyet_sub03,Ca trù,catru_honghongtuyettuyet.mp4,val,60.0,0.0,,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_honghongtuyettuyet_sub04,Ca trù,catru_honghongtuyettuyet.mp4,val,54.05369999999999,1.0,data/frames/catru/catru_honghongtuyettuyet_sub04_f00.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_lecatru_sub00,Ca trù,catru_lecatru.mp4,train,60.0,7.0,data/frames/catru/catru_lecatru_sub00_f02.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_lecatru_sub01,Ca trù,catru_lecatru.mp4,train,60.0,9.0,data/frames/catru/catru_lecatru_sub01_f03.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_lecatru_sub02,Ca trù,catru_lecatru.mp4,train,60.0,8.0,data/frames/catru/catru_lecatru_sub02_f05.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_tayhohoaico_01_sub00,Ca trù,catru_tayhohoaico_01.mp4,train,82.08,4.0,data/frames/catru/catru_tayhohoaico_01_sub00_f03.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_tayhohoaico_02_sub00,Ca trù,catru_tayhohoaico_02.mp4,train,73.24,2.0,data/frames/catru/catru_tayhohoaico_02_sub00_f00.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_tayhohoaico_03_sub00,Ca trù,catru_tayhohoaico_03.mp4,test,85.84,3.0,data/frames/catru/catru_tayhohoaico_03_sub00_f02.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_daotayho_sub00,Ca trù,catru_daotayho.mp4,train,60.0,11.0,data/frames/catru/catru_daotayho_sub00_f00.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_daotayho_sub01,Ca trù,catru_daotayho.mp4,train,60.0,11.0,data/frames/catru/catru_daotayho_sub01_f01.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_daotayho_sub02,Ca trù,catru_daotayho.mp4,train,60.0,11.0,data/frames/catru/catru_daotayho_sub02_f09.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_daotayho_sub03,Ca trù,catru_daotayho.mp4,train,60.0,5.0,data/frames/catru/catru_daotayho_sub03_f04.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_daotayho_sub04,Ca trù,catru_daotayho.mp4,train,60.0,9.0,data/frames/catru/catru_daotayho_sub04_f07.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_tranganhoaico_sub00,Ca trù,catru_tranganhoaico.mp4,train,60.0,12.0,data/frames/catru/catru_tranganhoaico_sub00_f01.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_tranganhoaico_sub01,Ca trù,catru_tranganhoaico.mp4,train,60.0,11.0,data/frames/catru/catru_tranganhoaico_sub01_f08.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_tranganhoaico_sub02,Ca trù,catru_tranganhoaico.mp4,train,60.0,14.0,data/frames/catru/catru_tranganhoaico_sub02_f11.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_tranganhoaico_sub03,Ca trù,catru_tranganhoaico.mp4,train,60.0,9.0,data/frames/catru/catru_tranganhoaico_sub03_f03.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_huongsonphongcanh_sub00,Ca trù,catru_huongsonphongcanh.mp4,train,60.0,13.0,data/frames/catru/catru_huongsonphongcanh_sub00_f12.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_huongsonphongcanh_sub01,Ca trù,catru_huongsonphongcanh.mp4,train,60.0,15.0,data/frames/catru/catru_huongsonphongcanh_sub01_f00.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_huongsonphongcanh_sub02,Ca trù,catru_huongsonphongcanh.mp4,train,60.0,13.0,data/frames/catru/catru_huongsonphongcanh_sub02_f11.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_huongsonphongcanh_sub03,Ca trù,catru_huongsonphongcanh.mp4,train,60.0,15.0,data/frames/catru/catru_huongsonphongcanh_sub03_f04.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_daudephoguom_sub00,Ca trù,catru_daudephoguom.mp4,test,60.0,13.0,data/frames/catru/catru_daudephoguom_sub00_f09.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_daudephoguom_sub01,Ca trù,catru_daudephoguom.mp4,test,60.0,6.0,data/frames/catru/catru_daudephoguom_sub01_f02.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_daudephoguom_sub02,Ca trù,catru_daudephoguom.mp4,test,60.0,9.0,data/frames/catru/catru_daudephoguom_sub02_f01.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_daudephoguom_sub03,Ca trù,catru_daudephoguom.mp4,test,60.0,9.0,data/frames/catru/catru_daudephoguom_sub03_f07.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_daudephoguom_sub04,Ca trù,catru_daudephoguom.mp4,test,57.0,10.0,data/frames/catru/catru_daudephoguom_sub04_f07.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_diendieu_sub00,Ca trù,catru_diendieu.mp4,train,60.0,3.0,data/frames/catru/catru_diendieu_sub00_f00.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_diendieu_sub01,Ca trù,catru_diendieu.mp4,train,60.0,4.0,data/frames/catru/catru_diendieu_sub01_f03.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-catru_diendieu_sub02,Ca trù,catru_diendieu.mp4,train,60.0,5.0,data/frames/catru/catru_diendieu_sub02_f04.jpg,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0
-chauvan_01_sub00,Chầu văn,chauvan_01.mp4,train,66.8,15.0,data/frames/chauvan/chauvan_01_sub00_f13.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_codoithuongngan_01_sub00,Chầu văn,chauvan_codoithuongngan_01.mp4,train,60.0,12.0,data/frames/chauvan/chauvan_codoithuongngan_01_sub00_f03.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_codoithuongngan_01_sub01,Chầu văn,chauvan_codoithuongngan_01.mp4,train,60.0,11.0,data/frames/chauvan/chauvan_codoithuongngan_01_sub01_f01.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_codoithuongngan_01_sub02,Chầu văn,chauvan_codoithuongngan_01.mp4,train,60.0,15.0,data/frames/chauvan/chauvan_codoithuongngan_01_sub02_f02.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_codoithuongngan_01_sub03,Chầu văn,chauvan_codoithuongngan_01.mp4,train,60.0,14.0,data/frames/chauvan/chauvan_codoithuongngan_01_sub03_f12.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_codoithuongngan_01_sub04,Chầu văn,chauvan_codoithuongngan_01.mp4,train,60.0,11.0,data/frames/chauvan/chauvan_codoithuongngan_01_sub04_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_codoithuongngan_01_sub05,Chầu văn,chauvan_codoithuongngan_01.mp4,train,60.0,10.0,data/frames/chauvan/chauvan_codoithuongngan_01_sub05_f08.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_conco_sub00,Chầu văn,chauvan_conco.mp4,train,60.0,2.0,data/frames/chauvan/chauvan_conco_sub00_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_conco_sub01,Chầu văn,chauvan_conco.mp4,train,60.0,1.0,data/frames/chauvan/chauvan_conco_sub01_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_conco_sub02,Chầu văn,chauvan_conco.mp4,train,60.0,1.0,data/frames/chauvan/chauvan_conco_sub02_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_conco_sub03,Chầu văn,chauvan_conco.mp4,train,60.0,1.0,data/frames/chauvan/chauvan_conco_sub03_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_conco_sub04,Chầu văn,chauvan_conco.mp4,train,60.0,2.0,data/frames/chauvan/chauvan_conco_sub04_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_luattroi_sub00,Chầu văn,chauvan_luattroi.mp4,train,60.0,4.0,data/frames/chauvan/chauvan_luattroi_sub00_f01.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_luattroi_sub01,Chầu văn,chauvan_luattroi.mp4,train,60.0,3.0,data/frames/chauvan/chauvan_luattroi_sub01_f02.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_luattroi_sub02,Chầu văn,chauvan_luattroi.mp4,train,60.0,1.0,data/frames/chauvan/chauvan_luattroi_sub02_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_luattroi_sub03,Chầu văn,chauvan_luattroi.mp4,train,60.0,1.0,data/frames/chauvan/chauvan_luattroi_sub03_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_conguoisongtrendoitiennhieudelamchi_sub00,Chầu văn,chauvan_conguoisongtrendoitiennhieudelamchi.mp4,test,60.0,3.0,data/frames/chauvan/chauvan_conguoisongtrendoitiennhieudelamchi_sub00_f02.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_conguoisongtrendoitiennhieudelamchi_sub01,Chầu văn,chauvan_conguoisongtrendoitiennhieudelamchi.mp4,test,60.0,5.0,data/frames/chauvan/chauvan_conguoisongtrendoitiennhieudelamchi_sub01_f04.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_conguoisongtrendoitiennhieudelamchi_sub02,Chầu văn,chauvan_conguoisongtrendoitiennhieudelamchi.mp4,test,60.0,1.0,data/frames/chauvan/chauvan_conguoisongtrendoitiennhieudelamchi_sub02_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_luattroi_02_sub00,Chầu văn,chauvan_luattroi_02.mp4,train,60.0,1.0,data/frames/chauvan/chauvan_luattroi_02_sub00_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_luattroi_02_sub01,Chầu văn,chauvan_luattroi_02.mp4,train,60.0,3.0,data/frames/chauvan/chauvan_luattroi_02_sub01_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_luattroi_02_sub02,Chầu văn,chauvan_luattroi_02.mp4,train,60.0,1.0,data/frames/chauvan/chauvan_luattroi_02_sub02_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_luattroi_02_sub03,Chầu văn,chauvan_luattroi_02.mp4,train,60.0,1.0,data/frames/chauvan/chauvan_luattroi_02_sub03_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_luattroi_02_sub04,Chầu văn,chauvan_luattroi_02.mp4,train,60.0,1.0,data/frames/chauvan/chauvan_luattroi_02_sub04_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_cooisaoboquenmegia_sub00,Chầu văn,chauvan_cooisaoboquenmegia.mp4,val,60.0,15.0,data/frames/chauvan/chauvan_cooisaoboquenmegia_sub00_f05.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_cooisaoboquenmegia_sub01,Chầu văn,chauvan_cooisaoboquenmegia.mp4,val,60.0,15.0,data/frames/chauvan/chauvan_cooisaoboquenmegia_sub01_f06.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_cooisaoboquenmegia_sub02,Chầu văn,chauvan_cooisaoboquenmegia.mp4,val,60.0,15.0,data/frames/chauvan/chauvan_cooisaoboquenmegia_sub02_f01.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_cooisaoboquenmegia_sub03,Chầu văn,chauvan_cooisaoboquenmegia.mp4,val,60.0,15.0,data/frames/chauvan/chauvan_cooisaoboquenmegia_sub03_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_cooisaoboquenmegia_sub04,Chầu văn,chauvan_cooisaoboquenmegia.mp4,val,60.0,15.0,data/frames/chauvan/chauvan_cooisaoboquenmegia_sub04_f01.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_cooisaoboquenmegia_sub05,Chầu văn,chauvan_cooisaoboquenmegia.mp4,val,55.0,15.0,data/frames/chauvan/chauvan_cooisaoboquenmegia_sub05_f09.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_haucobo_sub00,Chầu văn,chauvan_haucobo.mp4,test,60.0,6.0,data/frames/chauvan/chauvan_haucobo_sub00_f03.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_haucobo_sub01,Chầu văn,chauvan_haucobo.mp4,test,60.0,5.0,data/frames/chauvan/chauvan_haucobo_sub01_f03.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_haucobo_sub02,Chầu văn,chauvan_haucobo.mp4,test,60.0,5.0,data/frames/chauvan/chauvan_haucobo_sub02_f02.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_haucobo_sub03,Chầu văn,chauvan_haucobo.mp4,test,60.0,3.0,data/frames/chauvan/chauvan_haucobo_sub03_f02.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_dangvanchauto_sub00,Chầu văn,chauvan_dangvanchauto.mp4,train,60.0,6.0,data/frames/chauvan/chauvan_dangvanchauto_sub00_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_dangvanchauto_sub01,Chầu văn,chauvan_dangvanchauto.mp4,train,60.0,8.0,data/frames/chauvan/chauvan_dangvanchauto_sub01_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_dangvanchauto_sub02,Chầu văn,chauvan_dangvanchauto.mp4,train,60.0,15.0,data/frames/chauvan/chauvan_dangvanchauto_sub02_f04.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_dangvanchauto_sub03,Chầu văn,chauvan_dangvanchauto.mp4,train,60.0,10.0,data/frames/chauvan/chauvan_dangvanchauto_sub03_f03.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_vanquanquetoi_sub00,Chầu văn,chauvan_vanquanquetoi.mp4,train,60.0,7.0,data/frames/chauvan/chauvan_vanquanquetoi_sub00_f03.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_vanquanquetoi_sub01,Chầu văn,chauvan_vanquanquetoi.mp4,train,60.0,9.0,data/frames/chauvan/chauvan_vanquanquetoi_sub01_f05.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_vanquanquetoi_sub02,Chầu văn,chauvan_vanquanquetoi.mp4,train,60.0,2.0,data/frames/chauvan/chauvan_vanquanquetoi_sub02_f01.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_vanquanquetoi_sub03,Chầu văn,chauvan_vanquanquetoi.mp4,train,60.0,11.0,data/frames/chauvan/chauvan_vanquanquetoi_sub03_f10.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_vanquanquetoi_sub04,Chầu văn,chauvan_vanquanquetoi.mp4,train,60.0,8.0,data/frames/chauvan/chauvan_vanquanquetoi_sub04_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_vanquanquetoi_sub05,Chầu văn,chauvan_vanquanquetoi.mp4,train,60.0,6.0,data/frames/chauvan/chauvan_vanquanquetoi_sub05_f02.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_vanquanquetoi_sub06,Chầu văn,chauvan_vanquanquetoi.mp4,train,56.04000000000002,4.0,data/frames/chauvan/chauvan_vanquanquetoi_sub06_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_ngoibuomnhometaxua_sub00,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,7.0,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub00_f01.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_ngoibuomnhometaxua_sub01,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,6.0,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub01_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_ngoibuomnhometaxua_sub02,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,5.0,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub02_f04.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_ngoibuomnhometaxua_sub03,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,7.0,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub03_f05.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_ngoibuomnhometaxua_sub04,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,4.0,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub04_f02.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_ngoibuomnhometaxua_sub05,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,8.0,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub05_f02.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_ngoibuomnhometaxua_sub06,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,7.0,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub06_f01.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_ngoibuomnhometaxua_sub07,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,5.0,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub07_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_codoithuongngan_sub00,Chầu văn,chauvan_codoithuongngan.mp4,train,60.0,15.0,data/frames/chauvan/chauvan_codoithuongngan_sub00_f01.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_codoithuongngan_sub01,Chầu văn,chauvan_codoithuongngan.mp4,train,60.0,15.0,data/frames/chauvan/chauvan_codoithuongngan_sub01_f04.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_codoithuongngan_sub02,Chầu văn,chauvan_codoithuongngan.mp4,train,60.0,15.0,data/frames/chauvan/chauvan_codoithuongngan_sub02_f07.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_codoithuongngan_sub03,Chầu văn,chauvan_codoithuongngan.mp4,train,60.0,15.0,data/frames/chauvan/chauvan_codoithuongngan_sub03_f10.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_codoithuongngan_sub04,Chầu văn,chauvan_codoithuongngan.mp4,train,60.0,15.0,data/frames/chauvan/chauvan_codoithuongngan_sub04_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_loive_sub00,Chầu văn,chauvan_loive.mp4,val,60.0,1.0,data/frames/chauvan/chauvan_loive_sub00_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_loive_sub01,Chầu văn,chauvan_loive.mp4,val,60.0,1.0,data/frames/chauvan/chauvan_loive_sub01_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_loive_sub02,Chầu văn,chauvan_loive.mp4,val,60.0,1.0,data/frames/chauvan/chauvan_loive_sub02_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_loive_sub03,Chầu văn,chauvan_loive.mp4,val,49.60000000000002,1.0,data/frames/chauvan/chauvan_loive_sub03_f00.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_daolamcon_sub00,Chầu văn,chauvan_daolamcon.mp4,test,60.0,8.0,data/frames/chauvan/chauvan_daolamcon_sub00_f07.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_daolamcon_sub01,Chầu văn,chauvan_daolamcon.mp4,test,60.0,10.0,data/frames/chauvan/chauvan_daolamcon_sub01_f04.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_daolamcon_sub02,Chầu văn,chauvan_daolamcon.mp4,test,60.0,13.0,data/frames/chauvan/chauvan_daolamcon_sub02_f02.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-chauvan_daolamcon_sub03,Chầu văn,chauvan_daolamcon.mp4,test,60.0,12.0,data/frames/chauvan/chauvan_daolamcon_sub03_f10.jpg,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
-cheo_tamcam_10_sub00,Chèo,cheo_tamcam_10.mp4,train,51.8,1.0,data/frames/cheo/cheo_tamcam_10_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tamcam_09_sub00,Chèo,cheo_tamcam_09.mp4,train,52.4,4.0,data/frames/cheo/cheo_tamcam_09_sub00_f02.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tamcam_08_sub00,Chèo,cheo_tamcam_08.mp4,train,60.0,4.0,data/frames/cheo/cheo_tamcam_08_sub00_f01.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tamcam_08_sub01,Chèo,cheo_tamcam_08.mp4,train,50.68000000000001,2.0,data/frames/cheo/cheo_tamcam_08_sub01_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tamcam_07_sub00,Chèo,cheo_tamcam_07.mp4,train,70.48,4.0,data/frames/cheo/cheo_tamcam_07_sub00_f03.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tamcam_06_sub00,Chèo,cheo_tamcam_06.mp4,train,60.0,1.0,data/frames/cheo/cheo_tamcam_06_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tamcam_05_sub00,Chèo,cheo_tamcam_05.mp4,test,81.8,3.0,data/frames/cheo/cheo_tamcam_05_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tamcam_04_sub00,Chèo,cheo_tamcam_04.mp4,train,53.6,1.0,data/frames/cheo/cheo_tamcam_04_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tamcam_03_sub00,Chèo,cheo_tamcam_03.mp4,train,85.48,1.0,data/frames/cheo/cheo_tamcam_03_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tamcam_02_sub00,Chèo,cheo_tamcam_02.mp4,train,63.96,0.0,,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tamcam_01_sub00,Chèo,cheo_tamcam_01.mp4,train,71.08,0.0,,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_luubinhduongle_01_sub00,Chèo,cheo_luubinhduongle_01.mp4,test,53.4,5.0,data/frames/cheo/cheo_luubinhduongle_01_sub00_f02.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_luubinhduongle_02_sub00,Chèo,cheo_luubinhduongle_02.mp4,train,55.12,1.0,data/frames/cheo/cheo_luubinhduongle_02_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_luubinhduongle_03_sub00,Chèo,cheo_luubinhduongle_03.mp4,train,33.36,2.0,data/frames/cheo/cheo_luubinhduongle_03_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_luubinhduongle_04_sub00,Chèo,cheo_luubinhduongle_04.mp4,val,60.0,2.0,data/frames/cheo/cheo_luubinhduongle_04_sub00_f01.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_luubinhduongle_04_sub01,Chèo,cheo_luubinhduongle_04.mp4,val,49.72,1.0,data/frames/cheo/cheo_luubinhduongle_04_sub01_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_luubinhduongle_05_sub00,Chèo,cheo_luubinhduongle_05.mp4,train,60.0,1.0,data/frames/cheo/cheo_luubinhduongle_05_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_luubinhduongle_06_sub00,Chèo,cheo_luubinhduongle_06.mp4,val,60.0,1.0,data/frames/cheo/cheo_luubinhduongle_06_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_luubinhduongle_06_sub01,Chèo,cheo_luubinhduongle_06.mp4,val,60.0,1.0,data/frames/cheo/cheo_luubinhduongle_06_sub01_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_luubinhduongle_07_sub00,Chèo,cheo_luubinhduongle_07.mp4,train,88.24,1.0,data/frames/cheo/cheo_luubinhduongle_07_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_luubinhduongle_08_sub00,Chèo,cheo_luubinhduongle_08.mp4,test,47.32,1.0,data/frames/cheo/cheo_luubinhduongle_08_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_luubinhduongle_09_sub00,Chèo,cheo_luubinhduongle_09.mp4,test,87.32,7.0,data/frames/cheo/cheo_luubinhduongle_09_sub00_f04.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_luubinhduongle_10_sub00,Chèo,cheo_luubinhduongle_10.mp4,train,56.6,2.0,data/frames/cheo/cheo_luubinhduongle_10_sub00_f01.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quacauvang_01_sub00,Chèo,cheo_quacauvang_01.mp4,train,31.72,9.0,data/frames/cheo/cheo_quacauvang_01_sub00_f06.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quacauvang_04_sub00,Chèo,cheo_quacauvang_04.mp4,train,37.68,9.0,data/frames/cheo/cheo_quacauvang_04_sub00_f02.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quacauvang_05_sub00,Chèo,cheo_quacauvang_05.mp4,train,55.0,12.0,data/frames/cheo/cheo_quacauvang_05_sub00_f05.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quacauvang_03_sub00,Chèo,cheo_quacauvang_03.mp4,train,60.56,12.0,data/frames/cheo/cheo_quacauvang_03_sub00_f11.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quacauvang_02_sub00,Chèo,cheo_quacauvang_02.mp4,train,82.52,15.0,data/frames/cheo/cheo_quacauvang_02_sub00_f03.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quacauvang_06_sub00,Chèo,cheo_quacauvang_06.mp4,test,60.0,6.0,data/frames/cheo/cheo_quacauvang_06_sub00_f01.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quacauvang_06_sub01,Chèo,cheo_quacauvang_06.mp4,test,60.0,13.0,data/frames/cheo/cheo_quacauvang_06_sub01_f05.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quacauvang_07_sub00,Chèo,cheo_quacauvang_07.mp4,train,71.44,15.0,data/frames/cheo/cheo_quacauvang_07_sub00_f05.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quacauvang_08_sub00,Chèo,cheo_quacauvang_08.mp4,train,46.36,8.0,data/frames/cheo/cheo_quacauvang_08_sub00_f07.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quacauvang_10_sub00,Chèo,cheo_quacauvang_10.mp4,val,80.08,14.0,data/frames/cheo/cheo_quacauvang_10_sub00_f04.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quacauvang_09_sub00,Chèo,cheo_quacauvang_09.mp4,val,60.0,15.0,data/frames/cheo/cheo_quacauvang_09_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_loicadangme_sub00,Chèo,cheo_loicadangme.mp4,train,60.0,2.0,data/frames/cheo/cheo_loicadangme_sub00_f01.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_loicadangme_sub01,Chèo,cheo_loicadangme.mp4,train,60.0,1.0,data/frames/cheo/cheo_loicadangme_sub01_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_loicadangme_sub02,Chèo,cheo_loicadangme.mp4,train,60.0,4.0,data/frames/cheo/cheo_loicadangme_sub02_f03.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_ronrangdatnuocvaoxuan_sub00,Chèo,cheo_ronrangdatnuocvaoxuan.mp4,train,60.0,15.0,data/frames/cheo/cheo_ronrangdatnuocvaoxuan_sub00_f07.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_ronrangdatnuocvaoxuan_sub01,Chèo,cheo_ronrangdatnuocvaoxuan.mp4,train,60.0,15.0,data/frames/cheo/cheo_ronrangdatnuocvaoxuan_sub01_f08.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_ronrangdatnuocvaoxuan_sub02,Chèo,cheo_ronrangdatnuocvaoxuan.mp4,train,60.0,15.0,data/frames/cheo/cheo_ronrangdatnuocvaoxuan_sub02_f09.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_motthoidenho_sub00,Chèo,cheo_motthoidenho.mp4,test,60.0,11.0,data/frames/cheo/cheo_motthoidenho_sub00_f03.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_motthoidenho_sub01,Chèo,cheo_motthoidenho.mp4,test,60.0,11.0,data/frames/cheo/cheo_motthoidenho_sub01_f05.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_motthoidenho_sub02,Chèo,cheo_motthoidenho.mp4,test,60.0,13.0,data/frames/cheo/cheo_motthoidenho_sub02_f12.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_motthoidenho_sub03,Chèo,cheo_motthoidenho.mp4,test,60.0,15.0,data/frames/cheo/cheo_motthoidenho_sub03_f02.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_motthoidenho_sub04,Chèo,cheo_motthoidenho.mp4,test,60.0,15.0,data/frames/cheo/cheo_motthoidenho_sub04_f04.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_motthoidenho_sub05,Chèo,cheo_motthoidenho.mp4,test,60.0,15.0,data/frames/cheo/cheo_motthoidenho_sub05_f12.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tiengcheotrenmanhdatquehuong_sub00,Chèo,cheo_tiengcheotrenmanhdatquehuong.mp4,train,60.0,11.0,data/frames/cheo/cheo_tiengcheotrenmanhdatquehuong_sub00_f05.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tiengcheotrenmanhdatquehuong_sub01,Chèo,cheo_tiengcheotrenmanhdatquehuong.mp4,train,60.0,13.0,data/frames/cheo/cheo_tiengcheotrenmanhdatquehuong_sub01_f03.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tiengcheotrenmanhdatquehuong_sub02,Chèo,cheo_tiengcheotrenmanhdatquehuong.mp4,train,60.0,12.0,data/frames/cheo/cheo_tiengcheotrenmanhdatquehuong_sub02_f02.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_tiengcheotrenmanhdatquehuong_sub03,Chèo,cheo_tiengcheotrenmanhdatquehuong.mp4,train,53.01106666666669,15.0,data/frames/cheo/cheo_tiengcheotrenmanhdatquehuong_sub03_f01.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_salechchenh_sub00,Chèo,cheo_salechchenh.mp4,train,60.0,14.0,data/frames/cheo/cheo_salechchenh_sub00_f07.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_salechchenh_sub01,Chèo,cheo_salechchenh.mp4,train,60.0,10.0,data/frames/cheo/cheo_salechchenh_sub01_f05.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_salechchenh_sub02,Chèo,cheo_salechchenh.mp4,train,50.0,8.0,data/frames/cheo/cheo_salechchenh_sub02_f01.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_hattamlangmai_sub00,Chèo,cheo_hattamlangmai.mp4,train,60.0,9.0,data/frames/cheo/cheo_hattamlangmai_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_hattamlangmai_sub01,Chèo,cheo_hattamlangmai.mp4,train,60.0,10.0,data/frames/cheo/cheo_hattamlangmai_sub01_f08.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_dodua_sub00,Chèo,cheo_dodua.mp4,val,60.0,1.0,data/frames/cheo/cheo_dodua_sub00_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_dodua_sub01,Chèo,cheo_dodua.mp4,val,60.0,1.0,data/frames/cheo/cheo_dodua_sub01_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_dodua_sub02,Chèo,cheo_dodua.mp4,val,60.0,1.0,data/frames/cheo/cheo_dodua_sub02_f00.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quantuvudich_sub00,Chèo,cheo_quantuvudich.mp4,train,60.0,15.0,data/frames/cheo/cheo_quantuvudich_sub00_f01.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quantuvudich_sub01,Chèo,cheo_quantuvudich.mp4,train,60.0,10.0,data/frames/cheo/cheo_quantuvudich_sub01_f08.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quantuvudich_sub02,Chèo,cheo_quantuvudich.mp4,train,60.0,12.0,data/frames/cheo/cheo_quantuvudich_sub02_f11.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quantuvudich_sub03,Chèo,cheo_quantuvudich.mp4,train,60.0,12.0,data/frames/cheo/cheo_quantuvudich_sub03_f07.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_quantuvudich_sub04,Chèo,cheo_quantuvudich.mp4,train,60.0,13.0,data/frames/cheo/cheo_quantuvudich_sub04_f06.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_nhodemtrangkyniem_sub00,Chèo,cheo_nhodemtrangkyniem.mp4,train,60.0,15.0,data/frames/cheo/cheo_nhodemtrangkyniem_sub00_f13.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_nhodemtrangkyniem_sub01,Chèo,cheo_nhodemtrangkyniem.mp4,train,60.0,15.0,data/frames/cheo/cheo_nhodemtrangkyniem_sub01_f12.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_nhodemtrangkyniem_sub02,Chèo,cheo_nhodemtrangkyniem.mp4,train,60.0,15.0,data/frames/cheo/cheo_nhodemtrangkyniem_sub02_f12.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_nhodemtrangkyniem_sub03,Chèo,cheo_nhodemtrangkyniem.mp4,train,60.0,15.0,data/frames/cheo/cheo_nhodemtrangkyniem_sub03_f08.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-cheo_nhodemtrangkyniem_sub04,Chèo,cheo_nhodemtrangkyniem.mp4,train,55.0,14.0,data/frames/cheo/cheo_nhodemtrangkyniem_sub04_f07.jpg,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
-quanho_nguoioinguoiodungve_sub00,Quan họ,quanho_nguoioinguoiodungve.mp4,train,60.0,6.0,data/frames/quanho/quanho_nguoioinguoiodungve_sub00_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_nguoioinguoiodungve_sub01,Quan họ,quanho_nguoioinguoiodungve.mp4,train,60.0,11.0,data/frames/quanho/quanho_nguoioinguoiodungve_sub01_f06.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_nguoioinguoiodungve_sub02,Quan họ,quanho_nguoioinguoiodungve.mp4,train,60.0,8.0,data/frames/quanho/quanho_nguoioinguoiodungve_sub02_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_nguoioinguoiodungve_sub03,Quan họ,quanho_nguoioinguoiodungve.mp4,train,60.0,10.0,data/frames/quanho/quanho_nguoioinguoiodungve_sub03_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_nguoioinguoiodungve_sub04,Quan họ,quanho_nguoioinguoiodungve.mp4,train,60.0,9.0,data/frames/quanho/quanho_nguoioinguoiodungve_sub04_f06.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_beodatmaytroi_sub00,Quan họ,quanho_beodatmaytroi.mp4,test,60.0,15.0,data/frames/quanho/quanho_beodatmaytroi_sub00_f09.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_beodatmaytroi_sub01,Quan họ,quanho_beodatmaytroi.mp4,test,60.0,15.0,data/frames/quanho/quanho_beodatmaytroi_sub01_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_beodatmaytroi_sub02,Quan họ,quanho_beodatmaytroi.mp4,test,60.0,15.0,data/frames/quanho/quanho_beodatmaytroi_sub02_f13.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_caytrucxinh_sub00,Quan họ,quanho_caytrucxinh.mp4,test,60.0,11.0,data/frames/quanho/quanho_caytrucxinh_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_caytrucxinh_sub01,Quan họ,quanho_caytrucxinh.mp4,test,60.0,10.0,data/frames/quanho/quanho_caytrucxinh_sub01_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_caytrucxinh_sub02,Quan họ,quanho_caytrucxinh.mp4,test,52.03999999999999,7.0,data/frames/quanho/quanho_caytrucxinh_sub02_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_conduyen_sub00,Quan họ,quanho_conduyen.mp4,train,60.0,15.0,data/frames/quanho/quanho_conduyen_sub00_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_conduyen_sub01,Quan họ,quanho_conduyen.mp4,train,60.0,15.0,data/frames/quanho/quanho_conduyen_sub01_f02.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_conduyen_sub02,Quan họ,quanho_conduyen.mp4,train,60.0,15.0,data/frames/quanho/quanho_conduyen_sub02_f13.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_traucauquanho_sub00,Quan họ,quanho_traucauquanho.mp4,train,60.0,15.0,data/frames/quanho/quanho_traucauquanho_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_traucauquanho_sub01,Quan họ,quanho_traucauquanho.mp4,train,60.0,15.0,data/frames/quanho/quanho_traucauquanho_sub01_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_traucauquanho_sub02,Quan họ,quanho_traucauquanho.mp4,train,60.0,15.0,data/frames/quanho/quanho_traucauquanho_sub02_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_guivequanho_sub00,Quan họ,quanho_guivequanho.mp4,train,60.0,15.0,data/frames/quanho/quanho_guivequanho_sub00_f10.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_guivequanho_sub01,Quan họ,quanho_guivequanho.mp4,train,60.0,9.0,data/frames/quanho/quanho_guivequanho_sub01_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_guivequanho_sub02,Quan họ,quanho_guivequanho.mp4,train,60.0,11.0,data/frames/quanho/quanho_guivequanho_sub02_f07.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_guivequanho_sub03,Quan họ,quanho_guivequanho.mp4,train,60.0,8.0,data/frames/quanho/quanho_guivequanho_sub03_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_demquanhoban_sub00,Quan họ,quanho_demquanhoban.mp4,test,60.0,6.0,data/frames/quanho/quanho_demquanhoban_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_demquanhoban_sub01,Quan họ,quanho_demquanhoban.mp4,test,60.0,9.0,data/frames/quanho/quanho_demquanhoban_sub01_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_demquanhoban_sub02,Quan họ,quanho_demquanhoban.mp4,test,60.0,9.0,data/frames/quanho/quanho_demquanhoban_sub02_f07.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_demquanhoban_sub03,Quan họ,quanho_demquanhoban.mp4,test,60.0,15.0,data/frames/quanho/quanho_demquanhoban_sub03_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_rephuongchialoan_sub00,Quan họ,quanho_rephuongchialoan.mp4,train,60.0,4.0,data/frames/quanho/quanho_rephuongchialoan_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_rephuongchialoan_sub01,Quan họ,quanho_rephuongchialoan.mp4,train,60.0,9.0,data/frames/quanho/quanho_rephuongchialoan_sub01_f07.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_rephuongchialoan_sub02,Quan họ,quanho_rephuongchialoan.mp4,train,60.0,6.0,data/frames/quanho/quanho_rephuongchialoan_sub02_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_rephuongchialoan_sub03,Quan họ,quanho_rephuongchialoan.mp4,train,60.0,8.0,data/frames/quanho/quanho_rephuongchialoan_sub03_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_rephuongchialoan_sub04,Quan họ,quanho_rephuongchialoan.mp4,train,60.0,3.0,data/frames/quanho/quanho_rephuongchialoan_sub04_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_rephuongchialoan_sub05,Quan họ,quanho_rephuongchialoan.mp4,train,57.46536666666668,4.0,data/frames/quanho/quanho_rephuongchialoan_sub05_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_muoinho_sub00,Quan họ,quanho_muoinho.mp4,train,60.0,7.0,data/frames/quanho/quanho_muoinho_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_muoinho_sub01,Quan họ,quanho_muoinho.mp4,train,60.0,10.0,data/frames/quanho/quanho_muoinho_sub01_f07.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_muoinho_sub02,Quan họ,quanho_muoinho.mp4,train,60.0,9.0,data/frames/quanho/quanho_muoinho_sub02_f06.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_vaochua_sub00,Quan họ,quanho_vaochua.mp4,train,60.0,15.0,data/frames/quanho/quanho_vaochua_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_vaochua_sub01,Quan họ,quanho_vaochua.mp4,train,60.0,14.0,data/frames/quanho/quanho_vaochua_sub01_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_vaochua_sub02,Quan họ,quanho_vaochua.mp4,train,60.0,15.0,data/frames/quanho/quanho_vaochua_sub02_f11.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_namlieubaylo_sub00,Quan họ,quanho_namlieubaylo.mp4,train,60.0,15.0,data/frames/quanho/quanho_namlieubaylo_sub00_f10.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_namlieubaylo_sub01,Quan họ,quanho_namlieubaylo.mp4,train,60.0,15.0,data/frames/quanho/quanho_namlieubaylo_sub01_f10.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_namlieubaylo_sub02,Quan họ,quanho_namlieubaylo.mp4,train,60.0,15.0,data/frames/quanho/quanho_namlieubaylo_sub02_f08.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_goido_sub00,Quan họ,quanho_goido.mp4,train,60.0,14.0,data/frames/quanho/quanho_goido_sub00_f09.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_goido_sub01,Quan họ,quanho_goido.mp4,train,60.0,11.0,data/frames/quanho/quanho_goido_sub01_f02.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_goido_sub02,Quan họ,quanho_goido.mp4,train,60.0,15.0,data/frames/quanho/quanho_goido_sub02_f14.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_nonbatam_sub00,Quan họ,quanho_nonbatam.mp4,val,60.0,13.0,data/frames/quanho/quanho_nonbatam_sub00_f08.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_nonbatam_sub01,Quan họ,quanho_nonbatam.mp4,val,60.0,13.0,data/frames/quanho/quanho_nonbatam_sub01_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_nonbatam_sub02,Quan họ,quanho_nonbatam.mp4,val,60.0,14.0,data/frames/quanho/quanho_nonbatam_sub02_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_nonbatam_sub03,Quan họ,quanho_nonbatam.mp4,val,60.0,15.0,data/frames/quanho/quanho_nonbatam_sub03_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_thanluonbaoquanlamdau_sub00,Quan họ,quanho_thanluonbaoquanlamdau.mp4,val,60.0,13.0,data/frames/quanho/quanho_thanluonbaoquanlamdau_sub00_f02.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_thanluonbaoquanlamdau_sub01,Quan họ,quanho_thanluonbaoquanlamdau.mp4,val,60.0,15.0,data/frames/quanho/quanho_thanluonbaoquanlamdau_sub01_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_thanluonbaoquanlamdau_sub02,Quan họ,quanho_thanluonbaoquanlamdau.mp4,val,60.0,11.0,data/frames/quanho/quanho_thanluonbaoquanlamdau_sub02_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_thanluonbaoquanlamdau_sub03,Quan họ,quanho_thanluonbaoquanlamdau.mp4,val,60.0,15.0,data/frames/quanho/quanho_thanluonbaoquanlamdau_sub03_f08.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_tinhquequanho_sub00,Quan họ,quanho_tinhquequanho.mp4,train,60.0,15.0,data/frames/quanho/quanho_tinhquequanho_sub00_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_tinhquequanho_sub01,Quan họ,quanho_tinhquequanho.mp4,train,60.0,15.0,data/frames/quanho/quanho_tinhquequanho_sub01_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-quanho_tinhquequanho_sub02,Quan họ,quanho_tinhquequanho.mp4,train,60.0,15.0,data/frames/quanho/quanho_tinhquequanho_sub02_f13.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0
-xam_thapan_sub00,Hát xẩm,xam_thapan.mp4,val,60.0,10.0,data/frames/xam/xam_thapan_sub00_f04.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_thapan_sub01,Hát xẩm,xam_thapan.mp4,val,60.0,15.0,data/frames/xam/xam_thapan_sub01_f14.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_thapan_sub02,Hát xẩm,xam_thapan.mp4,val,60.0,13.0,data/frames/xam/xam_thapan_sub02_f07.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_thapan_sub03,Hát xẩm,xam_thapan.mp4,val,60.0,8.0,data/frames/xam/xam_thapan_sub03_f01.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_anhdungyeu_sub00,Hát xẩm,xam_anhdungyeu.mp4,train,60.0,3.0,data/frames/xam/xam_anhdungyeu_sub00_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_anhdungyeu_sub01,Hát xẩm,xam_anhdungyeu.mp4,train,60.0,4.0,data/frames/xam/xam_anhdungyeu_sub01_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_anhdungyeu_sub02,Hát xẩm,xam_anhdungyeu.mp4,train,60.0,4.0,data/frames/xam/xam_anhdungyeu_sub02_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_anhdungyeu_sub03,Hát xẩm,xam_anhdungyeu.mp4,train,60.0,2.0,data/frames/xam/xam_anhdungyeu_sub03_f01.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_anhdungyeu_sub04,Hát xẩm,xam_anhdungyeu.mp4,train,60.0,1.0,data/frames/xam/xam_anhdungyeu_sub04_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_anhdungyeu_sub05,Hát xẩm,xam_anhdungyeu.mp4,train,60.0,2.0,data/frames/xam/xam_anhdungyeu_sub05_f01.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_khimeconotrangian_sub00,Hát xẩm,xam_khimeconotrangian.mp4,train,60.0,11.0,data/frames/xam/xam_khimeconotrangian_sub00_f04.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_khimeconotrangian_sub01,Hát xẩm,xam_khimeconotrangian.mp4,train,60.0,11.0,data/frames/xam/xam_khimeconotrangian_sub01_f06.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chodongxuan_sub00,Hát xẩm,xam_chodongxuan.mp4,train,60.0,7.0,data/frames/xam/xam_chodongxuan_sub00_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chodongxuan_sub01,Hát xẩm,xam_chodongxuan.mp4,train,60.0,8.0,data/frames/xam/xam_chodongxuan_sub01_f04.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chodongxuan_sub02,Hát xẩm,xam_chodongxuan.mp4,train,60.0,4.0,data/frames/xam/xam_chodongxuan_sub02_f01.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chodongxuan_sub03,Hát xẩm,xam_chodongxuan.mp4,train,60.0,6.0,data/frames/xam/xam_chodongxuan_sub03_f04.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chodongxuan_sub04,Hát xẩm,xam_chodongxuan.mp4,train,60.0,9.0,data/frames/xam/xam_chodongxuan_sub04_f02.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chodongxuan_sub05,Hát xẩm,xam_chodongxuan.mp4,train,60.0,3.0,data/frames/xam/xam_chodongxuan_sub05_f02.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chodongxuan_sub06,Hát xẩm,xam_chodongxuan.mp4,train,60.0,3.0,data/frames/xam/xam_chodongxuan_sub06_f01.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chungbausuame_sub00,Hát xẩm,xam_chungbausuame.mp4,train,60.0,6.0,data/frames/xam/xam_chungbausuame_sub00_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chungbausuame_sub01,Hát xẩm,xam_chungbausuame.mp4,train,60.0,7.0,data/frames/xam/xam_chungbausuame_sub01_f05.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chungbausuame_sub02,Hát xẩm,xam_chungbausuame.mp4,train,60.0,3.0,data/frames/xam/xam_chungbausuame_sub02_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chungbausuame_sub03,Hát xẩm,xam_chungbausuame.mp4,train,60.0,7.0,data/frames/xam/xam_chungbausuame_sub03_f01.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chungbausuame_sub04,Hát xẩm,xam_chungbausuame.mp4,train,60.0,5.0,data/frames/xam/xam_chungbausuame_sub04_f01.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chungbausuame_sub05,Hát xẩm,xam_chungbausuame.mp4,train,46.98823333333337,1.0,data/frames/xam/xam_chungbausuame_sub05_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_thaibinhladatanchoi_sub00,Hát xẩm,xam_thaibinhladatanchoi.mp4,val,60.0,6.0,data/frames/xam/xam_thaibinhladatanchoi_sub00_f04.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_thaibinhladatanchoi_sub01,Hát xẩm,xam_thaibinhladatanchoi.mp4,val,60.0,12.0,data/frames/xam/xam_thaibinhladatanchoi_sub01_f09.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_thaibinhladatanchoi_sub02,Hát xẩm,xam_thaibinhladatanchoi.mp4,val,60.0,6.0,data/frames/xam/xam_thaibinhladatanchoi_sub02_f04.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_thaibinhladatanchoi_sub03,Hát xẩm,xam_thaibinhladatanchoi.mp4,val,60.0,3.0,data/frames/xam/xam_thaibinhladatanchoi_sub03_f02.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_conoimechangcanchi_sub00,Hát xẩm,xam_conoimechangcanchi.mp4,train,60.0,1.0,data/frames/xam/xam_conoimechangcanchi_sub00_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_conoimechangcanchi_sub01,Hát xẩm,xam_conoimechangcanchi.mp4,train,60.0,0.0,,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_conoimechangcanchi_sub02,Hát xẩm,xam_conoimechangcanchi.mp4,train,60.0,0.0,,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_conoimechangcanchi_sub03,Hát xẩm,xam_conoimechangcanchi.mp4,train,60.0,0.0,,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_conoimechangcanchi_sub04,Hát xẩm,xam_conoimechangcanchi.mp4,train,60.0,0.0,,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_haiphongdoson_sub00,Hát xẩm,xam_haiphongdoson.mp4,train,60.0,1.0,data/frames/xam/xam_haiphongdoson_sub00_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_haiphongdoson_sub01,Hát xẩm,xam_haiphongdoson.mp4,train,60.0,1.0,data/frames/xam/xam_haiphongdoson_sub01_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_haiphongdoson_sub02,Hát xẩm,xam_haiphongdoson.mp4,train,60.0,5.0,data/frames/xam/xam_haiphongdoson_sub02_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chanque_sub00,Hát xẩm,xam_chanque.mp4,train,60.0,15.0,data/frames/xam/xam_chanque_sub00_f06.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chanque_sub01,Hát xẩm,xam_chanque.mp4,train,60.0,15.0,data/frames/xam/xam_chanque_sub01_f02.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_chanque_sub02,Hát xẩm,xam_chanque.mp4,train,60.0,15.0,data/frames/xam/xam_chanque_sub02_f02.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_ngamcaisudoi_sub00,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,12.0,data/frames/xam/xam_ngamcaisudoi_sub00_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_ngamcaisudoi_sub01,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,8.0,data/frames/xam/xam_ngamcaisudoi_sub01_f03.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_ngamcaisudoi_sub02,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,9.0,data/frames/xam/xam_ngamcaisudoi_sub02_f07.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_ngamcaisudoi_sub03,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,9.0,data/frames/xam/xam_ngamcaisudoi_sub03_f02.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_ngamcaisudoi_sub04,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,7.0,data/frames/xam/xam_ngamcaisudoi_sub04_f02.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_ngamcaisudoi_sub05,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,12.0,data/frames/xam/xam_ngamcaisudoi_sub05_f04.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_ngamcaisudoi_sub06,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,7.0,data/frames/xam/xam_ngamcaisudoi_sub06_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_ngamcaisudoi_sub07,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,7.0,data/frames/xam/xam_ngamcaisudoi_sub07_f04.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_quyettrituthan_sub00,Hát xẩm,xam_quyettrituthan.mp4,test,60.0,14.0,data/frames/xam/xam_quyettrituthan_sub00_f11.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_quyettrituthan_sub01,Hát xẩm,xam_quyettrituthan.mp4,test,60.0,12.0,data/frames/xam/xam_quyettrituthan_sub01_f09.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_thuonghoa_sub00,Hát xẩm,xam_thuonghoa.mp4,train,60.0,9.0,data/frames/xam/xam_thuonghoa_sub00_f03.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_thuonghoa_sub01,Hát xẩm,xam_thuonghoa.mp4,train,60.0,12.0,data/frames/xam/xam_thuonghoa_sub01_f05.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_thuonghoa_sub02,Hát xẩm,xam_thuonghoa.mp4,train,60.0,4.0,data/frames/xam/xam_thuonghoa_sub02_f02.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_thuonghoa_sub03,Hát xẩm,xam_thuonghoa.mp4,train,60.0,7.0,data/frames/xam/xam_thuonghoa_sub03_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_nhitinh_sub00,Hát xẩm,xam_nhitinh.mp4,train,60.0,4.0,data/frames/xam/xam_nhitinh_sub00_f00.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_nhitinh_sub01,Hát xẩm,xam_nhitinh.mp4,train,60.0,8.0,data/frames/xam/xam_nhitinh_sub01_f01.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-xam_nhitinh_sub02,Hát xẩm,xam_nhitinh.mp4,train,60.0,4.0,data/frames/xam/xam_nhitinh_sub02_f02.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+﻿subclip_id,genre,video_file,split,duration,frame_count,thumbnail_path,guitar_phim_lom,dan_kim_dan_nguyet,dan_co_dan_nhi,dan_tranh,dan_bau,dan_day,ban_phach_trong_chau,trong_cheo_mo_quat_giay,dao_cu_hau_dong_kiem_cung_mam,senh_tien_trong_manh,khong_nhac_cu,co_trang_mao_giap_dinh_hat,ao_dai_ao_ba_ba,ao_thao_khan_nhieu_ao_the,ao_tu_than_yem_dao,trang_phuc_he_cheo,khan_chau_ao_ngu_hau_dong,non_quai_thao_khan_mo_qua_ao_mo_ba,ao_nau_kinh_den_mu_cat,san_khau_kich_hat,doi_hinh_3_nguoi_ca_tru,chieu_cheo_san_dinh,dien_tho_hau_dong,doi_dap_nam_nu_quan_ho,chieu_xam_duong_pho_cho,reviewed
+cailuong_tienghosonghau_01_sub00,Cải lương,cailuong_tienghosonghau_01.mp4,test,60.0,11,data/frames/cailuong/cailuong_tienghosonghau_01_sub00_f08.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+cailuong_tienghosonghau_02_sub00,Cải lương,cailuong_tienghosonghau_02.mp4,val,62.13333333333333,0,,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_tienghosonghau_09_sub00,Cải lương,cailuong_tienghosonghau_09.mp4,train,72.03333333333333,0,,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_tienghosonghau_10_sub00,Cải lương,cailuong_tienghosonghau_10.mp4,train,84.73333333333333,0,,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_tienghosonghau_08_sub00,Cải lương,cailuong_tienghosonghau_08.mp4,val,60.0,0,,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_tienghosonghau_06_sub00,Cải lương,cailuong_tienghosonghau_06.mp4,train,60.0,0,,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_tienghosonghau_05_sub00,Cải lương,cailuong_tienghosonghau_05.mp4,train,24.03333333333333,0,,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_tienghosonghau_04_sub00,Cải lương,cailuong_tienghosonghau_04.mp4,train,48.266666666666666,0,,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_tienghosonghau_03_sub00,Cải lương,cailuong_tienghosonghau_03.mp4,test,60.0,0,,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_tienghosonghau_07_sub00,Cải lương,cailuong_tienghosonghau_07.mp4,train,66.03333333333333,0,,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_maunhuomsanchua_02_sub00,Cải lương,cailuong_maunhuomsanchua_02.mp4,train,60.0,8,data/frames/cailuong/cailuong_maunhuomsanchua_02_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_maunhuomsanchua_03_sub00,Cải lương,cailuong_maunhuomsanchua_03.mp4,train,68.56,6,data/frames/cailuong/cailuong_maunhuomsanchua_03_sub00_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_maunhuomsanchua_04_sub00,Cải lương,cailuong_maunhuomsanchua_04.mp4,train,51.64,6,data/frames/cailuong/cailuong_maunhuomsanchua_04_sub00_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_maunhuomsanchua_05_sub00,Cải lương,cailuong_maunhuomsanchua_05.mp4,train,60.0,9,data/frames/cailuong/cailuong_maunhuomsanchua_05_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_maunhuomsanchua_05_sub01,Cải lương,cailuong_maunhuomsanchua_05.mp4,train,45.0,6,data/frames/cailuong/cailuong_maunhuomsanchua_05_sub01_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_maunhuomsanchua_06_sub00,Cải lương,cailuong_maunhuomsanchua_06.mp4,train,82.84,13,data/frames/cailuong/cailuong_maunhuomsanchua_06_sub00_f08.jpg,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_maunhuomsanchua_07_sub00,Cải lương,cailuong_maunhuomsanchua_07.mp4,val,60.0,2,data/frames/cailuong/cailuong_maunhuomsanchua_07_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_maunhuomsanchua_09_sub00,Cải lương,cailuong_maunhuomsanchua_09.mp4,val,40.32,3,data/frames/cailuong/cailuong_maunhuomsanchua_09_sub00_f02.jpg,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1
+cailuong_maunhuomsanchua_08_sub00,Cải lương,cailuong_maunhuomsanchua_08.mp4,val,78.96,6,data/frames/cailuong/cailuong_maunhuomsanchua_08_sub00_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_maunhuomsanchua_10_sub00,Cải lương,cailuong_maunhuomsanchua_10.mp4,train,62.4,2,data/frames/cailuong/cailuong_maunhuomsanchua_10_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,1,0,0,0,1
+cailuong_maunhuomsanchua_01_sub00,Cải lương,cailuong_maunhuomsanchua_01.mp4,val,31.72,6,data/frames/cailuong/cailuong_maunhuomsanchua_01_sub00_f02.jpg,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,1,0,0,0,1
+cailuong_doicoluu_01_sub00,Cải lương,cailuong_doicoluu_01.mp4,train,44.21083333333333,8,data/frames/cailuong/cailuong_doicoluu_01_sub00_f06.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_doicoluu_02_sub00,Cải lương,cailuong_doicoluu_02.mp4,val,37.9379,4,data/frames/cailuong/cailuong_doicoluu_02_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_doicoluu_03_sub00,Cải lương,cailuong_doicoluu_03.mp4,train,61.89516666666667,9,data/frames/cailuong/cailuong_doicoluu_03_sub00_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_doicoluu_04_sub00,Cải lương,cailuong_doicoluu_04.mp4,train,73.64023333333334,9,data/frames/cailuong/cailuong_doicoluu_04_sub00_f06.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_doicoluu_05_sub00,Cải lương,cailuong_doicoluu_05.mp4,train,25.258566666666667,3,data/frames/cailuong/cailuong_doicoluu_05_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_doicoluu_06_sub00,Cải lương,cailuong_doicoluu_06.mp4,val,72.13873333333333,11,data/frames/cailuong/cailuong_doicoluu_06_sub00_f09.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_doicoluu_07_sub00,Cải lương,cailuong_doicoluu_07.mp4,train,36.2362,6,data/frames/cailuong/cailuong_doicoluu_07_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_doicoluu_08_sub00,Cải lương,cailuong_doicoluu_08.mp4,val,29.8298,6,data/frames/cailuong/cailuong_doicoluu_08_sub00_f04.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_doicoluu_09_sub00,Cải lương,cailuong_doicoluu_09.mp4,train,60.0,8,data/frames/cailuong/cailuong_doicoluu_09_sub00_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_doicoluu_10_sub00,Cải lương,cailuong_doicoluu_10.mp4,train,56.122733333333336,6,data/frames/cailuong/cailuong_doicoluu_10_sub00_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_vongcolatrau_sub00,Cải lương,cailuong_vongcolatrau.mp4,train,60.0,12,data/frames/cailuong/cailuong_vongcolatrau_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_vongcolatrau_sub01,Cải lương,cailuong_vongcolatrau.mp4,train,60.0,15,data/frames/cailuong/cailuong_vongcolatrau_sub01_f07.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_vongcolatrau_sub02,Cải lương,cailuong_vongcolatrau.mp4,train,60.0,10,data/frames/cailuong/cailuong_vongcolatrau_sub02_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_vongcolatrau_sub03,Cải lương,cailuong_vongcolatrau.mp4,train,60.0,15,data/frames/cailuong/cailuong_vongcolatrau_sub03_f12.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_vongcolatrau_sub04,Cải lương,cailuong_vongcolatrau.mp4,train,60.0,10,data/frames/cailuong/cailuong_vongcolatrau_sub04_f08.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_vongcolatrau_sub05,Cải lương,cailuong_vongcolatrau.mp4,train,60.0,15,data/frames/cailuong/cailuong_vongcolatrau_sub05_f07.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_hoamuatrang_sub00,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,9,data/frames/cailuong/cailuong_hoamuatrang_sub00_f07.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_hoamuatrang_sub01,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,7,data/frames/cailuong/cailuong_hoamuatrang_sub01_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_hoamuatrang_sub02,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,11,data/frames/cailuong/cailuong_hoamuatrang_sub02_f09.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_hoamuatrang_sub03,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,9,data/frames/cailuong/cailuong_hoamuatrang_sub03_f06.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_hoamuatrang_sub04,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,10,data/frames/cailuong/cailuong_hoamuatrang_sub04_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_hoamuatrang_sub05,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,9,data/frames/cailuong/cailuong_hoamuatrang_sub05_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_hoamuatrang_sub06,Cải lương,cailuong_hoamuatrang.mp4,test,60.0,3,data/frames/cailuong/cailuong_hoamuatrang_sub06_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_dongsongqueem_sub00,Cải lương,cailuong_dongsongqueem.mp4,train,60.0,11,data/frames/cailuong/cailuong_dongsongqueem_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_dongsongqueem_sub01,Cải lương,cailuong_dongsongqueem.mp4,train,60.0,8,data/frames/cailuong/cailuong_dongsongqueem_sub01_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_dongsongqueem_sub02,Cải lương,cailuong_dongsongqueem.mp4,train,60.0,8,data/frames/cailuong/cailuong_dongsongqueem_sub02_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_dongsongqueem_sub03,Cải lương,cailuong_dongsongqueem.mp4,train,60.0,9,data/frames/cailuong/cailuong_dongsongqueem_sub03_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_dongsongqueem_sub04,Cải lương,cailuong_dongsongqueem.mp4,train,60.0,5,data/frames/cailuong/cailuong_dongsongqueem_sub04_f02.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_dongsongqueem_sub05,Cải lương,cailuong_dongsongqueem.mp4,train,60.0,10,data/frames/cailuong/cailuong_dongsongqueem_sub05_f09.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+cailuong_hoatimbanglang_sub00,Cải lương,cailuong_hoatimbanglang.mp4,train,60.0,14,data/frames/cailuong/cailuong_hoatimbanglang_sub00_f07.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+cailuong_hoatimbanglang_sub01,Cải lương,cailuong_hoatimbanglang.mp4,train,60.0,14,data/frames/cailuong/cailuong_hoatimbanglang_sub01_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+cailuong_hoatimbanglang_sub02,Cải lương,cailuong_hoatimbanglang.mp4,train,60.0,13,data/frames/cailuong/cailuong_hoatimbanglang_sub02_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+cailuong_hoatimbanglang_sub03,Cải lương,cailuong_hoatimbanglang.mp4,train,60.0,13,data/frames/cailuong/cailuong_hoatimbanglang_sub03_f00.jpg,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+cailuong_hoatimbanglang_sub04,Cải lương,cailuong_hoatimbanglang.mp4,train,60.0,14,data/frames/cailuong/cailuong_hoatimbanglang_sub04_f08.jpg,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+cailuong_hoatimbanglang_sub05,Cải lương,cailuong_hoatimbanglang.mp4,train,60.0,13,data/frames/cailuong/cailuong_hoatimbanglang_sub05_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+catru_honghongtuyettuyet_sub00,Ca trù,catru_honghongtuyettuyet.mp4,val,60.0,0,,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_honghongtuyettuyet_sub01,Ca trù,catru_honghongtuyettuyet.mp4,val,60.0,1,data/frames/catru/catru_honghongtuyettuyet_sub01_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_honghongtuyettuyet_sub02,Ca trù,catru_honghongtuyettuyet.mp4,val,60.0,0,,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_honghongtuyettuyet_sub03,Ca trù,catru_honghongtuyettuyet.mp4,val,60.0,0,,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_honghongtuyettuyet_sub04,Ca trù,catru_honghongtuyettuyet.mp4,val,54.05369999999999,1,data/frames/catru/catru_honghongtuyettuyet_sub04_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_lecatru_sub00,Ca trù,catru_lecatru.mp4,train,60.0,7,data/frames/catru/catru_lecatru_sub00_f02.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_lecatru_sub01,Ca trù,catru_lecatru.mp4,train,60.0,9,data/frames/catru/catru_lecatru_sub01_f03.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_lecatru_sub02,Ca trù,catru_lecatru.mp4,train,60.0,8,data/frames/catru/catru_lecatru_sub02_f05.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_tayhohoaico_01_sub00,Ca trù,catru_tayhohoaico_01.mp4,train,82.08,4,data/frames/catru/catru_tayhohoaico_01_sub00_f03.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_tayhohoaico_02_sub00,Ca trù,catru_tayhohoaico_02.mp4,train,73.24,2,data/frames/catru/catru_tayhohoaico_02_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_tayhohoaico_03_sub00,Ca trù,catru_tayhohoaico_03.mp4,test,85.84,3,data/frames/catru/catru_tayhohoaico_03_sub00_f02.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+catru_daotayho_sub00,Ca trù,catru_daotayho.mp4,train,60.0,11,data/frames/catru/catru_daotayho_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+catru_daotayho_sub01,Ca trù,catru_daotayho.mp4,train,60.0,11,data/frames/catru/catru_daotayho_sub01_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+catru_daotayho_sub02,Ca trù,catru_daotayho.mp4,train,60.0,11,data/frames/catru/catru_daotayho_sub02_f09.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_daotayho_sub03,Ca trù,catru_daotayho.mp4,train,60.0,5,data/frames/catru/catru_daotayho_sub03_f04.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_daotayho_sub04,Ca trù,catru_daotayho.mp4,train,60.0,9,data/frames/catru/catru_daotayho_sub04_f07.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_tranganhoaico_sub00,Ca trù,catru_tranganhoaico.mp4,train,60.0,12,data/frames/catru/catru_tranganhoaico_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_tranganhoaico_sub01,Ca trù,catru_tranganhoaico.mp4,train,60.0,11,data/frames/catru/catru_tranganhoaico_sub01_f08.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_tranganhoaico_sub02,Ca trù,catru_tranganhoaico.mp4,train,60.0,14,data/frames/catru/catru_tranganhoaico_sub02_f11.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_tranganhoaico_sub03,Ca trù,catru_tranganhoaico.mp4,train,60.0,9,data/frames/catru/catru_tranganhoaico_sub03_f03.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_huongsonphongcanh_sub00,Ca trù,catru_huongsonphongcanh.mp4,train,60.0,13,data/frames/catru/catru_huongsonphongcanh_sub00_f12.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_huongsonphongcanh_sub01,Ca trù,catru_huongsonphongcanh.mp4,train,60.0,15,data/frames/catru/catru_huongsonphongcanh_sub01_f00.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_huongsonphongcanh_sub02,Ca trù,catru_huongsonphongcanh.mp4,train,60.0,13,data/frames/catru/catru_huongsonphongcanh_sub02_f11.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_huongsonphongcanh_sub03,Ca trù,catru_huongsonphongcanh.mp4,train,60.0,15,data/frames/catru/catru_huongsonphongcanh_sub03_f04.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_daudephoguom_sub00,Ca trù,catru_daudephoguom.mp4,test,60.0,13,data/frames/catru/catru_daudephoguom_sub00_f09.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_daudephoguom_sub01,Ca trù,catru_daudephoguom.mp4,test,60.0,6,data/frames/catru/catru_daudephoguom_sub01_f02.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_daudephoguom_sub02,Ca trù,catru_daudephoguom.mp4,test,60.0,9,data/frames/catru/catru_daudephoguom_sub02_f01.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_daudephoguom_sub03,Ca trù,catru_daudephoguom.mp4,test,60.0,9,data/frames/catru/catru_daudephoguom_sub03_f07.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_daudephoguom_sub04,Ca trù,catru_daudephoguom.mp4,test,57.0,10,data/frames/catru/catru_daudephoguom_sub04_f07.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_diendieu_sub00,Ca trù,catru_diendieu.mp4,train,60.0,3,data/frames/catru/catru_diendieu_sub00_f00.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_diendieu_sub01,Ca trù,catru_diendieu.mp4,train,60.0,4,data/frames/catru/catru_diendieu_sub01_f03.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+catru_diendieu_sub02,Ca trù,catru_diendieu.mp4,train,60.0,5,data/frames/catru/catru_diendieu_sub02_f04.jpg,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_01_sub00,Chầu văn,chauvan_01.mp4,train,66.8,15,data/frames/chauvan/chauvan_01_sub00_f13.jpg,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_codoithuongngan_01_sub00,Chầu văn,chauvan_codoithuongngan_01.mp4,train,60.0,12,data/frames/chauvan/chauvan_codoithuongngan_01_sub00_f03.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_codoithuongngan_01_sub01,Chầu văn,chauvan_codoithuongngan_01.mp4,train,60.0,11,data/frames/chauvan/chauvan_codoithuongngan_01_sub01_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_codoithuongngan_01_sub02,Chầu văn,chauvan_codoithuongngan_01.mp4,train,60.0,15,data/frames/chauvan/chauvan_codoithuongngan_01_sub02_f02.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+chauvan_codoithuongngan_01_sub03,Chầu văn,chauvan_codoithuongngan_01.mp4,train,60.0,14,data/frames/chauvan/chauvan_codoithuongngan_01_sub03_f12.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+chauvan_codoithuongngan_01_sub04,Chầu văn,chauvan_codoithuongngan_01.mp4,train,60.0,11,data/frames/chauvan/chauvan_codoithuongngan_01_sub04_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+chauvan_codoithuongngan_01_sub05,Chầu văn,chauvan_codoithuongngan_01.mp4,train,60.0,10,data/frames/chauvan/chauvan_codoithuongngan_01_sub05_f08.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+chauvan_conco_sub00,Chầu văn,chauvan_conco.mp4,train,60.0,2,data/frames/chauvan/chauvan_conco_sub00_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_conco_sub01,Chầu văn,chauvan_conco.mp4,train,60.0,1,data/frames/chauvan/chauvan_conco_sub01_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_conco_sub02,Chầu văn,chauvan_conco.mp4,train,60.0,1,data/frames/chauvan/chauvan_conco_sub02_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_conco_sub03,Chầu văn,chauvan_conco.mp4,train,60.0,1,data/frames/chauvan/chauvan_conco_sub03_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+chauvan_conco_sub04,Chầu văn,chauvan_conco.mp4,train,60.0,2,data/frames/chauvan/chauvan_conco_sub04_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_luattroi_sub00,Chầu văn,chauvan_luattroi.mp4,train,60.0,4,data/frames/chauvan/chauvan_luattroi_sub00_f01.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_luattroi_sub01,Chầu văn,chauvan_luattroi.mp4,train,60.0,3,data/frames/chauvan/chauvan_luattroi_sub01_f02.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_luattroi_sub02,Chầu văn,chauvan_luattroi.mp4,train,60.0,1,data/frames/chauvan/chauvan_luattroi_sub02_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_luattroi_sub03,Chầu văn,chauvan_luattroi.mp4,train,60.0,1,data/frames/chauvan/chauvan_luattroi_sub03_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_conguoisongtrendoitiennhieudelamchi_sub00,Chầu văn,chauvan_conguoisongtrendoitiennhieudelamchi.mp4,test,60.0,3,data/frames/chauvan/chauvan_conguoisongtrendoitiennhieudelamchi_sub00_f02.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_conguoisongtrendoitiennhieudelamchi_sub01,Chầu văn,chauvan_conguoisongtrendoitiennhieudelamchi.mp4,test,60.0,5,data/frames/chauvan/chauvan_conguoisongtrendoitiennhieudelamchi_sub01_f04.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_conguoisongtrendoitiennhieudelamchi_sub02,Chầu văn,chauvan_conguoisongtrendoitiennhieudelamchi.mp4,test,60.0,1,data/frames/chauvan/chauvan_conguoisongtrendoitiennhieudelamchi_sub02_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_luattroi_02_sub00,Chầu văn,chauvan_luattroi_02.mp4,train,60.0,1,data/frames/chauvan/chauvan_luattroi_02_sub00_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_luattroi_02_sub01,Chầu văn,chauvan_luattroi_02.mp4,train,60.0,3,data/frames/chauvan/chauvan_luattroi_02_sub01_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_luattroi_02_sub02,Chầu văn,chauvan_luattroi_02.mp4,train,60.0,1,data/frames/chauvan/chauvan_luattroi_02_sub02_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_luattroi_02_sub03,Chầu văn,chauvan_luattroi_02.mp4,train,60.0,1,data/frames/chauvan/chauvan_luattroi_02_sub03_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_luattroi_02_sub04,Chầu văn,chauvan_luattroi_02.mp4,train,60.0,1,data/frames/chauvan/chauvan_luattroi_02_sub04_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_cooisaoboquenmegia_sub00,Chầu văn,chauvan_cooisaoboquenmegia.mp4,val,60.0,15,data/frames/chauvan/chauvan_cooisaoboquenmegia_sub00_f05.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_cooisaoboquenmegia_sub01,Chầu văn,chauvan_cooisaoboquenmegia.mp4,val,60.0,15,data/frames/chauvan/chauvan_cooisaoboquenmegia_sub01_f06.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_cooisaoboquenmegia_sub02,Chầu văn,chauvan_cooisaoboquenmegia.mp4,val,60.0,15,data/frames/chauvan/chauvan_cooisaoboquenmegia_sub02_f01.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_cooisaoboquenmegia_sub03,Chầu văn,chauvan_cooisaoboquenmegia.mp4,val,60.0,15,data/frames/chauvan/chauvan_cooisaoboquenmegia_sub03_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+chauvan_cooisaoboquenmegia_sub04,Chầu văn,chauvan_cooisaoboquenmegia.mp4,val,60.0,15,data/frames/chauvan/chauvan_cooisaoboquenmegia_sub04_f01.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+chauvan_cooisaoboquenmegia_sub05,Chầu văn,chauvan_cooisaoboquenmegia.mp4,val,55.0,15,data/frames/chauvan/chauvan_cooisaoboquenmegia_sub05_f09.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+chauvan_haucobo_sub00,Chầu văn,chauvan_haucobo.mp4,test,60.0,6,data/frames/chauvan/chauvan_haucobo_sub00_f03.jpg,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_haucobo_sub01,Chầu văn,chauvan_haucobo.mp4,test,60.0,5,data/frames/chauvan/chauvan_haucobo_sub01_f03.jpg,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_haucobo_sub02,Chầu văn,chauvan_haucobo.mp4,test,60.0,5,data/frames/chauvan/chauvan_haucobo_sub02_f02.jpg,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_haucobo_sub03,Chầu văn,chauvan_haucobo.mp4,test,60.0,3,data/frames/chauvan/chauvan_haucobo_sub03_f02.jpg,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_dangvanchauto_sub00,Chầu văn,chauvan_dangvanchauto.mp4,train,60.0,6,data/frames/chauvan/chauvan_dangvanchauto_sub00_f00.jpg,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_dangvanchauto_sub01,Chầu văn,chauvan_dangvanchauto.mp4,train,60.0,8,data/frames/chauvan/chauvan_dangvanchauto_sub01_f00.jpg,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_dangvanchauto_sub02,Chầu văn,chauvan_dangvanchauto.mp4,train,60.0,15,data/frames/chauvan/chauvan_dangvanchauto_sub02_f04.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_dangvanchauto_sub03,Chầu văn,chauvan_dangvanchauto.mp4,train,60.0,10,data/frames/chauvan/chauvan_dangvanchauto_sub03_f03.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+chauvan_vanquanquetoi_sub00,Chầu văn,chauvan_vanquanquetoi.mp4,train,60.0,7,data/frames/chauvan/chauvan_vanquanquetoi_sub00_f03.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+chauvan_vanquanquetoi_sub01,Chầu văn,chauvan_vanquanquetoi.mp4,train,60.0,9,data/frames/chauvan/chauvan_vanquanquetoi_sub01_f05.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+chauvan_vanquanquetoi_sub02,Chầu văn,chauvan_vanquanquetoi.mp4,train,60.0,2,data/frames/chauvan/chauvan_vanquanquetoi_sub02_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1
+chauvan_vanquanquetoi_sub03,Chầu văn,chauvan_vanquanquetoi.mp4,train,60.0,11,data/frames/chauvan/chauvan_vanquanquetoi_sub03_f10.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1
+chauvan_vanquanquetoi_sub04,Chầu văn,chauvan_vanquanquetoi.mp4,train,60.0,8,data/frames/chauvan/chauvan_vanquanquetoi_sub04_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_vanquanquetoi_sub05,Chầu văn,chauvan_vanquanquetoi.mp4,train,60.0,6,data/frames/chauvan/chauvan_vanquanquetoi_sub05_f02.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_vanquanquetoi_sub06,Chầu văn,chauvan_vanquanquetoi.mp4,train,56.04000000000002,4,data/frames/chauvan/chauvan_vanquanquetoi_sub06_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_ngoibuomnhometaxua_sub00,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,7,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub00_f01.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_ngoibuomnhometaxua_sub01,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,6,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub01_f00.jpg,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_ngoibuomnhometaxua_sub02,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,5,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub02_f04.jpg,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_ngoibuomnhometaxua_sub03,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,7,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub03_f05.jpg,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_ngoibuomnhometaxua_sub04,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,4,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub04_f02.jpg,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_ngoibuomnhometaxua_sub05,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,8,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub05_f02.jpg,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_ngoibuomnhometaxua_sub06,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,7,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub06_f01.jpg,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_ngoibuomnhometaxua_sub07,Chầu văn,chauvan_ngoibuomnhometaxua.mp4,train,60.0,5,data/frames/chauvan/chauvan_ngoibuomnhometaxua_sub07_f00.jpg,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_codoithuongngan_sub00,Chầu văn,chauvan_codoithuongngan.mp4,train,60.0,15,data/frames/chauvan/chauvan_codoithuongngan_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+chauvan_codoithuongngan_sub01,Chầu văn,chauvan_codoithuongngan.mp4,train,60.0,15,data/frames/chauvan/chauvan_codoithuongngan_sub01_f04.jpg,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_codoithuongngan_sub02,Chầu văn,chauvan_codoithuongngan.mp4,train,60.0,15,data/frames/chauvan/chauvan_codoithuongngan_sub02_f07.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_codoithuongngan_sub03,Chầu văn,chauvan_codoithuongngan.mp4,train,60.0,15,data/frames/chauvan/chauvan_codoithuongngan_sub03_f10.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+chauvan_codoithuongngan_sub04,Chầu văn,chauvan_codoithuongngan.mp4,train,60.0,15,data/frames/chauvan/chauvan_codoithuongngan_sub04_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+chauvan_loive_sub00,Chầu văn,chauvan_loive.mp4,val,60.0,1,data/frames/chauvan/chauvan_loive_sub00_f00.jpg,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_loive_sub01,Chầu văn,chauvan_loive.mp4,val,60.0,1,data/frames/chauvan/chauvan_loive_sub01_f00.jpg,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_loive_sub02,Chầu văn,chauvan_loive.mp4,val,60.0,1,data/frames/chauvan/chauvan_loive_sub02_f00.jpg,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_loive_sub03,Chầu văn,chauvan_loive.mp4,val,49.60000000000002,1,data/frames/chauvan/chauvan_loive_sub03_f00.jpg,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+chauvan_daolamcon_sub00,Chầu văn,chauvan_daolamcon.mp4,test,60.0,8,data/frames/chauvan/chauvan_daolamcon_sub00_f07.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+chauvan_daolamcon_sub01,Chầu văn,chauvan_daolamcon.mp4,test,60.0,10,data/frames/chauvan/chauvan_daolamcon_sub01_f04.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_daolamcon_sub02,Chầu văn,chauvan_daolamcon.mp4,test,60.0,13,data/frames/chauvan/chauvan_daolamcon_sub02_f02.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,1
+chauvan_daolamcon_sub03,Chầu văn,chauvan_daolamcon.mp4,test,60.0,12,data/frames/chauvan/chauvan_daolamcon_sub03_f10.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,1
+cheo_tamcam_10_sub00,Chèo,cheo_tamcam_10.mp4,train,51.8,1,data/frames/cheo/cheo_tamcam_10_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,1
+cheo_tamcam_09_sub00,Chèo,cheo_tamcam_09.mp4,train,52.4,4,data/frames/cheo/cheo_tamcam_09_sub00_f02.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1,0,0,0,1
+cheo_tamcam_08_sub00,Chèo,cheo_tamcam_08.mp4,train,60.0,4,data/frames/cheo/cheo_tamcam_08_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,1
+cheo_tamcam_08_sub01,Chèo,cheo_tamcam_08.mp4,train,50.68000000000001,2,data/frames/cheo/cheo_tamcam_08_sub01_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1
+cheo_tamcam_07_sub00,Chèo,cheo_tamcam_07.mp4,train,70.48,4,data/frames/cheo/cheo_tamcam_07_sub00_f03.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1
+cheo_tamcam_06_sub00,Chèo,cheo_tamcam_06.mp4,train,60.0,1,data/frames/cheo/cheo_tamcam_06_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1
+cheo_tamcam_05_sub00,Chèo,cheo_tamcam_05.mp4,test,81.8,3,data/frames/cheo/cheo_tamcam_05_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,0,0,1
+cheo_tamcam_04_sub00,Chèo,cheo_tamcam_04.mp4,train,53.6,1,data/frames/cheo/cheo_tamcam_04_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1
+cheo_tamcam_03_sub00,Chèo,cheo_tamcam_03.mp4,train,85.48,1,data/frames/cheo/cheo_tamcam_03_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1
+cheo_tamcam_02_sub00,Chèo,cheo_tamcam_02.mp4,train,63.96,0,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1
+cheo_tamcam_01_sub00,Chèo,cheo_tamcam_01.mp4,train,71.08,0,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1
+cheo_luubinhduongle_01_sub00,Chèo,cheo_luubinhduongle_01.mp4,test,53.4,5,data/frames/cheo/cheo_luubinhduongle_01_sub00_f02.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1
+cheo_luubinhduongle_02_sub00,Chèo,cheo_luubinhduongle_02.mp4,train,55.12,1,data/frames/cheo/cheo_luubinhduongle_02_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1
+cheo_luubinhduongle_03_sub00,Chèo,cheo_luubinhduongle_03.mp4,train,33.36,2,data/frames/cheo/cheo_luubinhduongle_03_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1
+cheo_luubinhduongle_04_sub00,Chèo,cheo_luubinhduongle_04.mp4,val,60.0,2,data/frames/cheo/cheo_luubinhduongle_04_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1
+cheo_luubinhduongle_04_sub01,Chèo,cheo_luubinhduongle_04.mp4,val,49.72,1,data/frames/cheo/cheo_luubinhduongle_04_sub01_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1
+cheo_luubinhduongle_05_sub00,Chèo,cheo_luubinhduongle_05.mp4,train,60.0,1,data/frames/cheo/cheo_luubinhduongle_05_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_luubinhduongle_06_sub00,Chèo,cheo_luubinhduongle_06.mp4,val,60.0,1,data/frames/cheo/cheo_luubinhduongle_06_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_luubinhduongle_06_sub01,Chèo,cheo_luubinhduongle_06.mp4,val,60.0,1,data/frames/cheo/cheo_luubinhduongle_06_sub01_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_luubinhduongle_07_sub00,Chèo,cheo_luubinhduongle_07.mp4,train,88.24,1,data/frames/cheo/cheo_luubinhduongle_07_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_luubinhduongle_08_sub00,Chèo,cheo_luubinhduongle_08.mp4,test,47.32,1,data/frames/cheo/cheo_luubinhduongle_08_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_luubinhduongle_09_sub00,Chèo,cheo_luubinhduongle_09.mp4,test,87.32,7,data/frames/cheo/cheo_luubinhduongle_09_sub00_f04.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1
+cheo_luubinhduongle_10_sub00,Chèo,cheo_luubinhduongle_10.mp4,train,56.6,2,data/frames/cheo/cheo_luubinhduongle_10_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1
+cheo_quacauvang_01_sub00,Chèo,cheo_quacauvang_01.mp4,train,31.72,9,data/frames/cheo/cheo_quacauvang_01_sub00_f06.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_quacauvang_04_sub00,Chèo,cheo_quacauvang_04.mp4,train,37.68,9,data/frames/cheo/cheo_quacauvang_04_sub00_f02.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_quacauvang_05_sub00,Chèo,cheo_quacauvang_05.mp4,train,55.0,12,data/frames/cheo/cheo_quacauvang_05_sub00_f05.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,1
+cheo_quacauvang_03_sub00,Chèo,cheo_quacauvang_03.mp4,train,60.56,12,data/frames/cheo/cheo_quacauvang_03_sub00_f11.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_quacauvang_02_sub00,Chèo,cheo_quacauvang_02.mp4,train,82.52,15,data/frames/cheo/cheo_quacauvang_02_sub00_f03.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_quacauvang_06_sub00,Chèo,cheo_quacauvang_06.mp4,test,60.0,6,data/frames/cheo/cheo_quacauvang_06_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1
+cheo_quacauvang_06_sub01,Chèo,cheo_quacauvang_06.mp4,test,60.0,13,data/frames/cheo/cheo_quacauvang_06_sub01_f05.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1
+cheo_quacauvang_07_sub00,Chèo,cheo_quacauvang_07.mp4,train,71.44,15,data/frames/cheo/cheo_quacauvang_07_sub00_f05.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_quacauvang_08_sub00,Chèo,cheo_quacauvang_08.mp4,train,46.36,8,data/frames/cheo/cheo_quacauvang_08_sub00_f07.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,1
+cheo_quacauvang_10_sub00,Chèo,cheo_quacauvang_10.mp4,val,80.08,14,data/frames/cheo/cheo_quacauvang_10_sub00_f04.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,1
+cheo_quacauvang_09_sub00,Chèo,cheo_quacauvang_09.mp4,val,60.0,15,data/frames/cheo/cheo_quacauvang_09_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,1
+cheo_loicadangme_sub00,Chèo,cheo_loicadangme.mp4,train,60.0,2,data/frames/cheo/cheo_loicadangme_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+cheo_loicadangme_sub01,Chèo,cheo_loicadangme.mp4,train,60.0,1,data/frames/cheo/cheo_loicadangme_sub01_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+cheo_loicadangme_sub02,Chèo,cheo_loicadangme.mp4,train,60.0,4,data/frames/cheo/cheo_loicadangme_sub02_f03.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+cheo_ronrangdatnuocvaoxuan_sub00,Chèo,cheo_ronrangdatnuocvaoxuan.mp4,train,60.0,15,data/frames/cheo/cheo_ronrangdatnuocvaoxuan_sub00_f07.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+cheo_ronrangdatnuocvaoxuan_sub01,Chèo,cheo_ronrangdatnuocvaoxuan.mp4,train,60.0,15,data/frames/cheo/cheo_ronrangdatnuocvaoxuan_sub01_f08.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+cheo_ronrangdatnuocvaoxuan_sub02,Chèo,cheo_ronrangdatnuocvaoxuan.mp4,train,60.0,15,data/frames/cheo/cheo_ronrangdatnuocvaoxuan_sub02_f09.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+cheo_motthoidenho_sub00,Chèo,cheo_motthoidenho.mp4,test,60.0,11,data/frames/cheo/cheo_motthoidenho_sub00_f03.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+cheo_motthoidenho_sub01,Chèo,cheo_motthoidenho.mp4,test,60.0,11,data/frames/cheo/cheo_motthoidenho_sub01_f05.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+cheo_motthoidenho_sub02,Chèo,cheo_motthoidenho.mp4,test,60.0,13,data/frames/cheo/cheo_motthoidenho_sub02_f12.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+cheo_motthoidenho_sub03,Chèo,cheo_motthoidenho.mp4,test,60.0,15,data/frames/cheo/cheo_motthoidenho_sub03_f02.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+cheo_motthoidenho_sub04,Chèo,cheo_motthoidenho.mp4,test,60.0,15,data/frames/cheo/cheo_motthoidenho_sub04_f04.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+cheo_motthoidenho_sub05,Chèo,cheo_motthoidenho.mp4,test,60.0,15,data/frames/cheo/cheo_motthoidenho_sub05_f12.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+cheo_tiengcheotrenmanhdatquehuong_sub00,Chèo,cheo_tiengcheotrenmanhdatquehuong.mp4,train,60.0,11,data/frames/cheo/cheo_tiengcheotrenmanhdatquehuong_sub00_f05.jpg,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_tiengcheotrenmanhdatquehuong_sub01,Chèo,cheo_tiengcheotrenmanhdatquehuong.mp4,train,60.0,13,data/frames/cheo/cheo_tiengcheotrenmanhdatquehuong_sub01_f03.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_tiengcheotrenmanhdatquehuong_sub02,Chèo,cheo_tiengcheotrenmanhdatquehuong.mp4,train,60.0,12,data/frames/cheo/cheo_tiengcheotrenmanhdatquehuong_sub02_f02.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_tiengcheotrenmanhdatquehuong_sub03,Chèo,cheo_tiengcheotrenmanhdatquehuong.mp4,train,53.01106666666669,15,data/frames/cheo/cheo_tiengcheotrenmanhdatquehuong_sub03_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,1
+cheo_salechchenh_sub00,Chèo,cheo_salechchenh.mp4,train,60.0,14,data/frames/cheo/cheo_salechchenh_sub00_f07.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_salechchenh_sub01,Chèo,cheo_salechchenh.mp4,train,60.0,10,data/frames/cheo/cheo_salechchenh_sub01_f05.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_salechchenh_sub02,Chèo,cheo_salechchenh.mp4,train,50.0,8,data/frames/cheo/cheo_salechchenh_sub02_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_hattamlangmai_sub00,Chèo,cheo_hattamlangmai.mp4,train,60.0,9,data/frames/cheo/cheo_hattamlangmai_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_hattamlangmai_sub01,Chèo,cheo_hattamlangmai.mp4,train,60.0,10,data/frames/cheo/cheo_hattamlangmai_sub01_f08.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_dodua_sub00,Chèo,cheo_dodua.mp4,val,60.0,1,data/frames/cheo/cheo_dodua_sub00_f00.jpg,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+cheo_dodua_sub01,Chèo,cheo_dodua.mp4,val,60.0,1,data/frames/cheo/cheo_dodua_sub01_f00.jpg,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+cheo_dodua_sub02,Chèo,cheo_dodua.mp4,val,60.0,1,data/frames/cheo/cheo_dodua_sub02_f00.jpg,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+cheo_quantuvudich_sub00,Chèo,cheo_quantuvudich.mp4,train,60.0,15,data/frames/cheo/cheo_quantuvudich_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,0,0,1
+cheo_quantuvudich_sub01,Chèo,cheo_quantuvudich.mp4,train,60.0,10,data/frames/cheo/cheo_quantuvudich_sub01_f08.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,0,0,1
+cheo_quantuvudich_sub02,Chèo,cheo_quantuvudich.mp4,train,60.0,12,data/frames/cheo/cheo_quantuvudich_sub02_f11.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,0,0,1
+cheo_quantuvudich_sub03,Chèo,cheo_quantuvudich.mp4,train,60.0,12,data/frames/cheo/cheo_quantuvudich_sub03_f07.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,0,0,1
+cheo_quantuvudich_sub04,Chèo,cheo_quantuvudich.mp4,train,60.0,13,data/frames/cheo/cheo_quantuvudich_sub04_f06.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,0,0,1
+cheo_nhodemtrangkyniem_sub00,Chèo,cheo_nhodemtrangkyniem.mp4,train,60.0,15,data/frames/cheo/cheo_nhodemtrangkyniem_sub00_f13.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+cheo_nhodemtrangkyniem_sub01,Chèo,cheo_nhodemtrangkyniem.mp4,train,60.0,15,data/frames/cheo/cheo_nhodemtrangkyniem_sub01_f12.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+cheo_nhodemtrangkyniem_sub02,Chèo,cheo_nhodemtrangkyniem.mp4,train,60.0,15,data/frames/cheo/cheo_nhodemtrangkyniem_sub02_f12.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1
+cheo_nhodemtrangkyniem_sub03,Chèo,cheo_nhodemtrangkyniem.mp4,train,60.0,15,data/frames/cheo/cheo_nhodemtrangkyniem_sub03_f08.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1
+cheo_nhodemtrangkyniem_sub04,Chèo,cheo_nhodemtrangkyniem.mp4,train,55.0,14,data/frames/cheo/cheo_nhodemtrangkyniem_sub04_f07.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1
+quanho_nguoioinguoiodungve_sub00,Quan họ,quanho_nguoioinguoiodungve.mp4,train,60.0,6,data/frames/quanho/quanho_nguoioinguoiodungve_sub00_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_nguoioinguoiodungve_sub01,Quan họ,quanho_nguoioinguoiodungve.mp4,train,60.0,11,data/frames/quanho/quanho_nguoioinguoiodungve_sub01_f06.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_nguoioinguoiodungve_sub02,Quan họ,quanho_nguoioinguoiodungve.mp4,train,60.0,8,data/frames/quanho/quanho_nguoioinguoiodungve_sub02_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_nguoioinguoiodungve_sub03,Quan họ,quanho_nguoioinguoiodungve.mp4,train,60.0,10,data/frames/quanho/quanho_nguoioinguoiodungve_sub03_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_nguoioinguoiodungve_sub04,Quan họ,quanho_nguoioinguoiodungve.mp4,train,60.0,9,data/frames/quanho/quanho_nguoioinguoiodungve_sub04_f06.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_beodatmaytroi_sub00,Quan họ,quanho_beodatmaytroi.mp4,test,60.0,15,data/frames/quanho/quanho_beodatmaytroi_sub00_f09.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_beodatmaytroi_sub01,Quan họ,quanho_beodatmaytroi.mp4,test,60.0,15,data/frames/quanho/quanho_beodatmaytroi_sub01_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_beodatmaytroi_sub02,Quan họ,quanho_beodatmaytroi.mp4,test,60.0,15,data/frames/quanho/quanho_beodatmaytroi_sub02_f13.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_caytrucxinh_sub00,Quan họ,quanho_caytrucxinh.mp4,test,60.0,11,data/frames/quanho/quanho_caytrucxinh_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_caytrucxinh_sub01,Quan họ,quanho_caytrucxinh.mp4,test,60.0,10,data/frames/quanho/quanho_caytrucxinh_sub01_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_caytrucxinh_sub02,Quan họ,quanho_caytrucxinh.mp4,test,52.03999999999999,7,data/frames/quanho/quanho_caytrucxinh_sub02_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_conduyen_sub00,Quan họ,quanho_conduyen.mp4,train,60.0,15,data/frames/quanho/quanho_conduyen_sub00_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_conduyen_sub01,Quan họ,quanho_conduyen.mp4,train,60.0,15,data/frames/quanho/quanho_conduyen_sub01_f02.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_conduyen_sub02,Quan họ,quanho_conduyen.mp4,train,60.0,15,data/frames/quanho/quanho_conduyen_sub02_f13.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_traucauquanho_sub00,Quan họ,quanho_traucauquanho.mp4,train,60.0,15,data/frames/quanho/quanho_traucauquanho_sub00_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_traucauquanho_sub01,Quan họ,quanho_traucauquanho.mp4,train,60.0,15,data/frames/quanho/quanho_traucauquanho_sub01_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_traucauquanho_sub02,Quan họ,quanho_traucauquanho.mp4,train,60.0,15,data/frames/quanho/quanho_traucauquanho_sub02_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_guivequanho_sub00,Quan họ,quanho_guivequanho.mp4,train,60.0,15,data/frames/quanho/quanho_guivequanho_sub00_f10.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,1,0,1
+quanho_guivequanho_sub01,Quan họ,quanho_guivequanho.mp4,train,60.0,9,data/frames/quanho/quanho_guivequanho_sub01_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,1,0,1
+quanho_guivequanho_sub02,Quan họ,quanho_guivequanho.mp4,train,60.0,11,data/frames/quanho/quanho_guivequanho_sub02_f07.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+quanho_guivequanho_sub03,Quan họ,quanho_guivequanho.mp4,train,60.0,8,data/frames/quanho/quanho_guivequanho_sub03_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1
+quanho_demquanhoban_sub00,Quan họ,quanho_demquanhoban.mp4,test,60.0,6,data/frames/quanho/quanho_demquanhoban_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+quanho_demquanhoban_sub01,Quan họ,quanho_demquanhoban.mp4,test,60.0,9,data/frames/quanho/quanho_demquanhoban_sub01_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,1,0,0,0,1,0,1
+quanho_demquanhoban_sub02,Quan họ,quanho_demquanhoban.mp4,test,60.0,9,data/frames/quanho/quanho_demquanhoban_sub02_f07.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1
+quanho_demquanhoban_sub03,Quan họ,quanho_demquanhoban.mp4,test,60.0,15,data/frames/quanho/quanho_demquanhoban_sub03_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_rephuongchialoan_sub00,Quan họ,quanho_rephuongchialoan.mp4,train,60.0,4,data/frames/quanho/quanho_rephuongchialoan_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_rephuongchialoan_sub01,Quan họ,quanho_rephuongchialoan.mp4,train,60.0,9,data/frames/quanho/quanho_rephuongchialoan_sub01_f07.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_rephuongchialoan_sub02,Quan họ,quanho_rephuongchialoan.mp4,train,60.0,6,data/frames/quanho/quanho_rephuongchialoan_sub02_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_rephuongchialoan_sub03,Quan họ,quanho_rephuongchialoan.mp4,train,60.0,8,data/frames/quanho/quanho_rephuongchialoan_sub03_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_rephuongchialoan_sub04,Quan họ,quanho_rephuongchialoan.mp4,train,60.0,3,data/frames/quanho/quanho_rephuongchialoan_sub04_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_rephuongchialoan_sub05,Quan họ,quanho_rephuongchialoan.mp4,train,57.46536666666668,4,data/frames/quanho/quanho_rephuongchialoan_sub05_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_muoinho_sub00,Quan họ,quanho_muoinho.mp4,train,60.0,7,data/frames/quanho/quanho_muoinho_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,0,1
+quanho_muoinho_sub01,Quan họ,quanho_muoinho.mp4,train,60.0,10,data/frames/quanho/quanho_muoinho_sub01_f07.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,0,1
+quanho_muoinho_sub02,Quan họ,quanho_muoinho.mp4,train,60.0,9,data/frames/quanho/quanho_muoinho_sub02_f06.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,0,1
+quanho_vaochua_sub00,Quan họ,quanho_vaochua.mp4,train,60.0,15,data/frames/quanho/quanho_vaochua_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_vaochua_sub01,Quan họ,quanho_vaochua.mp4,train,60.0,14,data/frames/quanho/quanho_vaochua_sub01_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_vaochua_sub02,Quan họ,quanho_vaochua.mp4,train,60.0,15,data/frames/quanho/quanho_vaochua_sub02_f11.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_namlieubaylo_sub00,Quan họ,quanho_namlieubaylo.mp4,train,60.0,15,data/frames/quanho/quanho_namlieubaylo_sub00_f10.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1
+quanho_namlieubaylo_sub01,Quan họ,quanho_namlieubaylo.mp4,train,60.0,15,data/frames/quanho/quanho_namlieubaylo_sub01_f10.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1
+quanho_namlieubaylo_sub02,Quan họ,quanho_namlieubaylo.mp4,train,60.0,15,data/frames/quanho/quanho_namlieubaylo_sub02_f08.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1
+quanho_goido_sub00,Quan họ,quanho_goido.mp4,train,60.0,14,data/frames/quanho/quanho_goido_sub00_f09.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+quanho_goido_sub01,Quan họ,quanho_goido.mp4,train,60.0,11,data/frames/quanho/quanho_goido_sub01_f02.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+quanho_goido_sub02,Quan họ,quanho_goido.mp4,train,60.0,15,data/frames/quanho/quanho_goido_sub02_f14.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1
+quanho_nonbatam_sub00,Quan họ,quanho_nonbatam.mp4,val,60.0,13,data/frames/quanho/quanho_nonbatam_sub00_f08.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,1,0,0,0,0,0,1
+quanho_nonbatam_sub01,Quan họ,quanho_nonbatam.mp4,val,60.0,13,data/frames/quanho/quanho_nonbatam_sub01_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_nonbatam_sub02,Quan họ,quanho_nonbatam.mp4,val,60.0,14,data/frames/quanho/quanho_nonbatam_sub02_f01.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_nonbatam_sub03,Quan họ,quanho_nonbatam.mp4,val,60.0,15,data/frames/quanho/quanho_nonbatam_sub03_f03.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_thanluonbaoquanlamdau_sub00,Quan họ,quanho_thanluonbaoquanlamdau.mp4,val,60.0,13,data/frames/quanho/quanho_thanluonbaoquanlamdau_sub00_f02.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_thanluonbaoquanlamdau_sub01,Quan họ,quanho_thanluonbaoquanlamdau.mp4,val,60.0,15,data/frames/quanho/quanho_thanluonbaoquanlamdau_sub01_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_thanluonbaoquanlamdau_sub02,Quan họ,quanho_thanluonbaoquanlamdau.mp4,val,60.0,11,data/frames/quanho/quanho_thanluonbaoquanlamdau_sub02_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_thanluonbaoquanlamdau_sub03,Quan họ,quanho_thanluonbaoquanlamdau.mp4,val,60.0,15,data/frames/quanho/quanho_thanluonbaoquanlamdau_sub03_f08.jpg,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,1,0,1
+quanho_tinhquequanho_sub00,Quan họ,quanho_tinhquequanho.mp4,train,60.0,15,data/frames/quanho/quanho_tinhquequanho_sub00_f05.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_tinhquequanho_sub01,Quan họ,quanho_tinhquequanho.mp4,train,60.0,15,data/frames/quanho/quanho_tinhquequanho_sub01_f04.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+quanho_tinhquequanho_sub02,Quan họ,quanho_tinhquequanho.mp4,train,60.0,15,data/frames/quanho/quanho_tinhquequanho_sub02_f13.jpg,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1
+xam_thapan_sub00,Hát xẩm,xam_thapan.mp4,val,60.0,10,data/frames/xam/xam_thapan_sub00_f04.jpg,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1
+xam_thapan_sub01,Hát xẩm,xam_thapan.mp4,val,60.0,15,data/frames/xam/xam_thapan_sub01_f14.jpg,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1
+xam_thapan_sub02,Hát xẩm,xam_thapan.mp4,val,60.0,13,data/frames/xam/xam_thapan_sub02_f07.jpg,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,1
+xam_thapan_sub03,Hát xẩm,xam_thapan.mp4,val,60.0,8,data/frames/xam/xam_thapan_sub03_f01.jpg,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,1
+xam_anhdungyeu_sub00,Hát xẩm,xam_anhdungyeu.mp4,train,60.0,3,data/frames/xam/xam_anhdungyeu_sub00_f00.jpg,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1
+xam_anhdungyeu_sub01,Hát xẩm,xam_anhdungyeu.mp4,train,60.0,4,data/frames/xam/xam_anhdungyeu_sub01_f00.jpg,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+xam_anhdungyeu_sub02,Hát xẩm,xam_anhdungyeu.mp4,train,60.0,4,data/frames/xam/xam_anhdungyeu_sub02_f00.jpg,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1
+xam_anhdungyeu_sub03,Hát xẩm,xam_anhdungyeu.mp4,train,60.0,2,data/frames/xam/xam_anhdungyeu_sub03_f01.jpg,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1
+xam_anhdungyeu_sub04,Hát xẩm,xam_anhdungyeu.mp4,train,60.0,1,data/frames/xam/xam_anhdungyeu_sub04_f00.jpg,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1
+xam_anhdungyeu_sub05,Hát xẩm,xam_anhdungyeu.mp4,train,60.0,2,data/frames/xam/xam_anhdungyeu_sub05_f01.jpg,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1
+xam_khimeconotrangian_sub00,Hát xẩm,xam_khimeconotrangian.mp4,train,60.0,11,data/frames/xam/xam_khimeconotrangian_sub00_f04.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_khimeconotrangian_sub01,Hát xẩm,xam_khimeconotrangian.mp4,train,60.0,11,data/frames/xam/xam_khimeconotrangian_sub01_f06.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_chodongxuan_sub00,Hát xẩm,xam_chodongxuan.mp4,train,60.0,7,data/frames/xam/xam_chodongxuan_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+xam_chodongxuan_sub01,Hát xẩm,xam_chodongxuan.mp4,train,60.0,8,data/frames/xam/xam_chodongxuan_sub01_f04.jpg,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+xam_chodongxuan_sub02,Hát xẩm,xam_chodongxuan.mp4,train,60.0,4,data/frames/xam/xam_chodongxuan_sub02_f01.jpg,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1
+xam_chodongxuan_sub03,Hát xẩm,xam_chodongxuan.mp4,train,60.0,6,data/frames/xam/xam_chodongxuan_sub03_f04.jpg,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1
+xam_chodongxuan_sub04,Hát xẩm,xam_chodongxuan.mp4,train,60.0,9,data/frames/xam/xam_chodongxuan_sub04_f02.jpg,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1
+xam_chodongxuan_sub05,Hát xẩm,xam_chodongxuan.mp4,train,60.0,3,data/frames/xam/xam_chodongxuan_sub05_f02.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_chodongxuan_sub06,Hát xẩm,xam_chodongxuan.mp4,train,60.0,3,data/frames/xam/xam_chodongxuan_sub06_f01.jpg,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+xam_chungbausuame_sub00,Hát xẩm,xam_chungbausuame.mp4,train,60.0,6,data/frames/xam/xam_chungbausuame_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_chungbausuame_sub01,Hát xẩm,xam_chungbausuame.mp4,train,60.0,7,data/frames/xam/xam_chungbausuame_sub01_f05.jpg,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1
+xam_chungbausuame_sub02,Hát xẩm,xam_chungbausuame.mp4,train,60.0,3,data/frames/xam/xam_chungbausuame_sub02_f00.jpg,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1
+xam_chungbausuame_sub03,Hát xẩm,xam_chungbausuame.mp4,train,60.0,7,data/frames/xam/xam_chungbausuame_sub03_f01.jpg,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1
+xam_chungbausuame_sub04,Hát xẩm,xam_chungbausuame.mp4,train,60.0,5,data/frames/xam/xam_chungbausuame_sub04_f01.jpg,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1
+xam_chungbausuame_sub05,Hát xẩm,xam_chungbausuame.mp4,train,46.98823333,1,data/frames/xam/xam_chungbausuame_sub05_f00.jpg,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1
+xam_thaibinhladatanchoi_sub00,Hát xẩm,xam_thaibinhladatanchoi.mp4,val,60.0,6,data/frames/xam/xam_thaibinhladatanchoi_sub00_f04.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_thaibinhladatanchoi_sub01,Hát xẩm,xam_thaibinhladatanchoi.mp4,val,60.0,12,data/frames/xam/xam_thaibinhladatanchoi_sub01_f09.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_thaibinhladatanchoi_sub02,Hát xẩm,xam_thaibinhladatanchoi.mp4,val,60.0,6,data/frames/xam/xam_thaibinhladatanchoi_sub02_f04.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_thaibinhladatanchoi_sub03,Hát xẩm,xam_thaibinhladatanchoi.mp4,val,60.0,3,data/frames/xam/xam_thaibinhladatanchoi_sub03_f02.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_conoimechangcanchi_sub00,Hát xẩm,xam_conoimechangcanchi.mp4,train,60.0,1,data/frames/xam/xam_conoimechangcanchi_sub00_f00.jpg,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_conoimechangcanchi_sub01,Hát xẩm,xam_conoimechangcanchi.mp4,train,60.0,0,,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_conoimechangcanchi_sub02,Hát xẩm,xam_conoimechangcanchi.mp4,train,60.0,0,,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_conoimechangcanchi_sub03,Hát xẩm,xam_conoimechangcanchi.mp4,train,60.0,0,,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_conoimechangcanchi_sub04,Hát xẩm,xam_conoimechangcanchi.mp4,train,60.0,0,,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_haiphongdoson_sub00,Hát xẩm,xam_haiphongdoson.mp4,train,60.0,1,data/frames/xam/xam_haiphongdoson_sub00_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_haiphongdoson_sub01,Hát xẩm,xam_haiphongdoson.mp4,train,60.0,1,data/frames/xam/xam_haiphongdoson_sub01_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_haiphongdoson_sub02,Hát xẩm,xam_haiphongdoson.mp4,train,60.0,5,data/frames/xam/xam_haiphongdoson_sub02_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_chanque_sub00,Hát xẩm,xam_chanque.mp4,train,60.0,15,data/frames/xam/xam_chanque_sub00_f06.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1
+xam_chanque_sub01,Hát xẩm,xam_chanque.mp4,train,60.0,15,data/frames/xam/xam_chanque_sub01_f02.jpg,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+xam_chanque_sub02,Hát xẩm,xam_chanque.mp4,train,60.0,15,data/frames/xam/xam_chanque_sub02_f02.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+xam_ngamcaisudoi_sub00,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,12,data/frames/xam/xam_ngamcaisudoi_sub00_f00.jpg,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1
+xam_ngamcaisudoi_sub01,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,8,data/frames/xam/xam_ngamcaisudoi_sub01_f03.jpg,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1
+xam_ngamcaisudoi_sub02,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,9,data/frames/xam/xam_ngamcaisudoi_sub02_f07.jpg,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1
+xam_ngamcaisudoi_sub03,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,9,data/frames/xam/xam_ngamcaisudoi_sub03_f02.jpg,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1
+xam_ngamcaisudoi_sub04,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,7,data/frames/xam/xam_ngamcaisudoi_sub04_f02.jpg,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1
+xam_ngamcaisudoi_sub05,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,12,data/frames/xam/xam_ngamcaisudoi_sub05_f04.jpg,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1
+xam_ngamcaisudoi_sub06,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,7,data/frames/xam/xam_ngamcaisudoi_sub06_f00.jpg,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1
+xam_ngamcaisudoi_sub07,Hát xẩm,xam_ngamcaisudoi.mp4,test,60.0,7,data/frames/xam/xam_ngamcaisudoi_sub07_f04.jpg,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1
+xam_quyettrituthan_sub00,Hát xẩm,xam_quyettrituthan.mp4,test,60.0,14,data/frames/xam/xam_quyettrituthan_sub00_f11.jpg,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1
+xam_quyettrituthan_sub01,Hát xẩm,xam_quyettrituthan.mp4,test,60.0,12,data/frames/xam/xam_quyettrituthan_sub01_f09.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_thuonghoa_sub00,Hát xẩm,xam_thuonghoa.mp4,train,60.0,9,data/frames/xam/xam_thuonghoa_sub00_f03.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_thuonghoa_sub01,Hát xẩm,xam_thuonghoa.mp4,train,60.0,12,data/frames/xam/xam_thuonghoa_sub01_f05.jpg,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1
+xam_thuonghoa_sub02,Hát xẩm,xam_thuonghoa.mp4,train,60.0,4,data/frames/xam/xam_thuonghoa_sub02_f02.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_thuonghoa_sub03,Hát xẩm,xam_thuonghoa.mp4,train,60.0,7,data/frames/xam/xam_thuonghoa_sub03_f00.jpg,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_nhitinh_sub00,Hát xẩm,xam_nhitinh.mp4,train,60.0,4,data/frames/xam/xam_nhitinh_sub00_f00.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_nhitinh_sub01,Hát xẩm,xam_nhitinh.mp4,train,60.0,8,data/frames/xam/xam_nhitinh_sub01_f01.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+xam_nhitinh_sub02,Hát xẩm,xam_nhitinh.mp4,train,60.0,4,data/frames/xam/xam_nhitinh_sub02_f02.jpg,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1

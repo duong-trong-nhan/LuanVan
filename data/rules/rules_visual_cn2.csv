@@ -1,18 +1,31 @@
 ﻿rule_text,consequent,confidence,support,score,antecedents_count
-doi_hinh_3_nguoi_ca_tru == 1,Ca trù,1.0,191,5.257,1
-trang_phuc_he_cheo == 1,Chèo,1.0,395,5.981,1
-trong_cheo_mo_quat_giay == 1,Chèo,1.0,372,5.922,1
-khan_chau_ao_ngu_hau_dong == 1 AND guitar_phim_lom == 0,Chầu văn,1.0,322,5.778,2
-dao_cu_hau_dong_kiem_cung_mam == 1 AND co_trang_mao_giap_dinh_hat == 0 AND ao_thao_khan_nhieu_ao_the == 0,Chầu văn,0.9914,350,5.811,3
-dao_cu_hau_dong_kiem_cung_mam == 1 AND co_trang_mao_giap_dinh_hat == 0 AND ao_thao_khan_nhieu_ao_the == 1,Chầu văn,0.7222,18,2.127,3
-dan_kim_dan_nguyet == 1 AND dao_cu_hau_dong_kiem_cung_mam == 0,Cải lương,1.0,404,6.004,2
-co_trang_mao_giap_dinh_hat == 1 AND dao_cu_hau_dong_kiem_cung_mam == 0,Cải lương,1.0,399,5.991,2
-ao_tu_than_yem_dao == 0 AND ao_dai_ao_ba_ba == 1 AND trong_cheo_mo_quat_giay == 0,Cải lương,0.9933,449,6.068,3
-co_trang_mao_giap_dinh_hat == 1,Cải lương,0.9889,452,6.048,1
-dan_tranh == 1 AND dao_cu_hau_dong_kiem_cung_mam == 0,Cải lương,1.0,369,5.914,2
-guitar_phim_lom == 1,Cải lương,1.0,365,5.903,1
-ao_tu_than_yem_dao == 0 AND dan_bau == 1 AND senh_tien_trong_manh == 0,Cải lương,1.0,62,4.143,3
-ao_thao_khan_nhieu_ao_the == 1 AND doi_hinh_3_nguoi_ca_tru == 0 AND dao_cu_hau_dong_kiem_cung_mam == 0,Cải lương,1.0,20,3.045,3
-ao_thao_khan_nhieu_ao_the == 1 AND dao_cu_hau_dong_kiem_cung_mam == 1 AND co_trang_mao_giap_dinh_hat == 0,Cải lương,0.2778,18,0.818,3
-ao_nau_kinh_den_mu_cat == 1 AND dan_tranh == 0,Hát xẩm,1.0,208,5.342,2
-khong_nhac_cu == 1,Quan họ,1.0,411,6.021,1
+dan_day == 1,Ca trù,1.0,119,4.787,1
+ban_phach_trong_chau == 1 AND dan_kim_dan_nguyet == 0 AND dien_tho_hau_dong == 0,Ca trù,0.9878,82,4.365,3
+ao_thao_khan_nhieu_ao_the == 1 AND dien_tho_hau_dong == 0 AND co_trang_mao_giap_dinh_hat == 0,Ca trù,0.91,211,4.874,3
+chieu_cheo_san_dinh == 1 AND khong_nhac_cu == 0,Chèo,1.0,349,5.858,2
+trang_phuc_he_cheo == 1,Chèo,1.0,291,5.677,1
+trong_cheo_mo_quat_giay == 1,Chèo,1.0,7,2.079,1
+ao_tu_than_yem_dao == 1 AND non_quai_thao_khan_mo_qua_ao_mo_ba == 0 AND dien_tho_hau_dong == 0,Chèo,0.8526,312,4.899,3
+dien_tho_hau_dong == 1,Chầu văn,1.0,189,5.247,1
+dao_cu_hau_dong_kiem_cung_mam == 1 AND co_trang_mao_giap_dinh_hat == 0,Chầu văn,1.0,125,4.836,2
+khan_chau_ao_ngu_hau_dong == 1,Chầu văn,1.0,167,5.124,1
+ban_phach_trong_chau == 1 AND dan_kim_dan_nguyet == 1,Chầu văn,1.0,55,4.025,2
+dan_kim_dan_nguyet == 1 AND ao_dai_ao_ba_ba == 1 AND dan_tranh == 0,Chầu văn,0.7436,39,2.743,3
+dan_kim_dan_nguyet == 1 AND guitar_phim_lom == 0 AND dan_tranh == 0,Chầu văn,0.6159,151,3.094,3
+co_trang_mao_giap_dinh_hat == 1 AND dao_cu_hau_dong_kiem_cung_mam == 0,Cải lương,1.0,156,5.056,2
+guitar_phim_lom == 1,Cải lương,1.0,117,4.771,1
+dan_tranh == 1 AND ban_phach_trong_chau == 0,Cải lương,1.0,90,4.511,2
+dan_bau == 1,Cải lương,1.0,46,3.85,1
+khong_nhac_cu == 1 AND ao_tu_than_yem_dao == 0 AND san_khau_kich_hat == 1,Cải lương,0.8656,387,5.16,3
+co_trang_mao_giap_dinh_hat == 1,Cải lương,0.9741,193,5.131,1
+dan_kim_dan_nguyet == 1 AND ban_phach_trong_chau == 0 AND ao_dai_ao_ba_ba == 0,Cải lương,0.7617,193,4.012,3
+dan_co_dan_nhi == 1 AND ao_nau_kinh_den_mu_cat == 0 AND ban_phach_trong_chau == 0,Cải lương,0.6667,108,3.128,3
+ao_dai_ao_ba_ba == 1 AND khong_nhac_cu == 0 AND dien_tho_hau_dong == 0,Cải lương,0.3641,379,2.163,3
+senh_tien_trong_manh == 1,Hát xẩm,1.0,114,4.745,1
+ao_nau_kinh_den_mu_cat == 1 AND khong_nhac_cu == 0 AND chieu_cheo_san_dinh == 0,Hát xẩm,0.9839,186,5.147,3
+dan_co_dan_nhi == 1 AND dan_kim_dan_nguyet == 0 AND dan_tranh == 0,Hát xẩm,0.8698,192,4.577,3
+khong_nhac_cu == 0 AND non_quai_thao_khan_mo_qua_ao_mo_ba == 1 AND chieu_cheo_san_dinh == 0,Hát xẩm,0.9851,67,4.157,3
+dan_kim_dan_nguyet == 1 AND ao_dai_ao_ba_ba == 1 AND ban_phach_trong_chau == 0,Hát xẩm,0.4762,21,1.472,3
+khong_nhac_cu == 1 AND ao_tu_than_yem_dao == 1,Quan họ,0.9973,375,5.914,2
+khong_nhac_cu == 1 AND non_quai_thao_khan_mo_qua_ao_mo_ba == 1,Quan họ,0.9971,349,5.841,2
+khong_nhac_cu == 1 AND san_khau_kich_hat == 0 AND ao_dai_ao_ba_ba == 1,Quan họ,0.9451,164,4.826,3

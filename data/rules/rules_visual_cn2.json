@@ -1,138 +1,242 @@
 [
   {
-    "rule_text": "doi_hinh_3_nguoi_ca_tru == 1",
+    "rule_text": "dan_day == 1",
     "consequent": "Ca trù",
     "confidence": 1.0,
-    "support": 191,
-    "score": 5.257,
+    "support": 119,
+    "score": 4.787,
     "antecedents_count": 1
+  },
+  {
+    "rule_text": "ban_phach_trong_chau == 1 AND dan_kim_dan_nguyet == 0 AND dien_tho_hau_dong == 0",
+    "consequent": "Ca trù",
+    "confidence": 0.9878,
+    "support": 82,
+    "score": 4.365,
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "ao_thao_khan_nhieu_ao_the == 1 AND dien_tho_hau_dong == 0 AND co_trang_mao_giap_dinh_hat == 0",
+    "consequent": "Ca trù",
+    "confidence": 0.91,
+    "support": 211,
+    "score": 4.874,
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "chieu_cheo_san_dinh == 1 AND khong_nhac_cu == 0",
+    "consequent": "Chèo",
+    "confidence": 1.0,
+    "support": 349,
+    "score": 5.858,
+    "antecedents_count": 2
   },
   {
     "rule_text": "trang_phuc_he_cheo == 1",
     "consequent": "Chèo",
     "confidence": 1.0,
-    "support": 395,
-    "score": 5.981,
+    "support": 291,
+    "score": 5.677,
     "antecedents_count": 1
   },
   {
     "rule_text": "trong_cheo_mo_quat_giay == 1",
     "consequent": "Chèo",
     "confidence": 1.0,
-    "support": 372,
-    "score": 5.922,
+    "support": 7,
+    "score": 2.079,
     "antecedents_count": 1
   },
   {
-    "rule_text": "khan_chau_ao_ngu_hau_dong == 1 AND guitar_phim_lom == 0",
-    "consequent": "Chầu văn",
-    "confidence": 1.0,
-    "support": 322,
-    "score": 5.778,
-    "antecedents_count": 2
-  },
-  {
-    "rule_text": "dao_cu_hau_dong_kiem_cung_mam == 1 AND co_trang_mao_giap_dinh_hat == 0 AND ao_thao_khan_nhieu_ao_the == 0",
-    "consequent": "Chầu văn",
-    "confidence": 0.9914,
-    "support": 350,
-    "score": 5.811,
+    "rule_text": "ao_tu_than_yem_dao == 1 AND non_quai_thao_khan_mo_qua_ao_mo_ba == 0 AND dien_tho_hau_dong == 0",
+    "consequent": "Chèo",
+    "confidence": 0.8526,
+    "support": 312,
+    "score": 4.899,
     "antecedents_count": 3
   },
   {
-    "rule_text": "dao_cu_hau_dong_kiem_cung_mam == 1 AND co_trang_mao_giap_dinh_hat == 0 AND ao_thao_khan_nhieu_ao_the == 1",
+    "rule_text": "dien_tho_hau_dong == 1",
     "consequent": "Chầu văn",
-    "confidence": 0.7222,
-    "support": 18,
-    "score": 2.127,
+    "confidence": 1.0,
+    "support": 189,
+    "score": 5.247,
+    "antecedents_count": 1
+  },
+  {
+    "rule_text": "dao_cu_hau_dong_kiem_cung_mam == 1 AND co_trang_mao_giap_dinh_hat == 0",
+    "consequent": "Chầu văn",
+    "confidence": 1.0,
+    "support": 125,
+    "score": 4.836,
+    "antecedents_count": 2
+  },
+  {
+    "rule_text": "khan_chau_ao_ngu_hau_dong == 1",
+    "consequent": "Chầu văn",
+    "confidence": 1.0,
+    "support": 167,
+    "score": 5.124,
+    "antecedents_count": 1
+  },
+  {
+    "rule_text": "ban_phach_trong_chau == 1 AND dan_kim_dan_nguyet == 1",
+    "consequent": "Chầu văn",
+    "confidence": 1.0,
+    "support": 55,
+    "score": 4.025,
+    "antecedents_count": 2
+  },
+  {
+    "rule_text": "dan_kim_dan_nguyet == 1 AND ao_dai_ao_ba_ba == 1 AND dan_tranh == 0",
+    "consequent": "Chầu văn",
+    "confidence": 0.7436,
+    "support": 39,
+    "score": 2.743,
     "antecedents_count": 3
   },
   {
-    "rule_text": "dan_kim_dan_nguyet == 1 AND dao_cu_hau_dong_kiem_cung_mam == 0",
-    "consequent": "Cải lương",
-    "confidence": 1.0,
-    "support": 404,
-    "score": 6.004,
-    "antecedents_count": 2
+    "rule_text": "dan_kim_dan_nguyet == 1 AND guitar_phim_lom == 0 AND dan_tranh == 0",
+    "consequent": "Chầu văn",
+    "confidence": 0.6159,
+    "support": 151,
+    "score": 3.094,
+    "antecedents_count": 3
   },
   {
     "rule_text": "co_trang_mao_giap_dinh_hat == 1 AND dao_cu_hau_dong_kiem_cung_mam == 0",
     "consequent": "Cải lương",
     "confidence": 1.0,
-    "support": 399,
-    "score": 5.991,
-    "antecedents_count": 2
-  },
-  {
-    "rule_text": "ao_tu_than_yem_dao == 0 AND ao_dai_ao_ba_ba == 1 AND trong_cheo_mo_quat_giay == 0",
-    "consequent": "Cải lương",
-    "confidence": 0.9933,
-    "support": 449,
-    "score": 6.068,
-    "antecedents_count": 3
-  },
-  {
-    "rule_text": "co_trang_mao_giap_dinh_hat == 1",
-    "consequent": "Cải lương",
-    "confidence": 0.9889,
-    "support": 452,
-    "score": 6.048,
-    "antecedents_count": 1
-  },
-  {
-    "rule_text": "dan_tranh == 1 AND dao_cu_hau_dong_kiem_cung_mam == 0",
-    "consequent": "Cải lương",
-    "confidence": 1.0,
-    "support": 369,
-    "score": 5.914,
+    "support": 156,
+    "score": 5.056,
     "antecedents_count": 2
   },
   {
     "rule_text": "guitar_phim_lom == 1",
     "consequent": "Cải lương",
     "confidence": 1.0,
-    "support": 365,
-    "score": 5.903,
+    "support": 117,
+    "score": 4.771,
     "antecedents_count": 1
   },
   {
-    "rule_text": "ao_tu_than_yem_dao == 0 AND dan_bau == 1 AND senh_tien_trong_manh == 0",
+    "rule_text": "dan_tranh == 1 AND ban_phach_trong_chau == 0",
     "consequent": "Cải lương",
     "confidence": 1.0,
-    "support": 62,
-    "score": 4.143,
-    "antecedents_count": 3
-  },
-  {
-    "rule_text": "ao_thao_khan_nhieu_ao_the == 1 AND doi_hinh_3_nguoi_ca_tru == 0 AND dao_cu_hau_dong_kiem_cung_mam == 0",
-    "consequent": "Cải lương",
-    "confidence": 1.0,
-    "support": 20,
-    "score": 3.045,
-    "antecedents_count": 3
-  },
-  {
-    "rule_text": "ao_thao_khan_nhieu_ao_the == 1 AND dao_cu_hau_dong_kiem_cung_mam == 1 AND co_trang_mao_giap_dinh_hat == 0",
-    "consequent": "Cải lương",
-    "confidence": 0.2778,
-    "support": 18,
-    "score": 0.818,
-    "antecedents_count": 3
-  },
-  {
-    "rule_text": "ao_nau_kinh_den_mu_cat == 1 AND dan_tranh == 0",
-    "consequent": "Hát xẩm",
-    "confidence": 1.0,
-    "support": 208,
-    "score": 5.342,
+    "support": 90,
+    "score": 4.511,
     "antecedents_count": 2
   },
   {
-    "rule_text": "khong_nhac_cu == 1",
-    "consequent": "Quan họ",
+    "rule_text": "dan_bau == 1",
+    "consequent": "Cải lương",
     "confidence": 1.0,
-    "support": 411,
-    "score": 6.021,
+    "support": 46,
+    "score": 3.85,
     "antecedents_count": 1
+  },
+  {
+    "rule_text": "khong_nhac_cu == 1 AND ao_tu_than_yem_dao == 0 AND san_khau_kich_hat == 1",
+    "consequent": "Cải lương",
+    "confidence": 0.8656,
+    "support": 387,
+    "score": 5.16,
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "co_trang_mao_giap_dinh_hat == 1",
+    "consequent": "Cải lương",
+    "confidence": 0.9741,
+    "support": 193,
+    "score": 5.131,
+    "antecedents_count": 1
+  },
+  {
+    "rule_text": "dan_kim_dan_nguyet == 1 AND ban_phach_trong_chau == 0 AND ao_dai_ao_ba_ba == 0",
+    "consequent": "Cải lương",
+    "confidence": 0.7617,
+    "support": 193,
+    "score": 4.012,
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "dan_co_dan_nhi == 1 AND ao_nau_kinh_den_mu_cat == 0 AND ban_phach_trong_chau == 0",
+    "consequent": "Cải lương",
+    "confidence": 0.6667,
+    "support": 108,
+    "score": 3.128,
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "ao_dai_ao_ba_ba == 1 AND khong_nhac_cu == 0 AND dien_tho_hau_dong == 0",
+    "consequent": "Cải lương",
+    "confidence": 0.3641,
+    "support": 379,
+    "score": 2.163,
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "senh_tien_trong_manh == 1",
+    "consequent": "Hát xẩm",
+    "confidence": 1.0,
+    "support": 114,
+    "score": 4.745,
+    "antecedents_count": 1
+  },
+  {
+    "rule_text": "ao_nau_kinh_den_mu_cat == 1 AND khong_nhac_cu == 0 AND chieu_cheo_san_dinh == 0",
+    "consequent": "Hát xẩm",
+    "confidence": 0.9839,
+    "support": 186,
+    "score": 5.147,
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "dan_co_dan_nhi == 1 AND dan_kim_dan_nguyet == 0 AND dan_tranh == 0",
+    "consequent": "Hát xẩm",
+    "confidence": 0.8698,
+    "support": 192,
+    "score": 4.577,
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "khong_nhac_cu == 0 AND non_quai_thao_khan_mo_qua_ao_mo_ba == 1 AND chieu_cheo_san_dinh == 0",
+    "consequent": "Hát xẩm",
+    "confidence": 0.9851,
+    "support": 67,
+    "score": 4.157,
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "dan_kim_dan_nguyet == 1 AND ao_dai_ao_ba_ba == 1 AND ban_phach_trong_chau == 0",
+    "consequent": "Hát xẩm",
+    "confidence": 0.4762,
+    "support": 21,
+    "score": 1.472,
+    "antecedents_count": 3
+  },
+  {
+    "rule_text": "khong_nhac_cu == 1 AND ao_tu_than_yem_dao == 1",
+    "consequent": "Quan họ",
+    "confidence": 0.9973,
+    "support": 375,
+    "score": 5.914,
+    "antecedents_count": 2
+  },
+  {
+    "rule_text": "khong_nhac_cu == 1 AND non_quai_thao_khan_mo_qua_ao_mo_ba == 1",
+    "consequent": "Quan họ",
+    "confidence": 0.9971,
+    "support": 349,
+    "score": 5.841,
+    "antecedents_count": 2
+  },
+  {
+    "rule_text": "khong_nhac_cu == 1 AND san_khau_kich_hat == 0 AND ao_dai_ao_ba_ba == 1",
+    "consequent": "Quan họ",
+    "confidence": 0.9451,
+    "support": 164,
+    "score": 4.826,
+    "antecedents_count": 3
   }
 ]
