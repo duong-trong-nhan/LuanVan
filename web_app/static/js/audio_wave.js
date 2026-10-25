@@ -63,14 +63,14 @@ class AudioWaveRibbon {
 
   initThree() {
     const width = this.container.clientWidth || 700;
-    const height = this.container.clientHeight || 260;
+    const height = this.container.clientHeight || 550;
 
     this.scene = new THREE.Scene();
     this.scene.background = null; // Nền trong suốt tiệp nền #FAF9F6
 
-    // Camera phối cảnh tập trung vào Quả cầu 3D, mở rộng headroom cho các đỉnh gai âm thanh
-    this.camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
-    this.camera.position.set(0, 0, 10.5);
+    // Camera phối cảnh tập trung vào Quả cầu 3D trong background
+    this.camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    this.camera.position.set(0, 0, 10.0);
     this.camera.lookAt(0, 0, 0);
 
     this.renderer = new THREE.WebGLRenderer({
@@ -101,7 +101,7 @@ class AudioWaveRibbon {
 
     this.sphereParticleMeta = [];
 
-    const baseRadius = 2.4;
+    const baseRadius = 1.25;
     const colCore = new THREE.Color(0x1E6B5B);
     const colMid = new THREE.Color(0xC97A1B);
     const colSpike = new THREE.Color(0xC84B31);
@@ -148,7 +148,7 @@ class AudioWaveRibbon {
     const particleTexture = this.createCircleTexture();
 
     const material = new THREE.PointsMaterial({
-      size: 0.22,
+      size: 0.13,
       map: particleTexture,
       vertexColors: true,
       transparent: true,
@@ -392,14 +392,14 @@ class AudioWaveRibbon {
       const binIdx = Math.min(binCount - 1, Math.floor(normalizedLat * 40));
       const freqAmp = this.smoothedData ? this.smoothedData[binIdx] : 0.0;
 
-      // Tạo đỉnh nhọn vươn ra (Sharp Radial Spikes)
-      const sharpSpike = Math.pow(freqAmp, 1.8) * 1.5;
+      // Tạo đỉnh nhọn vươn ra (Sharp Radial Spikes) - căn chỉnh theo quả cầu gọn gàng
+      const sharpSpike = Math.pow(freqAmp, 1.8) * 0.75;
 
       // Nhịp đập toàn phần theo Bass (Pulsing Radius)
-      const bassPulse = bass * 0.75;
+      const bassPulse = bass * 0.35;
 
       // Độ gợn sóng bề mặt theo Melody
-      const surfaceRipple = Math.sin(p.theta * 4.0 + time * 3.0) * (mid * 0.35);
+      const surfaceRipple = Math.sin(p.theta * 4.0 + time * 3.0) * (mid * 0.18);
 
       const currentRadius = p.baseRadius + bassPulse + sharpSpike + surfaceRipple;
 
@@ -409,7 +409,7 @@ class AudioWaveRibbon {
       positions[pIdx + 2] = p.nz * currentRadius;
 
       // Đổi màu gai nhọn rực đỏ son khi vươn cao
-      const spikeFactor = Math.min(1.0, (sharpSpike + bassPulse) / 0.9);
+      const spikeFactor = Math.min(1.0, (sharpSpike + bassPulse) / 0.55);
       const col = new THREE.Color().copy(colCore).lerp(colMid, (p.ny + 1) / 2).lerp(colSpike, spikeFactor);
 
       colors[pIdx] = col.r;

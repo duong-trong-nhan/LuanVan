@@ -12,3 +12,4 @@ temp
 howtorun.txt
 data/models
 data/yolo_dataset
+visual_subclip_annotator.py

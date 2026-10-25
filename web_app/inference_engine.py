@@ -26,6 +26,14 @@ import soundfile as sf
 import cv2
 from PIL import Image
 
+import torch
+import torch.nn as nn
+from torchvision import transforms, models
+import timm
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
 # Import bridge and concept loader from Phase 7
 ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
@@ -103,6 +111,17 @@ class HeritageInferenceEngine:
             'Vibrato': {'Ít luyến': 'Vibrato_Light_Ornament', 'Vừa': 'Vibrato_Moderate', 'Nhiều luyến': 'Vibrato_Heavy_Ornament'}
         }
 
+        # 1c. Nạp mô hình Deep Learning Audio CNN & Visual CBM
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.audio_cnn_model = None
+        self._init_audio_cnn()
+
+        self.visual_cbm_model = None
+        self.visual_rf_model = None
+        self.visual_concept_cols = []
+        self.visual_thresholds = {}
+        self._init_visual_models()
+
         # 2. Khởi tạo Phase 7 Bridges
         self.audio_bridge = p7.AudioRuleToConceptBridge(
             audio_concepts_path=self.concept_dir / 'audio_concepts.md',
@@ -129,6 +148,165 @@ class HeritageInferenceEngine:
             'Quan họ': ['non_quai_thao_khan_mo_qua_ao_mo_ba', 'ao_tu_than_yem_dao', 'doi_dap_nam_nu_quan_ho'],
             'Hát xẩm': ['dan_co_dan_nhi', 'senh_tien_trong_manh', 'chieu_xam_duong_pho_cho', 'ao_nau_kinh_den_mu_cat']
         }
+
+    def _init_audio_cnn(self):
+        cnn_path = self.root_dir / 'data' / 'models' / 'cnn' / 'EXP-02_efficientnet_b0_mel_partial_best.pth'
+        if not cnn_path.exists():
+            cnn_path = self.root_dir / 'data' / 'models' / 'cnn' / 'EXP-01_efficientnet_b0_mel_frozen_best.pth'
+        if cnn_path.exists():
+            try:
+                model = models.efficientnet_b0(weights=None)
+                model.classifier = nn.Sequential(
+                    nn.Dropout(0.4),
+                    nn.Linear(1280, 256),
+                    nn.ReLU(),
+                    nn.Dropout(0.3),
+                    nn.Linear(256, len(GENRES))
+                )
+                ckpt = torch.load(cnn_path, map_location=self.device)
+                if isinstance(ckpt, dict) and 'model_state_dict' in ckpt:
+                    model.load_state_dict(ckpt['model_state_dict'])
+                elif isinstance(ckpt, dict):
+                    model.load_state_dict(ckpt)
+                model.to(self.device).eval()
+                self.audio_cnn_model = model
+                print(f"[HeritageInferenceEngine] Đã nạp thành công Audio CNN Model: {cnn_path.name}")
+            except Exception as e:
+                print(f"[HeritageInferenceEngine] Cảnh báo không thể nạp Audio CNN model: {e}")
+
+    def _init_visual_models(self):
+        cbm_path = self.models_dir / 'visual' / 'best_visual_cbm.pth'
+        rf_vis_path = self.models_dir / 'visual' / 'best_visual_rf_continuous.joblib'
+        thresh_path = self.models_dir / 'visual' / 'visual_concept_thresholds.json'
+
+        if cbm_path.exists():
+            try:
+                ckpt = torch.load(cbm_path, map_location=self.device)
+                self.visual_concept_cols = ckpt.get('concept_cols', [])
+                nc = len(self.visual_concept_cols) or 25
+
+                class VisualCBM(nn.Module):
+                    def __init__(self, nc_val):
+                        super().__init__()
+                        self.backbone = timm.create_model('convnext_tiny.fb_in22k', pretrained=False, num_classes=0)
+                        self.head = nn.Sequential(
+                            nn.Dropout(0.3),
+                            nn.Linear(self.backbone.num_features, 256),
+                            nn.ReLU(),
+                            nn.Dropout(0.2),
+                            nn.Linear(256, nc_val)
+                        )
+                    def forward(self, x):
+                        return self.head(self.backbone(x))
+
+                cbm = VisualCBM(nc).to(self.device)
+                cbm.load_state_dict(ckpt['model_state_dict'])
+                cbm.eval()
+                self.visual_cbm_model = cbm
+
+                if thresh_path.exists():
+                    with open(thresh_path, 'r', encoding='utf-8') as tf:
+                        self.visual_thresholds = json.load(tf)
+                print(f"[HeritageInferenceEngine] Đã nạp thành công Visual CBM Model (ConvNeXt-Tiny, {nc} concepts)")
+            except Exception as e:
+                print(f"[HeritageInferenceEngine] Cảnh báo không thể nạp Visual CBM model: {e}")
+
+        if rf_vis_path.exists():
+            try:
+                self.visual_rf_model = joblib.load(rf_vis_path)
+                print(f"[HeritageInferenceEngine] Đã nạp thành công Visual RF model: {rf_vis_path.name}")
+            except Exception as e:
+                print(f"[HeritageInferenceEngine] Cảnh báo không thể nạp Visual RF model: {e}")
+
+    def predict_audio_cnn(self, chunk_y: np.ndarray, sr: int = 16000) -> Dict[str, float]:
+        """
+        Dự đoán thể loại từ phân đoạn âm thanh qua Log-Mel Spectrogram & EfficientNet-B0 (EXP-02).
+        """
+        default_probs = {g: 1.0 / len(GENRES) for g in GENRES}
+        if self.audio_cnn_model is None or chunk_y is None or len(chunk_y) == 0:
+            return default_probs
+
+        try:
+            if sr != 22050:
+                y_cnn = librosa.resample(chunk_y, orig_sr=sr, target_sr=22050)
+            else:
+                y_cnn = chunk_y
+
+            mel = librosa.feature.melspectrogram(
+                y=y_cnn, sr=22050,
+                n_fft=2048, hop_length=512,
+                n_mels=128, fmin=20, fmax=8000,
+                power=2.0
+            )
+            log_mel = librosa.power_to_db(mel, ref=np.max)
+
+            s_min, s_max = log_mel.min(), log_mel.max()
+            spec_norm = (log_mel - s_min) / (s_max - s_min) if s_max > s_min else np.zeros_like(log_mel)
+
+            cmap = plt.get_cmap('magma')
+            rgba = cmap(spec_norm)
+            rgb = (rgba[:, :, :3] * 255).astype(np.uint8)
+            img = Image.fromarray(rgb, mode='RGB')
+
+            tf = transforms.Compose([
+                transforms.Resize((224, 224)),
+                transforms.ToTensor(),
+                transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+            ])
+            inp_t = tf(img).unsqueeze(0).to(self.device)
+
+            with torch.no_grad():
+                logits = self.audio_cnn_model(inp_t)
+                p_arr = torch.softmax(logits, dim=1)[0].cpu().numpy()
+
+            return {GENRES[i]: float(p_arr[i]) for i in range(len(GENRES))}
+        except Exception as e:
+            print(f"[predict_audio_cnn] Lỗi: {e}")
+            return default_probs
+
+    def predict_visual_cbm(self, frame_bgr: np.ndarray) -> Tuple[List[str], Dict[str, float]]:
+        """
+        Dự đoán 25 visual concepts và phân phối xác suất thể loại qua Visual CBM (ConvNeXt-Tiny) + Visual RF.
+        """
+        default_probs = {g: 1.0 / len(GENRES) for g in GENRES}
+        if frame_bgr is None or self.visual_cbm_model is None:
+            return [], default_probs
+
+        try:
+            img_rgb = cv2.cvtColor(frame_bgr, cv2.COLOR_BGR2RGB)
+            pil_img = Image.fromarray(img_rgb)
+            tf = transforms.Compose([
+                transforms.Resize((224, 224)),
+                transforms.ToTensor(),
+                transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+            ])
+            inp_t = tf(pil_img).unsqueeze(0).to(self.device)
+            with torch.no_grad():
+                logits = self.visual_cbm_model(inp_t)
+                c_probs = torch.sigmoid(logits)[0].cpu().numpy()
+
+            vis_probs_map = dict(default_probs)
+            if self.visual_rf_model is not None:
+                rf_p = self.visual_rf_model.predict_proba(c_probs.reshape(1, -1))[0]
+                classes = list(self.visual_rf_model.classes_)
+                vis_probs_map = {classes[i]: float(rf_p[i]) for i in range(len(classes))}
+
+            detected_cues = []
+            for idx, col in enumerate(self.visual_concept_cols):
+                if col == 'khong_nhac_cu':
+                    continue
+                th = self.visual_thresholds.get(col, 0.35)
+                if float(c_probs[idx]) >= th:
+                    detected_cues.append(col)
+
+            if not detected_cues:
+                ranked = sorted([(c, c_probs[i]) for i, c in enumerate(self.visual_concept_cols) if c != 'khong_nhac_cu'], key=lambda x: x[1], reverse=True)
+                detected_cues = [c[0] for c in ranked[:3]]
+
+            return detected_cues, vis_probs_map
+        except Exception as e:
+            print(f"[predict_visual_cbm] Lỗi: {e}")
+            return [], default_probs
 
     def _load_rules_json(self, path: Path) -> List[Dict[str, Any]]:
         if not path.exists():
@@ -445,7 +623,7 @@ class HeritageInferenceEngine:
         cap.release()
 
         if best_frame is None:
-            return None, []
+            return None, None
 
         # Resize keyframe cho giao diện (320x180)
         h, w = best_frame.shape[:2]
@@ -456,9 +634,7 @@ class HeritageInferenceEngine:
         _, buf = cv2.imencode('.jpg', resized, [int(cv2.IMWRITE_JPEG_QUALITY), 85])
         b64_img = f"data:image/jpeg;base64,{base64.b64encode(buf).decode('utf-8')}"
 
-        # Nhận diện đối tượng thị giác thuần túy từ pixel khung hình (Computer Vision)
-        detected_objects = self._detect_visual_cues_from_frame(resized)
-        return b64_img, detected_objects
+        return b64_img, best_frame
 
     def _detect_visual_cues_from_frame(self, frame_bgr: np.ndarray) -> List[str]:
         """
@@ -512,18 +688,28 @@ class HeritageInferenceEngine:
     def predict_chunk(
         self,
         features: Dict[str, Any],
+        chunk_y: Optional[np.ndarray] = None,
+        sr: int = 16000,
+        visual_frame: Optional[np.ndarray] = None,
         visual_cues: Optional[List[str]] = None,
         is_video: bool = False
     ) -> Dict[str, Any]:
         """
-        Dự đoán thể loại cho 1 chunk dựa trên 7 trục âm học và visual cues (nếu là video).
-        Kết hợp mô hình Random Forest Continuous Gaussian và Late Fusion có trọng số khoa học.
+        Dự đoán thể loại cho 1 chunk kết hợp đa phương thức (Multimodal Late Fusion):
+        1. Audio CNN (EXP-02 Log-Mel Spectrogram + EfficientNet-B0)
+        2. Audio Random Forest Continuous (27 thuộc tính mờ Gaussian trên 7 trục MPEG-7)
+        3. Hồ sơ mờ tượng trưng & luật âm học
+        4. Visual CBM (ConvNeXt-Tiny trích xuất 25 khái niệm thị giác + Visual Random Forest)
+        Late Fusion: 65% Audio + 35% Visual (với Video) hoặc 100% Audio (với Audio/Mic).
         """
         crisp = features['crisp']
         cont = features['continuous']
         raw = features['raw']
 
-        # 1. Dự đoán xác suất âm học từ mô hình Random Forest (RF Audio Champion)
+        # 1. Dự đoán qua Audio CNN (EXP-02 EfficientNet-B0 Log-Mel Spectrogram)
+        cnn_probs = self.predict_audio_cnn(chunk_y, sr=sr) if chunk_y is not None else None
+
+        # 2. Dự đoán xác suất âm học từ mô hình Random Forest (RF Audio Champion)
         rf_probs_map = {g: 1.0 / len(GENRES) for g in GENRES}
         if self.rf_audio_model is not None:
             try:
@@ -533,7 +719,7 @@ class HeritageInferenceEngine:
             except Exception:
                 pass
 
-        # 2. Tính điểm số âm học biểu tượng (Fuzzy Profile & Symbolic Acoustic Rules)
+        # 3. Tính điểm số âm học biểu tượng (Fuzzy Profile & Symbolic Acoustic Rules)
         genre_scores = {}
         for g in GENRES:
             score = 1.0
@@ -575,31 +761,58 @@ class HeritageInferenceEngine:
         profile_probs = exp_s / np.sum(exp_s)
         profile_prob_map = {g: float(profile_probs[i]) for i, g in enumerate(GENRES)}
 
-        # Kết hợp RF Model và Hồ sơ mờ (65% RF + 35% Profile) để tạo phân phối âm học chuẩn xác
+        # Hợp nhất các nguồn âm học: CNN (55%) + RF (35%) + Fuzzy Rules (10%)
         audio_probs_map = {}
         for g in GENRES:
-            audio_probs_map[g] = 0.65 * rf_probs_map.get(g, 0.16) + 0.35 * profile_prob_map.get(g, 0.16)
+            if cnn_probs is not None:
+                audio_probs_map[g] = (
+                    0.55 * cnn_probs.get(g, 0.16) +
+                    0.35 * rf_probs_map.get(g, 0.16) +
+                    0.10 * profile_prob_map.get(g, 0.16)
+                )
+            else:
+                audio_probs_map[g] = (
+                    0.65 * rf_probs_map.get(g, 0.16) +
+                    0.35 * profile_prob_map.get(g, 0.16)
+                )
         sum_ap = sum(audio_probs_map.values()) or 1.0
         audio_probs_map = {g: audio_probs_map[g] / sum_ap for g in GENRES}
 
-        # 3. Phân phối xác suất thị giác (Visual Probability) nếu là video
+        # 4. Phân phối xác suất thị giác (Visual CBM + Visual RF) nếu là video
         final_probs_dict = {}
-        if is_video and visual_cues:
-            vis_scores = {g: 1.0 for g in GENRES}
-            for cue in visual_cues:
-                for g, props in self.genre_visual_props.items():
-                    if cue in props:
-                        vis_scores[g] += 1.2  # Tăng vừa phải, tránh bão hòa
+        detected_visual_cues = list(visual_cues) if visual_cues else []
+        vis_probs_map = {g: 1.0 / len(GENRES) for g in GENRES}
 
-            T_vis = 1.5
-            vis_arr = np.array([vis_scores[g] for g in GENRES], dtype=np.float64)
-            exp_v = np.exp((vis_arr - np.max(vis_arr)) / T_vis)
-            p_vis = exp_v / np.sum(exp_v)
-            vis_probs_map = {g: float(p_vis[i]) for i, g in enumerate(GENRES)}
+        if is_video and visual_frame is not None:
+            cbm_cues, cbm_vis_probs = self.predict_visual_cbm(visual_frame)
+            if cbm_cues:
+                for c in cbm_cues:
+                    if c not in detected_visual_cues:
+                        detected_visual_cues.append(c)
+            if cbm_vis_probs:
+                vis_probs_map = cbm_vis_probs
 
-            # Dung hợp muộn (Late Fusion: 65% Audio + 35% Visual)
+        if is_video and not detected_visual_cues and visual_frame is not None:
+            # Fallback sang heuristic pixel nếu CBM chưa tìm thấy
+            detected_visual_cues = self._detect_visual_cues_from_frame(visual_frame)
+
+        if is_video and detected_visual_cues:
+            # Nếu chưa có vis_probs_map từ CBM RF, tính qua prop matching
+            if max(vis_probs_map.values()) - min(vis_probs_map.values()) < 0.05:
+                vis_scores = {g: 1.0 for g in GENRES}
+                for cue in detected_visual_cues:
+                    for g, props in self.genre_visual_props.items():
+                        if cue in props:
+                            vis_scores[g] += 1.2
+                T_vis = 1.5
+                vis_arr = np.array([vis_scores[g] for g in GENRES], dtype=np.float64)
+                exp_v = np.exp((vis_arr - np.max(vis_arr)) / T_vis)
+                p_vis = exp_v / np.sum(exp_v)
+                vis_probs_map = {g: float(p_vis[i]) for i, g in enumerate(GENRES)}
+
+            # Dung hợp muộn Multimodal Late Fusion: 65% Audio + 35% Visual
             for g in GENRES:
-                final_probs_dict[g] = 0.65 * audio_probs_map[g] + 0.35 * vis_probs_map[g]
+                final_probs_dict[g] = 0.65 * audio_probs_map[g] + 0.35 * vis_probs_map.get(g, 0.16)
         else:
             final_probs_dict = dict(audio_probs_map)
 
@@ -610,7 +823,7 @@ class HeritageInferenceEngine:
         pred_genre = max(probs_dict.keys(), key=lambda k: probs_dict[k])
         confidence = float(probs_dict[pred_genre])
 
-        # 4. Tìm luật mờ kích hoạt từ Crisp / Continuous / Visual Rules
+        # 5. Tìm luật mờ kích hoạt từ Crisp / Continuous / Visual Rules
         matched_rules = []
         # Crisp rules
         for r in self.crisp_rules:
@@ -624,12 +837,11 @@ class HeritageInferenceEngine:
                     matched_rules.append(r)
 
         # Visual rules (nếu có visual cues)
-        if is_video and visual_cues:
+        if is_video and detected_visual_cues:
             for r in self.visual_rules:
                 if r.get('consequent') == pred_genre:
                     r_text = r.get('rule_text', '')
-                    # Kiểm tra xem cue có trong rule_text
-                    if any(cue in r_text for cue in visual_cues):
+                    if any(cue in r_text for cue in detected_visual_cues):
                         matched_rules.append(r)
 
         # Sắp xếp và chọn top rules
@@ -645,7 +857,7 @@ class HeritageInferenceEngine:
             'score': 2.45
         }
 
-        # 5. Kích hoạt Audio Concepts & Visual Concepts
+        # 6. Kích hoạt Audio Concepts & Visual Concepts
         audio_concepts = self.audio_bridge.map_rule_to_concepts(
             triggered_rule=top_rule,
             audio_features=crisp,
@@ -658,7 +870,7 @@ class HeritageInferenceEngine:
         if is_video:
             visual_concepts = self.visual_bridge.map_visual_evidence(
                 genre=pred_genre,
-                detected_objects=visual_cues,
+                detected_objects=detected_visual_cues,
                 min_concepts=2,
                 max_concepts=3
             )
@@ -670,7 +882,8 @@ class HeritageInferenceEngine:
             'top_rule': top_rule,
             'matched_rules': matched_rules[:3],
             'audio_concepts': audio_concepts,
-            'visual_concepts': visual_concepts
+            'visual_concepts': visual_concepts,
+            'visual_cues': detected_visual_cues
         }
 
     # -------------------------------------------------------------------------
@@ -694,8 +907,8 @@ class HeritageInferenceEngine:
 
         mode = mode.lower().strip()
         is_video_container = path.suffix.lower() in ['.mp4', '.avi', '.mov', '.mkv', '.webm', '.flv', '.m4v']
-        if is_video_container:
-            is_video = True
+        is_video = (mode == "video") or is_video_container
+        if is_video:
             mode = "video"
 
         # 1. Tách âm thanh chuẩn 16kHz
@@ -799,16 +1012,21 @@ class HeritageInferenceEngine:
 
             # B. Keyframe nếu là video
             keyframe_b64 = None
+            best_frame = None
             vis_cues = []
             if is_video:
-                keyframe_b64, vis_cues = self.extract_keyframe_for_chunk(path, s_time, e_time)
+                keyframe_b64, best_frame = self.extract_keyframe_for_chunk(path, s_time, e_time)
 
-            # C. Dự đoán chunk
+            # C. Dự đoán chunk với Audio CNN + Audio RF + Visual CBM
             chunk_pred = self.predict_chunk(
                 features=chunk_feats,
+                chunk_y=chunk_y,
+                sr=sr,
+                visual_frame=best_frame,
                 visual_cues=vis_cues,
                 is_video=is_video
             )
+            vis_cues = chunk_pred.get('visual_cues', [])
 
             all_chunk_probs.append(chunk_pred['probs'])
             if chunk_pred.get('top_rule'):

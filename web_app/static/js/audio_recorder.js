@@ -45,6 +45,9 @@ class LiveAudioRecorder {
 
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
       this.audioContext = new AudioContextClass();
+      if (this.audioContext.state === "suspended") {
+        await this.audioContext.resume();
+      }
       this.actualSampleRate = this.audioContext.sampleRate || 44100;
 
       this.sourceNode = this.audioContext.createMediaStreamSource(this.mediaStream);

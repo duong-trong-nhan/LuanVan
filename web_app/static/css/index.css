@@ -254,8 +254,17 @@ body {
     grid-template-columns: 100%;
     gap: 20px;
   }
+  .left-column {
+    position: static !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
   #verdict-main-card {
     position: static !important;
+  }
+  .ambient-sphere-backdrop {
+    display: none !important;
   }
 }
 
@@ -298,12 +307,22 @@ body {
 }
 
 /* ==========================================================================
-   Left Column: Input, 3D Particle Ribbon, Timeline & Keyframes
+   Left Column: Input, Player, Timeline & Keyframes (Sticky Viewport-fit)
    ========================================================================== */
 .left-column {
+  position: sticky;
+  top: 16px;
+  height: calc(100vh - 32px);
+  max-height: calc(100vh - 32px);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.left-column > .card-panel:first-child {
+  flex-shrink: 0;
 }
 
 /* Input Mode Tabs */
@@ -654,9 +673,9 @@ body {
 .player-container video {
   width: 100%;
   height: auto;
-  max-height: 520px;
+  max-height: 340px;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
   background-color: #000;
   border-radius: 0 0 var(--radius-md) var(--radius-md);
 }
@@ -664,20 +683,26 @@ body {
 .player-container audio {
   width: 100%;
   display: block;
-  padding: 12px 14px;
+  padding: 10px 14px;
   background-color: #FAF9F6;
 }
 
-/* 3D Audio-Reactive Sphere (Integrated Strip) */
-.integrated-wave-strip {
+/* Ambient 3D Audio-Reactive Sphere Backdrop (Nằm sau các thành phần bên phải) */
+.ambient-sphere-backdrop {
+  position: sticky;
+  top: 16px;
   width: 100%;
-  height: 260px;
-  position: relative;
-  background-color: #FAF9F6;
-  border-top: 1px solid var(--border-hairline);
+  height: calc(100vh - 32px);
+  margin-bottom: calc(-100vh + 12px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.90;
   overflow: hidden;
   display: flex;
+  justify-content: center;
   align-items: center;
+  border-radius: var(--radius-lg);
+  transition: opacity var(--transition-normal);
 }
 
 #wave-canvas-container {
@@ -686,64 +711,40 @@ body {
   display: block;
 }
 
-.wave-strip-meta {
+.ambient-sphere-meta {
   position: absolute;
-  top: 6px;
-  left: 14px;
+  top: 10px;
   right: 14px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  pointer-events: none;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  gap: 8px;
   z-index: 2;
+  pointer-events: auto;
 }
 
 .wave-meta-tag {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-sm);
   padding: 2px 8px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-}
-
-.wave-mode-btn {
-  pointer-events: auto;
-  background-color: rgba(255, 255, 255, 0.95);
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--radius-pill);
-  padding: 3px 10px;
   font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 600;
-  color: var(--text-primary);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  transition: all var(--transition-fast);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-}
-
-.wave-mode-btn:hover {
-  background-color: var(--accent-jade);
-  color: #FFFFFF;
-  border-color: var(--accent-jade);
-  transform: translateY(-1px);
+  color: var(--text-tertiary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 .wave-vu-indicator {
   display: flex;
   align-items: center;
   gap: 3px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border-hairline);
   padding: 3px 6px;
   border-radius: var(--radius-sm);
@@ -754,14 +755,48 @@ body {
   height: 10px;
   background-color: var(--accent-jade);
   border-radius: 1px;
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
-/* Segment Timeline & Filmstrip */
+/* Segment Timeline & Filmstrip (Sticky Left Column Viewport Fit) */
 .timeline-card {
+  flex: 1;
+  min-height: 180px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  overflow: hidden;
+}
+
+.timeline-card .card-header {
+  flex-shrink: 0;
+  padding: 10px 16px;
+}
+
+.timeline-card .card-body {
+  flex: 1;
+  min-height: 125px;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  padding: 10px 12px 14px 12px;
+}
+
+/* Vertical scrollbar thanh mảnh sang trọng */
+.timeline-card .card-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.timeline-card .card-body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 3px;
+}
+
+.timeline-card .card-body::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 3px;
+}
+
+.timeline-card .card-body::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
 }
 
 .timeline-nav-tabs {
@@ -793,10 +828,9 @@ body {
 .timeline-scroll-strip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  max-height: none;
-  overflow: visible;
-  padding: 6px 2px 16px 2px;
+  gap: 10px;
+  padding: 4px 2px 8px 2px;
+  min-height: 110px;
 }
 
 .segment-item {
@@ -952,19 +986,40 @@ body {
    Right Column: Prediction Verdict, XAI Explanation & CBM Interventions
    ========================================================================== */
 .right-column {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* Prediction Verdict Card - Sticky */
+/* Prediction Verdict Card - Sticky with Glassmorphism */
 #verdict-main-card {
   position: sticky;
   top: 14px;
-  z-index: 30;
-  background-color: var(--bg-surface);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  z-index: 20;
+  background-color: rgba(255, 255, 255, 0.48);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(226, 221, 209, 0.70);
   transition: all var(--transition-fast);
+}
+
+/* Glassmorphic cards on right column (Nhìn xuyên thấy quả cầu 3D nhưng vẫn đọc cực rõ chữ) */
+.right-column .card-panel {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.40);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(226, 221, 209, 0.60);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.right-column .card-header {
+  background-color: rgba(250, 249, 246, 0.30);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .verdict-hero {
@@ -1161,7 +1216,10 @@ body {
 
 /* Natural Language XAI Narrative Card */
 .xai-narrative-card {
-  background-color: #FAF9F5;
+  background-color: rgba(250, 249, 245, 0.38);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(226, 221, 209, 0.50);
   border-left: 3px solid var(--accent-vermilion);
   padding: 16px 20px;
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
@@ -1182,7 +1240,8 @@ body {
   font-family: var(--font-sans);
   font-size: 13.5px;
   line-height: 1.65;
-  color: #2D2C2A;
+  color: #1C1B18;
+  font-weight: 450;
   white-space: pre-line;
 }
 
@@ -1247,14 +1306,16 @@ body {
 }
 
 .concept-pill {
-  border: 1px solid var(--border-hairline);
+  border: 1px solid rgba(226, 221, 209, 0.70);
   border-radius: var(--radius-pill);
   padding: 6px 14px;
   font-family: var(--font-sans);
   font-size: 12.5px;
   font-weight: 500;
   cursor: pointer;
-  background-color: var(--bg-surface);
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   color: var(--text-primary);
   display: inline-flex;
   align-items: center;
@@ -1264,28 +1325,29 @@ body {
 }
 
 .concept-pill:hover {
+  background-color: rgba(255, 255, 255, 0.80);
   transform: translateY(-1px);
   box-shadow: var(--shadow-subtle);
 }
 
 .concept-pill.audio-pill {
-  border-color: rgba(30, 107, 91, 0.3);
+  border-color: rgba(30, 107, 91, 0.35);
   color: var(--accent-jade);
 }
 
 .concept-pill.audio-pill.active {
-  background-color: var(--accent-jade-subtle);
+  background-color: rgba(30, 107, 91, 0.14);
   border-color: var(--accent-jade);
   color: var(--accent-jade);
 }
 
 .concept-pill.visual-pill {
-  border-color: rgba(201, 122, 27, 0.3);
+  border-color: rgba(201, 122, 27, 0.35);
   color: var(--accent-amber);
 }
 
 .concept-pill.visual-pill.active {
-  background-color: var(--accent-amber-subtle);
+  background-color: rgba(201, 122, 27, 0.14);
   border-color: var(--accent-amber);
   color: var(--accent-amber);
 }
@@ -1293,7 +1355,7 @@ body {
 .concept-pill.disabled {
   opacity: 0.45;
   text-decoration: line-through;
-  background-color: var(--bg-subtle);
+  background-color: rgba(240, 238, 233, 0.30);
   border-color: var(--border-hairline);
   color: var(--text-tertiary);
 }
@@ -1317,10 +1379,12 @@ body {
 }
 
 .rule-box {
-  border: 1px solid var(--border-hairline);
+  border: 1px solid rgba(226, 221, 209, 0.60);
   border-radius: var(--radius-md);
   padding: 12px 14px;
-  background-color: var(--bg-surface-elevated);
+  background-color: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -1336,10 +1400,10 @@ body {
   font-family: var(--font-mono);
   font-size: 11.5px;
   color: var(--text-primary);
-  background-color: var(--bg-subtle);
+  background-color: rgba(240, 238, 233, 0.50);
   padding: 4px 8px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border-hairline);
+  border: 1px solid rgba(226, 221, 209, 0.50);
   word-break: break-word;
 }
 
@@ -1354,15 +1418,16 @@ body {
   font-size: 10px;
   padding: 2px 6px;
   border-radius: var(--radius-sm);
-  background-color: var(--bg-canvas);
+  background-color: rgba(250, 249, 246, 0.50);
   color: var(--text-secondary);
-  border: 1px solid var(--border-hairline);
+  border: 1px solid rgba(226, 221, 209, 0.50);
 }
 
 .rule-vi-explanation {
   font-family: var(--font-sans);
   font-size: 12px;
-  color: var(--text-secondary);
+  color: #1C1B18;
+  font-weight: 450;
   line-height: 1.45;
 }
 

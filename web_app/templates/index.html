@@ -173,24 +173,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Quả Cầu 3D Phản hồi Âm thanh (Audio-Reactive 3D Sphere) -->
-        <div class="integrated-wave-strip">
-          <div id="wave-canvas-container"></div>
-          <div class="wave-strip-meta">
-            <span class="wave-meta-tag" id="wave-meta-tag">
-              <i class="fa-solid fa-atom" id="wave-meta-icon" style="color: var(--accent-jade);"></i> 
-              <span id="wave-mode-title">Quả cầu 3D phản hồi âm thanh (Audio-Reactive 3D Sphere)</span>
-            </span>
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <div class="wave-vu-indicator">
-                <div class="vu-bar" id="vu-bass" style="height: 6px;"></div>
-                <div class="vu-bar" id="vu-mid" style="height: 10px;"></div>
-                <div class="vu-bar" id="vu-treble" style="height: 8px;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- Thanh Phân đoạn Dự đoán & Keyframes (Segment Timeline & Visual Strip) -->
@@ -206,7 +188,7 @@
           </div>
         </div>
 
-        <div class="card-body" style="padding: 14px 16px;">
+        <div class="card-body" style="padding: 12px 14px;">
           <!-- Subtab 1: Dải Segment Filmstrip -->
           <div class="timeline-scroll-strip" id="timeline-scroll-strip">
             <div style="padding: 20px; color: var(--text-tertiary); font-size: 12px; font-family: var(--font-mono);">
@@ -224,11 +206,27 @@
 
     </section>
 
-    <!-- CỘT PHẢI (55%): Phân lớp, Lời Lý giải & Can thiệp Concept (CBM) -->
+    <!-- CỘT PHẢI (54%): Phân lớp, Lời Lý giải & Can thiệp Concept (CBM) -->
     <section class="right-column">
 
+      <!-- Quả Cầu 3D Phản hồi Âm thanh Nền (Ambient 3D Audio-Reactive Sphere Backdrop) -->
+      <div class="ambient-sphere-backdrop" id="ambient-sphere-backdrop">
+        <div id="wave-canvas-container"></div>
+        <div class="ambient-sphere-meta">
+          <span class="wave-meta-tag" id="wave-meta-tag">
+            <i class="fa-solid fa-atom" id="wave-meta-icon" style="color: var(--accent-jade);"></i> 
+            <span id="wave-mode-title">Quả cầu 3D phản hồi âm thanh</span>
+          </span>
+          <div class="wave-vu-indicator">
+            <div class="vu-bar" id="vu-bass" style="height: 6px;"></div>
+            <div class="vu-bar" id="vu-mid" style="height: 10px;"></div>
+            <div class="vu-bar" id="vu-treble" style="height: 8px;"></div>
+          </div>
+        </div>
+      </div>
+
       <!-- Khối Kết quả Dự đoán (Prediction Verdict) - Sticky ô dự đoán -->
-      <div class="card-panel" id="verdict-main-card">
+      <div class="card-panel glass-card" id="verdict-main-card">
         <div class="card-body">
           <div class="verdict-hero">
             <div class="verdict-left">
