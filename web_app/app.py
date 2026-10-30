@@ -95,37 +95,37 @@ async def list_sample_files():
         {
             "genre": "Ca trù",
             "title": "Tây Hồ Hoài Cổ (Đào nương, Phách & Đàn đáy)",
-            "file_path": "dataset/video/catru/catru_tayhohoaico_02.mp4",
+            "file_path": "dataset/video/catru/catru_tayhohoaico_03.mp4",
             "mode": "video",
-            "duration": "01:07",
-            "size": "3.0 MB",
+            "duration": "01:24",
+            "size": "4.0 MB",
             "color": "#C84B31"
         },
         {
             "genre": "Cải lương",
             "title": "Đời Cô Lựu (Vọng cổ & Đàn guitar phím lõm)",
-            "file_path": "dataset/video/cailuong/cailuong_doicoluu_02.mp4",
+            "file_path": "dataset/video/cailuong/cailuong_doicoluu_06.mp4",
             "mode": "video",
-            "duration": "00:48",
-            "size": "2.2 MB",
+            "duration": "01:12",
+            "size": "5.9 MB",
             "color": "#C97A1B"
         },
         {
             "genre": "Chèo",
             "title": "Lưu Bình Dương Lễ (Hề chèo, Trống & Yếm đào)",
-            "file_path": "dataset/video/cheo/cheo_luubinhduongle_03.mp4",
+            "file_path": "dataset/video/cheo/cheo_luubinhduongle_08.mp4",
             "mode": "video",
-            "duration": "00:32",
-            "size": "1.1 MB",
+            "duration": "00:45",
+            "size": "2.3 MB",
             "color": "#2E5A88"
         },
         {
             "genre": "Chầu văn",
-            "title": "Hát Văn Hầu Đồng (Khăn chầu áo ngự, Cung kiếm)",
-            "file_path": "dataset/video/chauvan/chauvan_01.mp4",
+            "title": "Văn Quán Quê Tôi (Hát Văn Hầu Đồng, Khăn chầu)",
+            "file_path": "dataset/video/chauvan/chauvan_vanquanquetoi.mp4",
             "mode": "video",
-            "duration": "01:15",
-            "size": "12.0 MB",
+            "duration": "08:26",
+            "size": "42.5 MB",
             "color": "#8C3B88"
         },
         {
@@ -133,17 +133,17 @@ async def list_sample_files():
             "title": "Cây Trúc Xinh (Nón quai thao & Áo tứ thân)",
             "file_path": "dataset/video/quanho/quanho_caytrucxinh.mp4",
             "mode": "video",
-            "duration": "01:20",
-            "size": "18.6 MB",
+            "duration": "03:22",
+            "size": "17.8 MB",
             "color": "#1E6B5B"
         },
         {
             "genre": "Hát xẩm",
-            "title": "Nhị Tình (Đàn nhị, Chiếu xẩm & Đàn bầu)",
-            "file_path": "dataset/video/xam/xam_nhitinh.mp4",
+            "title": "Anh Đừng Yêu Em (Đàn nhị, Chiếu xẩm phố cổ)",
+            "file_path": "dataset/video/xam/xam_anhdungyeu.mp4",
             "mode": "video",
-            "duration": "00:55",
-            "size": "11.1 MB",
+            "duration": "07:24",
+            "size": "26.5 MB",
             "color": "#7A6248"
         }
     ]

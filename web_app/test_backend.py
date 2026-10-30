@@ -44,9 +44,12 @@ def run_tests():
     data = res.json()
     assert data["prediction"] == "Ca trù", f"Expected Ca trù, got {data['prediction']}"
     assert "chunks" in data and len(data["chunks"]) > 0
+    assert "merged_segments" in data and len(data["merged_segments"]) > 0
+    assert "timeline_series" in data and len(data["timeline_series"]) > 0
+    assert "modalities" in data and "audio" in data["modalities"] and "fused" in data["modalities"]
     assert "active_concepts" in data and len(data["active_concepts"]) > 0
     assert "graph_3d" in data and len(data["graph_3d"]["nodes"]) > 0
-    print(f"  -> PASS: Du doan {data['prediction']}, Tin cay: {data['confidence']}%, Chunks: {len(data['chunks'])}, Concepts: {len(data['active_concepts'])}, 3D Nodes: {len(data['graph_3d']['nodes'])}")
+    print(f"  -> PASS: Du doan {data['prediction']}, Tin cay: {data['confidence']}%, Chunks: {len(data['chunks'])}, Merged: {len(data['merged_segments'])}, Timeline: {len(data['timeline_series'])}, Modal: {list(data['modalities'].keys())}")
 
     print("\n5. Kiểm tra POST /api/intervene (Can thiep CBM):")
     cbm_req = {

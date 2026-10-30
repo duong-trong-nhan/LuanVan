@@ -31,15 +31,15 @@ class LiveAudioRecorder {
     if (this.isRecording) return;
 
     try {
-      // Cấu hình chất lượng cao chuẩn phòng thu cho âm nhạc & thanh nhạc di sản:
-      // Tắt các bộ lọc hội thoại (echoCancellation, noiseSuppression, autoGainControl)
-      // để bảo toàn nguyên vẹn âm sắc nhạc cụ dân tộc (phách, đàn đáy, nhị, trống) và luyến láy.
+      // Cấu hình chất lượng cao cho âm nhạc & thanh nhạc di sản:
+      // Bật autoGainControl để phần cứng/hệ điều hành tự tối ưu mức thu âm lượng mic,
+      // loại bỏ việc âm thanh thu vào bị quá nhỏ khi hát hoặc phát nhạc cụ.
       this.mediaStream = await navigator.mediaDevices.getUserMedia({
         audio: {
           channelCount: 1,
           echoCancellation: false,
           noiseSuppression: false,
-          autoGainControl: false
+          autoGainControl: true
         }
       });
 
@@ -138,8 +138,24 @@ class LiveAudioRecorder {
       offset += chunk.length;
     }
 
-    // Bảo toàn tần số lấy mẫu gốc (44.1kHz hoặc 48kHz) chuẩn phòng thu,
-    // loại bỏ thuật toán hạ mẫu tuyến tính (Linear Interpolation) gây méo gấp phổ (Aliasing).
+    // Tự động chuẩn hóa và khuếch đại âm lượng (Gain Boost & Peak Normalization):
+    // Khắc phục triệt để tình trạng tiếng mic thu vào bị nhỏ khi phát lại.
+    let maxAbs = 0;
+    for (let i = 0; i < mergedBuffer.length; i++) {
+      const absVal = Math.abs(mergedBuffer[i]);
+      if (absVal > maxAbs) maxAbs = absVal;
+    }
+
+    if (maxAbs > 0.005) {
+      // Đưa biên độ đỉnh về mức tiêu chuẩn 0.88 (-1.1 dBFS), khuếch đại tối đa đến 4.5 lần
+      const targetPeak = 0.88;
+      const gainMultiplier = Math.min(targetPeak / maxAbs, 4.5);
+      for (let i = 0; i < mergedBuffer.length; i++) {
+        mergedBuffer[i] = Math.max(-1.0, Math.min(1.0, mergedBuffer[i] * gainMultiplier));
+      }
+    }
+
+    // Bảo toàn tần số lấy mẫu gốc (44.1kHz hoặc 48kHz) chuẩn phòng thu
     const sampleRate = this.actualSampleRate || 44100;
 
     // Đóng gói thành Blob WAV chuẩn 16-bit PCM Mono

@@ -64,14 +64,11 @@
     <!-- CỘT TRÁI (45%): Media Input, Sóng Hạt 3D & Phân đoạn Thời gian -->
     <section class="left-column">
 
-      <!-- Khung Đầu vào 4 Chế độ (Switch Tabs) -->
+      <!-- Khung Đầu vào 3 Chế độ (Switch Tabs: Tệp Media gộp chung, Mic, YouTube) -->
       <div class="card-panel" id="input-main-card">
         <div class="tabs-nav">
-          <button class="tab-trigger active" data-tab="video">
-            <i class="fa-solid fa-film"></i> Video tải lên (.mp4)
-          </button>
-          <button class="tab-trigger" data-tab="audio">
-            <i class="fa-solid fa-file-audio"></i> Tệp âm thanh (.wav/.mp3)
+          <button class="tab-trigger active" data-tab="media">
+            <i class="fa-solid fa-photo-film"></i> Tệp Video &amp; Âm thanh
           </button>
           <button class="tab-trigger" data-tab="mic">
             <i class="fa-solid fa-microphone"></i> Ghi âm trực tiếp (Mic)
@@ -81,47 +78,37 @@
           </button>
         </div>
 
-        <!-- Tab 1: Video -->
-        <div class="tab-content active" id="tab-video">
-          <input type="file" id="video-file-input" accept="video/mp4,video/quicktime,video/x-msvideo" style="display: none;" />
-          <div class="dropzone-box" id="video-dropzone">
+        <!-- Tab 1: Unified Media (Tự động nhận diện Video hoặc Audio) -->
+        <div class="tab-content active" id="tab-media">
+          <input type="file" id="media-file-input" accept="video/mp4,video/quicktime,video/x-msvideo,video/webm,audio/wav,audio/mpeg,audio/flac,audio/ogg,audio/mp4,audio/aac" style="display: none;" />
+          <div class="dropzone-box" id="media-dropzone">
             <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
             <div class="dropzone-text">
-              <h4>Kéo thả video hoặc bấm để tải lên</h4>
-              <p>Hỗ trợ .mp4, .avi, .mov • Phân tích đa phương thức (Âm thanh + Khung hình Keyframes)</p>
+              <h4>Kéo thả tệp Video hoặc Âm thanh hoặc bấm để tải lên</h4>
+              <p>Hỗ trợ Video (.mp4, .avi, .mov) &amp; Âm thanh (.wav, .mp3, .flac) • Tự động nhận diện định dạng &amp; phân tích</p>
             </div>
           </div>
-          <!-- Trình phát Video (Tự động mở rộng tỷ lệ khung hình tự nhiên, vừa khít chiều rộng) -->
-          <div class="player-container" id="video-player-container">
+
+          <!-- Trình phát Video (hiển thị khi nạp tệp video) -->
+          <div class="player-container" id="video-player-container" style="display: none;">
             <div class="player-action-bar">
               <div style="display: flex; align-items: center; gap: 8px; overflow: hidden; max-width: 70%;">
                 <span class="player-file-name" id="video-file-name"><i class="fa-solid fa-film"></i> Video biểu diễn</span>
                 <span class="player-aspect-badge" id="video-aspect-badge">Tự nhiên</span>
               </div>
-              <button class="btn-change-file" id="btn-change-video" type="button" title="Thay đổi tệp video khác">
-                <i class="fa-solid fa-arrow-rotate-right"></i> Thay đổi video
+              <button class="btn-change-file" id="btn-change-video" type="button" title="Thay đổi tệp khác">
+                <i class="fa-solid fa-arrow-rotate-right"></i> Thay đổi tệp
               </button>
             </div>
             <video id="main-video-player" controls preload="metadata" playsinline></video>
           </div>
-        </div>
 
-        <!-- Tab 2: Audio -->
-        <div class="tab-content" id="tab-audio">
-          <input type="file" id="audio-file-input" accept="audio/wav,audio/mpeg,audio/flac,audio/ogg" style="display: none;" />
-          <div class="dropzone-box" id="audio-dropzone">
-            <i class="fa-solid fa-music dropzone-icon"></i>
-            <div class="dropzone-text">
-              <h4>Kéo thả tệp âm thanh hoặc bấm để chọn</h4>
-              <p>Hỗ trợ .wav, .mp3, .flac • Trích xuất 7 trục âm học &amp; Cửa sổ trượt 3–5s</p>
-            </div>
-          </div>
-          <!-- Trình phát Audio -->
-          <div class="player-container" id="audio-player-container">
+          <!-- Trình phát Audio (hiển thị khi nạp tệp âm thanh) -->
+          <div class="player-container" id="audio-player-container" style="display: none;">
             <div class="player-action-bar">
               <span class="player-file-name" id="audio-file-name"><i class="fa-solid fa-file-audio"></i> Tệp âm thanh</span>
-              <button class="btn-change-file" id="btn-change-audio" type="button" title="Thay đổi tệp âm thanh khác">
-                <i class="fa-solid fa-arrow-rotate-right"></i> Thay đổi âm thanh
+              <button class="btn-change-file" id="btn-change-audio" type="button" title="Thay đổi tệp khác">
+                <i class="fa-solid fa-arrow-rotate-right"></i> Thay đổi tệp
               </button>
             </div>
             <audio id="main-audio-player" controls preload="metadata"></audio>
@@ -177,29 +164,92 @@
 
       <!-- Thanh Phân đoạn Dự đoán & Keyframes (Segment Timeline & Visual Strip) -->
       <div class="card-panel timeline-card">
-        <div class="card-header" style="padding: 12px 16px;">
-          <span class="card-title" style="font-size: 14px;">
-            <i class="fa-solid fa-timeline"></i> Phân đoạn Dự đoán Thời gian (Chunk 3–5s)
-          </span>
-          <div class="timeline-nav-tabs">
-            <button class="subtab-btn active" data-subtab="filmstrip">Dải Keyframes</button>
-            <button class="subtab-btn" data-subtab="spectrogram">Ảnh Phổ Mel</button>
-            <button class="subtab-btn" data-subtab="radar">7 Trục MPEG-7</button>
+        <div class="card-header timeline-header-wrap" style="padding: 9px 14px;">
+          <div class="timeline-header-main-row">
+            <!-- 1. Tiêu đề góc trái -->
+            <div class="timeline-header-left">
+              <span class="card-title" style="font-size: 13px; font-weight: 600; white-space: nowrap; margin: 0; display: inline-flex; align-items: center; gap: 6px;">
+                <i class="fa-solid fa-timeline" style="color: var(--accent-vermilion);"></i> Phân đoạn Dự đoán Thời gian
+              </span>
+            </div>
+
+            <!-- 2. Nút điều khiển Gộp vùng / Từng chunk ở chính giữa (Chỉ hiển thị khi ở tab Keyframes) -->
+            <div class="timeline-header-center">
+              <div class="timeline-mode-bar" id="timeline-mode-bar" style="display: none;">
+                <div class="mode-toggle-group">
+                  <button class="btn-group-toggle active" id="btn-mode-merged" type="button" title="Gộp các phân đoạn liền kề có cùng kết quả và bằng chứng âm học/thị giác tương đồng">
+                    <i class="fa-solid fa-object-group"></i> Gộp vùng
+                  </button>
+                  <button class="btn-group-toggle" id="btn-mode-raw" type="button" title="Hiển thị chi tiết từng phân đoạn">
+                    <i class="fa-solid fa-bars-staggered"></i> Từng chunk
+                  </button>
+                </div>
+                <span class="segment-count-pill" id="segment-count-badge">--</span>
+              </div>
+            </div>
+
+            <!-- 3. Dropdown Menu tùy biến sang trọng nằm sát góc phải -->
+            <div class="timeline-header-right">
+              <div class="custom-subtab-dropdown" id="custom-subtab-dropdown">
+                <button type="button" class="custom-dropdown-trigger" id="custom-subtab-trigger" aria-haspopup="listbox" aria-expanded="false" title="Chọn góc nhìn phân tích">
+                  <span class="dropdown-trigger-icon" id="subtab-trigger-icon"><i class="fa-solid fa-film"></i></span>
+                  <span class="dropdown-trigger-text" id="subtab-trigger-text">Dải Keyframes</span>
+                  <i class="fa-solid fa-chevron-down dropdown-trigger-arrow"></i>
+                </button>
+                <div class="custom-dropdown-menu" id="custom-subtab-menu" role="listbox">
+                  <div class="custom-dropdown-item active" data-subtab="filmstrip" role="option">
+                    <span class="item-icon"><i class="fa-solid fa-film"></i></span>
+                    <span class="item-label">Dải Keyframes</span>
+                  </div>
+                  <div class="custom-dropdown-item" data-subtab="chart" role="option">
+                    <span class="item-icon"><i class="fa-solid fa-chart-line"></i></span>
+                    <span class="item-label">Biểu đồ Thời gian</span>
+                  </div>
+                  <div class="custom-dropdown-item" data-subtab="spectrogram" role="option">
+                    <span class="item-icon"><i class="fa-solid fa-wave-square"></i></span>
+                    <span class="item-label">Ảnh Phổ Mel</span>
+                  </div>
+                  <div class="custom-dropdown-item" data-subtab="radar" role="option">
+                    <span class="item-icon"><i class="fa-solid fa-sliders"></i></span>
+                    <span class="item-label">7 Trục MPEG-7</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="card-body" style="padding: 12px 14px;">
-          <!-- Subtab 1: Dải Segment Filmstrip -->
+        <div class="card-body" style="padding: 10px 14px;">
+          <!-- Mini Ribbon Màu Thể loại Liên tục theo Thời gian -->
+          <div class="genre-timeline-ribbon-wrap" id="genre-timeline-ribbon-wrap" style="display: none;" title="Dải màu thể loại theo thời gian - Bấm để tua video">
+            <div class="genre-timeline-ribbon" id="genre-timeline-ribbon"></div>
+            <div class="ribbon-playhead" id="ribbon-playhead"></div>
+          </div>
+
+          <!-- Subtab 1: Dải Segment Filmstrip (Hỗ trợ cả chế độ gộp và chi tiết) -->
           <div class="timeline-scroll-strip" id="timeline-scroll-strip">
             <div style="padding: 20px; color: var(--text-tertiary); font-size: 12px; font-family: var(--font-mono);">
               Chưa có dữ liệu phân đoạn. Hãy chọn một mẫu phía trên hoặc tải lên file để phân tích.
             </div>
           </div>
 
-          <!-- Subtab 2: Lưới Ảnh Phổ Mel-Spectrogram & CQT -->
+          <!-- Subtab 2: Biểu đồ Diễn biến Kết quả theo Thời gian (Timeline Stream Chart) -->
+          <div class="timeline-chart-container" id="timeline-chart-container" style="display: none;">
+            <div class="chart-header-row">
+              <div class="chart-legend" id="chart-legend-container"></div>
+              <span class="chart-hint-tag"><i class="fa-solid fa-hand-pointer"></i> Bấm mốc thời gian để xem chi tiết</span>
+            </div>
+            <div class="chart-svg-wrapper" id="chart-svg-wrapper">
+              <svg id="timeline-svg-chart" viewBox="0 0 600 200" preserveAspectRatio="none"></svg>
+              <div class="chart-scrub-line" id="chart-scrub-line"></div>
+              <div class="chart-tooltip" id="chart-hover-tooltip" style="display: none;"></div>
+            </div>
+          </div>
+
+          <!-- Subtab 3: Lưới Ảnh Phổ Mel-Spectrogram & CQT -->
           <div class="spectrogram-grid" id="spectrogram-grid-container" style="display: none;"></div>
 
-          <!-- Subtab 3: 7 Trục Âm học MPEG-7 -->
+          <!-- Subtab 4: 7 Trục Âm học MPEG-7 -->
           <div class="radar-bars-list" id="radar-bars-container" style="display: none;"></div>
         </div>
       </div>
@@ -231,9 +281,9 @@
           <div class="verdict-hero">
             <div class="verdict-left">
               <span class="verdict-label">Thể loại di sản dự đoán (Verdict)</span>
-              <h2 class="verdict-genre-title" id="verdict-genre-title">Ca trù</h2>
+              <h2 class="verdict-genre-title" id="verdict-genre-title" style="color: var(--text-tertiary);">Chưa có dữ liệu</h2>
               <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);" id="verdict-duration">
-                Thời lượng phân tích: 00:00
+                Thời lượng phân tích: --
               </span>
             </div>
             <div class="verdict-right-wrap">
@@ -253,12 +303,8 @@
           <div class="probs-section" id="probs-section">
             <!-- Hàng 1: Thể loại có xác suất cao nhất (Luôn hiển thị ban đầu) -->
             <div class="prob-top-winner-wrap" id="prob-top-winner-wrap">
-              <div class="prob-row winner" id="prob-row-winner">
-                <span class="prob-genre-name" id="winner-genre-name">Ca trù</span>
-                <div class="prob-track">
-                  <div class="prob-fill" id="fill-winner" style="width: 0%;"></div>
-                </div>
-                <span class="prob-val-text" id="val-winner">0.0%</span>
+              <div class="prob-empty-notice" style="font-size: 12px; color: var(--text-tertiary); font-style: italic; padding: 6px 0;">
+                <i class="fa-solid fa-chart-simple" style="margin-right: 6px;"></i>Chưa có phân phối xác suất
               </div>
             </div>
 
@@ -285,6 +331,36 @@
         </div>
         <div class="card-body">
           <div class="xai-narrative-card">
+            <!-- Banner phân đoạn đang chọn (Segment Inspection Banner) -->
+            <div class="xai-segment-banner" id="xai-segment-banner" style="display: none;">
+              <div class="segment-banner-left">
+                <span class="segment-focus-badge"><i class="fa-solid fa-crosshairs"></i> <span id="xai-segment-time">Phân đoạn 00:00 - 00:04</span></span>
+                <span class="segment-focus-genre" id="xai-segment-genre-badge">--</span>
+              </div>
+              <button class="btn-return-overall" id="btn-return-overall-xai" type="button" title="Xem lại lời lý giải tổng thể toàn video">
+                <i class="fa-solid fa-rotate-left"></i> Xem toàn cảnh video
+              </button>
+            </div>
+
+            <!-- Khối kết quả theo từng phương thức (Âm thanh vs Thị giác vs Hợp nhất) -->
+            <div class="xai-modalities-grid" id="xai-modalities-grid" style="display: none;">
+              <!-- Nhánh âm thanh -->
+              <div class="xai-mod-card mod-card-audio">
+                <div class="mod-card-head"><i class="fa-solid fa-volume-high"></i> Nhánh Âm thanh</div>
+                <div class="mod-card-body" id="mod-card-audio-content">--</div>
+              </div>
+              <!-- Nhánh thị giác (chỉ hiển thị khi có khả năng tính toán) -->
+              <div class="xai-mod-card mod-card-visual" id="mod-card-visual-wrap">
+                <div class="mod-card-head"><i class="fa-solid fa-eye"></i> Nhánh Thị giác</div>
+                <div class="mod-card-body" id="mod-card-visual-content">--</div>
+              </div>
+              <!-- Kết quả hợp nhất -->
+              <div class="xai-mod-card mod-card-fused">
+                <div class="mod-card-head"><i class="fa-solid fa-scale-balanced"></i> Kết quả Hợp nhất</div>
+                <div class="mod-card-body" id="mod-card-fused-content">--</div>
+              </div>
+            </div>
+
             <h4 class="xai-headline" id="xai-headline">Chưa có kết quả phân tích</h4>
             <div class="xai-body-text" id="xai-body-text">
               Hãy tải lên video/audio hoặc thu âm trực tiếp để hệ thống thực hiện suy luận mờ 2 tầng và sinh lời lý giải khoa học.
@@ -354,61 +430,98 @@
   </main>
 
   <!-- ========================================================================
-       TẦNG DƯỚI CÙNG (Full-width, 420px): Đồ thị Ngữ nghĩa 3D Tương tác (Three.js)
+       TẦNG DƯỚI CÙNG (Full-width): Bảng Ma trận Đối sánh Phân biệt Di sản & Thử nghiệm What-If
+       (Option 3: Heritage Contrastive Decision Matrix & What-If Sandbox)
        ======================================================================== -->
   <section class="bottom-tier-section">
-    <div class="graph3d-card">
+    <div class="card-panel contrastive-card" id="contrastive-main-card">
       <div class="card-header">
-        <span class="card-title">
-          <i class="fa-solid fa-cubes" style="color: var(--accent-vermilion);"></i> Đồ thị Không gian Ngữ nghĩa 3 Tầng (3D Neuro-Symbolic Topology Graph)
-        </span>
-        <div class="graph-actions">
-          <button class="btn-icon" id="btn-reset-graph-cam" title="Khôi phục góc nhìn Camera">
-            <i class="fa-solid fa-arrows-rotate"></i>
-          </button>
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <span class="card-title">
+            <i class="fa-solid fa-code-compare" style="color: var(--accent-vermilion);"></i>
+            Bảng Ma trận Đối sánh Phân biệt Di sản &amp; Thử nghiệm What-If
+          </span>
+          <span class="matrix-badge"><i class="fa-solid fa-scale-balanced"></i> XAI Phản Sự Thực (Counterfactuals)</span>
+        </div>
+        <div class="matrix-head-meta" id="matrix-head-meta">
+          <span class="meta-tag" id="meta-winner-tag">Top 1: Đang chờ</span>
+          <span class="meta-tag vs-tag">VS</span>
+          <span class="meta-tag" id="meta-runnerup-tag">Top 2: Đang chờ</span>
         </div>
       </div>
 
-      <div class="graph3d-canvas-wrap">
-        <div id="graph-canvas-container"></div>
-        <!-- Tooltip nổi khi Hover -->
-        <div class="graph-tooltip" id="graph-tooltip">
-          <h4 class="graph-tooltip-title">Node Title</h4>
-          <div class="graph-tooltip-body">Node Details...</div>
+      <div class="card-body contrastive-body">
+        <!-- 1. Bảng Đối Sánh 5 Chiều Văn Hóa & Âm Học (Head-to-Head Comparison) -->
+        <div class="contrastive-table-wrapper">
+          <table class="contrastive-table" id="contrastive-table">
+            <thead>
+              <tr>
+                <th style="width: 22%;">Trục Tiêu Chí So Sánh</th>
+                <th style="width: 34%;" id="th-top1-title" class="col-top1">
+                  <div class="th-genre-wrap">
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                      <i class="fa-solid fa-crown" style="color: #D4AF37;"></i>
+                      <span id="th-top1-name">Dự đoán Hàng đầu (Top 1)</span>
+                    </div>
+                    <span class="prob-pill winner" id="th-top1-prob">--%</span>
+                  </div>
+                </th>
+                <th style="width: 34%;" id="th-top2-title" class="col-top2">
+                  <div class="th-genre-wrap">
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                      <i class="fa-solid fa-medal" style="color: #718096;"></i>
+                      <span id="th-top2-name">Á quân Cạnh tranh (Top 2)</span>
+                    </div>
+                    <span class="prob-pill runner" id="th-top2-prob">--%</span>
+                  </div>
+                </th>
+                <th style="width: 10%; text-align: center;">Quyết Định</th>
+              </tr>
+            </thead>
+            <tbody id="contrastive-table-body">
+              <tr>
+                <td colspan="4" style="text-align: center; padding: 36px 20px; color: var(--text-tertiary);">
+                  <i class="fa-solid fa-arrows-split-up-and-left" style="font-size: 26px; margin-bottom: 8px; display: block; opacity: 0.5;"></i>
+                  Vui lòng chọn một mẫu âm thanh/video hoặc tải lên tệp để kích hoạt Ma trận Đối sánh Phân biệt &amp; Hộp cát Thử nghiệm What-If.
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
 
-      <!-- Thanh Legend & Chú giải Tầng không gian -->
-      <div class="graph-toolbar">
-        <div class="graph-legend">
-          <div class="legend-item">
-            <span class="legend-color-box" style="background-color: #2E5A88;"></span>
-            <span>Tầng 1 (X = -14): Trục MPEG-7</span>
+        <!-- 2. Hộp Cát Thử Nghiệm Giả Định Phản Sự Thực (What-If Sandbox) -->
+        <div class="whatif-sandbox-card" id="whatif-sandbox-card">
+          <div class="whatif-header">
+            <div class="whatif-title">
+              <i class="fa-solid fa-flask-vial" style="color: var(--accent-jade);"></i>
+              <span>Hộp Cát Thử Nghiệm Giả Định Phản Sự Thực (What-If &amp; Counterfactual Sandbox)</span>
+            </div>
+            <span class="whatif-status-badge" id="whatif-status-badge">Kịch bản Phản Sự Thực</span>
           </div>
-          <div class="legend-item">
-            <span class="legend-color-box" style="background-color: #C97A1B;"></span>
-            <span>Tầng 1 (X = -14): Keyframes</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-color-box" style="background-color: #1E6B5B;"></span>
-            <span>Tầng 2 (X = 0): Audio Concepts</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-color-box" style="background-color: #C97A1B;"></span>
-            <span>Tầng 2 (X = 0): Visual Concepts</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-color-box" style="background-color: #65645E;"></span>
-            <span>Tầng 3 (X = +14): Luật Mờ Kích hoạt</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-color-box" style="background-color: #C84B31;"></span>
-            <span>Tầng 3 (X = +14): Thể loại Dự đoán</span>
+          <div class="whatif-content">
+            <div class="whatif-prompt" id="whatif-prompt">
+              <strong>Câu hỏi XAI cốt lõi:</strong> Hệ thống cần điều kiện biên nào để đảo chiều dự đoán từ <span class="highlight-winner" id="whatif-winner-name">Top 1</span> sang <span class="highlight-runner" id="whatif-runner-name">Top 2</span>?
+            </div>
+            <div class="whatif-conditions-grid" id="whatif-conditions-grid">
+              <div class="whatif-cond-card">
+                <span class="cond-step-num">1</span>
+                <span class="cond-text">Đang chờ dữ liệu phân tích mẫu đầu vào...</span>
+              </div>
+            </div>
+            <div class="whatif-interactive-bar">
+              <label class="whatif-slider-label">
+                <span><i class="fa-solid fa-sliders" style="margin-right: 6px; color: var(--accent-jade);"></i>Mô phỏng can thiệp cường độ đặc trưng phân cực:</span>
+                <span class="slider-val-tag" id="whatif-slider-val">50% (Cân bằng thực tế)</span>
+              </label>
+              <input type="range" class="whatif-slider" id="whatif-intervene-slider" min="0" max="100" value="50" />
+              <div class="whatif-sim-result" id="whatif-sim-result">
+                <i class="fa-solid fa-circle-info" style="color: var(--accent-indigo);"></i>
+                <span>Kéo thanh trượt để quan sát xác suất giả định của Top 1 và Top 2 biến thiên theo thời gian thực.</span>
+              </div>
+            </div>
           </div>
         </div>
-        <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary);">
-          Kéo chuột để xoay 3D • Cuộn để phóng to/nhỏ • Click nút để bay camera
-        </span>
+
       </div>
     </div>
   </section>
