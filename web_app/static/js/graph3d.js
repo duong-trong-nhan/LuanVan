@@ -13,17 +13,8 @@ class SemanticGraph3D {
   constructor(containerId = "graph-canvas-container", tooltipId = "graph-tooltip") {
     this.container = document.getElementById(containerId);
     this.tooltip = document.getElementById(tooltipId);
-    if (!this.container) {
-      console.warn(`[SemanticGraph3D] Không tìm thấy phần tử #${containerId}`);
-      return;
-    }
 
-    this.scene = null;
-    this.camera = null;
-    this.renderer = null;
-    this.controls = null;
-
-    // Node & Link data
+    // Node & Link data (luôn khởi tạo an toàn để không bao giờ gây lỗi undefined)
     this.nodes = [];
     this.links = [];
     this.nodeMeshes = [];
@@ -31,13 +22,23 @@ class SemanticGraph3D {
     this.labelSprites = [];
 
     // Raycaster
-    this.raycaster = new THREE.Raycaster();
-    this.mouse = new THREE.Vector2(-999, -999);
+    this.raycaster = (typeof THREE !== "undefined" && THREE.Raycaster) ? new THREE.Raycaster() : null;
+    this.mouse = (typeof THREE !== "undefined" && THREE.Vector2) ? new THREE.Vector2(-999, -999) : null;
     this.hoveredNode = null;
 
     // Loop & Observers
     this.animId = null;
     this.isVisible = true;
+
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+    this.controls = null;
+
+    if (!this.container) {
+      console.warn(`[SemanticGraph3D] Không tìm thấy phần tử #${containerId}`);
+      return;
+    }
 
     this.initThree();
     this.initControls();
@@ -353,6 +354,7 @@ class SemanticGraph3D {
    * Tìm kiếm theo concept_id (ví dụ CT_AUD_01) và kích hoạt fly-to
    */
   flyToConcept(conceptId) {
+    if (!this.container || !this.nodes || !Array.isArray(this.nodes)) return;
     const node = this.nodes.find(n => n.concept_id === conceptId || n.id === `node_concept_${conceptId}`);
     if (node) {
       this.focusOnNode(node);

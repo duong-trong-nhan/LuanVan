@@ -881,7 +881,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pill.id = `pill-${c.concept_id}`;
       pill.setAttribute("data-concept-id", c.concept_id);
       pill.setAttribute("data-enabled", "true");
-      pill.title = `${c.concept_sentence || c.concept_id} (Bấm để bật/tắt thử nghiệm phản sự thực)`;
+      pill.title = `${c.concept_sentence || c.concept_id} (Bấm để bật/tắt thử nghiệm giả định)`;
 
       const shortAspect = c.aspect ? c.aspect.replace(/_/g, " ") : "Đặc trưng";
       const tsHint = c.timestamps && c.timestamps.length ? `• ${c.timestamps[0]}` : "";
@@ -917,11 +917,30 @@ document.addEventListener("DOMContentLoaded", () => {
       visualContainer.innerHTML = `<span style="font-size: 12px; color: var(--text-tertiary);">Chế độ chỉ có âm thanh (không có dữ liệu hình ảnh).</span>`;
     }
 
-    // Đảm bảo tất cả các pills luôn hiển thị rõ ràng 100% opacity, không bị stuck ẩn
+    // Reset badge trạng thái điều chỉnh
+    const badge = document.getElementById("cbm-intervention-badge");
+    if (badge) {
+      badge.className = "tag-badge jade";
+      badge.innerText = "Thử nghiệm bật/tắt";
+    }
+
+    // Đảm bảo tất cả các pills hiển thị inline-flex, để CSS kiểm soát opacity theo trạng thái enabled/disabled
     document.querySelectorAll(".concept-pill").forEach(p => {
-      p.style.opacity = "1";
       p.style.display = "inline-flex";
     });
+  }
+
+  function updateInterventionBadge() {
+    const badge = document.getElementById("cbm-intervention-badge");
+    if (!badge || !currentAnalysis || !currentAnalysis.active_concepts) return;
+    const disabledCount = currentAnalysis.active_concepts.filter(c => c.enabled === false).length;
+    if (disabledCount > 0) {
+      badge.className = "tag-badge amber";
+      badge.innerText = `Đang can thiệp (${disabledCount} đã tắt)`;
+    } else {
+      badge.className = "tag-badge jade";
+      badge.innerText = "Thử nghiệm bật/tắt";
+    }
   }
 
   // =========================================================================
@@ -944,14 +963,23 @@ document.addEventListener("DOMContentLoaded", () => {
       pillEl.querySelector(".pill-check").innerText = "✗";
     }
 
-    // 1. Bay camera 3D tới nút concept
-    graph3d.flyToConcept(conceptId);
+    // 1. Bay camera 3D tới nút concept (kiểm tra an toàn tránh lỗi undefined)
+    if (window.graph3d && typeof window.graph3d.flyToConcept === "function") {
+      try {
+        window.graph3d.flyToConcept(conceptId);
+      } catch (err) {
+        console.warn("[3D Graph] flyToConcept:", err);
+      }
+    }
 
     // 2. Cập nhật trạng thái enabled trong active_concepts
     if (currentAnalysis.active_concepts) {
       const cObj = currentAnalysis.active_concepts.find(c => c.concept_id === conceptId);
       if (cObj) cObj.enabled = newState;
     }
+
+    // Cập nhật badge đếm số khái niệm đang tắt
+    updateInterventionBadge();
 
     // 3. Gửi request can thiệp lên Backend
     try {
@@ -978,6 +1006,20 @@ document.addEventListener("DOMContentLoaded", () => {
       // Animate mượt mà lại 6 thanh xác suất qua GSAP mà không làm nháy trang
       updateProbabilityBarsSmooth(data.probs, data.prediction, data.confidence);
 
+      // Cập nhật thẻ kết quả hợp nhất ở Modalities Grid
+      if (currentOverallModalities) {
+        if (!currentOverallModalities.fused) currentOverallModalities.fused = {};
+        currentOverallModalities.fused.prediction = data.prediction;
+        currentOverallModalities.fused.confidence = data.confidence;
+        currentOverallModalities.fused.method = "Late Fusion Bayesian + Can thiệp CBM Phản sự thực";
+        updateModalitiesGrid(currentOverallModalities, data.prediction, data.confidence, false);
+      }
+
+      // Cập nhật lại danh sách Luật kích hoạt
+      if (data.triggered_rules) {
+        renderTriggeredRules(data.triggered_rules);
+      }
+
       // Cập nhật lại Bảng Ma trận Đối sánh Phân biệt & What-If
       if (data.contrastive_analysis) {
         renderContrastiveMatrix(data.contrastive_analysis, data.probs, data.prediction);
@@ -996,6 +1038,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (titleEl) {
       titleEl.innerText = winnerGenre;
+      titleEl.style.color = GENRE_COLORS[winnerGenre] || "var(--accent-vermilion)";
     }
 
     if (confEl && window.gsap) {
@@ -1367,7 +1410,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const activeIds = [...(chunk.active_audio_concepts || []), ...(chunk.active_visual_concepts || [])];
     document.querySelectorAll(".concept-pill").forEach(p => {
       const cid = p.getAttribute("data-concept-id");
-      p.style.opacity = "1";
       if (activeIds.includes(cid)) {
         p.classList.add("chunk-active");
       } else {
@@ -1394,7 +1436,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="axis-progress-track">
           <div class="axis-progress-fill" style="width: ${val * 100}%;"></div>
         </div>
-        <span class="axis-crisp-badge">${crispVal}</span>
+        <span class="axis-crisp-badge" title="${crispVal}">${crispVal}</span>
         <span class="axis-val-num">${(val * 100).toFixed(0)}%</span>
       `;
       radarList.appendChild(row);
@@ -1806,7 +1848,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "filmstrip": { icon: "fa-solid fa-film", label: "Dải Keyframes" },
     "chart": { icon: "fa-solid fa-chart-line", label: "Biểu đồ Thời gian" },
     "spectrogram": { icon: "fa-solid fa-wave-square", label: "Ảnh Phổ Mel" },
-    "radar": { icon: "fa-solid fa-sliders", label: "7 Trục MPEG-7" }
+    "radar": { icon: "fa-solid fa-sliders", label: "Đặc trưng âm thanh" }
   };
 
   // Hàm chuyển đổi chế độ xem phân đoạn tập trung (Keyframes, Biểu đồ, Ảnh phổ, 7 trục)
@@ -2125,7 +2167,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       } else {
         if (statusBadge) {
-          statusBadge.innerText = "Kịch bản Phản Sự Thực";
+          statusBadge.innerText = "Kịch bản giả định";
           statusBadge.style.backgroundColor = "rgba(30, 107, 91, 0.12)";
           statusBadge.style.color = "var(--accent-jade)";
         }
@@ -2140,4 +2182,42 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // =========================================================================
+  // 12. KHỞI TẠO MODAL THÔNG TIN MÔ HÌNH & PHƯƠNG PHÁP NGHIÊN CỨU
+  // =========================================================================
+  const modalMethodology = document.getElementById("methodology-modal");
+  const btnOpenMethodology = document.getElementById("btn-open-methodology");
+  const btnCloseMethodology = document.getElementById("btn-close-methodology");
+  const btnCloseMethodologyFooter = document.getElementById("btn-close-methodology-footer");
+
+  function openMethodologyModal() {
+    if (modalMethodology) modalMethodology.style.display = "flex";
+  }
+
+  function closeMethodologyModal() {
+    if (modalMethodology) modalMethodology.style.display = "none";
+  }
+
+  if (btnOpenMethodology) {
+    btnOpenMethodology.addEventListener("click", openMethodologyModal);
+  }
+  if (btnCloseMethodology) {
+    btnCloseMethodology.addEventListener("click", closeMethodologyModal);
+  }
+  if (btnCloseMethodologyFooter) {
+    btnCloseMethodologyFooter.addEventListener("click", closeMethodologyModal);
+  }
+  if (modalMethodology) {
+    modalMethodology.addEventListener("click", (e) => {
+      if (e.target === modalMethodology) {
+        closeMethodologyModal();
+      }
+    });
+  }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modalMethodology && modalMethodology.style.display === "flex") {
+      closeMethodologyModal();
+    }
+  });
 });

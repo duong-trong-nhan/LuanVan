@@ -162,6 +162,28 @@ body {
   border-color: rgba(30, 107, 91, 0.2);
 }
 
+.btn-methodology {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-methodology:hover {
+  background-color: var(--bg-subtle);
+  border-color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
 .tag-badge.live-dot::before {
   content: "";
   display: inline-block;
@@ -939,21 +961,27 @@ body {
 .radar-bars-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  padding: 6px 0;
 }
 
 .axis-bar-row {
   display: grid;
-  grid-template-columns: 80px 1fr 60px 80px;
+  grid-template-columns: 78px 1fr 92px 42px;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  min-height: 28px;
+  height: 28px;
   font-size: 12px;
+  box-sizing: border-box;
 }
 
 .axis-name {
   font-family: var(--font-mono);
   font-weight: 600;
+  font-size: 12px;
   color: var(--text-primary);
+  white-space: nowrap;
 }
 
 .axis-progress-track {
@@ -972,12 +1000,21 @@ body {
 
 .axis-crisp-badge {
   font-family: var(--font-mono);
-  font-size: 10px;
-  padding: 2px 6px;
+  font-size: 10.5px;
+  padding: 3px 8px;
   border-radius: var(--radius-sm);
   background-color: var(--bg-subtle);
   color: var(--text-secondary);
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  line-height: 1;
+  box-sizing: border-box;
 }
 
 .axis-val-num {
@@ -985,6 +1022,8 @@ body {
   font-size: 11px;
   color: var(--text-secondary);
   text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ==========================================================================
@@ -1363,11 +1402,17 @@ body {
 }
 
 .concept-pill.disabled {
-  opacity: 0.45;
-  text-decoration: line-through;
-  background-color: rgba(240, 238, 233, 0.30);
-  border-color: var(--border-hairline);
-  color: var(--text-tertiary);
+  opacity: 0.42 !important;
+  text-decoration: line-through !important;
+  background-color: rgba(240, 238, 233, 0.45) !important;
+  border-color: rgba(200, 200, 200, 0.6) !important;
+  color: var(--text-tertiary) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.concept-pill.disabled .pill-check {
+  color: var(--accent-vermilion);
 }
 
 .pill-check {
@@ -2477,4 +2522,152 @@ body {
   font-size: 11.5px;
   color: var(--text-primary);
   line-height: 1.35;
+}
+
+/* ==========================================================================
+   Modal Thông tin Mô hình & Phương pháp Nghiên cứu (Research Methodology)
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 25, 20, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeInModal 0.22s ease-out;
+}
+
+.modal-dialog {
+  background-color: #FAF9F6;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  max-width: 740px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.modal-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--accent-vermilion);
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.modal-title-wrap h3 {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+}
+
+.modal-close-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-subtle);
+}
+
+.modal-body {
+  padding: 20px 24px;
+  flex: 1;
+}
+
+.methodology-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 640px) {
+  .methodology-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.methodology-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.methodology-card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.methodology-card-head h4 {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.methodology-card p {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background-color: #F4F2EC;
+  border-top: 1px solid var(--border-hairline);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+.modal-footer-note {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
 }

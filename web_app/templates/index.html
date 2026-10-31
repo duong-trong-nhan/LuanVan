@@ -38,10 +38,12 @@
       </div>
     </div>
     <div class="header-badges">
-      <span class="tag-badge jade"><i class="fa-solid fa-wave-square"></i> 7 Trục MPEG-7</span>
-      <span class="tag-badge vermilion"><i class="fa-solid fa-diagram-project"></i> Neuro-Symbolic CBM</span>
-      <span class="tag-badge"><i class="fa-solid fa-scale-balanced"></i> Luật Mờ DT/RF/RIPPER/CN2</span>
-      <span class="tag-badge live-dot">Sẵn sàng 60 FPS</span>
+      <span class="tag-badge jade"><i class="fa-solid fa-wave-square"></i> Đặc trưng âm thanh</span>
+      <span class="tag-badge vermilion"><i class="fa-solid fa-diagram-project"></i> Khái niệm âm thanh</span>
+      <span class="tag-badge"><i class="fa-solid fa-scale-balanced"></i> Luật giải thích</span>
+      <button class="btn-methodology" id="btn-open-methodology" type="button" title="Xem chi tiết phương pháp nghiên cứu và kiến trúc mô hình">
+        <i class="fa-solid fa-circle-info"></i> Thông tin mô hình
+      </button>
     </div>
   </header>
 
@@ -211,7 +213,7 @@
                   </div>
                   <div class="custom-dropdown-item" data-subtab="radar" role="option">
                     <span class="item-icon"><i class="fa-solid fa-sliders"></i></span>
-                    <span class="item-label">7 Trục MPEG-7</span>
+                    <span class="item-label">Đặc trưng âm thanh</span>
                   </div>
                 </div>
               </div>
@@ -249,7 +251,7 @@
           <!-- Subtab 3: Lưới Ảnh Phổ Mel-Spectrogram & CQT -->
           <div class="spectrogram-grid" id="spectrogram-grid-container" style="display: none;"></div>
 
-          <!-- Subtab 4: 7 Trục Âm học MPEG-7 -->
+          <!-- Subtab 4: Đặc trưng âm thanh -->
           <div class="radar-bars-list" id="radar-bars-container" style="display: none;"></div>
         </div>
       </div>
@@ -321,13 +323,13 @@
         </div>
       </div>
 
-      <!-- Khung Lời Lý giải Tổng hợp (Natural Language XAI Explanation) -->
+      <!-- Khung Lời Lý giải Tổng hợp (Natural Language Explanation) -->
       <div class="card-panel" id="xai-card">
         <div class="card-header">
           <span class="card-title">
-            <i class="fa-solid fa-feather" style="color: var(--accent-vermilion);"></i> Lời Lý giải Đa phương thức Khoa học (XAI)
+            <i class="fa-solid fa-feather" style="color: var(--accent-vermilion);"></i> Lời giải thích kết quả phân tích
           </span>
-          <span class="tag-badge"><i class="fa-solid fa-book-bookmark"></i> Chuẩn Học thuật</span>
+          <span class="tag-badge"><i class="fa-solid fa-circle-check"></i> Cơ sở suy luận</span>
         </div>
         <div class="card-body">
           <div class="xai-narrative-card">
@@ -337,7 +339,7 @@
                 <span class="segment-focus-badge"><i class="fa-solid fa-crosshairs"></i> <span id="xai-segment-time">Phân đoạn 00:00 - 00:04</span></span>
                 <span class="segment-focus-genre" id="xai-segment-genre-badge">--</span>
               </div>
-              <button class="btn-return-overall" id="btn-return-overall-xai" type="button" title="Xem lại lời lý giải tổng thể toàn video">
+              <button class="btn-return-overall" id="btn-return-overall-xai" type="button" title="Xem lại lời giải thích tổng thể toàn video">
                 <i class="fa-solid fa-rotate-left"></i> Xem toàn cảnh video
               </button>
             </div>
@@ -363,13 +365,13 @@
 
             <h4 class="xai-headline" id="xai-headline">Chưa có kết quả phân tích</h4>
             <div class="xai-body-text" id="xai-body-text">
-              Hãy tải lên video/audio hoặc thu âm trực tiếp để hệ thống thực hiện suy luận mờ 2 tầng và sinh lời lý giải khoa học.
+              Hãy tải lên video/audio hoặc thu âm trực tiếp để hệ thống thực hiện phân tích và sinh lời giải thích rõ ràng.
             </div>
             <div class="xai-citations-box">
               <h5>Tài liệu &amp; Nguồn kiểm chứng chuẩn hóa</h5>
               <ul class="citation-list" id="xai-citations-list">
-                <li class="citation-item">UNESCO Dossiers on Intangible Cultural Heritage</li>
-                <li class="citation-item">ICHCAP Research Center in the Asia-Pacific Region</li>
+                <li class="citation-item">Hồ sơ Di sản Văn hóa Phi vật thể UNESCO</li>
+                <li class="citation-item">Trung tâm Nghiên cứu Di sản Văn hóa Phi vật thể Châu Á - Thái Bình Dương (ICHCAP)</li>
                 <li class="citation-item">Viện Âm nhạc Việt Nam</li>
               </ul>
             </div>
@@ -377,50 +379,50 @@
         </div>
       </div>
 
-      <!-- Khung Can thiệp Khái niệm Trung gian (Interactive CBM Concept Pills) -->
+      <!-- Khung Điều chỉnh Khái niệm -->
       <div class="card-panel">
         <div class="card-header">
           <span class="card-title">
-            <i class="fa-solid fa-sliders" style="color: var(--accent-jade);"></i> Can thiệp Khái niệm Trung gian (Interactive CBM Intervention)
+            <i class="fa-solid fa-sliders" style="color: var(--accent-jade);"></i> Điều chỉnh khái niệm
           </span>
-          <span class="tag-badge jade">Bấm Bật/Tắt để thử nghiệm</span>
+          <span class="tag-badge jade" id="cbm-intervention-badge">Thử nghiệm bật/tắt</span>
         </div>
         <div class="card-body">
           <div class="concept-pills-wrap">
             <!-- Audio Concepts -->
             <div class="pills-group">
               <span class="pills-group-title">
-                <i class="fa-solid fa-headphones" style="color: var(--accent-jade);"></i> Khái niệm Âm thanh (Audio Concepts - concept/audio_concepts.md)
+                <i class="fa-solid fa-headphones" style="color: var(--accent-jade);"></i> Khái niệm Âm thanh
               </span>
               <div class="pills-container" id="audio-pills-container" style="margin-top: 6px;">
-                <span style="font-size: 12px; color: var(--text-tertiary);">Chưa có concept âm thanh.</span>
+                <span style="font-size: 12px; color: var(--text-tertiary);">Chưa có khái niệm âm thanh.</span>
               </div>
             </div>
 
             <!-- Visual Concepts -->
             <div class="pills-group" id="visual-pills-group" style="display: none; margin-top: 8px;">
               <span class="pills-group-title">
-                <i class="fa-solid fa-eye" style="color: var(--accent-amber);"></i> Khái niệm Thị giác (Visual Concepts - concept/visual_concepts.md)
+                <i class="fa-solid fa-eye" style="color: var(--accent-amber);"></i> Khái niệm Thị giác
               </span>
               <div class="pills-container" id="visual-pills-container" style="margin-top: 6px;">
-                <span style="font-size: 12px; color: var(--text-tertiary);">Chưa có concept hình ảnh.</span>
+                <span style="font-size: 12px; color: var(--text-tertiary);">Chưa có khái niệm hình ảnh.</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Khung Luật Mờ Kích hoạt (Triggered Symbolic Rules) -->
+      <!-- Khung Luật được kích hoạt -->
       <div class="card-panel">
         <div class="card-header">
           <span class="card-title">
-            <i class="fa-solid fa-code-branch"></i> Mệnh đề Luật Mờ Kích hoạt (Triggered Fuzzy Rules)
+            <i class="fa-solid fa-code-branch"></i> Luật được kích hoạt
           </span>
-          <span class="tag-badge">DT • RF • RIPPER • CN2</span>
+          <span class="tag-badge">Quy tắc quyết định</span>
         </div>
         <div class="card-body">
           <div class="rules-list-container" id="rules-list-container">
-            <span style="font-size: 12px; color: var(--text-tertiary);">Chưa có luật kích hoạt.</span>
+            <span style="font-size: 12px; color: var(--text-tertiary);">Chưa có luật nào được kích hoạt.</span>
           </div>
         </div>
       </div>
@@ -430,8 +432,7 @@
   </main>
 
   <!-- ========================================================================
-       TẦNG DƯỚI CÙNG (Full-width): Bảng Ma trận Đối sánh Phân biệt Di sản & Thử nghiệm What-If
-       (Option 3: Heritage Contrastive Decision Matrix & What-If Sandbox)
+       TẦNG DƯỚI CÙNG (Full-width): So sánh đối chiếu & Thử nghiệm giả định
        ======================================================================== -->
   <section class="bottom-tier-section">
     <div class="card-panel contrastive-card" id="contrastive-main-card">
@@ -439,9 +440,9 @@
         <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
           <span class="card-title">
             <i class="fa-solid fa-code-compare" style="color: var(--accent-vermilion);"></i>
-            Bảng Ma trận Đối sánh Phân biệt Di sản &amp; Thử nghiệm What-If
+            So sánh đối chiếu &amp; Thử nghiệm giả định
           </span>
-          <span class="matrix-badge"><i class="fa-solid fa-scale-balanced"></i> XAI Phản Sự Thực (Counterfactuals)</span>
+          <span class="matrix-badge"><i class="fa-solid fa-flask-vial"></i> Thử nghiệm giả định</span>
         </div>
         <div class="matrix-head-meta" id="matrix-head-meta">
           <span class="meta-tag" id="meta-winner-tag">Top 1: Đang chờ</span>
@@ -451,17 +452,17 @@
       </div>
 
       <div class="card-body contrastive-body">
-        <!-- 1. Bảng Đối Sánh 5 Chiều Văn Hóa & Âm Học (Head-to-Head Comparison) -->
+        <!-- 1. Bảng Đối Sánh 5 Tiêu Chí (Head-to-Head Comparison) -->
         <div class="contrastive-table-wrapper">
           <table class="contrastive-table" id="contrastive-table">
             <thead>
               <tr>
-                <th style="width: 22%;">Trục Tiêu Chí So Sánh</th>
+                <th style="width: 22%;">Tiêu chí so sánh</th>
                 <th style="width: 34%;" id="th-top1-title" class="col-top1">
                   <div class="th-genre-wrap">
                     <div style="display: flex; align-items: center; gap: 6px;">
                       <i class="fa-solid fa-crown" style="color: #D4AF37;"></i>
-                      <span id="th-top1-name">Dự đoán Hàng đầu (Top 1)</span>
+                      <span id="th-top1-name">Dự đoán hàng đầu (Top 1)</span>
                     </div>
                     <span class="prob-pill winner" id="th-top1-prob">--%</span>
                   </div>
@@ -470,37 +471,37 @@
                   <div class="th-genre-wrap">
                     <div style="display: flex; align-items: center; gap: 6px;">
                       <i class="fa-solid fa-medal" style="color: #718096;"></i>
-                      <span id="th-top2-name">Á quân Cạnh tranh (Top 2)</span>
+                      <span id="th-top2-name">Thể loại cạnh tranh (Top 2)</span>
                     </div>
                     <span class="prob-pill runner" id="th-top2-prob">--%</span>
                   </div>
                 </th>
-                <th style="width: 10%; text-align: center;">Quyết Định</th>
+                <th style="width: 10%; text-align: center;">Quyết định</th>
               </tr>
             </thead>
             <tbody id="contrastive-table-body">
               <tr>
                 <td colspan="4" style="text-align: center; padding: 36px 20px; color: var(--text-tertiary);">
                   <i class="fa-solid fa-arrows-split-up-and-left" style="font-size: 26px; margin-bottom: 8px; display: block; opacity: 0.5;"></i>
-                  Vui lòng chọn một mẫu âm thanh/video hoặc tải lên tệp để kích hoạt Ma trận Đối sánh Phân biệt &amp; Hộp cát Thử nghiệm What-If.
+                  Vui lòng chọn một mẫu âm thanh/video hoặc tải lên tệp để kích hoạt bảng đối sánh và thử nghiệm giả định.
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <!-- 2. Hộp Cát Thử Nghiệm Giả Định Phản Sự Thực (What-If Sandbox) -->
+        <!-- 2. Hộp Thử nghiệm Giả định (What-If Sandbox) -->
         <div class="whatif-sandbox-card" id="whatif-sandbox-card">
           <div class="whatif-header">
             <div class="whatif-title">
               <i class="fa-solid fa-flask-vial" style="color: var(--accent-jade);"></i>
-              <span>Hộp Cát Thử Nghiệm Giả Định Phản Sự Thực (What-If &amp; Counterfactual Sandbox)</span>
+              <span>Hộp thử nghiệm giả định (What-If)</span>
             </div>
-            <span class="whatif-status-badge" id="whatif-status-badge">Kịch bản Phản Sự Thực</span>
+            <span class="whatif-status-badge" id="whatif-status-badge">Kịch bản giả định</span>
           </div>
           <div class="whatif-content">
             <div class="whatif-prompt" id="whatif-prompt">
-              <strong>Câu hỏi XAI cốt lõi:</strong> Hệ thống cần điều kiện biên nào để đảo chiều dự đoán từ <span class="highlight-winner" id="whatif-winner-name">Top 1</span> sang <span class="highlight-runner" id="whatif-runner-name">Top 2</span>?
+              <strong>Câu hỏi phân tích:</strong> Cần thay đổi điều kiện gì để chuyển kết quả từ <span class="highlight-winner" id="whatif-winner-name">Top 1</span> sang <span class="highlight-runner" id="whatif-runner-name">Top 2</span>?
             </div>
             <div class="whatif-conditions-grid" id="whatif-conditions-grid">
               <div class="whatif-cond-card">
@@ -510,7 +511,7 @@
             </div>
             <div class="whatif-interactive-bar">
               <label class="whatif-slider-label">
-                <span><i class="fa-solid fa-sliders" style="margin-right: 6px; color: var(--accent-jade);"></i>Mô phỏng can thiệp cường độ đặc trưng phân cực:</span>
+                <span><i class="fa-solid fa-sliders" style="margin-right: 6px; color: var(--accent-jade);"></i>Mô phỏng thay đổi mức độ đặc trưng:</span>
                 <span class="slider-val-tag" id="whatif-slider-val">50% (Cân bằng thực tế)</span>
               </label>
               <input type="range" class="whatif-slider" id="whatif-intervene-slider" min="0" max="100" value="50" />
@@ -532,12 +533,70 @@
   <div class="loading-overlay" id="loading-overlay">
     <div class="loading-spinner"></div>
     <div class="loading-text" style="text-align: center;">
-      <h3>Đang xử lý phân tích đa phương thức...</h3>
-      <p>Cắt luồng âm thanh theo phân đoạn 3-5s &amp; tính toán 7 trục MPEG-7</p>
+      <h3>Đang xử lý phân tích dữ liệu...</h3>
+      <p>Phân tích đặc trưng âm thanh theo phân đoạn &amp; suy luận quyết định</p>
     </div>
   </div>
 
   <div class="toast-box" id="toast-box">Thông báo phản hồi</div>
+
+  <!-- ========================================================================
+       Modal Thông tin Mô hình & Phương pháp Nghiên cứu (Research Methodology)
+       ======================================================================== -->
+  <div class="modal-backdrop" id="methodology-modal" style="display: none;">
+    <div class="modal-dialog" role="dialog" aria-labelledby="modal-methodology-title" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-eyebrow">Hồ sơ kỹ thuật &amp; Phương pháp học thuật</span>
+          <h3 id="modal-methodology-title">Thông tin Mô hình &amp; Phương pháp Nghiên cứu</h3>
+        </div>
+        <button class="modal-close-btn" id="btn-close-methodology" type="button" aria-label="Đóng">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="methodology-grid">
+          <!-- Card 1: Kiến trúc mô hình -->
+          <div class="methodology-card">
+            <div class="methodology-card-head">
+              <i class="fa-solid fa-diagram-project" style="color: var(--accent-vermilion); font-size: 16px;"></i>
+              <h4>Kiến trúc Neuro-Symbolic CBM</h4>
+            </div>
+            <p>Hệ thống xây dựng theo mô hình <strong>Concept Bottleneck Model (CBM)</strong> 2 tầng: Tầng 1 ánh xạ tín hiệu sang không gian khái niệm trung gian có thể giải thích được; Tầng 2 ánh xạ khái niệm sang thể loại di sản qua hệ luật tượng trưng rõ ràng.</p>
+          </div>
+
+          <!-- Card 2: Đặc trưng âm thanh chuẩn MPEG-7 -->
+          <div class="methodology-card">
+            <div class="methodology-card-head">
+              <i class="fa-solid fa-wave-square" style="color: var(--accent-jade); font-size: 16px;"></i>
+              <h4>7 Trục Âm học Chuẩn MPEG-7</h4>
+            </div>
+            <p>Trích xuất chuẩn hóa gồm: Audio Spectrum Envelope, Audio Spectrum Centroid, Audio Spectrum Spread, Audio Spectrum Flatness, Spectral Sharpness, Harmonic Ratio và Fundamental Frequency kết hợp phân đoạn thời gian 3–5 giây.</p>
+          </div>
+
+          <!-- Card 3: Khai phá luật tượng trưng -->
+          <div class="methodology-card">
+            <div class="methodology-card-head">
+              <i class="fa-solid fa-scale-balanced" style="color: var(--accent-amber); font-size: 16px;"></i>
+              <h4>Hệ luật giải thích (DT / RF / RIPPER / CN2)</h4>
+            </div>
+            <p>Quy tắc quyết định được khai phá từ các thuật toán học máy tượng trưng: Decision Tree (DT), Random Forest với hàm thuộc mờ Gaussian, RIPPER (Repeated Incremental Pruning) và CN2 Rule Induction.</p>
+          </div>
+
+          <!-- Card 4: Thử nghiệm giả định & Hiệu năng -->
+          <div class="methodology-card">
+            <div class="methodology-card-head">
+              <i class="fa-solid fa-flask-vial" style="color: var(--accent-indigo); font-size: 16px;"></i>
+              <h4>Thử nghiệm giả định &amp; Tối ưu 60 FPS</h4>
+            </div>
+            <p>Cơ chế Phản sự thực (Counterfactuals) cho phép mô phỏng điều kiện biên để lật ngược quyết định. Đồ họa không gian 3D WebGL và mô phỏng sóng âm Three.js + GSAP vận hành mượt mà ở tần số 60 FPS.</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="modal-footer-note"><i class="fa-solid fa-book-bookmark"></i> Đề tài: Nhận diện &amp; Giải thích Đa phương thức Di sản Văn hóa Phi vật thể</span>
+        <button class="btn-primary" id="btn-close-methodology-footer" type="button" style="padding: 6px 18px; font-size: 12px;">Đã hiểu</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="/static/js/audio_wave.js"></script>
