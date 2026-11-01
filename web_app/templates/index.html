@@ -324,57 +324,55 @@
       </div>
 
       <!-- Khung Lời Lý giải Tổng hợp (Natural Language Explanation) -->
-      <div class="card-panel" id="xai-card">
+      <div class="card-panel xai-narrative-card" id="xai-card">
         <div class="card-header">
           <span class="card-title">
             <i class="fa-solid fa-feather" style="color: var(--accent-vermilion);"></i> Lời giải thích kết quả phân tích
           </span>
           <span class="tag-badge"><i class="fa-solid fa-circle-check"></i> Cơ sở suy luận</span>
         </div>
-        <div class="card-body">
-          <div class="xai-narrative-card">
-            <!-- Banner phân đoạn đang chọn (Segment Inspection Banner) -->
-            <div class="xai-segment-banner" id="xai-segment-banner" style="display: none;">
-              <div class="segment-banner-left">
-                <span class="segment-focus-badge"><i class="fa-solid fa-crosshairs"></i> <span id="xai-segment-time">Phân đoạn 00:00 - 00:04</span></span>
-                <span class="segment-focus-genre" id="xai-segment-genre-badge">--</span>
-              </div>
-              <button class="btn-return-overall" id="btn-return-overall-xai" type="button" title="Xem lại lời giải thích tổng thể toàn video">
-                <i class="fa-solid fa-rotate-left"></i> Xem toàn cảnh video
-              </button>
+        <div class="card-body xai-narrative-body">
+          <!-- Banner phân đoạn đang chọn (Segment Inspection Banner) -->
+          <div class="xai-segment-banner" id="xai-segment-banner" style="display: none;">
+            <div class="segment-banner-left">
+              <span class="segment-focus-badge"><i class="fa-solid fa-crosshairs"></i> <span id="xai-segment-time">Phân đoạn 00:00 - 00:04</span></span>
+              <span class="segment-focus-genre" id="xai-segment-genre-badge">--</span>
             </div>
+            <button class="btn-return-overall" id="btn-return-overall-xai" type="button" title="Xem lại lời giải thích tổng thể toàn video">
+              <i class="fa-solid fa-rotate-left"></i> Xem toàn cảnh video
+            </button>
+          </div>
 
-            <!-- Khối kết quả theo từng phương thức (Âm thanh vs Thị giác vs Hợp nhất) -->
-            <div class="xai-modalities-grid" id="xai-modalities-grid" style="display: none;">
-              <!-- Nhánh âm thanh -->
-              <div class="xai-mod-card mod-card-audio">
-                <div class="mod-card-head"><i class="fa-solid fa-volume-high"></i> Nhánh Âm thanh</div>
-                <div class="mod-card-body" id="mod-card-audio-content">--</div>
-              </div>
-              <!-- Nhánh thị giác (chỉ hiển thị khi có khả năng tính toán) -->
-              <div class="xai-mod-card mod-card-visual" id="mod-card-visual-wrap">
-                <div class="mod-card-head"><i class="fa-solid fa-eye"></i> Nhánh Thị giác</div>
-                <div class="mod-card-body" id="mod-card-visual-content">--</div>
-              </div>
-              <!-- Kết quả hợp nhất -->
-              <div class="xai-mod-card mod-card-fused">
-                <div class="mod-card-head"><i class="fa-solid fa-scale-balanced"></i> Kết quả Hợp nhất</div>
-                <div class="mod-card-body" id="mod-card-fused-content">--</div>
-              </div>
+          <!-- Khối kết quả theo từng phương thức (Âm thanh vs Thị giác vs Hợp nhất) -->
+          <div class="xai-modalities-grid" id="xai-modalities-grid" style="display: none;">
+            <!-- Nhánh âm thanh -->
+            <div class="xai-mod-card mod-card-audio">
+              <div class="mod-card-head"><i class="fa-solid fa-volume-high"></i> Nhánh Âm thanh</div>
+              <div class="mod-card-body" id="mod-card-audio-content">--</div>
             </div>
+            <!-- Nhánh thị giác (chỉ hiển thị khi có khả năng tính toán) -->
+            <div class="xai-mod-card mod-card-visual" id="mod-card-visual-wrap">
+              <div class="mod-card-head"><i class="fa-solid fa-eye"></i> Nhánh Thị giác</div>
+              <div class="mod-card-body" id="mod-card-visual-content">--</div>
+            </div>
+            <!-- Kết quả hợp nhất -->
+            <div class="xai-mod-card mod-card-fused">
+              <div class="mod-card-head"><i class="fa-solid fa-scale-balanced"></i> Kết quả Hợp nhất</div>
+              <div class="mod-card-body" id="mod-card-fused-content">--</div>
+            </div>
+          </div>
 
-            <h4 class="xai-headline" id="xai-headline">Chưa có kết quả phân tích</h4>
-            <div class="xai-body-text" id="xai-body-text">
-              Hãy tải lên video/audio hoặc thu âm trực tiếp để hệ thống thực hiện phân tích và sinh lời giải thích rõ ràng.
-            </div>
-            <div class="xai-citations-box">
-              <h5>Tài liệu &amp; Nguồn kiểm chứng chuẩn hóa</h5>
-              <ul class="citation-list" id="xai-citations-list">
-                <li class="citation-item">Hồ sơ Di sản Văn hóa Phi vật thể UNESCO</li>
-                <li class="citation-item">Trung tâm Nghiên cứu Di sản Văn hóa Phi vật thể Châu Á - Thái Bình Dương (ICHCAP)</li>
-                <li class="citation-item">Viện Âm nhạc Việt Nam</li>
-              </ul>
-            </div>
+          <h4 class="xai-headline" id="xai-headline">Chưa có kết quả phân tích</h4>
+          <div class="xai-body-text" id="xai-body-text">
+            Hãy tải lên video/audio hoặc thu âm trực tiếp để hệ thống thực hiện phân tích và sinh lời giải thích rõ ràng.
+          </div>
+          <div class="xai-citations-box">
+            <h5>Tài liệu &amp; Nguồn kiểm chứng chuẩn hóa</h5>
+            <ul class="citation-list" id="xai-citations-list">
+              <li class="citation-item">Hồ sơ Di sản Văn hóa Phi vật thể UNESCO</li>
+              <li class="citation-item">Trung tâm Nghiên cứu Di sản Văn hóa Phi vật thể Châu Á - Thái Bình Dương (ICHCAP)</li>
+              <li class="citation-item">Viện Âm nhạc Việt Nam</li>
+            </ul>
           </div>
         </div>
       </div>

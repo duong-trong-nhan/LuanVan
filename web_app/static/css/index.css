@@ -1258,18 +1258,18 @@ body {
   text-align: right;
 }
 
-/* Natural Language XAI Narrative Card */
-.xai-narrative-card {
-  background-color: rgba(255, 255, 255, 0.20);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(226, 221, 209, 0.50);
+/* Natural Language XAI Narrative Card (Unnested Top-level Card) */
+.card-panel.xai-narrative-card,
+#xai-card.card-panel {
   border-left: 3px solid var(--accent-vermilion);
-  padding: 16px 20px;
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background-color: var(--bg-surface);
+}
+
+.xai-narrative-body {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
+  padding: 20px;
 }
 
 .xai-headline {
