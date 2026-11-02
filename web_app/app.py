@@ -55,6 +55,7 @@ class InterveneRequest(BaseModel):
     concept_id: str
     is_enabled: bool
     all_concepts: Optional[List[Dict[str, Any]]] = None
+    base_rules: Optional[List[Dict[str, Any]]] = None
 
 
 class SampleAnalyzeRequest(BaseModel):
@@ -226,7 +227,8 @@ async def intervene_concept(req: InterveneRequest):
             toggled_concept_id=req.concept_id,
             is_enabled=req.is_enabled,
             all_concepts=req.all_concepts or [],
-            base_probs=req.base_probs
+            base_probs=req.base_probs,
+            base_rules=req.base_rules
         )
         return JSONResponse(content=res)
     except Exception as e:

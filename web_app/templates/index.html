@@ -430,9 +430,167 @@
   </main>
 
   <!-- ========================================================================
-       TẦNG DƯỚI CÙNG (Full-width): So sánh đối chiếu & Thử nghiệm giả định
+       TẦNG DƯỚI CÙNG (Full-width): Bản đồ Bằng chứng Đa phương thức & So sánh đối chiếu
        ======================================================================== -->
   <section class="bottom-tier-section">
+
+    <!-- KHU VỰC MULTIMODAL EVIDENCE MAP (BẢN ĐỒ BẰNG CHỨNG ĐA PHƯƠNG THỨC) -->
+    <div class="card-panel evidence-map-card" id="evidence-map-main-card">
+      <div class="card-header evidence-map-header">
+        <div class="evidence-map-header-left">
+          <span class="card-title">
+            <i class="fa-solid fa-diagram-project" style="color: var(--accent-vermilion);"></i>
+            Bản đồ bằng chứng đa phương thức (Multimodal Evidence Map)
+          </span>
+          <span class="tag-badge jade" id="evidence-map-badge">Chuỗi suy luận XAI</span>
+        </div>
+
+        <!-- Toolbar điều khiển tương tác -->
+        <div class="evidence-map-toolbar">
+          <!-- Nhóm 1: Lọc ẩn/hiện từng nhánh (Requirement 6) -->
+          <div class="map-toolbar-group">
+            <span class="map-group-label"><i class="fa-solid fa-filter"></i> Lọc nhánh:</span>
+            <button type="button" class="map-branch-btn active" id="map-toggle-audio" data-branch="audio" title="Ẩn/hiện nhánh Âm thanh">
+              <i class="fa-solid fa-headphones"></i> Âm thanh
+            </button>
+            <button type="button" class="map-branch-btn active" id="map-toggle-visual" data-branch="visual" title="Ẩn/hiện nhánh Thị giác">
+              <i class="fa-solid fa-eye"></i> Thị giác
+            </button>
+            <button type="button" class="map-branch-btn active" id="map-toggle-reasoning" data-branch="reasoning" title="Ẩn/hiện nhánh Luật &amp; Hợp nhất">
+              <i class="fa-solid fa-code-branch"></i> Luật &amp; Hợp nhất
+            </button>
+          </div>
+
+          <!-- Nhóm 2: Zoom & Pan điều khiển (Requirement 6) -->
+          <div class="map-toolbar-group">
+            <button type="button" class="map-ctrl-btn" id="map-zoom-in" title="Phóng to đồ thị">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <button type="button" class="map-ctrl-btn" id="map-zoom-out" title="Thu nhỏ đồ thị">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <button type="button" class="map-ctrl-btn" id="map-zoom-reset" title="Đặt lại góc nhìn toàn cảnh">
+              <i class="fa-solid fa-arrows-rotate"></i>
+            </button>
+          </div>
+
+          <!-- Nhóm 3: Chú giải màu sắc (Requirement 7) -->
+          <div class="map-legend-bar">
+            <span class="map-legend-item"><span class="legend-color-dot dot-audio"></span> Âm thanh</span>
+            <span class="map-legend-item"><span class="legend-color-dot dot-visual"></span> Thị giác</span>
+            <span class="map-legend-item"><span class="legend-color-dot dot-rule"></span> Luật mờ</span>
+            <span class="map-legend-item"><span class="legend-color-dot dot-verdict"></span> Kết luận</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body evidence-map-body">
+        <!-- Vùng vẽ Đồ thị SVG tương tác -->
+        <div class="evidence-map-canvas-wrap" id="evidence-map-canvas-wrap">
+          <svg class="evidence-map-svg" id="evidence-map-svg" width="100%" height="540">
+            <defs>
+              <!-- Arrowhead markers -->
+              <marker id="map-arrow-audio" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 9 5 L 0 9 z" fill="#1E6B5B" />
+              </marker>
+              <marker id="map-arrow-visual" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 9 5 L 0 9 z" fill="#C97A1B" />
+              </marker>
+              <marker id="map-arrow-fused" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 9 5 L 0 9 z" fill="#65645E" />
+              </marker>
+              <marker id="map-arrow-verdict" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 9 5 L 0 9 z" fill="#C84B31" />
+              </marker>
+              <marker id="map-arrow-highlight" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#C84B31" />
+              </marker>
+            </defs>
+
+            <!-- Viewport Group (Pan & Zoom transform applied here) -->
+            <g id="evidence-map-viewport">
+              <!-- Layer Cột mốc tiêu đề tầng -->
+              <g class="map-headers-layer" id="map-headers-layer"></g>
+              <!-- Layer các đường nối (Edges) -->
+              <g class="map-edges-layer" id="map-edges-layer"></g>
+              <!-- Layer các Node tương tác -->
+              <g class="map-nodes-layer" id="map-nodes-layer"></g>
+            </g>
+          </svg>
+
+          <!-- Thanh gợi ý điều khiển ở góc dưới -->
+          <div class="map-canvas-hint">
+            <i class="fa-solid fa-computer-mouse"></i> Cuộn chuột để Phóng to/Thu nhỏ • Kéo chuột để Di chuyển đồ thị • Bấm vào Node hoặc Luật để khám phá chi tiết
+          </div>
+        </div>
+
+        <!-- Bảng Thông tin Chi tiết Node / Luật (Requirement 4 & 5) -->
+        <aside class="evidence-map-inspector" id="evidence-map-inspector">
+          <div class="inspector-header">
+            <div class="inspector-title-wrap">
+              <span class="inspector-eyebrow" id="inspector-node-type">Chi tiết Bằng chứng</span>
+              <h4 class="inspector-title" id="inspector-node-name">Chưa chọn thành phần</h4>
+            </div>
+            <button type="button" class="inspector-close-btn" id="inspector-close-btn" title="Đóng bảng chi tiết">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <div class="inspector-body" id="inspector-body">
+            <!-- Trạng thái trống (Empty State) -->
+            <div class="inspector-empty-state" id="inspector-empty-state">
+              <div class="empty-icon"><i class="fa-solid fa-arrow-pointer"></i></div>
+              <p>Nhấn vào bất kỳ <strong>Node</strong> hoặc <strong>Luật suy luận</strong> nào trên bản đồ để khám phá chi tiết bằng chứng, giá trị thực tế và chuỗi suy luận.</p>
+            </div>
+
+            <!-- Nội dung chi tiết khi chọn node -->
+            <div class="inspector-content" id="inspector-content" style="display: none;">
+              <!-- Meta Row: Phương thức & Mức độ -->
+              <div class="inspector-meta-row">
+                <span class="inspector-badge" id="inspector-modality-badge">Âm thanh</span>
+                <span class="inspector-badge secondary" id="inspector-val-badge">Độ khớp: 88%</span>
+              </div>
+
+              <!-- Giá trị trích xuất thực tế / Mệnh đề luật -->
+              <div class="inspector-field">
+                <span class="field-label" id="inspector-real-value-label">Giá trị thực tế:</span>
+                <div class="field-value highlight" id="inspector-real-value">0.70 (Mức Vừa)</div>
+              </div>
+
+              <!-- Mốc thời gian liên quan (nếu có) -->
+              <div class="inspector-field" id="inspector-time-field">
+                <span class="field-label">Thời điểm liên quan:</span>
+                <div class="field-value tags-wrap" id="inspector-timestamps">
+                  <!-- Timestamps pills -->
+                </div>
+              </div>
+
+              <!-- Diễn giải ngữ nghĩa -->
+              <div class="inspector-field">
+                <span class="field-label">Diễn giải &amp; Ý nghĩa:</span>
+                <div class="field-value description-text" id="inspector-description">...</div>
+              </div>
+
+              <!-- Nguồn kiểm chứng học thuật -->
+              <div class="inspector-field">
+                <span class="field-label">Nguồn kiểm chứng / Đặc trưng:</span>
+                <div class="field-value citation-text" id="inspector-source">UNESCO / ICHCAP</div>
+              </div>
+
+              <!-- Các luật sử dụng khái niệm này / Các khái niệm đầu vào của luật -->
+              <div class="inspector-field" id="inspector-relations-field">
+                <span class="field-label" id="inspector-relations-label">Luật sử dụng khái niệm này:</span>
+                <div class="field-value relations-wrap" id="inspector-relations-list">
+                  <!-- Chips luật hoặc khái niệm -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- MA TRẬN ĐỐI SÁNH PHÂN BIỆT DI SẢN & THỬ NGHIỆM WHAT-IF -->
     <div class="card-panel contrastive-card" id="contrastive-main-card">
       <div class="card-header">
         <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">

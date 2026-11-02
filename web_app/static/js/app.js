@@ -195,6 +195,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const thTop2Prob = document.getElementById("th-top2-prob");
     if (thTop1Prob) thTop1Prob.innerText = "--%";
     if (thTop2Prob) thTop2Prob.innerText = "--%";
+
+    // Xóa trạng thái và dữ liệu Bản đồ bằng chứng đa phương thức (Evidence Map)
+    clearEvidenceMap();
   }
 
   // Nút thu nhỏ / mở rộng danh sách xác suất ô dự đoán
@@ -549,6 +552,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleAnalysisResult(result) {
     currentAnalysis = result;
     currentAnalysis.base_probs = Object.assign({}, result.probs);
+    currentAnalysis.base_rules = result.triggered_rules ? JSON.parse(JSON.stringify(result.triggered_rules)) : [];
     currentOverallExplanation = result.explanation;
     currentOverallModalities = result.modalities || null;
     currentRawChunks = result.chunks || [];
@@ -586,6 +590,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // 9. Render Ma trận Đối sánh Phân biệt Di sản & Thử nghiệm What-If (Phương án 3)
     if (result.contrastive_analysis) {
       renderContrastiveMatrix(result.contrastive_analysis, result.probs, result.prediction);
+    }
+
+    // 10. Render Multimodal Evidence Map (Bản đồ bằng chứng đa phương thức)
+    if (result.evidence_map) {
+      renderEvidenceMap(result.evidence_map);
     }
   }
 
@@ -991,7 +1000,8 @@ document.addEventListener("DOMContentLoaded", () => {
           current_probs: currentAnalysis.probs,
           concept_id: conceptId,
           is_enabled: newState,
-          all_concepts: currentAnalysis.active_concepts
+          all_concepts: currentAnalysis.active_concepts,
+          base_rules: currentAnalysis.base_rules || currentAnalysis.triggered_rules
         })
       });
 
@@ -1017,12 +1027,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Cập nhật lại danh sách Luật kích hoạt
       if (data.triggered_rules) {
+        currentAnalysis.triggered_rules = data.triggered_rules;
         renderTriggeredRules(data.triggered_rules);
       }
 
       // Cập nhật lại Bảng Ma trận Đối sánh Phân biệt & What-If
       if (data.contrastive_analysis) {
         renderContrastiveMatrix(data.contrastive_analysis, data.probs, data.prediction);
+      }
+
+      // Cập nhật lại Bản đồ bằng chứng đa phương thức (Evidence Map) sau khi can thiệp CBM
+      if (data.evidence_map) {
+        renderEvidenceMap(data.evidence_map);
       }
 
       showToast(data.explanation_note);
@@ -2220,4 +2236,845 @@ document.addEventListener("DOMContentLoaded", () => {
       closeMethodologyModal();
     }
   });
+
+  // =========================================================================
+  // 13. MULTIMODAL EVIDENCE MAP CONTROLLER (Bản đồ bằng chứng đa phương thức)
+  // =========================================================================
+  let currentEvidenceMapData = null;
+  const evidenceMapState = {
+    zoom: 1.0,
+    panX: 0,
+    panY: 0,
+    isDragging: false,
+    dragStartX: 0,
+    dragStartY: 0,
+    activeBranch: {
+      audio: true,
+      visual: true,
+      reasoning: true
+    },
+    selectedNodeId: null,
+    highlightedRuleId: null,
+    nodeMap: new Map()
+  };
+
+  const mapSvg = document.getElementById("evidence-map-svg");
+  const mapViewport = document.getElementById("evidence-map-viewport");
+  const mapHeadersLayer = document.getElementById("map-headers-layer");
+  const mapEdgesLayer = document.getElementById("map-edges-layer");
+  const mapNodesLayer = document.getElementById("map-nodes-layer");
+  const mapOverlayBanner = document.getElementById("map-overlay-banner");
+  const mapOverlayBannerText = document.getElementById("map-overlay-banner-text");
+  const btnClearRuleHighlight = document.getElementById("btn-clear-rule-highlight");
+  const btnZoomIn = document.getElementById("map-zoom-in");
+  const btnZoomOut = document.getElementById("map-zoom-out");
+  const btnZoomReset = document.getElementById("map-zoom-reset");
+  const btnToggleAudio = document.getElementById("map-toggle-audio");
+  const btnToggleVisual = document.getElementById("map-toggle-visual");
+  const btnToggleReasoning = document.getElementById("map-toggle-reasoning");
+
+  // Inspector Panel Elements
+  const mapInspector = document.getElementById("evidence-map-inspector");
+  const inspectorNodeType = document.getElementById("inspector-node-type");
+  const inspectorNodeName = document.getElementById("inspector-node-name");
+  const inspectorCloseBtn = document.getElementById("inspector-close-btn");
+  const inspectorEmptyState = document.getElementById("inspector-empty-state");
+  const inspectorContent = document.getElementById("inspector-content");
+  const inspectorModalityBadge = document.getElementById("inspector-modality-badge");
+  const inspectorValBadge = document.getElementById("inspector-val-badge");
+  const inspectorRealValueLabel = document.getElementById("inspector-real-value-label");
+  const inspectorRealValue = document.getElementById("inspector-real-value");
+  const inspectorTimeField = document.getElementById("inspector-time-field");
+  const inspectorTimestamps = document.getElementById("inspector-timestamps");
+  const inspectorDesc = document.getElementById("inspector-description");
+  const inspectorSource = document.getElementById("inspector-source");
+  const inspectorRelationsField = document.getElementById("inspector-relations-field");
+  const inspectorRelationsLabel = document.getElementById("inspector-relations-label");
+  const inspectorRelationsList = document.getElementById("inspector-relations-list");
+  const inspectorRuleActions = document.getElementById("inspector-rule-actions");
+  const btnInspectorHighlightRule = document.getElementById("btn-inspector-highlight-rule");
+
+  function escapeXml(unsafe) {
+    if (unsafe === undefined || unsafe === null) return "";
+    return String(unsafe)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&apos;");
+  }
+
+  function truncateStr(str, maxLen) {
+    if (!str) return "";
+    str = String(str);
+    return str.length > maxLen ? str.slice(0, maxLen - 1) + "…" : str;
+  }
+
+  function applyEvidenceMapTransform() {
+    if (!mapViewport) return;
+    mapViewport.setAttribute(
+      "transform",
+      `translate(${evidenceMapState.panX}, ${evidenceMapState.panY}) scale(${evidenceMapState.zoom})`
+    );
+  }
+
+  function clearEvidenceMap() {
+    currentEvidenceMapData = null;
+    evidenceMapState.selectedNodeId = null;
+    evidenceMapState.highlightedRuleId = null;
+    evidenceMapState.nodeMap.clear();
+
+    if (mapHeadersLayer) mapHeadersLayer.innerHTML = "";
+    if (mapEdgesLayer) mapEdgesLayer.innerHTML = "";
+    if (mapNodesLayer) mapNodesLayer.innerHTML = "";
+
+    if (mapOverlayBanner) mapOverlayBanner.style.display = "none";
+
+    if (inspectorEmptyState) inspectorEmptyState.style.display = "block";
+    if (inspectorContent) inspectorContent.style.display = "none";
+    if (inspectorNodeName) inspectorNodeName.innerText = "Chưa chọn thành phần";
+    if (inspectorNodeType) inspectorNodeType.innerText = "Chi tiết Bằng chứng";
+  }
+
+  function renderEvidenceMap(data) {
+    if (!data || !data.nodes || data.nodes.length === 0) {
+      clearEvidenceMap();
+      return;
+    }
+
+    currentEvidenceMapData = data;
+    evidenceMapState.selectedNodeId = null;
+    evidenceMapState.highlightedRuleId = null;
+    evidenceMapState.nodeMap.clear();
+
+    if (mapOverlayBanner) mapOverlayBanner.style.display = "none";
+
+    // Cập nhật trạng thái nút lọc nhánh thị giác nếu tệp chỉ có âm thanh thuần túy
+    if (btnToggleVisual) {
+      if (!data.has_visual) {
+        btnToggleVisual.classList.remove("active");
+        btnToggleVisual.style.opacity = "0.45";
+        btnToggleVisual.style.pointerEvents = "none";
+        btnToggleVisual.title = "Tệp âm thanh đơn thuần không chứa thông tin thị giác";
+      } else {
+        btnToggleVisual.style.opacity = "1";
+        btnToggleVisual.style.pointerEvents = "auto";
+        btnToggleVisual.title = "Bật/Tắt hiển thị nhánh Thị giác";
+        if (evidenceMapState.activeBranch.visual) {
+          btnToggleVisual.classList.add("active");
+        }
+      }
+    }
+
+    // 1. Phân chia nodes theo 5 tầng (Layers 0 -> 4)
+    const layers = [[], [], [], [], []];
+    data.nodes.forEach(node => {
+      const l = Math.max(0, Math.min(4, parseInt(node.layer || 0)));
+      layers[l].push(node);
+      evidenceMapState.nodeMap.set(node.id, node);
+    });
+
+    // Cấu hình kích thước và tọa độ từng cột
+    const colConfig = [
+      { x: 45,  w: 180, h: 56, title: "1. ĐẦU VÀO PHƯƠNG THỨC" },
+      { x: 265, w: 200, h: 46, title: "2. ĐẶC TRƯNG TRÍCH XUẤT" },
+      { x: 505, w: 205, h: 52, title: "3. KHÁI NIỆM TRUNG GIAN (CBM)" },
+      { x: 750, w: 220, h: 58, title: "4. LUẬT SUY LUẬN MỜ (RULES)" },
+      { x: 1010, w: 215, h: 64, title: "5. PHÁN QUYẾT DI SẢN (VERDICT)" }
+    ];
+
+    const topMargin = 65;
+
+    // Tính toán chiều cao tối đa của các cột để căn giữa dọc (Vertical Centering)
+    const colHeights = layers.map((nodeList, idx) => {
+      const nodeH = colConfig[idx].h;
+      const gap = nodeList.length > 7 ? 8 : 12;
+      return nodeList.length > 0 ? nodeList.length * nodeH + (nodeList.length - 1) * gap : 0;
+    });
+    const maxColHeight = Math.max(...colHeights, 420);
+
+    // Tính toán tọa độ (x, y, w, h) cho từng node
+    layers.forEach((nodeList, idx) => {
+      const cfg = colConfig[idx];
+      const colH = colHeights[idx];
+      const gap = nodeList.length > 7 ? 8 : 12;
+      const startY = topMargin + Math.max(0, (maxColHeight - colH) / 2);
+
+      nodeList.forEach((node, nodeIdx) => {
+        node.x = cfg.x;
+        node.y = Math.round(startY + nodeIdx * (cfg.h + gap));
+        node.w = cfg.w;
+        node.h = cfg.h;
+      });
+    });
+
+    // 2. Render Header Cột (Tầng 1 -> 5)
+    if (mapHeadersLayer) {
+      let headersHtml = "";
+      colConfig.forEach((cfg, idx) => {
+        const count = layers[idx].length;
+        const countText = count > 0 ? `(${count})` : "(0)";
+        headersHtml += `
+          <g class="map-header-group">
+            <rect class="map-header-rect" x="${cfg.x}" y="20" width="${cfg.w}" height="28" rx="6" />
+            <text class="map-header-text" x="${cfg.x + cfg.w / 2}" y="38">${cfg.title} ${countText}</text>
+          </g>
+        `;
+      });
+      mapHeadersLayer.innerHTML = headersHtml;
+    }
+
+    // 3. Render Đường nối (Edges - Cubic Bézier Curves)
+    if (mapEdgesLayer) {
+      let edgesHtml = "";
+      (data.links || []).forEach(link => {
+        const src = evidenceMapState.nodeMap.get(link.source);
+        const tgt = evidenceMapState.nodeMap.get(link.target);
+        if (!src || !tgt) return;
+
+        const x1 = src.x + src.w;
+        const y1 = src.y + src.h / 2;
+        const x2 = tgt.x;
+        const y2 = tgt.y + tgt.h / 2;
+
+        const dx = Math.max(30, (x2 - x1) * 0.45);
+        const d = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
+        const modality = link.modality || "fused";
+        const isVerdictEdge = tgt.category === "verdict";
+        const edgeClass = isVerdictEdge ? "edge-verdict" : `edge-${modality}`;
+        const markerUrl = isVerdictEdge ? "url(#map-arrow-verdict)" : `url(#map-arrow-${modality})`;
+
+        edgesHtml += `
+          <path class="evidence-edge ${edgeClass}" 
+                data-source="${escapeXml(link.source)}" 
+                data-target="${escapeXml(link.target)}" 
+                data-modality="${escapeXml(modality)}" 
+                d="${d}" 
+                marker-end="${markerUrl}">
+            <title>${escapeXml(link.label || "")} (Trọng số: ${link.weight || 1.0})</title>
+          </path>
+        `;
+      });
+      mapEdgesLayer.innerHTML = edgesHtml;
+    }
+
+    // 4. Render Nodes (Cards dạng SVG phong cách Bauhaus / Modern Flat)
+    if (mapNodesLayer) {
+      let nodesHtml = "";
+      data.nodes.forEach(node => {
+        const mod = node.modality || "fused";
+        const isVerdict = node.category === "verdict";
+        const nodeClass = isVerdict ? "node-verdict" : `node-${mod}`;
+        
+        let pillColor = "#65645E";
+        if (mod === "audio") pillColor = "#1E6B5B";
+        else if (mod === "visual") pillColor = "#C97A1B";
+        else if (isVerdict) pillColor = node.color || "#C84B31";
+
+        // Tự động chọn icon biểu trưng
+        let iconSymbol = "•";
+        if (node.category === "input") iconSymbol = mod === "audio" ? "🎧" : "👁️";
+        else if (node.category === "feature") {
+          iconSymbol = node.id === "node_feat_audio_cnn" ? "🧠" : (mod === "audio" ? "〰" : "🖼");
+        }
+        else if (node.category === "concept") iconSymbol = "✦";
+        else if (node.category === "rule") iconSymbol = "⚖";
+        else if (isVerdict) iconSymbol = "👑";
+
+        const badgeText = node.badge ? escapeXml(node.badge) : "";
+        const badgeW = Math.max(50, badgeText.length * 6.5 + 12);
+        const badgeX = node.x + node.w - badgeW - 8;
+
+        nodesHtml += `
+          <g class="evidence-node ${nodeClass}" 
+             data-id="${escapeXml(node.id)}" 
+             data-layer="${node.layer}" 
+             data-modality="${escapeXml(mod)}" 
+             data-category="${escapeXml(node.category)}">
+            <!-- Thẻ nền chính -->
+            <rect class="node-card" x="${node.x}" y="${node.y}" width="${node.w}" height="${node.h}" />
+            
+            <!-- Dải màu chỉ thị phương thức bên trái -->
+            <rect class="node-pill" x="${node.x + 3}" y="${node.y + 6}" width="3.5" height="${node.h - 12}" rx="2" fill="${pillColor}" />
+            
+            <!-- Biểu tượng ký hiệu -->
+            <text x="${node.x + 14}" y="${node.y + 20}" font-size="11" fill="${pillColor}">${iconSymbol}</text>
+            
+            <!-- Tiêu đề Node -->
+            <text class="node-title-text" x="${node.x + 28}" y="${node.y + 19}">
+              ${escapeXml(truncateStr(node.name, 19))}
+            </text>
+            
+            <!-- Huy hiệu Badge (Định lượng/Trạng thái) -->
+            ${badgeText ? `
+              <rect class="node-badge-rect" x="${badgeX}" y="${node.y + 6}" width="${badgeW}" height="16" fill="rgba(240, 238, 233, 0.9)" stroke="var(--border-hairline)" />
+              <text class="node-badge-text" x="${badgeX + badgeW / 2}" y="${node.y + 18}" fill="${pillColor}">
+                ${badgeText}
+              </text>
+            ` : ""}
+            
+            <!-- Dòng giá trị trích xuất thực tế / Nhãn định tính -->
+            <text class="node-sub-text" x="${node.x + 14}" y="${node.y + (node.h > 56 ? 43 : 38)}">
+              ${escapeXml(truncateStr(node.value || "", 26))}
+            </text>
+          </g>
+        `;
+      });
+      mapNodesLayer.innerHTML = nodesHtml;
+
+      // Gắn sự kiện click vào từng Node
+      const nodeElements = mapNodesLayer.querySelectorAll(".evidence-node");
+      nodeElements.forEach(el => {
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const nodeId = el.getAttribute("data-id");
+          selectEvidenceNode(nodeId);
+        });
+      });
+    }
+
+    // 5. Căn chỉnh vị trí đồ thị (Fit to View)
+    fitEvidenceMapView(false);
+
+    // 6. Áp dụng bộ lọc ẩn/hiện nhánh đang hoạt động
+    applyBranchFiltersToDOM();
+  }
+
+  function fitEvidenceMapView(animated) {
+    if (!mapSvg || !currentEvidenceMapData) return;
+    const svgRect = mapSvg.getBoundingClientRect();
+    const svgW = svgRect.width || 850;
+    const svgH = svgRect.height || 540;
+
+    const graphW = 1270; // 1015 + 215 + 40
+    const graphH = 500;
+
+    const scaleX = (svgW - 40) / graphW;
+    const scaleY = (svgH - 40) / graphH;
+    const targetZoom = Math.min(1.05, Math.max(0.45, Math.min(scaleX, scaleY)));
+
+    const targetPanX = Math.round((svgW - graphW * targetZoom) / 2);
+    const targetPanY = Math.round((svgH - graphH * targetZoom) / 2);
+
+    if (animated && window.gsap) {
+      gsap.to(evidenceMapState, {
+        zoom: targetZoom,
+        panX: targetPanX,
+        panY: targetPanY,
+        duration: 0.5,
+        ease: "power2.out",
+        onUpdate: applyEvidenceMapTransform
+      });
+    } else {
+      evidenceMapState.zoom = targetZoom;
+      evidenceMapState.panX = targetPanX;
+      evidenceMapState.panY = targetPanY;
+      applyEvidenceMapTransform();
+    }
+  }
+
+  function parseTimeStringToSeconds(timeStr) {
+    if (!timeStr) return 0;
+    // Lấy phần mốc bắt đầu nếu có khoảng dải "00:10 - 00:21"
+    const startPart = timeStr.split("-")[0].trim();
+    if (startPart.includes(":")) {
+      const parts = startPart.split(":").map(p => parseFloat(p.trim()) || 0);
+      if (parts.length === 2) {
+        return parts[0] * 60 + parts[1];
+      } else if (parts.length === 3) {
+        return parts[0] * 3600 + parts[1] * 60 + parts[2];
+      }
+    }
+    const num = parseFloat(startPart.replace(/[^0-9.]/g, ""));
+    return isNaN(num) ? 0 : num;
+  }
+
+  function seekAndPlayMediaAtTime(seconds) {
+    const hasVideo = (videoPlayer && videoPlayer.src && videoContainer && videoContainer.style.display !== "none");
+    const activePl = hasVideo ? videoPlayer : audioPlayer;
+    const activeCont = hasVideo ? videoContainer : audioContainer;
+
+    if (activePl && activePl.src) {
+      if (activePl.duration && seconds > activePl.duration) {
+        seconds = Math.max(0, activePl.duration - 0.5);
+      }
+      activePl.currentTime = Math.max(0, seconds);
+      const playPromise = activePl.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.warn("Auto play prevented:", err);
+        });
+      }
+
+      // Tự động cuộn trang mượt mà lên khung phát video/audio để người dùng xem ngay
+      if (activeCont) {
+        activeCont.scrollIntoView({ behavior: "smooth", block: "center" });
+        activeCont.style.transition = "box-shadow 0.35s ease";
+        activeCont.style.boxShadow = "0 0 0 3px var(--accent-vermilion)";
+        setTimeout(() => {
+          activeCont.style.boxShadow = "";
+        }, 1500);
+      }
+
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      const formatted = `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+      showToast(`Đang phát tại thời điểm mốc: ${formatted}`);
+    } else {
+      showToast("Chưa có phương tiện video/audio nào đang tải.");
+    }
+  }
+
+  function selectEvidenceNode(nodeId) {
+    const node = evidenceMapState.nodeMap.get(nodeId);
+    if (!node) return;
+
+    // Xử lý logic làm nổi bật / tắt nổi bật theo yêu cầu:
+    if (node.category === "rule") {
+      // 1. Nếu node được click vào là luật: làm nổi bật chuỗi của luật đó
+      highlightRuleEvidence(node.id);
+    } else if (node.category === "concept") {
+      // 2. Nếu node được click vào là khái niệm trung gian:
+      if (evidenceMapState.highlightedRuleId) {
+        const currentRule = evidenceMapState.nodeMap.get(evidenceMapState.highlightedRuleId);
+        const inputConcepts = currentRule ? (currentRule.input_concept_ids || []) : [];
+        // Nếu khái niệm này KHÔNG thuộc chuỗi suy luận đang làm nổi bật -> tắt đi để xem toàn cảnh
+        if (!inputConcepts.includes(node.id)) {
+          clearRuleHighlight();
+        }
+      }
+    } else {
+      // 3. Nếu click vào node khác ngoài chuỗi (như input hay feature) và đang có luật highlight -> tắt đi để xem toàn cảnh
+      if (evidenceMapState.highlightedRuleId) {
+        clearRuleHighlight();
+      }
+    }
+
+    evidenceMapState.selectedNodeId = nodeId;
+
+    // Cập nhật trạng thái viền nổi bật (Active Selected) trên SVG
+    if (mapNodesLayer) {
+      const allNodes = mapNodesLayer.querySelectorAll(".evidence-node");
+      allNodes.forEach(el => {
+        if (el.getAttribute("data-id") === nodeId) {
+          el.classList.add("active-selected");
+        } else {
+          el.classList.remove("active-selected");
+        }
+      });
+    }
+
+    // Hiển thị nội dung trong Inspector Panel
+    if (inspectorEmptyState) inspectorEmptyState.style.display = "none";
+    if (inspectorContent) inspectorContent.style.display = "block";
+
+    // 1. Phân loại node
+    const catLabels = {
+      input: "DỮ LIỆU ĐẦU VÀO",
+      feature: "ĐẶC TRƯNG TRÍCH XUẤT",
+      concept: "KHÁI NIỆM TRUNG GIAN (CBM)",
+      rule: "LUẬT SUY LUẬN MỜ",
+      verdict: "PHÁN QUYẾT DI SẢN CUỐI CÙNG"
+    };
+    if (inspectorNodeType) inspectorNodeType.innerText = catLabels[node.category] || "THÀNH PHẦN MINH CHỨNG";
+    if (inspectorNodeName) inspectorNodeName.innerText = node.name || nodeId;
+
+    // 2. Modality & Value Badge
+    if (inspectorModalityBadge) {
+      inspectorModalityBadge.className = `inspector-badge ${node.modality || "fused"}`;
+      if (node.modality === "audio") {
+        inspectorModalityBadge.innerHTML = '<i class="fa-solid fa-headphones"></i> Nhánh Âm thanh';
+      } else if (node.modality === "visual") {
+        inspectorModalityBadge.innerHTML = '<i class="fa-solid fa-video"></i> Nhánh Thị giác';
+      } else {
+        inspectorModalityBadge.innerHTML = '<i class="fa-solid fa-scale-balanced"></i> Hợp nhất Suy luận';
+      }
+    }
+    if (inspectorValBadge) {
+      inspectorValBadge.innerText = node.badge || (node.raw_score !== undefined ? `Điểm: ${node.raw_score}` : "");
+    }
+
+    // 3. Giá trị thực tế / Mệnh đề luật mờ (Hỗ trợ Thu gọn / Mở rộng toàn bộ)
+    if (inspectorRealValueLabel) {
+      inspectorRealValueLabel.innerText = node.category === "rule" ? "Mệnh đề logic mờ:" : "Giá trị thực tế:";
+    }
+
+    if (inspectorRealValue) {
+      if (node.category === "rule") {
+        inspectorRealValue.classList.remove("highlight");
+        const rawClauses = node.clauses && node.clauses.length ? node.clauses : (node.rule_text ? node.rule_text.split(" AND ") : []);
+        const consequent = node.consequent || "Di sản";
+
+        let clausesHtml = "";
+        rawClauses.forEach((cl, i) => {
+          const prefix = i === 0 ? "IF" : "AND";
+          clausesHtml += `<div class="rule-clause-line"><span class="rule-clause-kw">${prefix}</span> <span class="rule-clause-cond">${escapeXml(cl)}</span></div>`;
+        });
+        clausesHtml += `<div class="rule-clause-line rule-then"><span class="rule-clause-kw">THEN</span> <span class="rule-clause-target">${escapeXml(consequent)}</span></div>`;
+
+        const needsToggle = rawClauses.length > 2;
+        inspectorRealValue.innerHTML = `
+          <div class="rule-syntax-box ${needsToggle ? 'collapsed' : ''}" id="rule-syntax-box">
+            <div class="rule-syntax-inner">
+              ${clausesHtml}
+            </div>
+          </div>
+          ${needsToggle ? `
+          <button type="button" class="btn-toggle-rule-expand" id="btn-toggle-rule-expand">
+            <i class="fa-solid fa-chevron-down"></i> Xem toàn bộ luật (${rawClauses.length} mệnh đề)
+          </button>
+          ` : ''}
+        `;
+
+        if (needsToggle) {
+          const toggleBtn = inspectorRealValue.querySelector("#btn-toggle-rule-expand");
+          const syntaxBox = inspectorRealValue.querySelector("#rule-syntax-box");
+          if (toggleBtn && syntaxBox) {
+            toggleBtn.addEventListener("click", () => {
+              const isCollapsed = syntaxBox.classList.contains("collapsed");
+              if (isCollapsed) {
+                syntaxBox.classList.remove("collapsed");
+                syntaxBox.classList.add("expanded");
+                toggleBtn.innerHTML = '<i class="fa-solid fa-chevron-up"></i> Thu gọn';
+              } else {
+                syntaxBox.classList.remove("expanded");
+                syntaxBox.classList.add("collapsed");
+                toggleBtn.innerHTML = `<i class="fa-solid fa-chevron-down"></i> Xem toàn bộ luật (${rawClauses.length} mệnh đề)`;
+              }
+            });
+          }
+        }
+      } else {
+        inspectorRealValue.classList.add("highlight");
+        inspectorRealValue.innerText = node.value || (node.raw_score !== undefined ? String(node.raw_score) : "Đạt ngưỡng nhận diện");
+      }
+    }
+
+    // 4. Mốc thời gian liên quan (Cho phép nhấp để nhảy video & cuộn trang)
+    if (inspectorTimeField && inspectorTimestamps) {
+      if (node.timestamps && node.timestamps.length > 0) {
+        inspectorTimeField.style.display = "block";
+        inspectorTimestamps.innerHTML = node.timestamps
+          .map(t => `
+            <button type="button" class="inspector-chip inspector-time-chip" data-time-str="${escapeXml(t)}" title="Bấm để phát tại mốc ${escapeXml(t)} và cuộn lên xem video">
+              <i class="fa-solid fa-play" style="font-size: 8.5px; color: var(--accent-vermilion); margin-right: 4px;"></i>${escapeXml(t)}
+            </button>
+          `)
+          .join("");
+
+        // Gắn sự kiện click vào các chip thời gian để nhảy video và cuộn trang
+        const timeChips = inspectorTimestamps.querySelectorAll(".inspector-time-chip");
+        timeChips.forEach(chip => {
+          chip.addEventListener("click", () => {
+            const timeStr = chip.getAttribute("data-time-str");
+            const targetSec = parseTimeStringToSeconds(timeStr);
+            seekAndPlayMediaAtTime(targetSec);
+          });
+        });
+      } else {
+        inspectorTimeField.style.display = "block";
+        inspectorTimestamps.innerHTML = '<span class="inspector-chip"><i class="fa-solid fa-wave-square"></i> Toàn bài biểu diễn</span>';
+      }
+    }
+
+    // 5. Diễn giải & Ý nghĩa
+    if (inspectorDesc) {
+      inspectorDesc.innerText = node.description || "Thành phần tham gia vào mạng lưới suy luận mờ đa phương thức.";
+    }
+
+    // 6. Nguồn kiểm chứng
+    if (inspectorSource) {
+      inspectorSource.innerText = node.source_evidence || "UNESCO / Viện Âm nhạc Việt Nam";
+    }
+
+    // 7. Liên kết suy luận quan hệ (Relations Chips)
+    if (inspectorRelationsField && inspectorRelationsList && inspectorRelationsLabel) {
+      if (node.category === "rule") {
+        inspectorRelationsField.style.display = "block";
+        inspectorRelationsLabel.innerText = "Các khái niệm tiền đề (IF):";
+        const cIds = node.input_concept_ids || [];
+        if (cIds.length > 0) {
+          inspectorRelationsList.innerHTML = cIds.map(cid => {
+            const cNode = evidenceMapState.nodeMap.get(cid);
+            const cName = cNode ? cNode.name : cid;
+            return `<button type="button" class="inspector-chip" data-node-link="${escapeXml(cid)}"><i class="fa-solid fa-sparkles"></i> ${escapeXml(cName)}</button>`;
+          }).join("");
+        } else {
+          inspectorRelationsList.innerHTML = "<span style='font-size:11px; color:var(--text-tertiary); font-style:italic;'>Không có khái niệm phụ thuộc trực tiếp.</span>";
+        }
+      } else if (node.category === "concept") {
+        inspectorRelationsField.style.display = "block";
+        inspectorRelationsLabel.innerText = "Các luật sử dụng khái niệm này:";
+        const rIds = node.used_in_rules || [];
+        if (rIds.length > 0) {
+          inspectorRelationsList.innerHTML = rIds.map(rid => {
+            const rNode = evidenceMapState.nodeMap.get(rid);
+            const rName = rNode ? rNode.name : rid;
+            return `<button type="button" class="inspector-chip" data-node-link="${escapeXml(rid)}"><i class="fa-solid fa-scale-balanced"></i> ${escapeXml(rName)}</button>`;
+          }).join("");
+        } else {
+          inspectorRelationsList.innerHTML = "<span style='font-size:11px; color:var(--text-tertiary); font-style:italic;'>Chưa có luật kích hoạt trực tiếp từ khái niệm này.</span>";
+        }
+      } else {
+        inspectorRelationsField.style.display = "none";
+      }
+
+      // Gắn sự kiện click chip liên kết để nhảy sang node tương ứng
+      const chips = inspectorRelationsList.querySelectorAll("[data-node-link]");
+      chips.forEach(chip => {
+        chip.addEventListener("click", () => {
+          const targetId = chip.getAttribute("data-node-link");
+          selectEvidenceNode(targetId);
+          if (targetId.startsWith("node_rule_")) {
+            highlightRuleEvidence(targetId);
+          }
+        });
+      });
+    }
+
+    // Nếu người dùng chọn trực tiếp một Luật suy luận, tự động làm nổi bật chuỗi bằng chứng của luật đó (Requirement 5)
+    if (node.category === "rule") {
+      highlightRuleEvidence(node.id);
+    }
+  }
+
+  function highlightRuleEvidence(ruleId) {
+    if (!currentEvidenceMapData) return;
+    const ruleNode = evidenceMapState.nodeMap.get(ruleId);
+    if (!ruleNode) return;
+
+    evidenceMapState.highlightedRuleId = ruleId;
+    const inputConcepts = new Set(ruleNode.input_concept_ids || []);
+    const highlightedNodeIds = new Set([ruleId, ...inputConcepts, "node_verdict"]);
+
+    // Cập nhật class trên Nodes
+    if (mapNodesLayer) {
+      const allNodes = mapNodesLayer.querySelectorAll(".evidence-node");
+      allNodes.forEach(el => {
+        const nid = el.getAttribute("data-id");
+        if (highlightedNodeIds.has(nid)) {
+          el.classList.add("active-highlight");
+          el.classList.remove("dimmed");
+        } else {
+          el.classList.remove("active-highlight");
+          el.classList.add("dimmed");
+        }
+      });
+    }
+
+    // Cập nhật class trên Edges
+    if (mapEdgesLayer) {
+      const allEdges = mapEdgesLayer.querySelectorAll(".evidence-edge");
+      allEdges.forEach(el => {
+        const src = el.getAttribute("data-source");
+        const tgt = el.getAttribute("data-target");
+
+        const isInputToRule = inputConcepts.has(src) && tgt === ruleId;
+        const isRuleToVerdict = src === ruleId && tgt === "node_verdict";
+
+        if (isInputToRule || isRuleToVerdict) {
+          el.classList.add("active-highlight-edge");
+          el.classList.remove("dimmed");
+          el.setAttribute("marker-end", "url(#map-arrow-highlight)");
+        } else {
+          el.classList.remove("active-highlight-edge");
+          el.classList.add("dimmed");
+          const mod = el.getAttribute("data-modality") || "fused";
+          el.setAttribute("marker-end", tgt === "node_verdict" ? "url(#map-arrow-verdict)" : `url(#map-arrow-${mod})`);
+        }
+      });
+    }
+
+    // Không hiển thị banner trạng thái "Đang làm nổi bật chuỗi suy luận" theo yêu cầu người dùng
+    if (mapOverlayBanner) {
+      mapOverlayBanner.style.display = "none";
+    }
+  }
+
+  function clearRuleHighlight() {
+    evidenceMapState.highlightedRuleId = null;
+
+    if (mapNodesLayer) {
+      const allNodes = mapNodesLayer.querySelectorAll(".evidence-node");
+      allNodes.forEach(el => {
+        el.classList.remove("active-highlight");
+        el.classList.remove("dimmed");
+      });
+    }
+
+    if (mapEdgesLayer) {
+      const allEdges = mapEdgesLayer.querySelectorAll(".evidence-edge");
+      allEdges.forEach(el => {
+        el.classList.remove("active-highlight-edge");
+        el.classList.remove("dimmed");
+        const mod = el.getAttribute("data-modality") || "fused";
+        const tgt = el.getAttribute("data-target");
+        el.setAttribute("marker-end", tgt === "node_verdict" ? "url(#map-arrow-verdict)" : `url(#map-arrow-${mod})`);
+      });
+    }
+
+    if (mapOverlayBanner) {
+      mapOverlayBanner.style.display = "none";
+    }
+  }
+
+  function toggleBranchFilter(branchName) {
+    if (!branchName) return;
+    const currentState = evidenceMapState.activeBranch[branchName];
+    evidenceMapState.activeBranch[branchName] = !currentState;
+
+    const btnMap = {
+      audio: btnToggleAudio,
+      visual: btnToggleVisual,
+      reasoning: btnToggleReasoning
+    };
+    const targetBtn = btnMap[branchName];
+    if (targetBtn) {
+      targetBtn.classList.toggle("active", evidenceMapState.activeBranch[branchName]);
+    }
+
+    applyBranchFiltersToDOM();
+  }
+
+  function applyBranchFiltersToDOM() {
+    const hiddenNodeIds = new Set();
+
+    if (mapNodesLayer) {
+      const allNodes = mapNodesLayer.querySelectorAll(".evidence-node");
+      allNodes.forEach(el => {
+        const mod = el.getAttribute("data-modality");
+        const nid = el.getAttribute("data-id");
+        let isVisible = true;
+
+        if (mod === "audio" && !evidenceMapState.activeBranch.audio) isVisible = false;
+        else if (mod === "visual" && !evidenceMapState.activeBranch.visual) isVisible = false;
+        else if (mod === "fused" && !evidenceMapState.activeBranch.reasoning) isVisible = false;
+
+        el.classList.toggle("branch-hidden", !isVisible);
+        if (!isVisible) hiddenNodeIds.add(nid);
+      });
+    }
+
+    if (mapEdgesLayer) {
+      const allEdges = mapEdgesLayer.querySelectorAll(".evidence-edge");
+      allEdges.forEach(el => {
+        const src = el.getAttribute("data-source");
+        const tgt = el.getAttribute("data-target");
+        const isHidden = hiddenNodeIds.has(src) || hiddenNodeIds.has(tgt);
+        el.classList.toggle("branch-hidden", isHidden);
+      });
+    }
+  }
+
+  function initEvidenceMap() {
+    // 1. Phóng to / Thu nhỏ / Đặt lại vị trí
+    if (btnZoomIn) {
+      btnZoomIn.addEventListener("click", () => {
+        evidenceMapState.zoom = Math.min(2.5, evidenceMapState.zoom * 1.25);
+        applyEvidenceMapTransform();
+      });
+    }
+    if (btnZoomOut) {
+      btnZoomOut.addEventListener("click", () => {
+        evidenceMapState.zoom = Math.max(0.35, evidenceMapState.zoom * 0.8);
+        applyEvidenceMapTransform();
+      });
+    }
+    if (btnZoomReset) {
+      btnZoomReset.addEventListener("click", () => {
+        fitEvidenceMapView(true);
+      });
+    }
+
+    // 2. Bộ lọc ẩn/hiện nhánh (Requirement 6)
+    if (btnToggleAudio) {
+      btnToggleAudio.addEventListener("click", () => toggleBranchFilter("audio"));
+    }
+    if (btnToggleVisual) {
+      btnToggleVisual.addEventListener("click", () => toggleBranchFilter("visual"));
+    }
+    if (btnToggleReasoning) {
+      btnToggleReasoning.addEventListener("click", () => toggleBranchFilter("reasoning"));
+    }
+
+    // 3. Kéo chuột để di chuyển (Pan) & Cuộn chuột để Phóng to (Zoom)
+    if (mapSvg) {
+      mapSvg.addEventListener("mousedown", (e) => {
+        if (e.target.closest(".evidence-node") || e.target.closest("button")) return;
+        evidenceMapState.isDragging = true;
+        evidenceMapState.dragStartX = e.clientX - evidenceMapState.panX;
+        evidenceMapState.dragStartY = e.clientY - evidenceMapState.panY;
+        mapSvg.style.cursor = "grabbing";
+      });
+
+      window.addEventListener("mousemove", (e) => {
+        if (!evidenceMapState.isDragging) return;
+        evidenceMapState.panX = Math.round(e.clientX - evidenceMapState.dragStartX);
+        evidenceMapState.panY = Math.round(e.clientY - evidenceMapState.dragStartY);
+        applyEvidenceMapTransform();
+      });
+
+      window.addEventListener("mouseup", () => {
+        if (evidenceMapState.isDragging) {
+          evidenceMapState.isDragging = false;
+          if (mapSvg) mapSvg.style.cursor = "grab";
+        }
+      });
+
+      mapSvg.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        const factor = e.deltaY < 0 ? 1.12 : 0.89;
+        const prevZoom = evidenceMapState.zoom;
+        const nextZoom = Math.min(2.5, Math.max(0.35, prevZoom * factor));
+
+        const rect = mapSvg.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        evidenceMapState.panX = Math.round(mouseX - (mouseX - evidenceMapState.panX) * (nextZoom / prevZoom));
+        evidenceMapState.panY = Math.round(mouseY - (mouseY - evidenceMapState.panY) * (nextZoom / prevZoom));
+        evidenceMapState.zoom = nextZoom;
+        applyEvidenceMapTransform();
+      }, { passive: false });
+
+      // Nhấn vào khoảng trống SVG để bỏ chọn làm nổi bật
+      mapSvg.addEventListener("click", (e) => {
+        if (!e.target.closest(".evidence-node") && !e.target.closest(".map-branch-btn")) {
+          if (evidenceMapState.highlightedRuleId) {
+            clearRuleHighlight();
+          }
+        }
+      });
+    }
+
+    // 4. Banner nút hủy nổi bật
+    if (btnClearRuleHighlight) {
+      btnClearRuleHighlight.addEventListener("click", () => {
+        clearRuleHighlight();
+      });
+    }
+
+    // 5. Nút đóng Inspector Panel
+    if (inspectorCloseBtn) {
+      inspectorCloseBtn.addEventListener("click", () => {
+        if (inspectorEmptyState) inspectorEmptyState.style.display = "block";
+        if (inspectorContent) inspectorContent.style.display = "none";
+        if (mapNodesLayer) {
+          const allNodes = mapNodesLayer.querySelectorAll(".evidence-node");
+          allNodes.forEach(el => el.classList.remove("active-selected"));
+        }
+        evidenceMapState.selectedNodeId = null;
+      });
+    }
+
+    // 6. Tự động căn chỉnh khi thay đổi kích thước cửa sổ trình duyệt
+    window.addEventListener("resize", () => {
+      if (currentEvidenceMapData && !evidenceMapState.isDragging) {
+        fitEvidenceMapView(false);
+      }
+    });
+  }
+
+  // Khởi tạo các sự kiện lắng nghe cho Evidence Map
+  initEvidenceMap();
 });

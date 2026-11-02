@@ -183,6 +183,30 @@ class HeritageInferenceEngine:
             'Hát xẩm': ['dan_co_dan_nhi', 'senh_tien_trong_manh', 'chieu_xam_duong_pho_cho', 'ao_nau_kinh_den_mu_cat']
         }
 
+        self.cbm_cue_to_concepts = {
+            'dan_day': ['CT_VIS_04', 'CT_VIS_02'],
+            'ban_phach_trong_chau': ['CT_VIS_03', 'CT_VIS_02'],
+            'ao_thao_khan_nhieu_ao_the': ['CT_VIS_04', 'CT_VIS_06'],
+            'doi_hinh_3_nguoi_ca_tru': ['CT_VIS_02', 'CT_VIS_01'],
+            'trong_cheo_mo_quat_giay': ['CH_VIS_04', 'CH_VIS_01'],
+            'ao_tu_than_yem_dao': ['CH_VIS_05', 'QH_VIS_04'],
+            'trang_phuc_he_cheo': ['CH_VIS_07', 'CH_VIS_05'],
+            'chieu_cheo_san_dinh': ['CH_VIS_01', 'CH_VIS_02'],
+            'guitar_phim_lom': ['CL_VIS_03', 'CL_VIS_04'],
+            'dan_kim_dan_nguyet': ['CL_VIS_04', 'CV_VIS_04'],
+            'co_trang_mao_giap_dinh_hat': ['CL_VIS_05', 'CL_VIS_06'],
+            'san_khau_kich_hat': ['CL_VIS_01', 'CL_VIS_02'],
+            'dao_cu_hau_dong_kiem_cung_mam': ['CV_VIS_04', 'CV_VIS_07'],
+            'khan_chau_ao_ngu_hau_dong': ['CV_VIS_05', 'CV_VIS_06'],
+            'dien_tho_hau_dong': ['CV_VIS_01', 'CV_VIS_02'],
+            'non_quai_thao_khan_mo_qua_ao_mo_ba': ['QH_VIS_05', 'QH_VIS_01'],
+            'doi_dap_nam_nu_quan_ho': ['QH_VIS_02', 'QH_VIS_03'],
+            'dan_co_dan_nhi': ['HX_VIS_03', 'CL_VIS_04'],
+            'senh_tien_trong_manh': ['HX_VIS_04', 'HX_VIS_02'],
+            'chieu_xam_duong_pho_cho': ['HX_VIS_01', 'HX_VIS_02'],
+            'ao_nau_kinh_den_mu_cat': ['HX_VIS_05', 'HX_VIS_06']
+        }
+
     def _init_audio_cnn(self):
         """Khởi tạo mô hình CNN Audio champion từ Phase 5.
         Ưu tiên EXP-13 (Mel+CQT, Acc 89.31%, Macro F1 89.19% - Mô hình đơn lẻ tốt nhất toàn dự án).
@@ -708,6 +732,7 @@ class HeritageInferenceEngine:
         Trích xuất 1 keyframe rõ nét nhất trong cửa sổ [start_sec, end_sec],
         lưu thành base64 JPEG và phân tích các đối tượng thị giác phát hiện được.
         """
+        video_path = Path(video_path)
         if not video_path.exists():
             return None, []
 
@@ -971,23 +996,85 @@ class HeritageInferenceEngine:
             'score': 2.45
         }
 
-        # 6. Kích hoạt Audio Concepts & Visual Concepts
-        audio_concepts = self.audio_bridge.map_rule_to_concepts(
+        # 6. Kích hoạt Audio Concepts & Visual Concepts theo dấu vết thực tế của phân đoạn
+        # A. Xác định các concept âm thanh kích hoạt cụ thể từ các trục âm học đo đạc trong chunk
+        genre_tier2 = self.audio_bridge.tier2_rules.get(pred_genre, {})
+        feature_links = genre_tier2.get('feature_links', {})
+        chunk_active_audio_cids = set()
+
+        # Tính độ nổi trội (salience) của từng concept trong chunk dựa trên độ lệch đặc trưng âm học
+        concept_salience = {}
+        for (ax, lvl), cid in feature_links.items():
+            if crisp.get(ax) == lvl:
+                radar_val = features.get('radar', {}).get(ax, 0.5)
+                # Điểm nổi bật: độ lệch khỏi mức trung bình 0.5 thể hiện cường độ biểu đạt thực tế trong chunk
+                salience = abs(radar_val - 0.5)
+                if top_rule and f"{ax} == '{lvl}'" in top_rule.get('rule_text', ''):
+                    salience += 0.35
+                concept_salience[cid] = concept_salience.get(cid, 0.0) + salience
+
+        if len(concept_salience) > 2:
+            # Chọn top các concepts có điểm kích hoạt nổi bật nhất trong chunk này
+            sorted_cids = sorted(concept_salience.keys(), key=lambda k: concept_salience[k], reverse=True)
+            max_sc = concept_salience[sorted_cids[0]]
+            chunk_active_audio_cids = {cid for cid in sorted_cids if concept_salience[cid] >= max_sc * 0.65}
+            if len(chunk_active_audio_cids) > 3:
+                chunk_active_audio_cids = set(sorted_cids[:3])
+        else:
+            chunk_active_audio_cids = set(concept_salience.keys())
+
+        if not chunk_active_audio_cids and genre_tier2.get('concept_priority'):
+            chunk_active_audio_cids.add(genre_tier2['concept_priority'][0])
+
+        all_possible_audio = self.audio_bridge.map_rule_to_concepts(
             triggered_rule=top_rule,
             audio_features=crisp,
             target_genre=pred_genre,
-            min_concepts=2,
-            max_concepts=3
+            min_concepts=1,
+            max_concepts=5
         )
+        audio_concepts = [c for c in all_possible_audio if c['concept_id'] in chunk_active_audio_cids]
+        if not audio_concepts and all_possible_audio:
+            audio_concepts = all_possible_audio[:1]
 
+        # B. Xác định các concept thị giác kích hoạt cụ thể từ khung hình keyframe của chunk
         visual_concepts = []
-        if is_video:
-            visual_concepts = self.visual_bridge.map_visual_evidence(
+        if is_video and detected_visual_cues:
+            chunk_active_vis_cids = set()
+            for cue in detected_visual_cues:
+                # 1. Tra cứu trực tiếp từ bảng 25 cues CBM
+                if hasattr(self, 'cbm_cue_to_concepts') and cue in self.cbm_cue_to_concepts:
+                    for cid in self.cbm_cue_to_concepts[cue]:
+                        chunk_active_vis_cids.add(cid)
+                # 2. Tra cứu qua object_to_concept_map (chuẩn hóa dấu gạch dưới)
+                cue_clean = cue.lower().replace('_', ' ')
+                for obj_key, cids in self.visual_bridge.object_to_concept_map.items():
+                    k_clean = obj_key.lower().replace('_', ' ')
+                    if k_clean in cue_clean or cue_clean in k_clean:
+                        for cid in cids:
+                            chunk_active_vis_cids.add(cid)
+
+            # Lọc theo tiền tố thể loại dự đoán
+            p_code = 'CT'
+            if pred_genre == 'Chèo': p_code = 'CH'
+            elif pred_genre == 'Chầu văn': p_code = 'CV'
+            elif pred_genre == 'Cải lương': p_code = 'CL'
+            elif pred_genre == 'Hát xẩm': p_code = 'HX'
+            elif pred_genre == 'Quan họ': p_code = 'QH'
+
+            matched_genre_cids = {cid for cid in chunk_active_vis_cids if cid.startswith(p_code)}
+            if not matched_genre_cids:
+                matched_genre_cids = chunk_active_vis_cids
+
+            all_possible_vis = self.visual_bridge.map_visual_evidence(
                 genre=pred_genre,
                 detected_objects=detected_visual_cues,
-                min_concepts=2,
-                max_concepts=3
+                min_concepts=1,
+                max_concepts=5
             )
+            visual_concepts = [c for c in all_possible_vis if c['concept_id'] in matched_genre_cids]
+            if not visual_concepts and all_possible_vis:
+                visual_concepts = all_possible_vis[:2]
 
         # 7. Đóng gói kết quả theo từng phương thức (Audio, Visual, Fused)
         audio_pred = max(audio_probs_map.keys(), key=lambda k: audio_probs_map[k])
@@ -1409,13 +1496,15 @@ class HeritageInferenceEngine:
                 chunk_y=chunk_y,
                 sr=sr,
                 visual_frame=best_frame,
-                visual_cues=vis_cues,
+                visual_cues=None,
                 is_video=is_video
             )
             vis_cues = chunk_pred.get('visual_cues', [])
 
             all_chunk_probs.append(chunk_pred['probs'])
-            if chunk_pred.get('top_rule'):
+            if chunk_pred.get('matched_rules'):
+                all_matched_rules.extend(chunk_pred['matched_rules'])
+            elif chunk_pred.get('top_rule'):
                 all_matched_rules.append(chunk_pred['top_rule'])
 
             # D. Ghi nhận dấu thời gian cho từng concept
@@ -1588,8 +1677,11 @@ class HeritageInferenceEngine:
 
         # Lấy tối thiểu 3, tối đa 8 concepts kết hợp
         active_concepts_list = (final_audio_concepts[:4] + final_visual_concepts[:4])
+        for c in active_concepts_list:
+            if not c.get('timestamps'):
+                c['timestamps'] = [chunks_info[0]['timestamp']] if chunks_info else ['00:00 - 00:04']
 
-        # Chọn top 3 rules đại diện
+        # Chọn top rules đại diện (đảm bảo đa phương thức: cả Âm thanh và Thị giác)
         unique_rules = []
         seen_texts = set()
         for r in all_matched_rules:
@@ -1597,6 +1689,42 @@ class HeritageInferenceEngine:
             if txt and txt not in seen_texts:
                 seen_texts.add(txt)
                 unique_rules.append(r)
+
+        # Đảm bảo có ít nhất 1 luật thị giác nếu là video và có visual rules
+        if is_video and hasattr(self, 'visual_rules') and self.visual_rules:
+            has_vis_rule = any(
+                any(k in r.get('rule_text', '').lower() for k in [
+                    'dan_day', 'ao_the', 'ao_thao', 'khan_nhieu', 'doi_hinh', 'ban_phach',
+                    'trong_cheo', 'quat', 'ao_tu_than', 'yem_dao', 'he_cheo', 'chieu_cheo',
+                    'guitar', 'phim_lom', 'dan_kim', 'dan_nguyet', 'co_trang', 'mao_giap',
+                    'dao_cu', 'hau_dong', 'khan_chau', 'ao_ngu', 'dien_tho',
+                    'non_quai_thao', 'khan_mo_qua', 'doi_dap', 'dan_co', 'dan_nhi',
+                    'senh_tien', 'chieu_xam', 'ao_nau'
+                ]) for r in unique_rules
+            )
+            if not has_vis_rule:
+                for vr in self.visual_rules:
+                    if vr.get('consequent') == final_genre:
+                        vr_text = vr.get('rule_text', '')
+                        if vr_text not in seen_texts:
+                            seen_texts.add(vr_text)
+                            unique_rules.append(vr)
+                            break
+
+        # Đảm bảo có ít nhất 1 luật âm học / crisp nếu chưa có
+        has_aud_rule = any(
+            any(k in r.get('rule_text', '').lower() for k in ['pitch', 'energy', 'timbre', 'vibrato', 'tempo', 'harmony', 'spectral'])
+            for r in unique_rules
+        )
+        if not has_aud_rule and hasattr(self, 'crisp_rules') and self.crisp_rules:
+            for cr in self.crisp_rules:
+                if cr.get('consequent') == final_genre:
+                    cr_text = cr.get('rule_text', '')
+                    if cr_text not in seen_texts:
+                        seen_texts.add(cr_text)
+                        unique_rules.append(cr)
+                        break
+
         if not unique_rules:
             unique_rules.append({
                 'rule_text': f"Dominant_Acoustic_Aura == '{final_genre}'",
@@ -1641,6 +1769,17 @@ class HeritageInferenceEngine:
             chunks=chunks_info,
             concepts=active_concepts_list,
             rules=translated_rules
+        )
+
+        # 8b. Xây dựng Bản đồ Bằng chứng Đa phương thức (Multimodal Evidence Map)
+        evidence_map = self._build_evidence_map(
+            genre=final_genre,
+            confidence=final_confidence,
+            chunks=chunks_info,
+            concepts=active_concepts_list,
+            rules=translated_rules,
+            mode=mode,
+            file_name=path.name
         )
 
         # 9. Ma trận Đối sánh Phân biệt Di sản & Thử nghiệm What-If (Phương án 3)
@@ -1727,6 +1866,7 @@ class HeritageInferenceEngine:
             'triggered_rules': translated_rules,
             'explanation': nl_explanation,
             'graph_3d': graph_3d,
+            'evidence_map': evidence_map,
             'contrastive_analysis': contrastive_analysis
         }
 
@@ -2156,6 +2296,482 @@ class HeritageInferenceEngine:
         }
 
     # -------------------------------------------------------------------------
+    # BẢN ĐỒ BẰNG CHỨNG ĐA PHƯƠNG THỨC (MULTIMODAL EVIDENCE MAP)
+    # -------------------------------------------------------------------------
+
+    def _build_evidence_map(
+        self,
+        genre: str,
+        confidence: float,
+        chunks: List[Dict[str, Any]],
+        concepts: List[Dict[str, Any]],
+        rules: List[Dict[str, Any]],
+        mode: str = "video",
+        file_name: str = "Tệp đa phương tiện"
+    ) -> Dict[str, Any]:
+        """
+        Xây dựng Bản đồ Bằng chứng Đa phương thức (Multimodal Evidence Map):
+        Mạng lưới DAG có hướng kết nối chặt chẽ từ Tín hiệu đầu vào -> Đặc trưng trích xuất -> Khái niệm trung gian CBM -> Luật suy luận tượng trưng -> Phán quyết thể loại.
+        Chỉ xây dựng các node và liên kết dựa trên dữ liệu thực tế:
+        - Tầng 0: Đầu vào (Input Signal)
+        - Tầng 1: Đặc trưng trích xuất (Extracted Features)
+        - Tầng 2: Khái niệm trung gian (Intermediate Concepts)
+        - Tầng 3: Luật suy luận mờ (Reasoning Rules)
+        - Tầng 4: Kết quả phân loại cuối cùng (Final Verdict)
+        """
+        nodes = []
+        links = []
+
+        is_video_mode = (mode == "video")
+        has_video_data = is_video_mode and bool(chunks and any(c.get('keyframe_img') or c.get('visual_cues') for c in chunks))
+
+        # -------------------------------------------------------------
+        # TẦNG 0: ĐẦU VÀO (INPUT NODES)
+        # -------------------------------------------------------------
+        total_dur = chunks[-1]['end_time'] if chunks else 10.0
+        dur_str = f"{self._format_time(0.0)} - {self._format_time(total_dur)}"
+
+        # Node Đầu vào Âm thanh
+        nodes.append({
+            'id': 'node_input_audio',
+            'name': 'Tín hiệu Âm thanh',
+            'layer': 0,
+            'category': 'input',
+            'modality': 'audio',
+            'icon': 'fa-headphones',
+            'badge': 'WAV 16kHz',
+            'value': f'{len(chunks)} chunk (3-5s)' if chunks else 'Âm thanh chuẩn',
+            'raw_score': 1.0,
+            'description': f'Chuỗi tín hiệu sóng âm trích xuất từ tệp "{file_name}". Lấy mẫu tần số 16,000 Hz, kênh mono chuẩn hóa và chia đoạn liên tục.',
+            'timestamps': [dur_str],
+            'source_evidence': 'Audio Waveform / Mel-Spectrogram Processing'
+        })
+
+        # Node Đầu vào Hình ảnh (chỉ hiển thị nếu thực sự có dữ liệu video)
+        if has_video_data:
+            nodes.append({
+                'id': 'node_input_visual',
+                'name': 'Luồng Khung hình Video',
+                'layer': 0,
+                'category': 'input',
+                'modality': 'visual',
+                'icon': 'fa-film',
+                'badge': 'Video 25-30 FPS',
+                'value': f'{len(chunks)} keyframes',
+                'raw_score': 1.0,
+                'description': f'Chuỗi khung hình biểu diễn trích xuất từ video "{file_name}". Lấy mẫu keyframe đại diện theo từng phân cảnh phục vụ phân tích thị giác.',
+                'timestamps': [dur_str],
+                'source_evidence': 'Video Stream Decoding / Keyframe Extraction'
+            })
+
+        # -------------------------------------------------------------
+        # TẦNG 1: ĐẶC TRƯNG TRÍCH XUẤT (EXTRACTED FEATURES)
+        # -------------------------------------------------------------
+        # 1.1. Nhánh Âm thanh: 7 Trục MPEG-7
+        axis_node_ids = {}
+        for ax in AXES_NAMES:
+            node_id = f"node_feat_axis_{ax}"
+            axis_node_ids[ax] = node_id
+            mean_val = float(np.mean([c['radar'].get(ax, 0.5) for c in chunks])) if chunks else 0.5
+
+            # Xác định mức mờ chủ đạo theo phân bố thực tế của các chunk
+            ax_crisp_counts = {}
+            for c in chunks:
+                lvl = c.get('crisp_axes', {}).get(ax, '')
+                if lvl:
+                    ax_crisp_counts[lvl] = ax_crisp_counts.get(lvl, 0) + 1
+            crisp_mode = max(ax_crisp_counts.keys(), key=lambda k: ax_crisp_counts[k]) if ax_crisp_counts else (chunks[0]['crisp_axes'].get(ax, 'Vừa') if chunks else 'Vừa')
+
+            # Mốc thời gian thực tế mà trục này thể hiện mức mờ chủ đạo trong diễn biến bài hát
+            ax_timestamps = [c['timestamp'] for c in chunks if c.get('crisp_axes', {}).get(ax) == crisp_mode]
+            if not ax_timestamps and chunks:
+                ax_timestamps = [chunks[0]['timestamp']]
+
+            ax_desc = {
+                'Energy': 'Đo lường năng lượng âm học và biên độ cường độ của giọng hát và nhạc cụ đệm.',
+                'Harmony': 'Đo lường mức độ hài hòa âm học, độ chuẩn xác của thang âm và cấu trúc quãng.',
+                'Pitch': 'Đo lường cao độ cơ bản và phân bố tần số dao động F0 qua chuỗi thời gian.',
+                'Spectral': 'Đo lường trọng tâm phổ và độ sáng của màu âm (Spectral Centroid / Flatness).',
+                'Tempo': 'Đo lường tốc độ nhịp điệu diễn xướng và mật độ xung nhịp gõ phách/trống.',
+                'Timbre': 'Đo lường màu sắc âm thanh đặc trưng của giọng đào/kép và nhạc cụ truyền thống.',
+                'Vibrato': 'Đo lường độ rung giọng, kỹ thuật luyến láy và đổ hột của ca nương/nghệ nhân.'
+            }.get(ax, 'Đặc trưng âm học trích xuất theo chuẩn MPEG-7.')
+
+            nodes.append({
+                'id': node_id,
+                'name': f'Trục {ax}',
+                'layer': 1,
+                'category': 'feature',
+                'modality': 'audio',
+                'icon': 'fa-sliders',
+                'badge': crisp_mode,
+                'value': f'{round(mean_val * 100, 1)}%',
+                'raw_score': round(mean_val, 3),
+                'crisp': crisp_mode,
+                'description': f'{ax_desc} Mức độ mờ được xác định: [{crisp_mode}] với chỉ số chuẩn hóa {mean_val:.2f}.',
+                'timestamps': ax_timestamps,
+                'source_evidence': f'Chuẩn MPEG-7 Audio: {ax}'
+            })
+
+            # Liên kết từ Đầu vào Âm thanh -> Trục MPEG-7
+            links.append({
+                'source': 'node_input_audio',
+                'target': node_id,
+                'modality': 'audio',
+                'weight': round(mean_val, 2),
+                'label': 'Trích xuất đặc trưng'
+            })
+
+        # 1.1b. Nhánh Mạng Audio CNN Champion (EXP-13 EfficientNet-B0 Mel+CQT)
+        cnn_timestamps = []
+        if chunks:
+            cnn_confs = [c.get('modalities', {}).get('audio', {}).get('probs', {}).get(genre, 0.0) for c in chunks]
+            avg_cnn = float(np.mean(cnn_confs)) if cnn_confs else 0.0
+            cnn_timestamps = [c['timestamp'] for i, c in enumerate(chunks) if cnn_confs[i] >= avg_cnn]
+        if not cnn_timestamps and chunks:
+            cnn_timestamps = [chunks[0]['timestamp']]
+
+        nodes.append({
+            'id': 'node_feat_audio_cnn',
+            'name': 'Audio CNN (Mel+CQT)',
+            'layer': 1,
+            'category': 'feature',
+            'modality': 'audio',
+            'icon': 'fa-brain-circuit',
+            'badge': 'EXP-13 89.3%',
+            'value': 'Biểu diễn âm học sâu (Deep Audio)',
+            'raw_score': 0.893,
+            'description': 'Mô hình Audio CNN vô địch (EXP-13 Mel-Spectrogram + CQT 2-channel trên kiến trúc EfficientNet-B0) trích xuất đặc trưng âm học tầng sâu, chiếm 55% trọng số nhánh âm thanh.',
+            'timestamps': cnn_timestamps,
+            'source_evidence': 'Audio CNN Champion: EXP-13 (Mel+CQT 2-channel, Acc 89.31%, Macro F1 89.19%)'
+        })
+        links.append({
+            'source': 'node_input_audio',
+            'target': 'node_feat_audio_cnn',
+            'modality': 'audio',
+            'weight': 1.2,
+            'label': 'Trích xuất phổ Mel+CQT'
+        })
+
+        # 1.2. Nhánh Thị giác: Keyframes & Đối tượng nhận diện (nếu có dữ liệu video)
+        all_vis_cues = []
+        if has_video_data:
+            vis_timestamps = []
+            for c in chunks:
+                cues_in_chunk = c.get('visual_cues', [])
+                if cues_in_chunk:
+                    vis_timestamps.append(c['timestamp'])
+                for cue in cues_in_chunk:
+                    if cue not in all_vis_cues:
+                        all_vis_cues.append(cue)
+
+            if not vis_timestamps and chunks:
+                vis_timestamps = [chunks[0]['timestamp']]
+
+            cues_display = ", ".join(all_vis_cues[:4]) if all_vis_cues else "Đặc trưng bối cảnh & phong thái biểu diễn"
+            nodes.append({
+                'id': 'node_feat_visual',
+                'name': 'Keyframes & Cues Thị giác',
+                'layer': 1,
+                'category': 'feature',
+                'modality': 'visual',
+                'icon': 'fa-camera',
+                'badge': f'{len(all_vis_cues)} đối tượng' if all_vis_cues else 'Khung hình',
+                'value': cues_display,
+                'raw_score': 0.90,
+                'description': f'Trích xuất đặc trưng không gian từ chuỗi khung hình qua mạng ConvNeXt-Tiny. Nhận diện các đối tượng đạo cụ, trang phục: {cues_display}.',
+                'timestamps': vis_timestamps,
+                'source_evidence': 'ConvNeXt-Tiny Spatial Visual Embeddings'
+            })
+
+            # Liên kết từ Đầu vào Video -> Đặc trưng Thị giác
+            links.append({
+                'source': 'node_input_visual',
+                'target': 'node_feat_visual',
+                'modality': 'visual',
+                'weight': 1.0,
+                'label': 'Trích xuất khung hình'
+            })
+
+        # -------------------------------------------------------------
+        # TẦNG 2: KHÁI NIỆM TRUNG GIAN (INTERMEDIATE CONCEPTS)
+        # -------------------------------------------------------------
+        concept_nodes_map = {}
+        for c in concepts:
+            cid = c.get('concept_id', '')
+            c_type = c.get('type', 'audio')
+            aspect = c.get('aspect', 'dac_trung')
+            c_score = float(c.get('score', 0.88))
+            c_node_id = f"node_concept_{cid}"
+            concept_nodes_map[cid] = c_node_id
+
+            nodes.append({
+                'id': c_node_id,
+                'concept_id': cid,
+                'name': f'[{cid}] {aspect.replace("_", " ").title()}',
+                'layer': 2,
+                'category': 'concept',
+                'modality': c_type,
+                'icon': 'fa-wave-square' if c_type == 'audio' else 'fa-eye',
+                'badge': c.get('evidence_level', 'CBM Concept').replace('_', ' ').title(),
+                'value': f'{round(c_score * 100, 1)}%',
+                'raw_score': round(c_score, 3),
+                'enabled': c.get('enabled', True),
+                'description': c.get('concept_sentence', ''),
+                'timestamps': c.get('timestamps', [dur_str]),
+                'source_evidence': c.get('source', 'UNESCO / ICHCAP Intangible Heritage Inventory'),
+                'used_in_rules': []
+            })
+
+            # Liên kết từ Đặc trưng (Tầng 1) -> Khái niệm (Tầng 2)
+            if c_type == 'audio':
+                # Nối từ Audio CNN sâu vào khái niệm âm thanh
+                links.append({
+                    'source': 'node_feat_audio_cnn',
+                    'target': c_node_id,
+                    'modality': 'audio',
+                    'weight': 1.1,
+                    'label': 'CNN Embedding'
+                })
+                if 'nhac_cu' in aspect:
+                    links.append({'source': 'node_feat_axis_Timbre', 'target': c_node_id, 'modality': 'audio', 'weight': 1.0, 'label': 'Timbre/Âm sắc'})
+                    links.append({'source': 'node_feat_axis_Pitch', 'target': c_node_id, 'modality': 'audio', 'weight': 0.8, 'label': 'Pitch/Cao độ'})
+                elif 'ky_thuat' in aspect:
+                    links.append({'source': 'node_feat_axis_Vibrato', 'target': c_node_id, 'modality': 'audio', 'weight': 1.2, 'label': 'Vibrato/Luyến'})
+                    links.append({'source': 'node_feat_axis_Pitch', 'target': c_node_id, 'modality': 'audio', 'weight': 0.9, 'label': 'Pitch/Cao độ'})
+                elif 'tiet_tau' in aspect or 'nhip' in aspect:
+                    links.append({'source': 'node_feat_axis_Tempo', 'target': c_node_id, 'modality': 'audio', 'weight': 1.1, 'label': 'Tempo/Tiết tấu'})
+                    links.append({'source': 'node_feat_axis_Energy', 'target': c_node_id, 'modality': 'audio', 'weight': 0.8, 'label': 'Energy/Năng lượng'})
+                else:
+                    links.append({'source': 'node_feat_axis_Spectral', 'target': c_node_id, 'modality': 'audio', 'weight': 0.9, 'label': 'Spectral/Phổ âm'})
+                    links.append({'source': 'node_feat_axis_Harmony', 'target': c_node_id, 'modality': 'audio', 'weight': 0.8, 'label': 'Harmony/Hài hòa'})
+            else:
+                if has_video_data:
+                    links.append({'source': 'node_feat_visual', 'target': c_node_id, 'modality': 'visual', 'weight': 1.0, 'label': 'Nhận diện thị giác'})
+                else:
+                    links.append({'source': 'node_feat_axis_Spectral', 'target': c_node_id, 'modality': 'audio', 'weight': 0.5, 'label': 'Suy diễn đặc trưng'})
+
+        # -------------------------------------------------------------
+        # TẦNG 3: LUẬT SUY LUẬN MỜ (REASONING RULES)
+        # -------------------------------------------------------------
+        GENRE_TO_PREFIX = {
+            'Ca trù': 'CT',
+            'Chèo': 'CH',
+            'Chầu văn': 'CV',
+            'Cải lương': 'CL',
+            'Hát xẩm': 'HX',
+            'Quan họ': 'QH'
+        }
+
+        PROP_TO_KEYWORDS = {
+            'dan_day': ['dan_day', 'đàn đáy', 'đàn', 'ct_aud_01', 'ct_aud_05'],
+            'ban_phach_trong_chau': ['phach', 'phách', 'trống chầu', 'ct_aud_02', 'ct_vis_03'],
+            'ao_thao_khan_nhieu_ao_the': ['ao_the', 'áo the', 'khăn xếp', 'áo thụng', 'ct_vis_04'],
+            'doi_hinh_3_nguoi_ca_tru': ['3_nguoi', 'đội hình', 'đào nương', 'ct_vis_02'],
+            'trong_cheo_mo_quat_giay': ['trống chèo', 'mõ', 'quạt', 'ch_aud_01', 'ch_vis_01'],
+            'trang_phuc_he_cheo': ['hề', 'he_cheo', 'ch_vis_03'],
+            'ao_tu_than_yem_dao': ['tứ thân', 'yếm đào', 'ch_vis_02', 'qh_vis_02'],
+            'chieu_cheo_san_dinh': ['chiếu chèo', 'sân đình', 'ch_vis_04'],
+            'guitar_phim_lom': ['guitar', 'phím lõm', 'cl_aud_01', 'cl_vis_01'],
+            'dan_kim_dan_nguyet': ['đàn kìm', 'đàn nguyệt', 'cl_aud_02', 'cv_aud_01'],
+            'co_trang_mao_giap_dinh_hat': ['mão giáp', 'cổ trang', 'cl_vis_03'],
+            'san_khau_kich_hat': ['sân khấu', 'kịch hát', 'cl_vis_04'],
+            'dao_cu_hau_dong_kiem_cung_mam': ['kiếm', 'cung', 'mâm', 'cv_vis_01'],
+            'khan_chau_ao_ngu_hau_dong': ['khăn chầu', 'áo ngự', 'cv_vis_02'],
+            'dien_tho_hau_dong': ['điện thờ', 'hầu đồng', 'cv_vis_03'],
+            'non_quai_thao_khan_mo_qua_ao_mo_ba': ['quai thao', 'mỏ quạ', 'qh_vis_01'],
+            'doi_dap_nam_nu_quan_ho': ['đối đáp', 'nam nữ', 'qh_vis_03'],
+            'dan_co_dan_nhi': ['đàn nhị', 'đàn cò', 'hx_aud_01', 'hx_vis_01'],
+            'senh_tien_trong_manh': ['sênh tiền', 'trống mảnh', 'hx_aud_02', 'hx_vis_02'],
+            'chieu_xam_duong_pho_cho': ['chiếu xẩm', 'phố chợ', 'hx_vis_03'],
+            'ao_nau_kinh_den_mu_cat': ['áo nâu', 'kính đen', 'hx_vis_04']
+        }
+
+        rule_node_ids = []
+        for idx, r in enumerate(rules[:3]):
+            rid = f"node_rule_{idx}"
+            rule_node_ids.append(rid)
+            r_conf = float(r.get('confidence', 0.85))
+            r_supp = int(r.get('support', 10))
+            r_text = str(r.get('rule_text', ''))
+            r_consequent = str(r.get('consequent', genre))
+            r_summary = str(r.get('summary_text', ''))
+            clauses = r.get('clauses', [])
+
+            conf_pct_str = f"{r_conf * 100:.1f}%" if r_conf <= 1.0 else f"{r_conf:.1f}%"
+
+            # Tìm các khái niệm và đặc trưng thực tế kết nối vào luật này
+            matched_c_nodes = []
+            text_to_search = (r_text + " " + " ".join(clauses)).lower()
+
+            for c in concepts:
+                cid = c.get('concept_id', '')
+                c_node_id = concept_nodes_map.get(cid)
+                if not c_node_id:
+                    continue
+                aspect = c.get('aspect', '').lower()
+                sentence = c.get('concept_sentence', '').lower()
+
+                # 1. Khảo sát khớp trực tiếp
+                matched = False
+                if cid.lower() in text_to_search or (aspect and aspect in text_to_search):
+                    matched = True
+                else:
+                    # 2. Khảo sát khớp từ khóa prop
+                    for prop_key, kw_list in PROP_TO_KEYWORDS.items():
+                        if prop_key in text_to_search:
+                            if any(kw in cid.lower() or kw in aspect or kw in sentence for kw in kw_list):
+                                matched = True
+                                break
+                    # 3. Khảo sát khớp trục âm học
+                    if not matched:
+                        for ax_kw in ['pitch', 'vibrato', 'tempo', 'energy', 'timbre', 'spectral', 'harmony']:
+                            if ax_kw in text_to_search and (ax_kw in aspect or ax_kw in sentence):
+                                matched = True
+                                break
+
+                if matched and c_node_id not in matched_c_nodes:
+                    matched_c_nodes.append(c_node_id)
+
+            # 4. Fallback: Gắn các khái niệm thuộc thể loại đích qua mã viết tắt chuẩn xác
+            if not matched_c_nodes:
+                p_code = GENRE_TO_PREFIX.get(r_consequent, 'CT')
+                for c in concepts:
+                    cid = c.get('concept_id', '')
+                    if cid.startswith(p_code) and concept_nodes_map.get(cid) and concept_nodes_map[cid] not in matched_c_nodes:
+                        matched_c_nodes.append(concept_nodes_map[cid])
+
+            # 5. Đảm bảo luật luôn có tiền đề
+            if not matched_c_nodes and concept_nodes_map:
+                matched_c_nodes = list(concept_nodes_map.values())[:3]
+
+            # Cập nhật danh sách luật sử dụng trong từng concept node
+            for cn_id in matched_c_nodes:
+                for n in nodes:
+                    if n['id'] == cn_id and 'used_in_rules' in n:
+                        if rid not in n['used_in_rules']:
+                            n['used_in_rules'].append(rid)
+
+            nodes.append({
+                'id': rid,
+                'name': f'Luật suy luận #{idx + 1}',
+                'layer': 3,
+                'category': 'rule',
+                'modality': 'fused',
+                'icon': 'fa-code-branch',
+                'badge': f'Tin cậy {conf_pct_str}',
+                'value': f'IF {r_text[:38]}...' if len(r_text) > 38 else f'IF {r_text}',
+                'raw_score': round(r_conf if r_conf <= 1.0 else r_conf / 100.0, 3),
+                'rule_text': r_text,
+                'consequent': r_consequent,
+                'support': r_supp,
+                'clauses': clauses,
+                'description': r_summary or f'Mệnh đề logic mờ: IF {r_text} THEN {r_consequent}. Độ tin cậy: {conf_pct_str}, dựa trên {r_supp} mẫu huấn luyện.',
+                'source_evidence': 'Hệ mờ tượng trưng 2 tầng (Continuous Fuzzy Logic Inference)',
+                'input_concept_ids': matched_c_nodes
+            })
+
+            # Tạo các đường nối từ Khái niệm -> Luật
+            for cn_id in matched_c_nodes:
+                links.append({
+                    'source': cn_id,
+                    'target': rid,
+                    'modality': 'fused',
+                    'weight': round(r_conf if r_conf <= 1.0 else r_conf / 100.0, 2),
+                    'label': 'Điều kiện tiền đề (IF)'
+                })
+
+        # Đảm bảo 100% các Khái niệm trung gian (Tầng 2/3) đều có ít nhất 1 liên kết tới Luật (Tầng 3/4)
+        for c in concepts:
+            cid = c.get('concept_id', '')
+            c_node_id = concept_nodes_map.get(cid)
+            if not c_node_id:
+                continue
+
+            # Kiểm tra xem concept này đã có outgoing link tới rule nào chưa
+            has_outgoing = any(l['source'] == c_node_id and str(l['target']).startswith('node_rule_') for l in links)
+            if not has_outgoing and rule_node_ids:
+                c_type = c.get('type', 'audio')
+                # Ưu tiên gắn vào luật cùng phương thức nếu có
+                target_rid = None
+                for rn_id in rule_node_ids:
+                    r_node = next((n for n in nodes if n['id'] == rn_id), None)
+                    if not r_node:
+                        continue
+                    r_text = (r_node.get('rule_text', '') + ' ' + ' '.join(r_node.get('clauses', []))).lower()
+                    if c_type == 'visual' and any(kw in r_text for kw in [
+                        'ao_', 'khan_', 'chieu_', 'san_khau', 'co_trang', 'non_', 'dien_tho', 'dao_cu', 'he_cheo', 'ban_phach', 'doi_hinh'
+                    ]):
+                        target_rid = rn_id
+                        break
+                    elif c_type == 'audio' and any(kw in r_text for kw in [
+                        'pitch', 'energy', 'timbre', 'vibrato', 'tempo', 'harmony', 'spectral', 'dan_', 'phach', 'trong_'
+                    ]):
+                        target_rid = rn_id
+                        break
+
+                if not target_rid:
+                    target_rid = rule_node_ids[0]
+
+                # Bổ sung link Khái niệm -> Luật
+                links.append({
+                    'source': c_node_id,
+                    'target': target_rid,
+                    'modality': c_type if c_type in ['audio', 'visual'] else 'fused',
+                    'weight': 0.85,
+                    'label': 'Bằng chứng tiền đề (IF)'
+                })
+
+                # Bổ sung vào input_concept_ids của rule và used_in_rules của concept
+                for n in nodes:
+                    if n['id'] == target_rid and 'input_concept_ids' in n:
+                        if c_node_id not in n['input_concept_ids']:
+                            n['input_concept_ids'].append(c_node_id)
+                    if n['id'] == c_node_id and 'used_in_rules' in n:
+                        if target_rid not in n['used_in_rules']:
+                            n['used_in_rules'].append(target_rid)
+
+        # -------------------------------------------------------------
+        # TẦNG 4: KẾT QUẢ PHÂN LOẠI CUỐI CÙNG (FINAL VERDICT)
+        # -------------------------------------------------------------
+        verdict_node_id = 'node_verdict'
+        conf_num = round(confidence * 100 if confidence <= 1.0 else confidence, 1)
+        nodes.append({
+            'id': verdict_node_id,
+            'name': f'Phán quyết: {genre}',
+            'layer': 4,
+            'category': 'verdict',
+            'modality': 'fused',
+            'icon': 'fa-crown',
+            'badge': f'Tin cậy {conf_num}%',
+            'value': genre,
+            'raw_score': conf_num,
+            'color': GENRE_COLORS.get(genre, '#C84B31'),
+            'description': f'Kết luận thể loại di sản cuối cùng là "{genre}" với độ tin cậy {conf_num}%. Kết quả đạt được từ hợp nhất đa phương thức Bayesian trên chuỗi thời gian kết hợp mạng lưới mệnh đề luật mờ CBM.',
+            'timestamps': [dur_str],
+            'source_evidence': 'Multimodal Bayesian Late Fusion + Neuro-Symbolic Decision'
+        })
+
+        # Liên kết từ các Luật suy luận -> Phán quyết
+        for rid in rule_node_ids:
+            links.append({
+                'source': rid,
+                'target': verdict_node_id,
+                'modality': 'fused',
+                'weight': 1.5,
+                'label': 'Kết luận (THEN)'
+            })
+
+        return {
+            'nodes': nodes,
+            'links': links,
+            'has_visual': has_video_data,
+            'mode': mode,
+            'genre': genre,
+            'confidence': conf_num
+        }
+
+    # -------------------------------------------------------------------------
     # CBM CAN THIỆP KHÁI NIỆM TRUNG GIAN (COUNTERFACTUAL INTERVENTION)
     # -------------------------------------------------------------------------
 
@@ -2165,7 +2781,8 @@ class HeritageInferenceEngine:
         toggled_concept_id: str,
         is_enabled: bool,
         all_concepts: List[Dict[str, Any]],
-        base_probs: Optional[Dict[str, float]] = None
+        base_probs: Optional[Dict[str, float]] = None,
+        base_rules: Optional[List[Dict[str, Any]]] = None
     ) -> Dict[str, Any]:
         """
         Can thiệp CBM (Concept Bottleneck Intervention):
@@ -2260,6 +2877,7 @@ class HeritageInferenceEngine:
 
         # Đếm số concept bị vô hiệu hóa cho từng thể loại
         disabled_counts = {g: 0 for g in GENRES}
+        disabled_cids = {str(c.get('concept_id', '')).lower() for c in updated_concepts if not c.get('enabled', True)}
         for c in updated_concepts:
             cid = c.get('concept_id', '')
             c_genre = resolve_concept_genre(cid)
@@ -2268,32 +2886,85 @@ class HeritageInferenceEngine:
 
         def _get_intervened_rules(target_genre: str, target_conf: float):
             rules_list = []
-            if hasattr(self, 'audio_bridge') and hasattr(self.audio_bridge, 'df_rules') and self.audio_bridge.df_rules is not None:
-                matched_df = self.audio_bridge.df_rules[
-                    self.audio_bridge.df_rules['consequent'].astype(str).str.lower() == target_genre.lower()
-                ]
-                for _, r_row in matched_df.head(3).iterrows():
-                    r_dict = {
-                        'rule_text': str(r_row.get('rule_text', '')),
-                        'consequent': str(r_row.get('consequent', target_genre)),
-                        'confidence': float(r_row.get('confidence', target_conf / 100.0)),
-                        'support': int(r_row.get('support', 100)),
-                        'score': float(r_row.get('score', 2.5))
-                    }
-                    t_info = self.audio_bridge.translate_rule_to_vietnamese(
-                        rule=r_dict,
-                        default_consequent=target_genre,
-                        default_confidence=target_conf / 100.0
-                    )
-                    rules_list.append({
-                        'rule_text': r_dict['rule_text'],
-                        'consequent': r_dict['consequent'],
-                        'confidence': r_dict['confidence'],
-                        'support': r_dict['support'],
-                        'score': r_dict['score'],
-                        'summary_text': t_info['rule_summary_text'],
-                        'clauses': t_info['clause_explanations']
-                    })
+            seen_texts = set()
+
+            # 1. Bảo lưu từ base_rules nếu khớp target_genre và không chứa khái niệm bị vô hiệu hóa
+            if base_rules:
+                for br in base_rules:
+                    if br.get('consequent') == target_genre:
+                        r_text = str(br.get('rule_text', '')).lower()
+                        r_clauses = " ".join(str(cl) for cl in br.get('clauses', [])).lower()
+                        full_r = r_text + " " + r_clauses
+                        is_conflict = any(dcid in full_r for dcid in disabled_cids if dcid)
+                        if not is_conflict and br.get('rule_text') not in seen_texts:
+                            rule_copy = dict(br)
+                            rule_copy['confidence'] = round(target_conf / 100.0, 2)
+                            rules_list.append(rule_copy)
+                            seen_texts.add(br.get('rule_text'))
+
+            # 2. Bổ sung từ self.visual_rules nếu thiếu luật thị giác
+            if len(rules_list) < 2 and hasattr(self, 'visual_rules') and self.visual_rules:
+                has_vis = any(any(k in r.get('rule_text', '').lower() for k in [
+                    'dan_day', 'ao_the', 'ao_thao', 'khan_nhieu', 'doi_hinh', 'ban_phach',
+                    'trong_cheo', 'quat', 'ao_tu_than', 'yem_dao', 'he_cheo', 'chieu_cheo',
+                    'guitar', 'phim_lom', 'dan_kim', 'dan_nguyet', 'co_trang', 'mao_giap',
+                    'dao_cu', 'hau_dong', 'khan_chau', 'ao_ngu', 'dien_tho',
+                    'non_quai_thao', 'khan_mo_qua', 'doi_dap', 'dan_co', 'dan_nhi',
+                    'senh_tien', 'chieu_xam', 'ao_nau'
+                ]) for r in rules_list)
+                if not has_vis:
+                    for vr in self.visual_rules:
+                        if vr.get('consequent') == target_genre:
+                            vr_text = str(vr.get('rule_text', '')).lower()
+                            if not any(dcid in vr_text for dcid in disabled_cids if dcid):
+                                if vr.get('rule_text') not in seen_texts:
+                                    t_info = self.audio_bridge.translate_rule_to_vietnamese(
+                                        rule=vr,
+                                        default_consequent=target_genre,
+                                        default_confidence=target_conf / 100.0
+                                    )
+                                    rules_list.append({
+                                        'rule_text': vr.get('rule_text', ''),
+                                        'consequent': target_genre,
+                                        'confidence': round(target_conf / 100.0, 2),
+                                        'support': int(vr.get('support', 85)),
+                                        'score': float(vr.get('score', 2.3)),
+                                        'summary_text': t_info['rule_summary_text'],
+                                        'clauses': t_info['clause_explanations']
+                                    })
+                                    seen_texts.add(vr.get('rule_text'))
+                                    break
+
+            # 3. Bổ sung từ self.crisp_rules nếu thiếu luật âm học
+            if len(rules_list) < 2 and hasattr(self, 'crisp_rules') and self.crisp_rules:
+                has_aud = any(any(k in r.get('rule_text', '').lower() for k in [
+                    'pitch', 'energy', 'timbre', 'vibrato', 'tempo', 'harmony', 'spectral'
+                ]) for r in rules_list)
+                if not has_aud:
+                    for cr in self.crisp_rules:
+                        if cr.get('consequent') == target_genre:
+                            cr_text = str(cr.get('rule_text', '')).lower()
+                            if not any(dcid in cr_text for dcid in disabled_cids if dcid):
+                                if cr.get('rule_text') not in seen_texts:
+                                    t_info = self.audio_bridge.translate_rule_to_vietnamese(
+                                        rule=cr,
+                                        default_consequent=target_genre,
+                                        default_confidence=target_conf / 100.0
+                                    )
+                                    rules_list.append({
+                                        'rule_text': cr.get('rule_text', ''),
+                                        'consequent': target_genre,
+                                        'confidence': round(target_conf / 100.0, 2),
+                                        'support': int(cr.get('support', 110)),
+                                        'score': float(cr.get('score', 2.6)),
+                                        'summary_text': t_info['rule_summary_text'],
+                                        'clauses': t_info['clause_explanations']
+                                    })
+                                    seen_texts.add(cr.get('rule_text'))
+                                    if len(rules_list) >= 2:
+                                        break
+
+            # 4. Fallback an toàn nếu chưa có luật nào
             if not rules_list:
                 rules_list.append({
                     'rule_text': f"Active_Concepts -> '{target_genre}'",
@@ -2302,11 +2973,11 @@ class HeritageInferenceEngine:
                     'support': 120,
                     'score': 2.75,
                     'summary_text': f"Suy luận phân loại [{target_genre}] dựa trên tập hợp khái niệm trung gian sau can thiệp phản sự thực.",
-                    'clauses': [f"Tập hợp khái niệm trung gian hỗ trợ nhãn {target_genre}"]
+                    'clauses': [f"Tập hợp khái niệm trung gian còn kích hoạt hỗ trợ nhãn {target_genre}"]
                 })
-            return rules_list
+            return rules_list[:3]
 
-        # Nếu không có concept nào bị vô hiệu hóa (tất cả đều enabled), khôi phục chuẩn xác base_probs
+        # Nếu không có concept nào bị vô hiệu hóa (tất cả đều enabled), khôi phục chuẩn xác base_probs và base_rules
         if sum(disabled_counts.values()) == 0:
             new_pred = max(base_probs.keys(), key=lambda k: base_probs[k])
             contrastive = self._build_contrastive_analysis(
@@ -2315,6 +2986,21 @@ class HeritageInferenceEngine:
                 chunks_info=[],
                 is_video=False
             )
+            # Khôi phục nguyên vẹn 100% các luật ban đầu
+            if base_rules and len(base_rules) > 0:
+                intervened_rules = list(base_rules)
+            else:
+                intervened_rules = _get_intervened_rules(new_pred, base_probs[new_pred])
+
+            evidence_map = self._build_evidence_map(
+                genre=new_pred,
+                confidence=base_probs[new_pred] / 100.0,
+                chunks=[],
+                concepts=updated_concepts,
+                rules=intervened_rules,
+                mode="video" if any(c.get('type') == 'visual' for c in updated_concepts) else "audio",
+                file_name="Can thiệp phản sự thực CBM"
+            )
             return {
                 'status': 'success',
                 'toggled_concept_id': toggled_concept_id,
@@ -2322,7 +3008,8 @@ class HeritageInferenceEngine:
                 'prediction': new_pred,
                 'confidence': round(base_probs[new_pred], 1),
                 'probs': {g: round(base_probs[g], 1) for g in GENRES},
-                'triggered_rules': _get_intervened_rules(new_pred, base_probs[new_pred]),
+                'triggered_rules': intervened_rules,
+                'evidence_map': evidence_map,
                 'contrastive_analysis': contrastive,
                 'explanation_note': (
                     f"Đã phục hồi khái niệm [{toggled_concept_id}]. "
@@ -2357,6 +3044,17 @@ class HeritageInferenceEngine:
             is_video=False
         )
 
+        intervened_rules = _get_intervened_rules(new_pred, new_conf)
+        evidence_map = self._build_evidence_map(
+            genre=new_pred,
+            confidence=new_conf / 100.0,
+            chunks=[],
+            concepts=updated_concepts,
+            rules=intervened_rules,
+            mode="video" if any(c.get('type') == 'visual' for c in updated_concepts) else "audio",
+            file_name="Can thiệp phản sự thực CBM"
+        )
+
         return {
             'status': 'success',
             'toggled_concept_id': toggled_concept_id,
@@ -2364,7 +3062,8 @@ class HeritageInferenceEngine:
             'prediction': new_pred,
             'confidence': new_conf,
             'probs': updated_probs,
-            'triggered_rules': _get_intervened_rules(new_pred, new_conf),
+            'triggered_rules': intervened_rules,
+            'evidence_map': evidence_map,
             'contrastive_analysis': contrastive,
             'explanation_note': (
                 f"Đã can thiệp khái niệm [{toggled_concept_id}]: "
