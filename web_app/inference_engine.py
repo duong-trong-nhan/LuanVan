@@ -1782,12 +1782,14 @@ class HeritageInferenceEngine:
             file_name=path.name
         )
 
-        # 9. Ma trận Đối sánh Phân biệt Di sản & Thử nghiệm What-If (Phương án 3)
+        # 9. Giải thích Đối chứng (Contrastive Explanation) & Thử nghiệm What-If
         contrastive_analysis = self._build_contrastive_analysis(
             final_genre=final_genre,
             fused_probs=fused_probs,
             chunks_info=chunks_info,
-            is_video=is_video
+            is_video=is_video,
+            active_concepts=active_concepts_list,
+            triggered_rules=translated_rules
         )
 
         # 10. Gộp phân đoạn thông minh (Smart Grouping) và Chuỗi thời gian diễn biến (Timeline Series)
@@ -1871,7 +1873,7 @@ class HeritageInferenceEngine:
         }
 
     # -------------------------------------------------------------------------
-    # MA TRẬN ĐỐI SÁNH PHÂN BIỆT DI SẢN & THỬ NGHIỆM WHAT-IF (PHƯƠNG ÁN 3)
+    # GIẢI THÍCH ĐỐI CHỨNG (CONTRASTIVE EXPLANATION) & THỬ NGHIỆM WHAT-IF
     # -------------------------------------------------------------------------
 
     def _build_contrastive_analysis(
@@ -1879,151 +1881,847 @@ class HeritageInferenceEngine:
         final_genre: str,
         fused_probs: Dict[str, float],
         chunks_info: List[Dict[str, Any]],
-        is_video: bool
+        is_video: bool,
+        active_concepts: Optional[List[Dict[str, Any]]] = None,
+        triggered_rules: Optional[List[Dict[str, Any]]] = None
     ) -> Dict[str, Any]:
         """
-        Xây dựng Ma trận Đối sánh Phân biệt Di sản & Thử nghiệm What-If (Phương án 3).
-        So sánh đối đầu trực diện giữa Top 1 (Winner) và Top 2 (Runner-up) trên 5 chiều văn hóa & âm học,
-        đồng thời xây dựng kịch bản phản sự thực What-If giải thích điều kiện để lật ngược kết quả.
+        Xây dựng dữ liệu Giải thích Đối chứng (Contrastive Explanation) cho tất cả 6 thể loại
+        để người dùng có thể đối chiếu Thể loại dự đoán (Top 1) với bất kỳ Thể loại đối chứng nào
+        mà không cần tải lại video.
+        Mỗi tiêu chí gắn liền với:
+          1. Mô tả đặc trưng theo kho tri thức (concept/audio_concepts.md, concept/visual_concepts.md, fuzzy_profiles.json).
+          2. Bằng chứng thực tế được phát hiện từ đầu vào (nếu có) kèm mốc thời gian.
+          3. Mức độ hỗ trợ / điểm số thực tế từ backend (nếu có).
+          4. Nguồn tri thức liên quan.
+          5. Đánh dấu rõ ràng các tiêu chí không có bằng chứng từ đầu vào hoặc chưa thể kiểm chứng.
         """
-        # Sắp xếp xác suất giảm dần
-        sorted_items = sorted(fused_probs.items(), key=lambda x: x[1], reverse=True)
-        top1_genre, top1_raw_p = sorted_items[0]
-        # Lấy runner-up khác thể loại top1
-        top2_genre, top2_raw_p = (sorted_items[1][0], sorted_items[1][1]) if len(sorted_items) > 1 else (
-            [g for g in GENRES if g != top1_genre][0], 0.12
-        )
+        # 1. Chuẩn hóa bảng điểm đầu ra của 6 thể loại (thang 0..100%)
+        prob_pct_map: Dict[str, float] = {}
+        for g in GENRES:
+            raw_v = float(fused_probs.get(g, 0.0))
+            prob_pct_map[g] = round(raw_v * 100.0 if raw_v <= 1.0 else raw_v, 1)
 
-        top1_p = round(top1_raw_p * (100.0 if top1_raw_p <= 1.0 else 1.0), 1)
-        top2_p = round(top2_raw_p * (100.0 if top2_raw_p <= 1.0 else 1.0), 1)
+        sorted_items = sorted(prob_pct_map.items(), key=lambda x: x[1], reverse=True)
+        top1_genre = final_genre if final_genre in prob_pct_map else sorted_items[0][0]
+        top1_p = prob_pct_map.get(top1_genre, sorted_items[0][1])
+
+        other_Candidates = [ item for item in sorted_items if item[0] != top1_genre ]
+        top2_genre, top2_p = other_Candidates[0] if other_Candidates else (
+            [g for g in GENRES if g != top1_genre][0], 10.0
+        )
         margin_pct = round(max(0.1, top1_p - top2_p), 1)
 
-        # Kho tri thức văn hóa & âm học 6 thể loại truyền thống Việt Nam
-        CULTURAL_KNOWLEDGE = {
+        # 2. Tổng hợp quan sát thực tế từ đầu vào (chunks_info)
+        n_chunks = len(chunks_info)
+        has_chunk_evidence = n_chunks > 0
+
+        # Thống kê 7 trục âm học MPEG-7 thực tế trên các phân đoạn
+        axis_level_chunks: Dict[str, Dict[str, List[str]]] = {ax: {} for ax in AXES_NAMES}
+        axis_radar_vals: Dict[str, List[float]] = {ax: [] for ax in AXES_NAMES}
+        detected_aud_cids: Dict[str, List[str]] = {}
+        detected_vis_cids: Dict[str, List[str]] = {}
+        detected_vis_cues: Dict[str, List[str]] = {}
+        chunks_won_by_genre: Dict[str, List[str]] = {g: [] for g in GENRES}
+        audio_mod_probs_sum: Dict[str, float] = {g: 0.0 for g in GENRES}
+        visual_mod_probs_sum: Dict[str, float] = {g: 0.0 for g in GENRES}
+        visual_mod_chunks_count = 0
+
+        for chk in chunks_info:
+            ts = chk.get('timestamp', '00:00 - 00:04')
+            c_pred = chk.get('prediction')
+            if c_pred in chunks_won_by_genre:
+                chunks_won_by_genre[c_pred].append(ts)
+
+            c_crisp = chk.get('crisp_axes', {})
+            c_radar = chk.get('radar', {})
+            for ax in AXES_NAMES:
+                lvl = c_crisp.get(ax)
+                if lvl:
+                    axis_level_chunks[ax].setdefault(lvl, []).append(ts)
+                if ax in c_radar:
+                    axis_radar_vals[ax].append(float(c_radar[ax]))
+
+            for cid in chk.get('active_audio_concepts', []):
+                if ts not in detected_aud_cids.setdefault(cid, []):
+                    detected_aud_cids[cid].append(ts)
+
+            for cid in chk.get('active_visual_concepts', []):
+                if ts not in detected_vis_cids.setdefault(cid, []):
+                    detected_vis_cids[cid].append(ts)
+
+            for cue in chk.get('visual_cues', []):
+                if ts not in detected_vis_cues.setdefault(cue, []):
+                    detected_vis_cues[cue].append(ts)
+
+            mods = chk.get('modalities', {})
+            a_probs = mods.get('audio', {}).get('probs', {})
+            for g in GENRES:
+                val_a = float(a_probs.get(g, 0.0))
+                audio_mod_probs_sum[g] += (val_a * 100.0 if val_a <= 1.0 and max(a_probs.values(), default=0) <= 1.0 else val_a)
+
+            if mods.get('visual') and mods['visual'].get('probs'):
+                v_probs = mods['visual']['probs']
+                visual_mod_chunks_count += 1
+                for g in GENRES:
+                    val_v = float(v_probs.get(g, 0.0))
+                    visual_mod_probs_sum[g] += (val_v * 100.0 if val_v <= 1.0 and max(v_probs.values(), default=0) <= 1.0 else val_v)
+
+        # Bổ sung từ active_concepts tổng thể nếu có
+        for ac in (active_concepts or []):
+            cid = ac.get('concept_id', '')
+            if not cid or not ac.get('enabled', True):
+                continue
+            ts_list = ac.get('timestamps', [])
+            if ac.get('type') == 'visual':
+                for t in ts_list:
+                    if t not in detected_vis_cids.setdefault(cid, []):
+                        detected_vis_cids[cid].append(t)
+            else:
+                for t in ts_list:
+                    if t not in detected_aud_cids.setdefault(cid, []):
+                        detected_aud_cids[cid].append(t)
+
+        # Tóm tắt mức chiếm ưu thế thực tế của từng trục âm học trong đầu vào
+        observed_axes_summary: Dict[str, Dict[str, Any]] = {}
+        for ax in AXES_NAMES:
+            lvl_map = axis_level_chunks[ax]
+            if lvl_map:
+                dom_lvl = max(lvl_map.keys(), key=lambda k: len(lvl_map[k]))
+                dom_ts = lvl_map[dom_lvl]
+                mean_r = round(float(np.mean(axis_radar_vals[ax])), 2) if axis_radar_vals[ax] else 0.5
+                observed_axes_summary[ax] = {
+                    'dominant_level': dom_lvl,
+                    'count': len(dom_ts),
+                    'total_chunks': n_chunks,
+                    'timestamps': dom_ts,
+                    'mean_radar': mean_r,
+                    'level_map': lvl_map
+                }
+            else:
+                observed_axes_summary[ax] = {
+                    'dominant_level': None,
+                    'count': 0,
+                    'total_chunks': n_chunks,
+                    'timestamps': [],
+                    'mean_radar': None,
+                    'level_map': {}
+                }
+
+        # Nhãn tiếng Việt cho các visual cues
+        VISUAL_CUE_VI_NAMES = {
+            'dan_day': 'Đàn đáy cần dài (dan_day)',
+            'ban_phach_trong_chau': 'Bàn phách tre & Trống chầu (ban_phach_trong_chau)',
+            'ao_thao_khan_nhieu_ao_the': 'Áo thao, khăn nhiễu & áo the (ao_thao_khan_nhieu_ao_the)',
+            'doi_hinh_3_nguoi_ca_tru': 'Đội hình 3 người Ca trù: Đào nương, Kép đàn, Quan viên (doi_hinh_3_nguoi_ca_tru)',
+            'trong_cheo_mo_quat_giay': 'Trống Chèo, mõ & quạt giấy (trong_cheo_mo_quat_giay)',
+            'ao_tu_than_yem_dao': 'Áo tứ thân & yếm đào (ao_tu_than_yem_dao)',
+            'trang_phuc_he_cheo': 'Trang phục & hóa trang hề Chèo (trang_phuc_he_cheo)',
+            'chieu_cheo_san_dinh': 'Không gian chiếu Chèo sân đình (chieu_cheo_san_dinh)',
+            'guitar_phim_lom': 'Đàn guitar phím lõm (guitar_phim_lom)',
+            'dan_kim_dan_nguyet': 'Đàn kìm / Đàn nguyệt (dan_kim_dan_nguyet)',
+            'co_trang_mao_giap_dinh_hat': 'Phục trang cổ trang, mão giáp đính hạt (co_trang_mao_giap_dinh_hat)',
+            'san_khau_kich_hat': 'Không gian sân khấu kịch hát (san_khau_kich_hat)',
+            'dao_cu_hau_dong_kiem_cung_mam': 'Đạo cụ nghi lễ hầu đồng: kiếm, cung, mâm lễ (dao_cu_hau_dong_kiem_cung_mam)',
+            'khan_chau_ao_ngu_hau_dong': 'Khăn chầu áo ngự hầu đồng (khan_chau_ao_ngu_hau_dong)',
+            'dien_tho_hau_dong': 'Không gian điện thờ hầu đồng (dien_tho_hau_dong)',
+            'non_quai_thao_khan_mo_qua_ao_mo_ba': 'Nón quai thao, khăn mỏ quạ & áo mớ ba (non_quai_thao_khan_mo_qua_ao_mo_ba)',
+            'doi_dap_nam_nu_quan_ho': 'Đội hình hát đối đáp nam nữ (doi_dap_nam_nu_quan_ho)',
+            'dan_co_dan_nhi': 'Đàn cò / Đàn nhị (dan_co_dan_nhi)',
+            'senh_tien_trong_manh': 'Sênh tiền & trống mảnh (senh_tien_trong_manh)',
+            'chieu_xam_duong_pho_cho': 'Chiếu Xẩm đường phố / chợ (chieu_xam_duong_pho_cho)',
+            'ao_nau_kinh_den_mu_cat': 'Áo nâu, kính đen & mũ cát (ao_nau_kinh_den_mu_cat)'
+        }
+
+        # Phân nhóm visual cues theo tiêu chí cho từng thể loại
+        GENRE_CRITERION_VISUAL_CUES = {
             'Ca trù': {
-                'vocal': "Hát nẩy hạt tinh vi, luồn hơi kẽ răng, ngân rung hạt, ém hơi tinh tế; ngâm thơ chữ Hán - Nôm uyên bác.",
-                'instrument': "Đàn Đáy (thùng mộc cần dài 3 dây phím cao), Phách tre (gõ chát/tom ròn rã), Trống Chầu (điểm nhịp khen chê).",
-                'space': "Chiếu thính phòng ấm cúng, nhà Ca quán hoặc Cửa đình; Đào nương (hát + phách) - Kép đàn (đàn đáy) - Quan viên (trống chầu).",
-                'costume': "Áo dài lụa trang nhã thêu hoa chìm, tóc vấn trần hoặc khăn đen, tay cầm quạt giấy thanh tao.",
-                'criteria': "UNESCO Cần bảo vệ khẩn cấp (2009). Đặc trưng âm học: Năng lượng thấp - vừa (Energy Low), Cao độ F0 ổn định, Nhịp điệu khoan thai (~70-85 BPM)."
+                'instrument': ['dan_day', 'ban_phach_trong_chau'],
+                'space': ['doi_hinh_3_nguoi_ca_tru'],
+                'costume': ['ao_thao_khan_nhieu_ao_the']
             },
             'Chèo': {
-                'vocal': "Hát vang lộng, nẩy hạt, mở rộng khẩu hình, đệm làn điệu dân gian (đào liễu, lới lơ), đối thoại kịch tính.",
-                'instrument': "Dàn nhạc gõ dân tộc: Trống Đế (đánh sáp/bập), Mõ tre, Thanh la; hòa tấu cùng Đàn Nhị, Sáo trúc, Đàn Nguyệt.",
-                'space': "Sân đình làng châu thổ sông Hồng hoặc nhà hát kịch; dàn diễn viên tương tác trực tiếp với khán giả.",
-                'costume': "Áo tứ thân thắt vạt lụa thắm, yếm đào rực rỡ, khăn mỏ quạ; nhân vật hề mặc áo cộc vá víu, gậy tre.",
-                'criteria': "Kịch hát dân gian truyền thống châu thổ sông Hồng. Đặc trưng âm học: Âm sắc sáng chói (Spectral Centroid cao > 1800Hz), Tiết tấu linh hoạt theo kịch bản."
+                'instrument': ['trong_cheo_mo_quat_giay'],
+                'space': ['chieu_cheo_san_dinh'],
+                'costume': ['ao_tu_than_yem_dao', 'trang_phuc_he_cheo']
             },
             'Cải lương': {
-                'vocal': "Hát nói kịch nghệ Nam Bộ, Vọng cổ kinh điển (nhịp 16, 32), luyến láy ngân dài tự do hơi rộng, chuyển điệu Nam/Xuân/Oán.",
-                'instrument': "Đàn Guitar phím lõm (khoét phím sâu tạo rung nhấn độc nhất vô nhị), Đàn Kìm (Nguyệt), Đàn Tranh, Sến, Bầu.",
-                'space': "Sân khấu hộp hiện đại, màn nhung, phông cảnh vẽ hoành tráng, hệ thống chiếu sáng kịch nghệ.",
-                'costume': "Cổ trang tuồng tích lộng lẫy kết cườm kim sa, mão giáp võ tướng, áo thụng gấm hoa lấp lánh.",
-                'criteria': "Nghệ thuật sân khấu kịch hát dân tộc Nam Bộ. Đặc trưng âm học: Tiết tấu vừa phải (~80-92 BPM), Biên độ cao độ F0 biến thiên rộng, Dải hòa âm phong phú."
+                'instrument': ['guitar_phim_lom', 'dan_kim_dan_nguyet', 'dan_co_dan_nhi'],
+                'space': ['san_khau_kich_hat'],
+                'costume': ['co_trang_mao_giap_dinh_hat']
             },
             'Chầu văn': {
-                'vocal': "Hát cúng thỉnh dồn dập, ngân giọng thôi miên tâm linh, chuyển làn liên tục (dọc, cờn, phú, xá) theo bước chân giáng đồng.",
-                'instrument': "Đàn Nguyệt diễn tấu ngón nhấn rung điêu luyện, Trống Bản dập dồn, Cảnh đồng, Thanh la dập nhịp linh thiêng.",
-                'space': "Đền phủ, điện thờ Mẫu; Thanh đồng thực hành nghi lễ nhập đồng, Cung văn đàn hát bên cạnh.",
-                'costume': "Khăn chầu áo ngự lộng lẫy đa sắc theo Tứ Phủ (Đỏ, Xanh, Trắng, Vàng); kiếm gỗ, mâm hoa, mồi lửa thiêng.",
-                'criteria': "UNESCO Di sản Đại diện nhân loại (2016). Đặc trưng âm học: Năng lượng cực lớn (Energy Rất cao), Tiết tấu dồn dập (Tempo > 115-135 BPM), Độ rung Vibrato mãnh liệt."
+                'instrument': ['dan_kim_dan_nguyet', 'dan_co_dan_nhi'],
+                'space': ['dien_tho_hau_dong'],
+                'costume': ['khan_chau_ao_ngu_hau_dong', 'dao_cu_hau_dong_kiem_cung_mam']
             },
             'Quan họ': {
-                'vocal': "Kỹ thuật thanh nhạc đặc sắc 'Vang - Rền - Nền - Nảy', buông câu nẩy hạt tỉ mỉ, luồn hơi ngắt nhịp đối đáp ăn khớp.",
-                'instrument': "Truyền thống hát mộc (hát chay không nhạc đệm); hiện đại có đệm nhẹ Đàn Nhị, Đàn Bầu, Sáo trúc.",
-                'space': "Hội Lim, sân nhà chứa, thuyền rồng trên hồ nước; từng cặp liền anh đối đáp liền chị thanh lịch.",
-                'costume': "Liền chị mặc áo mớ ba mớ bảy, nón quai thao thắt dải yếm lụa; Liền anh mặc áo the thâm, khăn xếp, ô lục soạn.",
-                'criteria': "UNESCO Di sản Đại diện nhân loại (2009). Đặc trưng âm học: Cặp giọng nam nữ luân phiên, Hòa âm cân bằng (Chroma ổn định), Năng lượng thanh tao vừa phải."
+                'instrument': [],
+                'space': ['doi_dap_nam_nu_quan_ho'],
+                'costume': ['non_quai_thao_khan_mo_qua_ao_mo_ba', 'ao_tu_than_yem_dao']
             },
             'Hát xẩm': {
-                'vocal': "Giọng hát mộc mạc, ai oán, thổn thức, ngân vỡ tự nhiên, tự sự kể chuyện thế thái nhân tình, biến tấu nhịp tự do.",
-                'instrument': "Đàn Nhị, Đàn Bầu cũ kỹ, Trống Mảnh đệm nhịp, Sênh Tiền (phách có xâu đồng tiền va đập lách cách).",
-                'space': "Chiếu xẩm nơi góc chợ, sân ga, bến tàu, ngã năm hè phố đô hội; gia đình nghệ nhân hát rong mưu sinh.",
-                'costume': "Áo nâu sồng bạc màu, nón mê hoặc kính đen che mắt; manh chiếu mộc trải đất cùng thau đồng hứng tiền thưởng.",
-                'criteria': "Nghệ thuật ca hát dân gian đường phố mộc mạc. Đặc trưng âm học: Âm sắc đanh khô của gỗ & kim loại (Spectral Centroid vừa - thấp), Năng lượng biến động thất thường."
+                'instrument': ['dan_co_dan_nhi', 'senh_tien_trong_manh'],
+                'space': ['chieu_xam_duong_pho_cho'],
+                'costume': ['ao_nau_kinh_den_mu_cat']
             }
         }
 
-        p1 = CULTURAL_KNOWLEDGE.get(top1_genre, CULTURAL_KNOWLEDGE['Ca trù'])
-        p2 = CULTURAL_KNOWLEDGE.get(top2_genre, CULTURAL_KNOWLEDGE['Quan họ'])
-
-        # Trích xuất đặc trưng âm học tiêu biểu từ các chunk để đưa ra nhận xét chính xác
-        dominant_tempo = 90.0
-        dominant_energy = "Vừa"
-        if chunks_info:
-            dominant_tempo = float(chunks_info[0].get('tempo_bpm', 90.0))
-            dominant_energy = str(chunks_info[0].get('crisp_axes', {}).get('Energy', 'Vừa'))
-
-        dims = [
+        # 3. Xây dựng Hồ sơ Tiêu chí & Bằng chứng Thực tế cho từng Thể loại trong 6 Thể loại
+        CRITERIA_DEFS = [
             {
                 'id': 'vocal',
                 'name': 'Kỹ thuật Thanh nhạc & Đường nét Giai điệu',
                 'icon': 'fa-microphone-lines',
-                'top1_desc': p1['vocal'],
-                'top2_desc': p2['vocal'],
-                'evidence': f"Đường nét cao độ F0 và độ ngân rung đặc trưng cho lối diễn xướng của {top1_genre} chiếm ưu thế trong bản thu.",
-                'favors': 'top1'
+                'modality_type': 'audio',
+                'audio_aspects': ['ky_thuat_thanh_nhac', 'giai_dieu_hoi_dieu'],
+                'visual_aspects': [],
+                'axes': ['Pitch', 'Vibrato']
             },
             {
                 'id': 'instrument',
-                'name': 'Nhạc cụ Then chốt & Điệu thức Âm nhạc',
+                'name': 'Nhạc cụ Đặc trưng & Màu âm Phổ',
                 'icon': 'fa-guitar',
-                'top1_desc': p1['instrument'],
-                'top2_desc': p2['instrument'],
-                'evidence': f"Phổ tần số và sóng hài âm học ghi nhận cấu trúc âm vang phù hợp với nhạc cụ chủ đạo của {top1_genre}.",
-                'favors': 'top1'
+                'modality_type': 'multimodal',
+                'audio_aspects': ['nhac_cu'],
+                'visual_aspects': ['nhac_cu_dao_cu'],
+                'axes': ['Timbre', 'Spectral', 'Harmony']
+            },
+            {
+                'id': 'rhythm',
+                'name': 'Tiết tấu, Năng lượng & Cấu trúc Biểu diễn',
+                'icon': 'fa-wave-square',
+                'modality_type': 'audio',
+                'audio_aspects': ['tiet_tau_nhip', 'cau_truc_bieu_dien'],
+                'visual_aspects': [],
+                'axes': ['Tempo', 'Energy']
             },
             {
                 'id': 'space',
-                'name': 'Không gian Diễn xướng & Đội hình',
+                'name': 'Không gian Diễn xướng & Đội hình Biểu diễn',
                 'icon': 'fa-users',
-                'top1_desc': p1['space'],
-                'top2_desc': p2['space'],
-                'evidence': f"Bối cảnh diễn xướng ghi nhận được phản ánh sự tương đồng chặt chẽ với không gian truyền thống của {top1_genre}.",
-                'favors': 'top1'
+                'modality_type': 'visual',
+                'audio_aspects': [],
+                'visual_aspects': ['khong_gian_doi_hinh', 'dong_tac_dien_xuat'],
+                'axes': []
             },
             {
                 'id': 'costume',
-                'name': 'Trang phục & Đạo cụ Biểu diễn',
+                'name': 'Trang phục, Hóa trang & Đạo cụ Văn hóa',
                 'icon': 'fa-vest',
-                'top1_desc': p1['costume'],
-                'top2_desc': p2['costume'],
-                'evidence': f"Dấu hiệu trang phục và đạo cụ biểu diễn củng cố trực tiếp cho thể loại {top1_genre}.",
-                'favors': 'top1'
-            },
-            {
-                'id': 'criteria',
-                'name': 'Cơ chế Suy diễn & Phân cực Mờ',
-                'icon': 'fa-scale-balanced',
-                'top1_desc': p1['criteria'],
-                'top2_desc': p2['criteria'],
-                'evidence': f"Mô hình CNN EXP-13 và tập luật mờ gán trọng số {top1_p}% cho {top1_genre}, vượt hơn {top2_p}% của {top2_genre} với biên độ an toàn +{margin_pct}%.",
-                'favors': 'top1'
+                'modality_type': 'visual',
+                'audio_aspects': [],
+                'visual_aspects': ['trang_phuc_hoa_trang'],
+                'axes': []
             }
         ]
 
-        # Kịch bản Giả định Phản sự thực (What-If Sandbox)
-        flip_conditions = [
-            f"Bổ sung hoặc kích hoạt các khái niệm trung gian CBM liên kết trực tiếp với {top2_genre}.",
-            f"Điều chỉnh đặc trưng âm học (nhịp độ Tempo hoặc mức năng lượng Energy = {dominant_energy}) để thiên về hồ sơ mờ của {top2_genre}.",
-            f"Triệt tiêu các tín hiệu âm sắc hoặc thị giác đang chiếm ưu thế áp đảo của {top1_genre}."
-        ]
+        df_aud_all = getattr(self.audio_bridge, 'df_concepts', None)
+        df_vis_all = getattr(self.visual_bridge, 'df_concepts', None)
+
+        def _get_genre_concepts(df, genre_name: str, aspects: List[str]) -> List[Dict[str, Any]]:
+            if df is None or df.empty or not aspects:
+                return []
+            sub = df[
+                (df['genre_name'].astype(str).str.lower() == genre_name.lower()) &
+                (df['aspect'].isin(aspects))
+            ]
+            out = []
+            for _, row in sub.iterrows():
+                out.append({
+                    'concept_id': str(row.get('concept_id', '')),
+                    'aspect': str(row.get('aspect', '')),
+                    'evidence_level': str(row.get('evidence_level', '')),
+                    'sentence': str(row.get('concept_sentence', '')),
+                    'source': str(row.get('source', ''))
+                })
+            return out
+
+        genre_profiles: Dict[str, Dict[str, Any]] = {}
+
+        for g in GENRES:
+            g_fuzzy = self.fuzzy_profiles.get(g, {}).get('axes', {})
+            g_tier2_links = self.audio_bridge.tier2_rules.get(g, {}).get('feature_links', {})
+            # Đảo ngược (axis, level) -> cid thành cid -> [(axis, level)]
+            cid_to_axis_triggers: Dict[str, List[Tuple[str, str]]] = {}
+            for (ax_k, lvl_k), target_cid in g_tier2_links.items():
+                cid_to_axis_triggers.setdefault(target_cid, []).append((ax_k, lvl_k))
+
+            g_aud_prob = round(audio_mod_probs_sum[g] / n_chunks, 1) if n_chunks > 0 else None
+            g_vis_prob = round(visual_mod_probs_sum[g] / visual_mod_chunks_count, 1) if visual_mod_chunks_count > 0 else None
+            g_chunks_won = chunks_won_by_genre.get(g, [])
+
+            criteria_map: Dict[str, Dict[str, Any]] = {}
+
+            for cdef in CRITERIA_DEFS:
+                cid_key = cdef['id']
+                mod_type = cdef['modality_type']
+                aud_concepts = _get_genre_concepts(df_aud_all, g, cdef['audio_aspects'])
+                vis_concepts = _get_genre_concepts(df_vis_all, g, cdef['visual_aspects'])
+                rel_axes = cdef['axes']
+                rel_vis_cues = GENRE_CRITERION_VISUAL_CUES.get(g, {}).get(cid_key, [])
+
+                # 3.1. Tổng hợp mô tả từ Kho tri thức (kb_description) và Nguồn tri thức (sources)
+                all_c_rows = aud_concepts + vis_concepts
+                kb_sentences = [c['sentence'] for c in all_c_rows if c.get('sentence')]
+                # Gắn thêm thông tin hồ sơ mờ chuẩn nếu có trục âm học
+                fuzzy_specs = []
+                for ax in rel_axes:
+                    ax_info = g_fuzzy.get(ax, {})
+                    if ax_info and ax_info.get('dominant'):
+                        dom_l = ax_info['dominant']
+                        dom_s = float(ax_info.get('score', 0.0))
+                        fuzzy_specs.append(f"{ax}: {dom_l} (hồ sơ mờ {dom_s:.2f})")
+
+                kb_desc_main = " ".join(kb_sentences[:2]) if kb_sentences else f"Đặc trưng {cdef['name'].lower()} của {g}."
+                if fuzzy_specs:
+                    kb_desc_full = f"{kb_desc_main} [Chuẩn hồ sơ mờ {g}: {', '.join(fuzzy_specs)}]."
+                else:
+                    kb_desc_full = kb_desc_main
+
+                sources_list = []
+                for c in all_c_rows:
+                    src = c.get('source', '').strip()
+                    if src:
+                        for part in [p.strip() for p in src.split(';') if p.strip()]:
+                            if part not in sources_list:
+                                sources_list.append(part)
+                if rel_axes and "Hồ sơ mờ 7 trục MPEG-7 (GMM/FCM)" not in sources_list:
+                    sources_list.append("Hồ sơ mờ 7 trục MPEG-7 (GMM/FCM)")
+
+                # 3.2. Kiểm tra bằng chứng thực tế từ đầu vào cho từng concept và trục của tiêu chí này
+                evaluated_concepts = []
+                matched_timestamps_union: List[str] = []
+
+                for c in aud_concepts:
+                    c_id = c['concept_id']
+                    ev_lvl = c['evidence_level']
+                    direct_ts = detected_aud_cids.get(c_id, [])
+                    triggers = cid_to_axis_triggers.get(c_id, [])
+
+                    # Kiểm tra các phân đoạn có trục âm học khớp với trigger của concept này
+                    trig_ts = []
+                    trig_desc_parts = []
+                    for (t_ax, t_lvl) in triggers:
+                        ts_for_lvl = axis_level_chunks.get(t_ax, {}).get(t_lvl, [])
+                        if ts_for_lvl:
+                            for t in ts_for_lvl:
+                                if t not in trig_ts:
+                                    trig_ts.append(t)
+                            trig_desc_parts.append(f"{t_ax} = '{t_lvl}' ({len(ts_for_lvl)}/{n_chunks} đoạn)")
+
+                    if direct_ts:
+                        c_status = 'detected'
+                        c_status_lbl = 'Đã kích hoạt từ đầu vào'
+                        c_note = f"Kích hoạt trực tiếp tại {len(direct_ts)}/{n_chunks} phân đoạn" + (f" ({', '.join(trig_desc_parts)})" if trig_desc_parts else "")
+                        c_ts = direct_ts
+                    elif trig_ts and has_chunk_evidence:
+                        c_status = 'shared_signal'
+                        c_status_lbl = 'Tương thích tín hiệu âm học'
+                        c_note = f"Tín hiệu đầu vào có {', '.join(trig_desc_parts)} tương thích với điều kiện âm học của [{c_id}]"
+                        c_ts = trig_ts
+                    elif ev_lvl == 'audio_plus_context':
+                        c_status = 'unverified_context'
+                        c_status_lbl = 'Cần thêm ngữ cảnh lời ca (audio_plus_context)'
+                        c_note = "Tiêu chí đòi hỏi phân tích văn bản lời ca / làn điệu chuyên sâu ngoài tín hiệu âm học thuần túy."
+                        c_ts = []
+                    else:
+                        c_status = 'not_detected'
+                        c_status_lbl = 'Không phát hiện trong đầu vào'
+                        c_note = "Không phát hiện dấu hiệu âm học tương ứng trong mẫu đầu vào."
+                        c_ts = []
+
+                    for t in c_ts:
+                        if t not in matched_timestamps_union:
+                            matched_timestamps_union.append(t)
+
+                    evaluated_concepts.append({
+                        'concept_id': c_id,
+                        'modality': 'audio',
+                        'evidence_level': ev_lvl,
+                        'sentence': c['sentence'],
+                        'source': c['source'],
+                        'status': c_status,
+                        'status_label': c_status_lbl,
+                        'evidence_note': c_note,
+                        'timestamps': c_ts
+                    })
+
+                for c in vis_concepts:
+                    c_id = c['concept_id']
+                    ev_lvl = c['evidence_level']
+                    direct_ts = detected_vis_cids.get(c_id, [])
+                    # Kiểm tra xem có visual cue nào ánh xạ tới concept_id này được phát hiện không
+                    linked_cues_detected = []
+                    cue_ts = []
+                    for cue_k, mapped_cids in self.cbm_cue_to_concepts.items():
+                        if c_id in mapped_cids and cue_k in detected_vis_cues:
+                            linked_cues_detected.append(VISUAL_CUE_VI_NAMES.get(cue_k, cue_k))
+                            for t in detected_vis_cues[cue_k]:
+                                if t not in cue_ts:
+                                    cue_ts.append(t)
+
+                    if not is_video or not has_chunk_evidence:
+                        c_status = 'unverified_modality'
+                        c_status_lbl = 'Chưa có dữ liệu hình ảnh'
+                        c_note = "Đầu vào không có luồng video nên không thể kiểm chứng khái niệm thị giác này."
+                        c_ts = []
+                    elif direct_ts or linked_cues_detected:
+                        use_ts = direct_ts if direct_ts else cue_ts
+                        c_status = 'detected' if g == top1_genre or direct_ts else 'shared_signal'
+                        c_status_lbl = 'Đã phát hiện trên khung hình' if c_status == 'detected' else 'Phát hiện thực thể giao thoa'
+                        cue_str = f": {', '.join(linked_cues_detected)}" if linked_cues_detected else ""
+                        c_note = f"Nhận diện trên khung hình tại {len(use_ts)}/{n_chunks} phân đoạn{cue_str}"
+                        c_ts = use_ts
+                    else:
+                        c_status = 'not_detected'
+                        c_status_lbl = 'Không phát hiện trong khung hình'
+                        c_note = "Không phát hiện thực thể thị giác tương ứng trong các khung hình trích xuất."
+                        c_ts = []
+
+                    for t in c_ts:
+                        if t not in matched_timestamps_union:
+                            matched_timestamps_union.append(t)
+
+                    evaluated_concepts.append({
+                        'concept_id': c_id,
+                        'modality': 'visual',
+                        'evidence_level': ev_lvl,
+                        'sentence': c['sentence'],
+                        'source': c['source'],
+                        'status': c_status,
+                        'status_label': c_status_lbl,
+                        'evidence_note': c_note,
+                        'timestamps': c_ts
+                    })
+
+                # 3.3. Tổng hợp trạng thái bằng chứng & chỉ số hỗ trợ thực tế cho toàn bộ Tiêu chí
+                axis_comparisons = []
+                matched_axes_count = 0
+                for ax in rel_axes:
+                    obs = observed_axes_summary.get(ax, {})
+                    obs_lvl = obs.get('dominant_level')
+                    obs_cnt = obs.get('count', 0)
+                    obs_r = obs.get('mean_radar')
+                    exp_info = g_fuzzy.get(ax, {})
+                    exp_lvl = exp_info.get('dominant')
+                    exp_score = round(float(exp_info.get('score', 0.0)), 3) if exp_info else None
+                    # Độ thuộc của mức thực tế obs_lvl trong hồ sơ mờ của thể loại g
+                    obs_membership_in_g = None
+                    if obs_lvl and exp_info and isinstance(exp_info.get('all'), dict):
+                        obs_membership_in_g = round(float(exp_info['all'].get(obs_lvl, 0.0)), 3)
+
+                    # Kiểm tra xem mức thực tế obs_lvl có khớp với mức điển hình hoặc nằm trong feature_links của g không
+                    is_ax_match = bool(obs_lvl and (obs_lvl == exp_lvl or (ax, obs_lvl) in g_tier2_links))
+                    if is_ax_match:
+                        matched_axes_count += 1
+                        for t in obs.get('timestamps', []):
+                            if t not in matched_timestamps_union:
+                                matched_timestamps_union.append(t)
+
+                    axis_comparisons.append({
+                        'axis': ax,
+                        'observed_level': obs_lvl,
+                        'observed_count': obs_cnt,
+                        'observed_radar': obs_r,
+                        'expected_level': exp_lvl,
+                        'expected_score': exp_score,
+                        'membership_in_genre': obs_membership_in_g,
+                        'is_match': is_ax_match
+                    })
+
+                # Kiểm tra các visual cues của tiêu chí này được phát hiện trong đầu vào
+                detected_cues_for_crit = []
+                for cue_k in rel_vis_cues:
+                    if cue_k in detected_vis_cues:
+                        detected_cues_for_crit.append({
+                            'cue': cue_k,
+                            'label': VISUAL_CUE_VI_NAMES.get(cue_k, cue_k),
+                            'timestamps': detected_vis_cues[cue_k]
+                        })
+                        for t in detected_vis_cues[cue_k]:
+                            if t not in matched_timestamps_union:
+                                matched_timestamps_union.append(t)
+
+                has_direct_concept = any(ec['status'] == 'detected' for ec in evaluated_concepts)
+                has_shared_concept = any(ec['status'] == 'shared_signal' for ec in evaluated_concepts)
+
+                # Quyết định trạng thái bằng chứng tổng hợp của Tiêu chí (evidence_status)
+                if not has_chunk_evidence:
+                    ev_status = 'unverified_modality'
+                    ev_label = 'Chưa có dữ liệu phân đoạn chi tiết'
+                    ev_text = 'Đang ở chế độ mô phỏng xác suất tổng thể; chưa có dữ liệu đo đạc từng phân đoạn.'
+                    supp_metric = f"Điểm đầu ra mô hình: {prob_pct_map[g]}%"
+                elif mod_type == 'visual' and not is_video:
+                    ev_status = 'unverified_modality'
+                    ev_label = 'Chưa có dữ liệu hình ảnh (Chỉ âm thanh)'
+                    ev_text = 'Mẫu đầu vào chỉ có luồng âm thanh nên hệ thống không kiểm chứng tiêu chí thị giác này.'
+                    supp_metric = None
+                elif mod_type == 'visual' and is_video:
+                    if detected_cues_for_crit or has_direct_concept:
+                        ev_status = 'detected' if g == top1_genre else 'shared_signal'
+                        ev_label = 'Đã phát hiện từ khung hình' if g == top1_genre else 'Phát hiện thực thể giao thoa'
+                        cues_names = [d['label'] for d in detected_cues_for_crit]
+                        if cues_names:
+                            ev_text = f"Phát hiện trực tiếp trên khung hình video: {', '.join(cues_names)} tại {len(matched_timestamps_union)}/{n_chunks} phân đoạn."
+                        else:
+                            ev_text = f"Kích hoạt khái niệm thị giác của {g} tại {len(matched_timestamps_union)}/{n_chunks} phân đoạn."
+                        supp_metric = f"Xuất hiện: {len(matched_timestamps_union)}/{n_chunks} phân đoạn" + (f" • Điểm nhánh Thị giác ({g}): {g_vis_prob}%" if g_vis_prob is not None else "")
+                    else:
+                        ev_status = 'not_detected'
+                        ev_label = 'Không phát hiện trong đầu vào'
+                        expected_cues_names = [VISUAL_CUE_VI_NAMES.get(ck, ck) for ck in rel_vis_cues]
+                        if expected_cues_names:
+                            ev_text = f"Không phát hiện các dấu hiệu thị giác đặc trưng của {g} ({', '.join(expected_cues_names)}) trong {n_chunks} phân đoạn khung hình."
+                        else:
+                            ev_text = f"Không phát hiện dấu hiệu không gian/trang phục đặc trưng của {g} trong khung hình đầu vào."
+                        supp_metric = f"Phát hiện: 0/{n_chunks} phân đoạn" + (f" • Điểm nhánh Thị giác ({g}): {g_vis_prob}%" if g_vis_prob is not None else "")
+                else:
+                    # Tiêu chí Âm học hoặc Đa phương thức (vocal, instrument, rhythm)
+                    ax_summary_parts = []
+                    for acmp in axis_comparisons:
+                        if acmp['observed_level']:
+                            match_tag = "khớp" if acmp['is_match'] else f"lệch chuẩn {g} ({acmp['expected_level']})"
+                            mem_str = f", độ thuộc hồ sơ mờ {g}: {acmp['membership_in_genre']:.2f}" if acmp['membership_in_genre'] is not None else ""
+                            ax_summary_parts.append(
+                                f"{acmp['axis']} đo được '{acmp['observed_level']}' (chỉ số {acmp['observed_radar']:.2f}, {acmp['observed_count']}/{n_chunks} đoạn — {match_tag}{mem_str})"
+                            )
+
+                    vis_part_str = ""
+                    if is_video and cid_key == 'instrument':
+                        if detected_cues_for_crit:
+                            vis_part_str = f" Thị giác phát hiện: {', '.join(d['label'] for d in detected_cues_for_crit)}."
+                        elif rel_vis_cues:
+                            vis_part_str = f" Thị giác không phát hiện nhạc cụ {', '.join(VISUAL_CUE_VI_NAMES.get(ck, ck) for ck in rel_vis_cues)} trên khung hình."
+
+                    active_c_ids = [ec['concept_id'] for ec in evaluated_concepts if ec['status'] == 'detected']
+                    shared_c_ids = [ec['concept_id'] for ec in evaluated_concepts if ec['status'] == 'shared_signal']
+
+                    if has_direct_concept or (g == top1_genre and matched_axes_count > 0) or detected_cues_for_crit:
+                        ev_status = 'detected' if (g == top1_genre or detected_cues_for_crit) else 'shared_signal'
+                        ev_label = 'Đã phát hiện từ đầu vào' if ev_status == 'detected' else 'Tương thích một phần (Đặc trưng giao thoa)'
+                        c_prefix = f"Kích hoạt khái niệm [{', '.join(active_c_ids)}]. " if active_c_ids else ""
+                        ev_text = f"{c_prefix}Đo đạc thực tế: {'; '.join(ax_summary_parts)}.{vis_part_str}".strip()
+                        supp_metric = (
+                            f"Tương thích: {len(matched_timestamps_union)}/{n_chunks} phân đoạn"
+                            + (f" • Điểm nhánh Âm thanh ({g}): {g_aud_prob}%" if g_aud_prob is not None else "")
+                        )
+                    elif has_shared_concept or matched_axes_count > 0:
+                        ev_status = 'shared_signal'
+                        ev_label = 'Tương thích một phần (Đặc trưng giao thoa)'
+                        c_prefix = f"Tín hiệu giao thoa với [{', '.join(shared_c_ids)}]: " if shared_c_ids else "Tín hiệu âm học giao thoa một phần: "
+                        ev_text = f"{c_prefix}{'; '.join(ax_summary_parts)}.{vis_part_str}".strip()
+                        supp_metric = (
+                            f"Giao thoa âm học tại {len(matched_timestamps_union)}/{n_chunks} phân đoạn"
+                            + (f" • Điểm nhánh Âm thanh ({g}): {g_aud_prob}%" if g_aud_prob is not None else "")
+                        )
+                    else:
+                        ev_status = 'not_detected'
+                        ev_label = 'Không phát hiện trong đầu vào'
+                        ev_text = f"Các đặc trưng đo được từ đầu vào ({'; '.join(ax_summary_parts)}) không khớp với điều kiện kích hoạt tiêu chí này của {g}.{vis_part_str}".strip()
+                        supp_metric = f"Khớp trực tiếp: 0/{n_chunks} phân đoạn" + (f" • Điểm nhánh Âm thanh ({g}): {g_aud_prob}%" if g_aud_prob is not None else "")
+
+                criteria_map[cid_key] = {
+                    'id': cid_key,
+                    'name': cdef['name'],
+                    'icon': cdef['icon'],
+                    'modality_type': mod_type,
+                    'kb_description': kb_desc_full,
+                    'kb_concepts': evaluated_concepts,
+                    'evidence_status': ev_status,
+                    'evidence_label': ev_label,
+                    'input_evidence': ev_text,
+                    'timestamps': matched_timestamps_union[:6],
+                    'matched_chunks_count': len(matched_timestamps_union),
+                    'total_chunks': n_chunks,
+                    'support_metric': supp_metric,
+                    'axis_comparisons': axis_comparisons,
+                    'detected_visual_cues': detected_cues_for_crit,
+                    'sources': sources_list
+                }
+
+            # 3.4. Bổ sung Tiêu chí 6: Hệ luật Suy luận Mờ & Điểm Đầu ra (rules_decision)
+            g_rules = [r for r in (triggered_rules or []) if r.get('consequent') == g]
+            if g_rules:
+                r_texts = [f"IF {r.get('rule_text', '')} THEN {g} (Tin cậy: {float(r.get('confidence', 0.85))*100 if float(r.get('confidence', 0.85))<=1.0 else float(r.get('confidence', 85.0)):.1f}%, Mẫu hỗ trợ: {r.get('support', 100)})" for r in g_rules[:2]]
+                r_status = 'detected'
+                r_label = f'Kích hoạt {len(g_rules)} mệnh đề luật'
+                r_ev = "Đã kích hoạt mệnh đề luật: " + " | ".join(r_texts)
+            else:
+                r_status = 'not_detected'
+                r_label = 'Không có mệnh đề luật kích hoạt'
+                r_ev = f"Không có mệnh đề luật suy luận hoàn chỉnh nào kết luận {g} thỏa mãn đồng thời các ngưỡng điều kiện trên mẫu đầu vào."
+
+            score_parts = [f"Điểm hợp nhất: {prob_pct_map[g]}%"]
+            if g_aud_prob is not None:
+                score_parts.append(f"Nhánh Âm thanh: {g_aud_prob}%")
+            if g_vis_prob is not None:
+                score_parts.append(f"Nhánh Thị giác: {g_vis_prob}%")
+            if n_chunks > 0:
+                score_parts.append(f"Dẫn đầu: {len(g_chunks_won)}/{n_chunks} phân đoạn")
+
+            criteria_map['criteria'] = {
+                'id': 'criteria',
+                'name': 'Cơ chế Suy diễn Luật Mờ & Điểm Đầu ra',
+                'icon': 'fa-scale-balanced',
+                'modality_type': 'fused',
+                'kb_description': f"Tập luật suy luận mờ 2 tầng (Decision Tree / RIPPER / Visual Rules) kết hợp mô hình Audio CNN (EXP-13) và Visual CBM đánh giá xác suất thuộc thể loại {g}.",
+                'kb_concepts': [],
+                'evidence_status': r_status,
+                'evidence_label': r_label,
+                'input_evidence': r_ev,
+                'timestamps': g_chunks_won[:6],
+                'matched_chunks_count': len(g_chunks_won),
+                'total_chunks': n_chunks,
+                'support_metric': " • ".join(score_parts),
+                'axis_comparisons': [],
+                'detected_visual_cues': [],
+                'sources': ["Hệ luật mờ tượng trưng 2 tầng (data/rules/)", "Multimodal Bayesian Late Fusion (EXP-13 + Visual CBM)"]
+            }
+
+            genre_profiles[g] = {
+                'genre': g,
+                'color': GENRE_COLORS.get(g, '#C84B31'),
+                'prob': prob_pct_map[g],
+                'audio_prob': g_aud_prob,
+                'visual_prob': g_vis_prob,
+                'chunks_won': len(g_chunks_won),
+                'total_chunks': n_chunks,
+                'criteria': criteria_map
+            }
+
+        # 4. Hàm tạo dữ liệu đối chiếu trực tiếp giữa Top 1 và bất kỳ Thể loại đối chứng nào (contrast_genre)
+        def _build_pair_comparison(winner_g: str, contrast_g: str) -> Dict[str, Any]:
+            w_prof = genre_profiles[winner_g]
+            c_prof = genre_profiles[contrast_g]
+            w_prob = w_prof['prob']
+            c_prob = c_prof['prob']
+            pair_margin = round(max(0.1, w_prob - c_prob), 1)
+
+            # 3 Nhóm thông tin theo Yêu cầu 3:
+            # (1) supporting_predicted: Đặc trưng ủng hộ thể loại được dự đoán
+            # (2) shared_or_contrast: Đặc trưng cũng xuất hiện hoặc có thể phù hợp với thể loại đối chứng
+            # (3) discriminative: Những đặc trưng có giá trị phân biệt giữa hai thể loại
+            supporting_predicted_list = []
+            shared_or_contrast_list = []
+            discriminative_list = []
+            pair_dimensions = []
+
+            ordered_keys = ['vocal', 'instrument', 'rhythm', 'space', 'costume', 'criteria']
+
+            for k in ordered_keys:
+                w_cell = w_prof['criteria'][k]
+                c_cell = c_prof['criteria'][k]
+                w_st = w_cell['evidence_status']
+                c_st = c_cell['evidence_status']
+
+                # Xác định quan hệ đối chứng trên tiêu chí k
+                is_disc = False
+                rel_type = 'neutral'
+                rel_label = 'Đối chiếu tri thức'
+                rel_summary = ''
+
+                if w_st == 'unverified_modality' and c_st == 'unverified_modality':
+                    rel_type = 'unverified'
+                    rel_label = 'Chưa có dữ liệu kiểm chứng từ đầu vào'
+                    rel_summary = f"Tiêu chí {w_cell['name'].lower()} chưa được kiểm chứng do đầu vào không chứa luồng dữ liệu tương ứng."
+                elif w_st == 'detected' and c_st == 'not_detected':
+                    is_disc = True
+                    rel_type = 'discriminative'
+                    rel_label = 'Đặc trưng phân biệt quyết định'
+                    rel_summary = (
+                        f"Đầu vào phát hiện bằng chứng trực tiếp ủng hộ {winner_g} ({w_cell['matched_chunks_count']}/{n_chunks} phân đoạn), "
+                        f"trong khi không phát hiện dấu hiệu tương ứng của {contrast_g}."
+                    )
+                elif w_st == 'detected' and c_st in ['shared_signal', 'detected']:
+                    # Kiểm tra xem mức độ khớp có chênh lệch lớn hay là giao thoa
+                    # Nếu có trục âm học mà mức điển hình (expected_level) của 2 thể loại khác nhau và đầu vào khớp với winner_g
+                    diff_axes = []
+                    same_axes = []
+                    for w_ax, c_ax in zip(w_cell.get('axis_comparisons', []), c_cell.get('axis_comparisons', [])):
+                        if w_ax['observed_level']:
+                            if w_ax['is_match'] and not c_ax['is_match']:
+                                diff_axes.append(
+                                    f"trục {w_ax['axis']} đạt '{w_ax['observed_level']}' (khớp chuẩn {winner_g}, khác mức '{c_ax['expected_level']}' của {contrast_g})"
+                                )
+                            elif w_ax['is_match'] and c_ax['is_match']:
+                                same_axes.append(
+                                    f"trục {w_ax['axis']} đạt '{w_ax['observed_level']}' (phù hợp với cả {winner_g} và {contrast_g})"
+                                )
+
+                    if diff_axes:
+                        is_disc = True
+                        rel_type = 'discriminative'
+                        rel_label = 'Đặc trưng phân biệt & Giao thoa một phần'
+                        rel_summary = (
+                            f"Phân biệt qua {', '.join(diff_axes)}"
+                            + (f"; đồng thời có nét tương đồng ở {', '.join(same_axes)}." if same_axes else ".")
+                        )
+                    else:
+                        rel_type = 'shared'
+                        rel_label = 'Đặc trưng giao thoa giữa hai thể loại'
+                        rel_summary = (
+                            f"Bằng chứng từ đầu vào có tính chất giao thoa, xuất hiện hoặc tương thích với cả {winner_g} và {contrast_g}."
+                        )
+                elif w_st == 'not_detected' and c_st in ['detected', 'shared_signal']:
+                    rel_type = 'shared'
+                    rel_label = f'Tương thích một phần với {contrast_g}'
+                    rel_summary = f"Một số tín hiệu trên tiêu chí này gần với hồ sơ của {contrast_g}, giải thích vì sao {contrast_g} nhận được {c_prob}% điểm đầu ra."
+                else:
+                    rel_type = 'neither_detected'
+                    rel_label = 'Không phát hiện bằng chứng ở cả hai'
+                    rel_summary = f"Không phát hiện bằng chứng đặc thù của cả {winner_g} lẫn {contrast_g} trên tiêu chí này trong mẫu đầu vào."
+
+                # Đưa vào Nhóm 1: Đặc trưng ủng hộ thể loại được dự đoán
+                if w_st == 'detected':
+                    supporting_predicted_list.append({
+                        'criterion_id': k,
+                        'criterion_name': w_cell['name'],
+                        'kb_description': w_cell['kb_description'],
+                        'input_evidence': w_cell['input_evidence'],
+                        'timestamps': w_cell['timestamps'],
+                        'support_metric': w_cell['support_metric'],
+                        'sources': w_cell['sources']
+                    })
+
+                # Đưa vào Nhóm 2: Đặc trưng cũng xuất hiện hoặc có thể phù hợp với thể loại đối chứng
+                if c_st in ['detected', 'shared_signal']:
+                    shared_or_contrast_list.append({
+                        'criterion_id': k,
+                        'criterion_name': c_cell['name'],
+                        'kb_description': c_cell['kb_description'],
+                        'input_evidence': c_cell['input_evidence'],
+                        'timestamps': c_cell['timestamps'],
+                        'support_metric': c_cell['support_metric'],
+                        'sources': c_cell['sources'],
+                        'overlap_note': rel_summary
+                    })
+
+                # Đưa vào Nhóm 3: Những đặc trưng có giá trị phân biệt giữa hai thể loại
+                if is_disc:
+                    discriminative_list.append({
+                        'criterion_id': k,
+                        'criterion_name': w_cell['name'],
+                        'why_discriminative': rel_summary,
+                        'top1_kb': w_cell['kb_description'],
+                        'contrast_kb': c_cell['kb_description'],
+                        'top1_evidence': w_cell['input_evidence'],
+                        'contrast_evidence': c_cell['input_evidence'],
+                        'timestamps': w_cell['timestamps'],
+                        'support_metric': f"{winner_g}: {w_cell['support_metric'] or 'Có bằng chứng'} | {contrast_g}: {c_cell['support_metric'] or 'Không phát hiện'}",
+                        'sources': list(dict.fromkeys(w_cell['sources'] + c_cell['sources']))
+                    })
+
+                pair_dimensions.append({
+                    'id': k,
+                    'name': w_cell['name'],
+                    'icon': w_cell['icon'],
+                    'is_discriminative': is_disc,
+                    'relation_type': rel_type,
+                    'relation_label': rel_label,
+                    'relation_summary': rel_summary,
+                    'top1_cell': w_cell,
+                    'contrast_cell': c_cell,
+                    # Legacy keys để tương thích ngược
+                    'top1_desc': w_cell['kb_description'],
+                    'top2_desc': c_cell['kb_description'],
+                    'evidence': w_cell['input_evidence'],
+                    'favors': 'top1' if is_disc or w_st == 'detected' else 'shared'
+                })
+
+            # Nếu shared_or_contrast_list rỗng (ví dụ khi chế độ không có chunk hoặc 2 thể loại hoàn toàn đối lập),
+            # kiểm tra các trục âm học có độ thuộc > 0.20 trong hồ sơ mờ của contrast_g để giải thích khách quan
+            if not shared_or_contrast_list and has_chunk_evidence:
+                c_fuzzy_axes = self.fuzzy_profiles.get(contrast_g, {}).get('axes', {})
+                overlap_axes_notes = []
+                overlap_ts = []
+                for ax in AXES_NAMES:
+                    obs_l = observed_axes_summary.get(ax, {}).get('dominant_level')
+                    if obs_l and ax in c_fuzzy_axes:
+                        mem_val = float(c_fuzzy_axes[ax].get('all', {}).get(obs_l, 0.0))
+                        if mem_val >= 0.22:
+                            overlap_axes_notes.append(f"{ax} đạt mức '{obs_l}' (độ thuộc trong hồ sơ mờ {contrast_g} = {mem_val:.2f})")
+                            for t in observed_axes_summary[ax].get('timestamps', []):
+                                if t not in overlap_ts:
+                                    overlap_ts.append(t)
+                if overlap_axes_notes:
+                    shared_or_contrast_list.append({
+                        'criterion_id': 'acoustic_overlap',
+                        'criterion_name': 'Giao thoa phân bố mờ trên 7 trục âm học MPEG-7',
+                        'kb_description': f"Trong kho tri thức hồ sơ mờ GMM/FCM, {contrast_g} có phân bố xác suất chồng lấp một phần trên các trục âm học cơ bản.",
+                        'input_evidence': f"Tín hiệu đầu vào có {', '.join(overlap_axes_notes[:3])}, tạo ra điểm xác suất nền ({c_prob}%) cho {contrast_g}.",
+                        'timestamps': overlap_ts[:4],
+                        'support_metric': f"Điểm đầu ra {contrast_g}: {c_prob}%",
+                        'sources': ["Hồ sơ mờ 7 trục MPEG-7 (GMM/FCM - data/models/fuzzy_profiles.json)"],
+                        'overlap_note': f"Các mức âm học này không chỉ xuất hiện ở {winner_g} mà còn có mặt với tỷ lệ nhất định trong tập mẫu của {contrast_g}."
+                    })
+
+            # Xây dựng kịch bản What-If cụ thể cho cặp (winner_g, contrast_g)
+            dominant_energy = observed_axes_summary.get('Energy', {}).get('dominant_level') or 'Vừa'
+            c_fuzzy = self.fuzzy_profiles.get(contrast_g, {}).get('axes', {})
+            c_exp_energy = c_fuzzy.get('Energy', {}).get('dominant', 'Vừa')
+            c_exp_tempo = c_fuzzy.get('Tempo', {}).get('dominant', 'Vừa')
+            c_exp_pitch = c_fuzzy.get('Pitch', {}).get('dominant', 'Trung')
+
+            flip_conditions = [
+                f"Kích hoạt các khái niệm đặc thù của {contrast_g} hiện chưa xuất hiện trong đầu vào (bù đắp khoảng cách +{pair_margin}%).",
+                f"Dịch chuyển đặc trưng âm học từ mức hiện tại (Energy = '{dominant_energy}') về sát chuẩn hồ sơ mờ của {contrast_g} (Energy = '{c_exp_energy}', Tempo = '{c_exp_tempo}', Pitch = '{c_exp_pitch}').",
+                f"Giảm trọng số hoặc vô hiệu hóa các khái niệm phân biệt đang củng cố trực tiếp cho {winner_g}."
+            ]
+
+            return {
+                'top1_genre': winner_g,
+                'top1_prob': w_prob,
+                'contrast_genre': contrast_g,
+                'contrast_prob': c_prob,
+                'margin_pct': pair_margin,
+                'groups': {
+                    'supporting_predicted': supporting_predicted_list,
+                    'shared_or_contrast': shared_or_contrast_list,
+                    'discriminative': discriminative_list
+                },
+                'dimensions': pair_dimensions,
+                'what_if': {
+                    'winner': winner_g,
+                    'runner_up': contrast_g,
+                    'required_shift_pct': pair_margin,
+                    'prompt_question': f"Điều kiện nào sẽ khiến hệ thống đảo chiều phán quyết từ {winner_g} sang {contrast_g}?",
+                    'flip_conditions': flip_conditions,
+                    'counterfactual_summary': f"Nếu các đặc trưng phân biệt của {contrast_g} xuất hiện rõ nét hơn để bù đắp chênh lệch {pair_margin}%, phán quyết sẽ chuyển sang {contrast_g}."
+                }
+            }
+
+        # 5. Tính trước dữ liệu đối chiếu cho tất cả 5 thể loại ứng viên (Candidate Contrast Genres)
+        comparisons_dict: Dict[str, Dict[str, Any]] = {}
+        candidates_list = []
+        for rank_idx, (cand_g, cand_p) in enumerate(other_Candidates, start=2):
+            comparisons_dict[cand_g] = _build_pair_comparison(top1_genre, cand_g)
+            candidates_list.append({
+                'genre': cand_g,
+                'prob': cand_p,
+                'rank': rank_idx,
+                'color': GENRE_COLORS.get(cand_g, '#65645E'),
+                'is_default_runnerup': (cand_g == top2_genre)
+            })
+
+        default_pair = comparisons_dict.get(top2_genre) or _build_pair_comparison(top1_genre, top2_genre)
 
         return {
+            'has_chunk_evidence': has_chunk_evidence,
+            'is_video': is_video,
             'top1_genre': top1_genre,
             'top1_prob': top1_p,
+            'top1_color': GENRE_COLORS.get(top1_genre, '#C84B31'),
             'top2_genre': top2_genre,
             'top2_prob': top2_p,
+            'top2_color': GENRE_COLORS.get(top2_genre, '#1E6B5B'),
             'margin_pct': margin_pct,
-            'dimensions': dims,
-            'what_if': {
-                'winner': top1_genre,
-                'runner_up': top2_genre,
-                'required_shift_pct': margin_pct,
-                'prompt_question': f"Điều kiện nào sẽ khiến hệ thống đảo chiều phán quyết từ {top1_genre} sang {top2_genre}?",
-                'flip_conditions': flip_conditions,
-                'counterfactual_summary': f"Nếu điều chỉnh các đặc trưng và bổ sung khái niệm âm thanh/hình ảnh của {top2_genre} để bù đắp chênh lệch {margin_pct}%, kết quả phân loại sẽ chuyển sang {top2_genre}."
-            }
+            'candidates': candidates_list,
+            'genre_profiles': genre_profiles,
+            'comparisons': comparisons_dict,
+            'groups': default_pair['groups'],
+            'dimensions': default_pair['dimensions'],
+            'what_if': default_pair['what_if']
         }
 
     # -------------------------------------------------------------------------
@@ -2248,7 +2946,7 @@ class HeritageInferenceEngine:
         layer3_y_spacing = 3.2
         y_start_l3 = (len(rules) - 1) * layer3_y_spacing / 2.0
 
-        for k, r in enumerate(rules[:3]):
+        for k, r in enumerate(rules):
             node_id = f"node_rule_{k}"
             rule_nodes.append(node_id)
             conf_val = float(r.get('confidence', 0.9))
@@ -2588,7 +3286,7 @@ class HeritageInferenceEngine:
         }
 
         rule_node_ids = []
-        for idx, r in enumerate(rules[:3]):
+        for idx, r in enumerate(rules):
             rid = f"node_rule_{idx}"
             rule_node_ids.append(rid)
             r_conf = float(r.get('confidence', 0.85))
@@ -2975,22 +3673,25 @@ class HeritageInferenceEngine:
                     'summary_text': f"Suy luận phân loại [{target_genre}] dựa trên tập hợp khái niệm trung gian sau can thiệp phản sự thực.",
                     'clauses': [f"Tập hợp khái niệm trung gian còn kích hoạt hỗ trợ nhãn {target_genre}"]
                 })
-            return rules_list[:3]
+            return rules_list[:4]
 
         # Nếu không có concept nào bị vô hiệu hóa (tất cả đều enabled), khôi phục chuẩn xác base_probs và base_rules
         if sum(disabled_counts.values()) == 0:
             new_pred = max(base_probs.keys(), key=lambda k: base_probs[k])
-            contrastive = self._build_contrastive_analysis(
-                final_genre=new_pred,
-                fused_probs={g: base_probs[g] / 100.0 for g in GENRES},
-                chunks_info=[],
-                is_video=False
-            )
             # Khôi phục nguyên vẹn 100% các luật ban đầu
             if base_rules and len(base_rules) > 0:
                 intervened_rules = list(base_rules)
             else:
                 intervened_rules = _get_intervened_rules(new_pred, base_probs[new_pred])
+
+            contrastive = self._build_contrastive_analysis(
+                final_genre=new_pred,
+                fused_probs={g: base_probs[g] / 100.0 for g in GENRES},
+                chunks_info=[],
+                is_video=any(c.get('type') == 'visual' for c in updated_concepts),
+                active_concepts=updated_concepts,
+                triggered_rules=intervened_rules
+            )
 
             evidence_map = self._build_evidence_map(
                 genre=new_pred,
@@ -3037,14 +3738,15 @@ class HeritageInferenceEngine:
         new_pred = max(updated_probs.keys(), key=lambda k: updated_probs[k])
         new_conf = updated_probs[new_pred]
 
+        intervened_rules = _get_intervened_rules(new_pred, new_conf)
         contrastive = self._build_contrastive_analysis(
             final_genre=new_pred,
             fused_probs={g: updated_probs[g] / 100.0 for g in GENRES},
             chunks_info=[],
-            is_video=False
+            is_video=any(c.get('type') == 'visual' for c in updated_concepts),
+            active_concepts=updated_concepts,
+            triggered_rules=intervened_rules
         )
-
-        intervened_rules = _get_intervened_rules(new_pred, new_conf)
         evidence_map = self._build_evidence_map(
             genre=new_pred,
             confidence=new_conf / 100.0,
