@@ -111,6 +111,16 @@ document.addEventListener("DOMContentLoaded", () => {
     bindMediaElementToBrandOrb(audioPlayer);
 
     /**
+     * Ẩn/Hiện thanh Tabs thêm tệp video, ghi âm, link youtube khi đã có input
+     */
+    function setInputTabsVisible(isVisible) {
+        const inputTabsNav = document.getElementById("input-tabs-nav");
+        if (inputTabsNav) {
+            inputTabsNav.style.display = isVisible ? "flex" : "none";
+        }
+    }
+
+    /**
      * Nguyên tắc thiết kế cốt lõi: CHỈ ĐƯỢC PHÉP TỒN TẠI 1 INPUT TẠI 1 THỜI ĐIỂM.
      * Dọn dẹp triệt để phương tiện đối ứng (video hoặc audio), ngắt kết nối âm thanh và giải phóng bộ nhớ.
      */
@@ -139,6 +149,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (mediaDropzone) {
             mediaDropzone.style.display = keepType === null ? "block" : "none";
         }
+
+        // Nếu đã có input (keepType !== null) thì ẩn thanh tab thêm tệp, chỉ hiện lại khi bấm "Thay đổi tệp" (keepType === null)
+        setInputTabsVisible(keepType === null);
 
         // Nếu đang ghi âm từ microphone mà nạp input khác -> dừng thu âm
         if (recorder && recorder.isRecording) {
@@ -1137,17 +1150,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (audioContainer && audioCount === 0) {
-            audioContainer.innerHTML = `<span style="font-size: 12px; color: var(--text-tertiary);">Không có khái niệm âm thanh trong phân đoạn này.</span>`;
+            audioContainer.innerHTML = `<span style="font-size: 12px; color: var(--text-tertiary);">Không có khái niệm âm thanh trong mẫu này.</span>`;
         }
 
+        const audioGroup = document.getElementById("audio-pills-group");
+        if (audioGroup) {
+            audioGroup.style.display = "block";
+        }
         if (visualGroup) {
-            if (currentMultimodalTab === "visual") {
-                visualGroup.style.display = "block";
-            } else if (currentMultimodalTab === "audio") {
-                visualGroup.style.display = "none";
-            } else {
-                visualGroup.style.display = visualCount > 0 ? "block" : "none";
-            }
+            visualGroup.style.display = "block";
         }
         if (visualContainer && visualCount === 0) {
             visualContainer.innerHTML = `<span style="font-size: 12px; color: var(--text-tertiary);">Chế độ chỉ có âm thanh (không có dữ liệu hình ảnh).</span>`;
@@ -1169,6 +1180,19 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".concept-pill").forEach((p) => {
             p.style.display = "inline-flex";
         });
+
+        // Khởi tạo Bảng Theo dõi Biến thiên Tức thì (CBM Live Impact Panel) với dữ liệu gốc
+        if (currentAnalysis) {
+            updateCbmLiveImpact(
+                {
+                    prediction: currentAnalysis.prediction,
+                    confidence: currentAnalysis.confidence,
+                    probs: currentAnalysis.probs,
+                },
+                null,
+                true,
+            );
+        }
     }
 
     function updateInterventionBadge() {
@@ -1302,11 +1326,151 @@ document.addEventListener("DOMContentLoaded", () => {
             // Cập nhật lại Tổng kết Key Findings (Khu vực 6)
             renderExecutiveSummary(currentAnalysis);
 
+            // Cập nhật Bảng theo dõi biến thiên thời gian thực (CBM Live Impact Panel)
+            updateCbmLiveImpact(data, conceptId, newState);
+
             showToast(data.explanation_note);
         } catch (e) {
             console.error(e);
             showToast("Lỗi can thiệp CBM: " + e.message);
         }
+    }
+
+    /**
+     * Cập nhật Bảng phản hồi biến thiên thời gian thực trong hộp CBM What-If
+     */
+    function updateCbmLiveImpact(resultData, toggledConceptId, isEnabled) {
+        if (!currentAnalysis) return;
+
+        const liveGenre = document.getElementById("cbm-live-genre");
+        const liveConf = document.getElementById("cbm-live-conf");
+        const liveDelta = document.getElementById("cbm-live-delta");
+        const liveFlipInd = document.getElementById("cbm-live-flip-indicator");
+        const expText = document.getElementById("cbm-live-explanation-text");
+
+        // Lấy thông tin gốc ban đầu
+        const baseGenre = currentAnalysis.base_prediction || (currentAnalysis.base_probs ? Object.keys(currentAnalysis.base_probs)[0] : currentAnalysis.prediction);
+        const baseConf = currentAnalysis.base_confidence != null ? currentAnalysis.base_confidence : currentAnalysis.confidence;
+        const currentGenre = resultData.prediction || currentAnalysis.prediction;
+        const currentConf = typeof resultData.confidence === "number" ? resultData.confidence : currentAnalysis.confidence;
+
+        if (liveGenre) liveGenre.innerText = currentGenre;
+        if (liveConf) liveConf.innerText = `${Number(currentConf).toFixed(1)}%`;
+
+        // Tính toán độ lệch Delta so với gốc
+        const diff = currentConf - baseConf;
+        if (liveDelta) {
+            const sign = diff >= 0 ? "+" : "";
+            liveDelta.innerText = `Δ ${sign}${diff.toFixed(1)}% (Gốc: ${Number(baseConf).toFixed(1)}%)`;
+            liveDelta.className = `live-delta-tag ${diff < -0.05 ? "neg" : diff > 0.05 ? "pos" : ""}`;
+        }
+
+        // Kiểm tra xem phán quyết có bị lật ngược (Counterfactual Decision Flip) không
+        const isFlipped = currentGenre !== baseGenre;
+        if (liveFlipInd) {
+            if (isFlipped) {
+                liveFlipInd.className = "live-flip-indicator flipped";
+                liveFlipInd.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color: var(--accent-vermilion);"></i> <span>ĐÃ LẬT NGƯỢC PHÁN QUYẾT: ${baseGenre} ➔ ${currentGenre}!</span>`;
+            } else {
+                liveFlipInd.className = "live-flip-indicator";
+                liveFlipInd.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--accent-jade);"></i> <span>Vẫn duy trì phán quyết: ${currentGenre}</span>`;
+            }
+        }
+
+        // Cập nhật 2 thanh mini progress bar Top 1 và Top 2
+        if (resultData.probs && typeof resultData.probs === "object") {
+            const sorted = Object.entries(resultData.probs).sort((a, b) => b[1] - a[1]);
+            if (sorted.length >= 2) {
+                const [top1G, top1P] = sorted[0];
+                const [top2G, top2P] = sorted[1];
+                const p1 = Math.round(top1P * 100);
+                const p2 = Math.round(top2P * 100);
+
+                const b1Name = document.getElementById("cbm-bar1-name");
+                const b1Pct = document.getElementById("cbm-bar1-pct");
+                const b1Fill = document.getElementById("cbm-bar1-fill");
+                const b2Name = document.getElementById("cbm-bar2-name");
+                const b2Pct = document.getElementById("cbm-bar2-pct");
+                const b2Fill = document.getElementById("cbm-bar2-fill");
+
+                if (b1Name) b1Name.innerText = `Top 1: ${top1G}`;
+                if (b1Pct) b1Pct.innerText = `${p1}%`;
+                if (b1Fill) b1Fill.style.width = `${Math.min(100, p1)}%`;
+
+                if (b2Name) b2Name.innerText = `Top 2: ${top2G}`;
+                if (b2Pct) b2Pct.innerText = `${p2}%`;
+                if (b2Fill) b2Fill.style.width = `${Math.min(100, p2)}%`;
+            }
+        }
+
+        // Cập nhật câu giải thích hành động vừa thực hiện
+        if (expText) {
+            if (toggledConceptId) {
+                const actionStr = isEnabled ? "Kích hoạt lại" : "Vô hiệu hóa (tắt)";
+                const impactStr = diff < 0 ? `làm giảm ${Math.abs(diff).toFixed(1)}%` : `tăng ${diff.toFixed(1)}%`;
+                expText.innerHTML = `Vừa <strong>${actionStr}</strong> khái niệm <code>${toggledConceptId}</code> ➔ ${impactStr} độ tin cậy thể loại.`;
+            } else {
+                expText.innerHTML = "Bấm vào bất kỳ khái niệm thị giác hoặc âm thanh bên dưới để thử nghiệm giả định.";
+            }
+        }
+    }
+
+    // Sự kiện nút "Khôi phục ban đầu" trong hộp can thiệp CBM
+    const btnResetCbm = document.getElementById("btn-reset-cbm-interventions");
+    if (btnResetCbm) {
+        btnResetCbm.addEventListener("click", async () => {
+            if (!currentAnalysis || !currentAnalysis.active_concepts) return;
+            const disabledPills = document.querySelectorAll(".concept-pill.disabled");
+            if (disabledPills.length === 0) return;
+
+            currentAnalysis.active_concepts.forEach((c) => (c.enabled = true));
+            document.querySelectorAll(".concept-pill").forEach((p) => {
+                p.setAttribute("data-enabled", "true");
+                p.classList.remove("disabled");
+                p.classList.add("active");
+                const chk = p.querySelector(".pill-check");
+                if (chk) chk.innerText = "✓";
+            });
+            updateInterventionBadge();
+
+            try {
+                const res = await fetch("/api/intervene", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        base_probs: currentAnalysis.base_probs,
+                        current_probs: currentAnalysis.base_probs,
+                        concept_id: "__reset__",
+                        is_enabled: true,
+                        all_concepts: currentAnalysis.active_concepts,
+                        base_rules:
+                            currentAnalysis.base_rules ||
+                            currentAnalysis.triggered_rules,
+                    }),
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    currentAnalysis.probs = data.probs;
+                    currentAnalysis.prediction = data.prediction;
+                    currentAnalysis.confidence = data.confidence;
+                    updateProbabilityBarsSmooth(
+                        data.probs,
+                        data.prediction,
+                        data.confidence,
+                    );
+                    updateCbmLiveImpact(data, null, true);
+                    const expText = document.getElementById(
+                        "cbm-live-explanation-text",
+                    );
+                    if (expText)
+                        expText.innerText =
+                            "Đã khôi phục toàn bộ các khái niệm về trạng thái ban đầu.";
+                    showToast("Đã khôi phục tất cả khái niệm");
+                }
+            } catch (e) {
+                console.warn("Reset CBM failed:", e);
+            }
+        });
     }
 
     function updateProbabilityBarsSmooth(probs, winnerGenre, confidence) {
@@ -1813,7 +1977,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Hiển thị kết quả theo từng phương thức (Requirement 2)
+    // Hiển thị kết quả theo từng phương thức (Phương án 1A: 2 hàng tinh gọn, chiều rộng bằng nhau)
     function updateModalitiesGrid(
         modalities,
         fallbackGenre,
@@ -1830,51 +1994,48 @@ document.addEventListener("DOMContentLoaded", () => {
         modsGrid.style.display = "grid";
 
         // 1. Nhánh Âm thanh
+        const audioPredEl = document.getElementById("mod-card-audio-pred");
+        const audioPred = modalities?.audio?.prediction || fallbackGenre;
+        const audioConf = modalities?.audio?.confidence || fallbackConfidence;
+        const aNote = modalities?.audio?.notes || "Phân loại âm thanh CNN (EXP-13) + RF liên tục";
+
+        if (audioPredEl) {
+            audioPredEl.innerHTML = `<strong>${audioPred}</strong> <span class="score">${audioConf}%</span>`;
+        }
         if (modAudio) {
-            if (modalities && modalities.audio && modalities.audio.prediction) {
-                const aNote =
-                    modalities.audio.notes ||
-                    "Mô hình CNN (EXP-13) + Rừng ngẫu nhiên liên tục";
-                modAudio.innerHTML = `<strong>${modalities.audio.prediction}</strong> <span style="color: var(--accent-vermilion); font-family: var(--font-mono); font-weight: 700;">${modalities.audio.confidence}%</span><br><span style="font-size: 11px; color: var(--text-secondary);">${aNote}</span>`;
-            } else {
-                modAudio.innerHTML = `<strong>${fallbackGenre}</strong> <span style="color: var(--accent-vermilion); font-family: var(--font-mono); font-weight: 700;">${fallbackConfidence}%</span><br><span style="font-size: 11px; color: var(--text-secondary);">Mô hình âm thanh</span>`;
-            }
+            modAudio.innerText = aNote;
+            modAudio.title = aNote;
         }
 
         // 2. Nhánh Thị giác: Luôn giữ hiển thị trong ngăn điều hướng 3 lựa chọn
-        if (visualWrap && modVisual) {
-            visualWrap.style.display = "block";
-            if (
-                modalities &&
-                modalities.visual &&
-                modalities.visual.prediction
-            ) {
-                const vCues =
-                    modalities.visual.cues && modalities.visual.cues.length
-                        ? modalities.visual.cues.join(", ")
-                        : modalities.visual.notes ||
-                          "Nhận diện nhạc cụ, trang phục & đạo cụ";
-                modVisual.innerHTML = `<strong>${modalities.visual.prediction}</strong> <span style="color: var(--accent-amber); font-family: var(--font-mono); font-weight: 700;">${modalities.visual.confidence}%</span><br><span style="font-size: 11px; color: var(--text-secondary);">${vCues}</span>`;
-            } else {
-                modVisual.innerHTML = `<span style="font-size: 11px; color: var(--text-secondary);">Dải phân đoạn thời gian &amp; Keyframes thị giác</span>`;
-            }
+        if (visualWrap) visualWrap.style.display = "block";
+        const visualPredEl = document.getElementById("mod-card-visual-pred");
+        const visualPred = modalities?.visual?.prediction || fallbackGenre;
+        const visualConf = modalities?.visual?.confidence || fallbackConfidence;
+        const vCues = modalities?.visual?.cues && modalities.visual.cues.length
+            ? modalities.visual.cues.join(", ")
+            : modalities?.visual?.notes || "Nhận diện nhạc cụ, trang phục & đạo cụ";
+
+        if (visualPredEl) {
+            visualPredEl.innerHTML = `<strong>${visualPred}</strong> <span class="score">${visualConf}%</span>`;
+        }
+        if (modVisual) {
+            modVisual.innerText = vCues;
+            modVisual.title = vCues;
         }
 
         // 3. Kết quả Hợp nhất
+        const fusedPredEl = document.getElementById("mod-card-fused-pred");
+        const fPred = modalities?.fused?.prediction || fallbackGenre;
+        const fConf = modalities?.fused?.confidence || fallbackConfidence;
+        const fMethod = modalities?.fused?.method || "Late Fusion Bayesian + Suy luận Mệnh đề Luật Mờ";
+
+        if (fusedPredEl) {
+            fusedPredEl.innerHTML = `<strong>${fPred}</strong> <span class="score">${fConf}%</span>`;
+        }
         if (modFused) {
-            const fPred =
-                modalities && modalities.fused && modalities.fused.prediction
-                    ? modalities.fused.prediction
-                    : fallbackGenre;
-            const fConf =
-                modalities && modalities.fused && modalities.fused.confidence
-                    ? modalities.fused.confidence
-                    : fallbackConfidence;
-            const fMethod =
-                modalities && modalities.fused && modalities.fused.method
-                    ? modalities.fused.method
-                    : "Late Fusion Bayesian + Suy luận Mệnh đề Luật Mờ";
-            modFused.innerHTML = `<strong>${fPred}</strong> <span style="color: var(--accent-jade); font-family: var(--font-mono); font-weight: 700;">${fConf}%</span><br><span style="font-size: 11px; color: var(--text-secondary);">${fMethod}</span>`;
+            modFused.innerText = fMethod;
+            modFused.title = fMethod;
         }
     }
 
@@ -2561,22 +2722,7 @@ document.addEventListener("DOMContentLoaded", () => {
             modeBar.style.display = "none";
         }
 
-        // 4. Lọc hiển thị nhóm Khái niệm CBM tương ứng với Tab đang mở
-        const audioPillsGroup = document.getElementById("audio-pills-group");
-        const visualPillsGroup = document.getElementById("visual-pills-group");
-        if (audioPillsGroup) {
-            audioPillsGroup.style.display =
-                currentMultimodalTab === "visual" ? "none" : "block";
-        }
-        if (visualPillsGroup) {
-            if (currentMultimodalTab === "audio") {
-                visualPillsGroup.style.display = "none";
-            } else {
-                visualPillsGroup.style.display = "block";
-            }
-        }
-
-        // 5. Nếu mở tab Hợp nhất & Diễn biến thời gian, vẽ lại biểu đồ SVG để đảm bảo kích thước chuẩn
+        // 4. Nếu mở tab Hợp nhất & Diễn biến thời gian, vẽ lại biểu đồ SVG để đảm bảo kích thước chuẩn
         const chartView = document.getElementById("timeline-chart-container");
         if (currentMultimodalTab === "fused") {
             if (chartView) chartView.style.display = "flex";
@@ -4927,6 +5073,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const backdrop = document.getElementById("drawer-backdrop");
         if (!drawer) return;
 
+        document.body.classList.add("drawer-open");
+        const edgeSidebar = document.getElementById("edge-sidebar");
+        if (edgeSidebar) edgeSidebar.classList.remove("is-expanded");
+
         drawer.classList.add("open");
         drawer.setAttribute("aria-hidden", "false");
         if (backdrop) backdrop.classList.add("open");
@@ -4935,6 +5085,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function closeSlideDrawer() {
+        document.body.classList.remove("drawer-open");
         const drawer = document.getElementById("slide-drawer");
         const backdrop = document.getElementById("drawer-backdrop");
         if (drawer) {
@@ -4947,6 +5098,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".dock-edge-tab").forEach((tab) => {
             tab.classList.remove("active");
         });
+        const edgeSidebar = document.getElementById("edge-sidebar");
+        if (edgeSidebar) edgeSidebar.classList.remove("is-expanded");
     }
 
     function switchDrawerPane(targetSectionId) {
@@ -5385,13 +5538,31 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // 8. Sự kiện mở Slide Drawer từ các thẻ mũi tên dọc cạnh phải màn hình (.dock-edge-tab)
+        // 7.5. Xử lý mở/đóng Edge Sidebar cạnh phải khi nhấp vào Handle hoặc click ra ngoài
+        const edgeSidebar = document.getElementById("edge-sidebar");
+        const edgeHandle = document.getElementById("edge-sidebar-handle");
+        if (edgeHandle && edgeSidebar) {
+            edgeHandle.addEventListener("click", (e) => {
+                e.stopPropagation();
+                edgeSidebar.classList.toggle("is-expanded");
+            });
+            document.addEventListener("click", (e) => {
+                if (edgeSidebar && !edgeSidebar.contains(e.target)) {
+                    edgeSidebar.classList.remove("is-expanded");
+                }
+            });
+        }
+
+        // 8. Sự kiện mở Slide Drawer từ các thẻ chức năng trong Edge Sidebar (.dock-edge-tab)
         document.querySelectorAll(".dock-edge-tab").forEach((tab) => {
             tab.addEventListener("click", () => {
                 const targetSec = tab.getAttribute("data-open-drawer");
                 const drawer = document.getElementById("slide-drawer");
                 const isOpen = drawer && drawer.classList.contains("open");
                 const isCurrentActive = tab.classList.contains("active");
+                if (edgeSidebar) {
+                    edgeSidebar.classList.remove("is-expanded");
+                }
                 if (isOpen && isCurrentActive) {
                     closeSlideDrawer();
                 } else {

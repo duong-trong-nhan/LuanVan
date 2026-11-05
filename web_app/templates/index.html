@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <!-- Swiss Editorial Light Mode Stylesheet -->
-  <link rel="stylesheet" href="/static/css/index.css?v=3.10">
+  <link rel="stylesheet" href="/static/css/index.css?v=3.14">
 
   <!-- Three.js WebGL & OrbitControls -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -48,8 +48,8 @@
         </div>
       </div>
       <div class="header-divider"></div>
-      <button class="btn-methodology" id="btn-open-methodology" type="button" title="Xem chi tiết phương pháp nghiên cứu và kiến trúc mô hình">
-        <i class="fa-solid fa-circle-info"></i> <span>Thông tin mô hình</span>
+      <button class="btn-methodology" id="btn-open-methodology" type="button" title="Thông tin mô hình &amp; Phương pháp nghiên cứu" aria-label="Thông tin mô hình">
+        <i class="fa-solid fa-circle-info"></i>
       </button>
     </div>
   </header>
@@ -66,7 +66,7 @@
         <!-- CỘT TRÁI: Media Input & Thanh tiến trình phân đoạn nhanh -->
         <div class="overview-media-col">
           <div class="card-panel" id="input-main-card">
-            <div class="tabs-nav">
+            <div class="tabs-nav" id="input-tabs-nav">
               <button class="tab-trigger active" data-tab="media" type="button">
                 <i class="fa-solid fa-photo-film"></i> Tệp Video &amp; Âm thanh
               </button>
@@ -198,31 +198,6 @@
             </div>
 
             <div class="card-body mm-tabs-body">
-              <!-- THANH KHÁI NIỆM CBM DÙNG CHUNG (Hiển thị theo ngữ cảnh tab đang chọn) -->
-              <div class="mm-concepts-bar">
-                <div class="concept-pills-wrap">
-                  <!-- Visual Concepts -->
-                  <div class="pills-group" id="visual-pills-group" style="margin-top: 6px;">
-                    <span class="pills-group-title">
-                      <i class="fa-solid fa-eye" style="color: var(--accent-amber);"></i> Khái niệm Thị giác (Bấm để bật/tắt can thiệp CBM):
-                    </span>
-                    <div class="pills-container" id="visual-pills-container" style="margin-top: 6px;">
-                      <span style="font-size: 12px; color: var(--text-tertiary);">Chưa có khái niệm hình ảnh.</span>
-                    </div>
-                  </div>
-
-                  <!-- Audio Concepts -->
-                  <div class="pills-group" id="audio-pills-group" style="display: none; margin-top: 6px;">
-                    <span class="pills-group-title">
-                      <i class="fa-solid fa-headphones" style="color: var(--accent-jade);"></i> Khái niệm Âm thanh (Bấm để bật/tắt can thiệp CBM):
-                    </span>
-                    <div class="pills-container" id="audio-pills-container" style="margin-top: 6px;">
-                      <span style="font-size: 12px; color: var(--text-tertiary);">Chưa có khái niệm âm thanh.</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               <!-- TAB PANEL 1: VISUAL - PHÂN TÍCH HÌNH ẢNH & DẢI PHÂN ĐOẠN KEYFRAMES (MẶC ĐỊNH) -->
               <div class="mm-tab-pane active" id="mm-pane-visual" data-mm-pane="visual">
                 <div class="mm-subcard">
@@ -358,6 +333,37 @@
                   <div class="probs-list" id="probabilities-other-list"></div>
                 </div>
               </div>
+
+              <!-- Dải Tóm tắt 3 Nhánh Phương thức (2 Hàng tinh gọn, chiều rộng bằng nhau 100%) -->
+              <div class="verdict-modalities-strip xai-modalities-grid" id="xai-modalities-grid" style="display: none;">
+                <!-- Nhánh 1: Âm thanh -->
+                <div class="verdict-mod-pill xai-mod-card mod-card-audio" data-jump-section="sec-multimodal" data-jump-mmtab="audio" title="Nhấn để xem chi tiết Nhánh Âm thanh ở Trình phát">
+                  <div class="mod-pill-row1">
+                    <span class="mod-pill-badge mod-card-head"><i class="fa-solid fa-volume-high"></i> Âm thanh</span>
+                    <span class="mod-pill-pred" id="mod-card-audio-pred"><strong>--</strong> <span class="score">--%</span></span>
+                  </div>
+                  <div class="mod-pill-row2 mod-card-body" id="mod-card-audio-content">--</div>
+                </div>
+
+                <!-- Nhánh 2: Thị giác -->
+                <div class="verdict-mod-pill xai-mod-card mod-card-visual" id="mod-card-visual-wrap" data-jump-section="sec-multimodal" data-jump-mmtab="visual" title="Nhấn để xem chi tiết Nhánh Thị giác ở Trình phát">
+                  <div class="mod-pill-row1">
+                    <span class="mod-pill-badge mod-card-head"><i class="fa-solid fa-eye"></i> Thị giác</span>
+                    <span class="mod-pill-pred" id="mod-card-visual-pred"><strong>--</strong> <span class="score">--%</span></span>
+                  </div>
+                  <div class="mod-pill-row2 mod-card-body" id="mod-card-visual-content">--</div>
+                </div>
+
+                <!-- Nhánh 3: Hợp nhất -->
+                <div class="verdict-mod-pill xai-mod-card mod-card-fused" data-jump-section="sec-multimodal" data-jump-mmtab="fused" title="Nhấn để xem chi tiết Kết quả Hợp nhất ở Trình phát">
+                  <div class="mod-pill-row1">
+                    <span class="mod-pill-badge mod-card-head"><i class="fa-solid fa-scale-balanced"></i> Hợp nhất</span>
+                    <span class="mod-pill-pred" id="mod-card-fused-pred"><strong>--</strong> <span class="score">--%</span></span>
+                  </div>
+                  <div class="mod-pill-row2 mod-card-body" id="mod-card-fused-content">--</div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -379,22 +385,6 @@
                 <button class="btn-return-overall" id="btn-return-overall-xai" type="button" title="Xem lại lời giải thích tổng thể toàn video">
                   <i class="fa-solid fa-rotate-left"></i> Xem toàn cảnh video
                 </button>
-              </div>
-
-              <!-- Tóm tắt 3 nhánh phương thức (Bấm để nhảy tới tab Khu vực 2 bên dưới) -->
-              <div class="xai-modalities-grid" id="xai-modalities-grid" style="display: none;">
-                <div class="xai-mod-card mod-card-audio" data-jump-section="sec-multimodal" data-jump-mmtab="audio" title="Nhấn để xem chi tiết Tab Âm thanh ở Khu vực 2">
-                  <div class="mod-card-head"><i class="fa-solid fa-volume-high"></i> Nhánh Âm thanh</div>
-                  <div class="mod-card-body" id="mod-card-audio-content">--</div>
-                </div>
-                <div class="xai-mod-card mod-card-visual" id="mod-card-visual-wrap" data-jump-section="sec-multimodal" data-jump-mmtab="visual" title="Nhấn để xem chi tiết Tab Thị giác ở Khu vực 2">
-                  <div class="mod-card-head"><i class="fa-solid fa-eye"></i> Nhánh Thị giác</div>
-                  <div class="mod-card-body" id="mod-card-visual-content">--</div>
-                </div>
-                <div class="xai-mod-card mod-card-fused" data-jump-section="sec-multimodal" data-jump-mmtab="fused" title="Nhấn để xem chi tiết Tab Hợp nhất ở Khu vực 2">
-                  <div class="mod-card-head"><i class="fa-solid fa-scale-balanced"></i> Kết quả Hợp nhất</div>
-                  <div class="mod-card-body" id="mod-card-fused-content">--</div>
-                </div>
               </div>
 
               <h4 class="xai-headline" id="xai-headline">Chưa có kết quả phân tích</h4>
@@ -440,8 +430,8 @@
           <i class="fa-solid fa-clipboard-check"></i> <span>6. Báo cáo tổng kết</span>
         </button>
       </div>
-      <button type="button" class="drawer-close-btn" id="drawer-close-btn" title="Đóng bảng công cụ (Esc)">
-        <i class="fa-solid fa-xmark"></i> <span>Đóng</span>
+      <button type="button" class="drawer-close-btn" id="drawer-close-btn" title="Quay lại giao diện chính (Esc)">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Quay lại</span>
       </button>
     </div>
 
@@ -860,6 +850,94 @@
                     <span>Kéo thanh trượt để quan sát xác suất giả định của thể loại dự đoán và thể loại đối chứng biến thiên theo thời gian thực.</span>
                   </div>
                 </div>
+
+                <!-- Khu vực Can thiệp Khái niệm CBM (Phương án 2A: Tích hợp trực tiếp vào Thử nghiệm Giả định) -->
+                <div class="whatif-cbm-box" id="whatif-cbm-box">
+                  <div class="whatif-cbm-head">
+                    <div class="whatif-cbm-title">
+                      <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-amber);"></i>
+                      <span>Can thiệp Khái niệm CBM (Interactive Concept Intervention)</span>
+                    </div>
+                    <span class="tag-badge jade" id="cbm-intervention-badge">Thử nghiệm bật/tắt</span>
+                  </div>
+                  <p class="whatif-cbm-desc">
+                    Mô hình Concept Bottleneck (CBM) cho phép thử nghiệm giả định phản sự thực: Bấm vào từng khái niệm để vô hiệu hóa (tắt) hoặc kích hoạt lại nhằm quan sát mức độ thay đổi xác suất và sự chuyển dịch phân loại trong thời gian thực.
+                  </p>
+
+                  <!-- BẢNG THEO DÕI BIẾN THIÊN TỨC THÌ (REAL-TIME LIVE IMPACT FEEDBACK) -->
+                  <div class="cbm-live-impact-panel" id="cbm-live-impact-panel">
+                    <div class="live-impact-status-row">
+                      <div class="live-pred-badge-box">
+                        <span class="live-pred-label">Kết quả sau can thiệp:</span>
+                        <div class="live-pred-value-group">
+                          <span class="live-pred-genre" id="cbm-live-genre">Chưa can thiệp</span>
+                          <span class="live-pred-conf" id="cbm-live-conf">--%</span>
+                          <span class="live-delta-tag" id="cbm-live-delta">Gốc: --%</span>
+                        </div>
+                      </div>
+                      <div class="live-flip-indicator" id="cbm-live-flip-indicator">
+                        <i class="fa-solid fa-circle-check" style="color: var(--accent-jade);"></i>
+                        <span id="cbm-live-flip-text">Tất cả khái niệm đang hoạt động</span>
+                      </div>
+                      <button type="button" class="btn-reset-cbm" id="btn-reset-cbm-interventions" title="Bật lại toàn bộ các khái niệm đã tắt">
+                        <i class="fa-solid fa-rotate-left"></i> Khôi phục ban đầu
+                      </button>
+                    </div>
+
+                    <!-- Mini thanh tiến trình so sánh Top 1 và Đối chứng Top 2 -->
+                    <div class="cbm-live-bars-compare" id="cbm-live-bars-compare">
+                      <div class="live-bar-item">
+                        <div class="live-bar-info">
+                          <span class="live-bar-name" id="cbm-bar1-name">Top 1</span>
+                          <span class="live-bar-pct" id="cbm-bar1-pct">--%</span>
+                        </div>
+                        <div class="live-bar-track">
+                          <div class="live-bar-fill top1" id="cbm-bar1-fill" style="width: 0%;"></div>
+                        </div>
+                      </div>
+                      <div class="live-bar-item">
+                        <div class="live-bar-info">
+                          <span class="live-bar-name" id="cbm-bar2-name">Top 2 (Đối chứng)</span>
+                          <span class="live-bar-pct" id="cbm-bar2-pct">--%</span>
+                        </div>
+                        <div class="live-bar-track">
+                          <div class="live-bar-fill top2" id="cbm-bar2-fill" style="width: 0%;"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Dòng tóm tắt giải thích can thiệp tức thì -->
+                    <div class="cbm-live-explanation-strip" id="cbm-live-explanation-strip">
+                      <i class="fa-solid fa-lightbulb" style="color: var(--accent-amber);"></i>
+                      <span id="cbm-live-explanation-text">Bấm vào bất kỳ khái niệm thị giác hoặc âm thanh bên dưới để thử nghiệm giả định.</span>
+                    </div>
+                  </div>
+
+                  <div class="whatif-cbm-groups">
+                    <!-- Nhóm Khái niệm Thị giác -->
+                    <div class="whatif-cbm-group" id="visual-pills-group">
+                      <div class="whatif-group-header">
+                        <i class="fa-solid fa-eye" style="color: var(--accent-amber);"></i>
+                        <span>Khái niệm Thị giác (Visual Concepts):</span>
+                      </div>
+                      <div class="pills-container" id="visual-pills-container">
+                        <span style="font-size: 12px; color: var(--text-tertiary);">Chưa có khái niệm hình ảnh.</span>
+                      </div>
+                    </div>
+
+                    <!-- Nhóm Khái niệm Âm thanh -->
+                    <div class="whatif-cbm-group" id="audio-pills-group">
+                      <div class="whatif-group-header">
+                        <i class="fa-solid fa-headphones" style="color: var(--accent-jade);"></i>
+                        <span>Khái niệm Âm thanh (Audio Concepts):</span>
+                      </div>
+                      <div class="pills-container" id="audio-pills-container">
+                        <span style="font-size: 12px; color: var(--text-tertiary);">Chưa có khái niệm âm thanh.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -960,28 +1038,98 @@
     </div>
   </aside>
 
-  <!-- Docked Edge Navigation along Right Edge (Các thẻ mũi tên dọc cạnh phải màn hình) -->
-  <aside class="docked-edge-nav" id="docked-edge-nav" aria-label="Thanh công cụ phân tích chuyên sâu">
-    <button type="button" class="dock-edge-tab" data-open-drawer="sec-concept-graph" title="Mở Đồ thị Concept–Rule (Khu vực 3)">
-      <i class="fa-solid fa-chevron-left dock-arrow"></i>
-      <i class="fa-solid fa-diagram-project dock-icon" style="color: var(--accent-jade);"></i>
-      <span class="dock-text">Đồ thị Concept–Rule</span>
-    </button>
-    <button type="button" class="dock-edge-tab" data-open-drawer="sec-rule-explorer" title="Mở Khám phá luật suy luận (Khu vực 4)">
-      <i class="fa-solid fa-chevron-left dock-arrow"></i>
-      <i class="fa-solid fa-code-branch dock-icon" style="color: var(--accent-vermilion);"></i>
-      <span class="dock-text">Khám phá luật</span>
-    </button>
-    <button type="button" class="dock-edge-tab" data-open-drawer="sec-explanation-explorer" title="Mở Diễn giải &amp; Đối chiếu (Khu vực 5)">
-      <i class="fa-solid fa-chevron-left dock-arrow"></i>
-      <i class="fa-solid fa-code-compare dock-icon" style="color: var(--accent-amber);"></i>
-      <span class="dock-text">Diễn giải &amp; Đối chiếu</span>
-    </button>
-    <button type="button" class="dock-edge-tab" data-open-drawer="sec-summary" title="Mở Báo cáo Tổng kết (Khu vực 6)">
-      <i class="fa-solid fa-chevron-left dock-arrow"></i>
-      <i class="fa-solid fa-clipboard-check dock-icon" style="color: var(--accent-indigo);"></i>
-      <span class="dock-text">Báo cáo Tổng kết</span>
-    </button>
+  <!-- Edge Sidebar Navigation (Thanh công cụ suy luận XAI ẩn mép phải màn hình) -->
+  <aside class="edge-sidebar" id="edge-sidebar" aria-label="Thanh công cụ suy luận XAI">
+    <!-- Nút kích hoạt siêu mảnh sát mép phải (Resting handle - không lòi ra giữa màn hình) -->
+    <div class="edge-sidebar-handle" id="edge-sidebar-handle" title="Mở thanh công cụ phân tích chuyên sâu (Khu vực 3-6)">
+      <div class="handle-dots">
+        <span class="h-dot jade" title="Khu vực 3: Đồ thị Concept–Rule"></span>
+        <span class="h-dot vermilion" title="Khu vực 4: Khám phá luật"></span>
+        <span class="h-dot amber" title="Khu vực 5: Diễn giải &amp; Đối chiếu"></span>
+        <span class="h-dot indigo" title="Khu vực 6: Báo cáo tổng kết"></span>
+      </div>
+      <i class="fa-solid fa-chevron-left handle-chevron"></i>
+    </div>
+
+    <!-- Panel menu bay ra khi rê chuột hoặc nhấp vào handle (Hover flyout panel) -->
+    <div class="edge-sidebar-panel" id="edge-sidebar-panel">
+      <div class="edge-panel-head">
+        <div class="edge-panel-eyebrow">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> CÔNG CỤ SUY LUẬN XAI
+        </div>
+        <h4 class="edge-panel-title">Phân tích chuyên sâu</h4>
+      </div>
+
+      <div class="edge-panel-list">
+        <!-- Mục 3: Đồ thị Concept–Rule -->
+        <button type="button" class="edge-nav-card dock-edge-tab tab-theme-jade" data-open-drawer="sec-concept-graph" title="Khu vực 3: Đồ thị Concept–Rule (Mạng liên kết 3D & 5 tầng DAG)">
+          <span class="card-indicator"></span>
+          <div class="card-icon-box">
+            <i class="fa-solid fa-diagram-project"></i>
+          </div>
+          <div class="card-meta">
+            <div class="card-top-row">
+              <span class="card-num">03</span>
+              <span class="card-title">Đồ thị Concept–Rule</span>
+            </div>
+            <span class="card-sub">Mạng liên kết 3D &amp; 5 tầng DAG</span>
+          </div>
+          <i class="fa-solid fa-chevron-right card-arrow"></i>
+        </button>
+
+        <!-- Mục 4: Khám phá luật suy luận -->
+        <button type="button" class="edge-nav-card dock-edge-tab tab-theme-vermilion" data-open-drawer="sec-rule-explorer" title="Khu vực 4: Khám phá luật suy luận (Mệnh đề mờ & Trích xuất CN2)">
+          <span class="card-indicator"></span>
+          <div class="card-icon-box">
+            <i class="fa-solid fa-code-branch"></i>
+          </div>
+          <div class="card-meta">
+            <div class="card-top-row">
+              <span class="card-num">04</span>
+              <span class="card-title">Khám phá luật suy luận</span>
+            </div>
+            <span class="card-sub">Mệnh đề mờ &amp; Trích xuất CN2</span>
+          </div>
+          <i class="fa-solid fa-chevron-right card-arrow"></i>
+        </button>
+
+        <!-- Mục 5: Diễn giải & Đối chiếu What-If -->
+        <button type="button" class="edge-nav-card dock-edge-tab tab-theme-amber" data-open-drawer="sec-explanation-explorer" title="Khu vực 5: Diễn giải & Đối chiếu (Ma trận đối sánh & What-If)">
+          <span class="card-indicator"></span>
+          <div class="card-icon-box">
+            <i class="fa-solid fa-code-compare"></i>
+          </div>
+          <div class="card-meta">
+            <div class="card-top-row">
+              <span class="card-num">05</span>
+              <span class="card-title">Diễn giải &amp; Đối chiếu</span>
+            </div>
+            <span class="card-sub">Ma trận đối sánh &amp; What-If</span>
+          </div>
+          <i class="fa-solid fa-chevron-right card-arrow"></i>
+        </button>
+
+        <!-- Mục 6: Báo cáo Tổng kết -->
+        <button type="button" class="edge-nav-card dock-edge-tab tab-theme-indigo" data-open-drawer="sec-summary" title="Khu vực 6: Báo cáo Tổng kết (Executive Summary & Nguồn UNESCO)">
+          <span class="card-indicator"></span>
+          <div class="card-icon-box">
+            <i class="fa-solid fa-clipboard-check"></i>
+          </div>
+          <div class="card-meta">
+            <div class="card-top-row">
+              <span class="card-num">06</span>
+              <span class="card-title">Báo cáo Tổng kết</span>
+            </div>
+            <span class="card-sub">Executive Summary &amp; Nguồn học thuật</span>
+          </div>
+          <i class="fa-solid fa-chevron-right card-arrow"></i>
+        </button>
+      </div>
+
+      <div class="edge-panel-foot">
+        <i class="fa-solid fa-arrow-left"></i> Nhấp để mở bảng trượt (Slide Drawer)
+      </div>
+    </div>
   </aside>
 
   <!-- ========================================================================
@@ -1056,9 +1204,9 @@
   </div>
 
   <!-- Scripts -->
-  <script src="/static/js/audio_wave.js?v=3.10"></script>
-  <script src="/static/js/graph3d.js?v=3.10"></script>
-  <script src="/static/js/audio_recorder.js?v=3.10"></script>
-  <script src="/static/js/app.js?v=3.10"></script>
+  <script src="/static/js/audio_wave.js?v=3.14"></script>
+  <script src="/static/js/graph3d.js?v=3.14"></script>
+  <script src="/static/js/audio_recorder.js?v=3.14"></script>
+  <script src="/static/js/app.js?v=3.14"></script>
 </body>
 </html>
