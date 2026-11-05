@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <!-- Swiss Editorial Light Mode Stylesheet -->
-  <link rel="stylesheet" href="/static/css/index.css?v=3.14">
+  <link rel="stylesheet" href="/static/css/index.css?v=3.16">
 
   <!-- Three.js WebGL & OrbitControls -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -439,14 +439,6 @@
       <!-- PANE 3: ĐỒ THỊ CONCEPT-RULE (EVIDENCE MAP) -->
       <div class="drawer-pane active" id="pane-sec-concept-graph" data-pane="sec-concept-graph">
     <section class="workspace-section active-ws-section" id="sec-concept-graph" data-section-id="sec-concept-graph">
-      <div class="section-heading-bar">
-        <div class="section-heading-left">
-          <span class="section-step-badge">KHU VỰC 3</span>
-          <h2 class="section-main-title">Phân tích chuyên sâu: Đồ thị Concept–Rule (Evidence Map)</h2>
-        </div>
-        <span class="section-sub-note">Không gian đồ thị suy luận 5 tầng và bảng kiểm tra chi tiết từng Node / Luật</span>
-      </div>
-
       <div class="card-panel evidence-map-card" id="evidence-map-main-card">
         <div class="card-header evidence-map-header">
           <div class="evidence-map-header-left">
@@ -602,14 +594,6 @@
     <!-- PANE 4: KHÁM PHÁ LUẬT (RULE EXPLORER) -->
     <div class="drawer-pane" id="pane-sec-rule-explorer" data-pane="sec-rule-explorer">
     <section class="workspace-section active-ws-section" id="sec-rule-explorer" data-section-id="sec-rule-explorer">
-      <div class="section-heading-bar">
-        <div class="section-heading-left">
-          <span class="section-step-badge">KHU VỰC 4</span>
-          <h2 class="section-main-title">Khám phá luật suy luận (Rule Explorer)</h2>
-        </div>
-        <span class="section-sub-note">Chọn từng luật suy luận mờ được kích hoạt bên trái để xem cấu trúc mệnh đề và giải thích chi tiết bên phải</span>
-      </div>
-
       <div class="card-panel rule-explorer-card">
         <div class="card-header">
           <span class="card-title">
@@ -641,14 +625,6 @@
     <!-- PANE 5: DIỄN GIẢI VÀ ĐỐI CHIẾU (EXPLANATION EXPLORER) -->
     <div class="drawer-pane" id="pane-sec-explanation-explorer" data-pane="sec-explanation-explorer">
     <section class="workspace-section active-ws-section" id="sec-explanation-explorer" data-section-id="sec-explanation-explorer">
-      <div class="section-heading-bar">
-        <div class="section-heading-left">
-          <span class="section-step-badge">KHU VỰC 5</span>
-          <h2 class="section-main-title">Diễn giải và đối chiếu (Explanation Explorer)</h2>
-        </div>
-        <span class="section-sub-note">Chọn thể loại đối chứng và khám phá từng khía cạnh phân tích, nhóm đặc trưng hoặc kịch bản giả định What-If</span>
-      </div>
-
       <div class="card-panel contrastive-card" id="contrastive-main-card">
         <div class="card-header contrastive-header-bar">
           <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
@@ -839,17 +815,6 @@
                     <span class="cond-text">Đang chờ dữ liệu phân tích mẫu đầu vào...</span>
                   </div>
                 </div>
-                <div class="whatif-interactive-bar">
-                  <label class="whatif-slider-label">
-                    <span><i class="fa-solid fa-sliders" style="margin-right: 6px; color: var(--accent-jade);"></i>Mô phỏng thay đổi mức độ đặc trưng:</span>
-                    <span class="slider-val-tag" id="whatif-slider-val">50% (Cân bằng thực tế)</span>
-                  </label>
-                  <input type="range" class="whatif-slider" id="whatif-intervene-slider" min="0" max="100" value="50" />
-                  <div class="whatif-sim-result" id="whatif-sim-result">
-                    <i class="fa-solid fa-circle-info" style="color: var(--accent-indigo);"></i>
-                    <span>Kéo thanh trượt để quan sát xác suất giả định của thể loại dự đoán và thể loại đối chứng biến thiên theo thời gian thực.</span>
-                  </div>
-                </div>
 
                 <!-- Khu vực Can thiệp Khái niệm CBM (Phương án 2A: Tích hợp trực tiếp vào Thử nghiệm Giả định) -->
                 <div class="whatif-cbm-box" id="whatif-cbm-box">
@@ -950,14 +915,6 @@
     <!-- PANE 6: BÁO CÁO TỔNG KẾT (EXECUTIVE SUMMARY) -->
     <div class="drawer-pane" id="pane-sec-summary" data-pane="sec-summary">
     <section class="workspace-section active-ws-section" id="sec-summary" data-section-id="sec-summary">
-      <div class="section-heading-bar">
-        <div class="section-heading-left">
-          <span class="section-step-badge">KHU VỰC 6</span>
-          <h2 class="section-main-title">Tổng kết &amp; Kết luận phân tích (Executive Summary)</h2>
-        </div>
-        <span class="section-sub-note">Tổng hợp diễn giải hoàn chỉnh, các phát hiện quan trọng và nguồn tài liệu kiểm chứng học thuật</span>
-      </div>
-
       <div class="card-panel summary-workspace-card">
         <div class="card-header">
           <span class="card-title">
@@ -1204,9 +1161,9 @@
   </div>
 
   <!-- Scripts -->
-  <script src="/static/js/audio_wave.js?v=3.14"></script>
-  <script src="/static/js/graph3d.js?v=3.14"></script>
-  <script src="/static/js/audio_recorder.js?v=3.14"></script>
-  <script src="/static/js/app.js?v=3.14"></script>
+  <script src="/static/js/audio_wave.js?v=3.16"></script>
+  <script src="/static/js/graph3d.js?v=3.16"></script>
+  <script src="/static/js/audio_recorder.js?v=3.16"></script>
+  <script src="/static/js/app.js?v=3.16"></script>
 </body>
 </html>

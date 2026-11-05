@@ -3573,14 +3573,45 @@ class HeritageInferenceEngine:
                             return std_g
             return fallback_winner
 
-        # Đếm số concept bị vô hiệu hóa cho từng thể loại
+        # Định nghĩa bảng trọng số can thiệp CBM theo khía cạnh (Aspect Importance Weights)
+        ASPECT_IMPORTANCE = {
+            'nhac_cu': 1.45,             # Nhạc cụ hạt nhân: Đàn nhị, Sênh tiền, Đàn đáy, Trống chầu, Đàn nguyệt
+            'nhac_cu_dao_cu': 1.40,      # Nhạc cụ / đạo cụ then chốt
+            'ky_thuat_thanh_nhac': 1.30, # Kỹ thuật thanh nhạc, luyến láy
+            'ky_thuat_hat': 1.30,        # Kỹ thuật hát đặc trưng
+            'am_sac': 1.20,              # Âm sắc mộc, trầm/vang
+            'tiet_tau_nhip': 1.15,       # Tiết tấu nhịp phách
+            'tiet_tau': 1.15,
+            'giai_dieu': 1.10,           # Tuyến giai điệu
+            'trang_phuc': 0.85,          # Trang phục biểu diễn
+            'dong_tac_dien_xuat': 0.85,  # Động tác điệu bộ
+            'dien_tho': 0.75,            # Điển tích, điện thờ
+            'khong_gian_doi_hinh': 0.65, # Bối cảnh, không gian chiếu diễn
+            'boi_canh': 0.65,
+            'thi_giac': 0.90,            # Khái niệm thị giác chung
+            'am_thanh': 1.10             # Khái niệm âm thanh chung
+        }
+
+        # Thu thập danh sách trọng số của các khái niệm bị vô hiệu hóa theo từng thể loại
+        genre_disabled_weights = {g: [] for g in GENRES}
         disabled_counts = {g: 0 for g in GENRES}
         disabled_cids = {str(c.get('concept_id', '')).lower() for c in updated_concepts if not c.get('enabled', True)}
+
         for c in updated_concepts:
             cid = c.get('concept_id', '')
             c_genre = resolve_concept_genre(cid)
             if not c.get('enabled', True):
                 disabled_counts[c_genre] += 1
+                asp = str(c.get('aspect', '')).lower()
+                weight = 1.0
+                for k, w in ASPECT_IMPORTANCE.items():
+                    if k in asp:
+                        weight = w
+                        break
+                sc = float(c.get('score', 1.0))
+                if sc > 0:
+                    weight *= max(0.7, min(1.3, sc if sc <= 1.5 else sc / 100.0))
+                genre_disabled_weights[c_genre].append(weight)
 
         def _get_intervened_rules(target_genre: str, target_conf: float):
             rules_list = []
@@ -3719,14 +3750,21 @@ class HeritageInferenceEngine:
                 )
             }
 
-        # Nếu có concept bị vô hiệu hóa, tính toán suy giảm xác suất (penalty)
-        penalty_per_concept = 22.0
+        # Tính toán suy giảm xác suất dựa trên tổng trọng số mất mát của bằng chứng CBM
+        # Khái niệm có trọng số lớn hơn (nhạc cụ vs bối cảnh) làm giảm mạnh hơn
+        # Khi tắt 3, 4, 5 khái niệm, xác suất tiếp tục giảm mượt mà (không bị kẹp trần đứng yên)
         raw_scores = {}
         for g in GENRES:
             b_val = float(base_probs.get(g, 10.0))
-            dis_num = disabled_counts[g]
-            penalty = min(b_val * 0.85, dis_num * penalty_per_concept)
-            raw_scores[g] = max(1.0, b_val - penalty)
+            weights = genre_disabled_weights.get(g, [])
+            if not weights:
+                raw_scores[g] = b_val
+            else:
+                loss_factor = 1.0
+                for w in weights:
+                    step_reduction = max(0.12, min(0.48, 0.26 * w))
+                    loss_factor *= (1.0 - step_reduction)
+                raw_scores[g] = max(1.0, b_val * max(0.04, loss_factor))
 
         # Tái chuẩn hóa tổng 100.0%
         total_s = sum(raw_scores.values()) or 1.0

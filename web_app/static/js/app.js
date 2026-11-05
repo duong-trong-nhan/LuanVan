@@ -712,6 +712,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================================================
     function handleAnalysisResult(result) {
         currentAnalysis = result;
+        currentAnalysis.base_prediction = result.prediction;
+        currentAnalysis.base_confidence = result.confidence;
         currentAnalysis.base_probs = Object.assign({}, result.probs);
         currentAnalysis.base_rules = result.triggered_rules
             ? JSON.parse(JSON.stringify(result.triggered_rules))
@@ -1349,7 +1351,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const expText = document.getElementById("cbm-live-explanation-text");
 
         // Lấy thông tin gốc ban đầu
-        const baseGenre = currentAnalysis.base_prediction || (currentAnalysis.base_probs ? Object.keys(currentAnalysis.base_probs)[0] : currentAnalysis.prediction);
+        const baseGenre = currentAnalysis.base_prediction || currentAnalysis.prediction;
         const baseConf = currentAnalysis.base_confidence != null ? currentAnalysis.base_confidence : currentAnalysis.confidence;
         const currentGenre = resultData.prediction || currentAnalysis.prediction;
         const currentConf = typeof resultData.confidence === "number" ? resultData.confidence : currentAnalysis.confidence;
@@ -1381,10 +1383,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (resultData.probs && typeof resultData.probs === "object") {
             const sorted = Object.entries(resultData.probs).sort((a, b) => b[1] - a[1]);
             if (sorted.length >= 2) {
-                const [top1G, top1P] = sorted[0];
-                const [top2G, top2P] = sorted[1];
-                const p1 = Math.round(top1P * 100);
-                const p2 = Math.round(top2P * 100);
+                const [top1G, rawP1] = sorted[0];
+                const [top2G, rawP2] = sorted[1];
+                const p1 = rawP1 <= 1.0 ? (rawP1 * 100).toFixed(1) : Number(rawP1).toFixed(1);
+                const p2 = rawP2 <= 1.0 ? (rawP2 * 100).toFixed(1) : Number(rawP2).toFixed(1);
+                const p1Val = parseFloat(p1);
+                const p2Val = parseFloat(p2);
 
                 const b1Name = document.getElementById("cbm-bar1-name");
                 const b1Pct = document.getElementById("cbm-bar1-pct");
@@ -1395,11 +1399,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (b1Name) b1Name.innerText = `Top 1: ${top1G}`;
                 if (b1Pct) b1Pct.innerText = `${p1}%`;
-                if (b1Fill) b1Fill.style.width = `${Math.min(100, p1)}%`;
+                if (b1Fill) b1Fill.style.width = `${Math.min(100, Math.max(0, p1Val))}%`;
 
                 if (b2Name) b2Name.innerText = `Top 2: ${top2G}`;
                 if (b2Pct) b2Pct.innerText = `${p2}%`;
-                if (b2Fill) b2Fill.style.width = `${Math.min(100, p2)}%`;
+                if (b2Fill) b2Fill.style.width = `${Math.min(100, Math.max(0, p2Val))}%`;
             }
         }
 
@@ -1407,7 +1411,14 @@ document.addEventListener("DOMContentLoaded", () => {
         if (expText) {
             if (toggledConceptId) {
                 const actionStr = isEnabled ? "Kích hoạt lại" : "Vô hiệu hóa (tắt)";
-                const impactStr = diff < 0 ? `làm giảm ${Math.abs(diff).toFixed(1)}%` : `tăng ${diff.toFixed(1)}%`;
+                let impactStr = "";
+                if (Math.abs(diff) < 0.05) {
+                    impactStr = "chưa làm thay đổi đáng kể";
+                } else if (diff < 0) {
+                    impactStr = `làm giảm ${Math.abs(diff).toFixed(1)}%`;
+                } else {
+                    impactStr = `tăng ${diff.toFixed(1)}%`;
+                }
                 expText.innerHTML = `Vừa <strong>${actionStr}</strong> khái niệm <code>${toggledConceptId}</code> ➔ ${impactStr} độ tin cậy thể loại.`;
             } else {
                 expText.innerHTML = "Bấm vào bất kỳ khái niệm thị giác hoặc âm thanh bên dưới để thử nghiệm giả định.";
