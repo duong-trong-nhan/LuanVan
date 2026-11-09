@@ -1,0 +1,5 @@
+Nhánh,Mô hình,Đầu vào,Protocol,Test Acc (%),Macro F1 (%),Khả năng giải thích (XAI),Thời gian train
+Luật mờ (Fuzzy / Rule),Random Forest Continuous + Gaussian,31 Đặc trưng mờ liên tục,Protocol A (Segment-level),65.56,65.12,Rất cao (Luật IF-THEN rõ ràng),~2 phút (CPU)
+Luật mờ (Fuzzy / Rule),Random Forest Continuous (Re-evaluated),31 Đặc trưng mờ liên tục,Protocol B (Song-level),70.28,70.22,Rất cao (Luật IF-THEN rõ ràng),~2 phút (CPU)
+Đặc trưng thô (Raw Features),Ensemble_SoftVoting_Top3 (Optuna 50t),167 Đặc trưng số âm học thô,Protocol B (Song-level),95.14,95.13,Cao (SHAP TreeExplainer),< 1s (Ensemble)
+Thị giác CNN (Transfer Learning),EXP-13_efficientnet_b0_mel+cqt_partial,Spectrogram 2 kênh (Mel + CQT),Protocol A (Spectrograms),89.3056,89.1899,"Thấp (Hộp đen, Grad-CAM cục bộ)",13.28 phút (GPU)

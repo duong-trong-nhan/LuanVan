@@ -1,0 +1,132 @@
+STT,Video_File,Source_Type,True_Genre,Duration_Seconds,Num_Chunks,CNN_Prediction,CNN_Confidence,RF_Prediction,RF_Confidence,Combined_Prediction,Combined_Confidence,CNN_Correct,RF_Correct,Combined_Correct,Elapsed_Seconds
+1,cailuong_doicoluu_01.mp4,Genre Folder (cailuong),Cải lương,42.0,6,Cải lương,28.7,Cải lương,28.9,Cải lương,28.5,True,True,True,11.53
+2,cailuong_doicoluu_02.mp4,Genre Folder (cailuong),Cải lương,34.0,6,Ca trù,27.3,Chầu văn,24.5,Chèo,20.4,False,False,False,4.75
+3,cailuong_doicoluu_03.mp4,Genre Folder (cailuong),Cải lương,56.0,8,Quan họ,24.4,Cải lương,25.7,Cải lương,21.8,False,True,True,5.32
+4,cailuong_doicoluu_04.mp4,Genre Folder (cailuong),Cải lương,72.0,8,Cải lương,42.9,Cải lương,26.5,Cải lương,33.6,True,True,True,6.31
+5,cailuong_doicoluu_05.mp4,Genre Folder (cailuong),Cải lương,24.0,6,Quan họ,53.0,Cải lương,24.1,Quan họ,36.3,False,True,False,3.89
+6,cailuong_doicoluu_06.mp4,Genre Folder (cailuong),Cải lương,72.0,8,Chèo,33.7,Cải lương,29.0,Cải lương,28.7,False,True,True,5.99
+7,cailuong_doicoluu_07.mp4,Genre Folder (cailuong),Cải lương,30.0,6,Cải lương,33.9,Cải lương,25.0,Cải lương,29.2,True,True,True,3.52
+8,cailuong_doicoluu_08.mp4,Genre Folder (cailuong),Cải lương,24.0,6,Cải lương,43.8,Chầu văn,26.9,Cải lương,34.4,True,False,True,3.98
+9,cailuong_doicoluu_09.mp4,Genre Folder (cailuong),Cải lương,91.0,10,Cải lương,21.4,Cải lương,24.3,Cải lương,22.5,True,True,True,5.49
+10,cailuong_doicoluu_10.mp4,Genre Folder (cailuong),Cải lương,55.0,8,Cải lương,37.5,Cải lương,25.2,Cải lương,30.8,True,True,True,5.63
+11,cailuong_dongsongqueem.mp4,Genre Folder (cailuong),Cải lương,488.9,12,Quan họ,25.5,Quan họ,22.4,Quan họ,23.2,False,False,False,11.66
+12,cailuong_hoamuatrang.mp4,Genre Folder (cailuong),Cải lương,525.7,12,Quan họ,34.2,Chèo,21.0,Quan họ,26.5,False,False,False,12.65
+13,cailuong_hoatimbanglang.mp4,Genre Folder (cailuong),Cải lương,493.0,12,Quan họ,59.2,Chèo,20.2,Quan họ,38.6,False,False,False,12.42
+14,cailuong_maunhuomsanchua_01.mp4,Genre Folder (cailuong),Cải lương,29.0,6,Chèo,25.8,Cải lương,22.5,Chèo,20.5,False,True,False,4.52
+15,cailuong_maunhuomsanchua_02.mp4,Genre Folder (cailuong),Cải lương,90.0,10,Quan họ,24.3,Cải lương,28.6,Quan họ,21.2,False,True,False,6.84
+16,cailuong_maunhuomsanchua_03.mp4,Genre Folder (cailuong),Cải lương,68.0,8,Quan họ,32.7,Chèo,22.3,Quan họ,25.7,False,False,False,6.15
+17,cailuong_maunhuomsanchua_04.mp4,Genre Folder (cailuong),Cải lương,50.0,8,Chèo,32.9,Chầu văn,22.6,Chèo,24.0,False,False,False,6.13
+18,cailuong_maunhuomsanchua_05.mp4,Genre Folder (cailuong),Cải lương,118.0,10,Quan họ,41.7,Chầu văn,21.7,Quan họ,31.0,False,False,False,7.77
+19,cailuong_maunhuomsanchua_06.mp4,Genre Folder (cailuong),Cải lương,81.0,8,Chèo,37.5,Quan họ,26.1,Chèo,28.8,False,False,False,6.95
+20,cailuong_maunhuomsanchua_07.mp4,Genre Folder (cailuong),Cải lương,87.0,8,Quan họ,45.5,Chầu văn,24.4,Quan họ,33.4,False,False,False,5.33
+21,cailuong_maunhuomsanchua_08.mp4,Genre Folder (cailuong),Cải lương,78.0,8,Quan họ,35.3,Chầu văn,24.0,Quan họ,27.4,False,False,False,7.02
+22,cailuong_maunhuomsanchua_09.mp4,Genre Folder (cailuong),Cải lương,38.0,6,Quan họ,38.3,Chèo,21.6,Quan họ,29.6,False,False,False,4.94
+23,cailuong_maunhuomsanchua_10.mp4,Genre Folder (cailuong),Cải lương,60.0,8,Quan họ,35.7,Chầu văn,26.9,Quan họ,28.5,False,False,False,3.97
+24,cailuong_tienghosonghau_01.mp4,Genre Folder (cailuong),Cải lương,85.0,8,Quan họ,35.5,Cải lương,31.4,Quan họ,25.6,False,True,False,5.72
+25,cailuong_tienghosonghau_02.mp4,Genre Folder (cailuong),Cải lương,60.0,8,Ca trù,35.1,Cải lương,29.1,Cải lương,27.0,False,True,True,6.78
+26,cailuong_tienghosonghau_03.mp4,Genre Folder (cailuong),Cải lương,90.0,10,Ca trù,27.2,Cải lương,26.0,Cải lương,24.1,False,True,True,8.3
+27,cailuong_tienghosonghau_04.mp4,Genre Folder (cailuong),Cải lương,48.0,8,Ca trù,36.8,Cải lương,29.0,Ca trù,25.9,False,True,False,6.42
+28,cailuong_tienghosonghau_05.mp4,Genre Folder (cailuong),Cải lương,24.0,6,Ca trù,34.4,Cải lương,36.5,Cải lương,28.3,False,True,True,4.49
+29,cailuong_tienghosonghau_06.mp4,Genre Folder (cailuong),Cải lương,101.0,10,Cải lương,36.2,Cải lương,29.7,Cải lương,31.9,True,True,True,7.4
+30,cailuong_tienghosonghau_07.mp4,Genre Folder (cailuong),Cải lương,66.0,8,Ca trù,30.8,Cải lương,37.4,Cải lương,24.1,False,True,True,7.17
+31,cailuong_tienghosonghau_08.mp4,Genre Folder (cailuong),Cải lương,105.0,10,Chèo,26.2,Cải lương,29.7,Cải lương,23.2,False,True,True,6.87
+32,cailuong_tienghosonghau_09.mp4,Genre Folder (cailuong),Cải lương,72.0,8,Ca trù,26.3,Cải lương,29.6,Cải lương,22.3,False,True,True,5.38
+33,cailuong_tienghosonghau_10.mp4,Genre Folder (cailuong),Cải lương,84.0,8,Chèo,22.9,Cải lương,30.5,Cải lương,21.2,False,True,True,5.4
+34,cailuong_vongcolatrau.mp4,Genre Folder (cailuong),Cải lương,435.0,12,Quan họ,27.0,Chèo,22.4,Chèo,21.9,False,False,False,12.36
+35,catru_daotayho.mp4,Genre Folder (catru),Ca trù,417.0,12,Ca trù,75.8,Cải lương,26.2,Ca trù,45.1,True,False,True,12.52
+36,catru_daudephoguom.mp4,Genre Folder (catru),Ca trù,357.0,12,Ca trù,76.0,Cải lương,21.2,Ca trù,49.7,True,False,True,12.88
+37,catru_diendieu.mp4,Genre Folder (catru),Ca trù,255.0,12,Ca trù,81.8,Cải lương,20.1,Ca trù,48.3,True,False,True,9.74
+38,catru_honghongtuyettuyet.mp4,Genre Folder (catru),Ca trù,349.0,12,Ca trù,57.0,Chèo,23.6,Ca trù,36.8,True,False,True,12.14
+39,catru_huongsonphongcanh.mp4,Genre Folder (catru),Ca trù,311.0,12,Ca trù,69.8,Ca trù,26.5,Ca trù,49.4,True,True,True,11.29
+40,catru_lecatru.mp4,Genre Folder (catru),Ca trù,230.0,10,Ca trù,90.2,Ca trù,24.5,Ca trù,59.4,True,True,True,9.9
+41,catru_tayhohoaico_01.mp4,Genre Folder (catru),Ca trù,81.0,8,Ca trù,84.6,Cải lương,23.0,Ca trù,55.6,True,False,True,6.84
+42,catru_tayhohoaico_02.mp4,Genre Folder (catru),Ca trù,67.0,8,Ca trù,87.7,Ca trù,23.2,Ca trù,56.7,True,True,True,5.25
+43,catru_tayhohoaico_03.mp4,Genre Folder (catru),Ca trù,84.0,8,Ca trù,96.7,Hát xẩm,19.3,Ca trù,59.6,True,False,True,4.93
+44,catru_tranganhoaico.mp4,Genre Folder (catru),Ca trù,306.4,12,Ca trù,84.9,Ca trù,28.9,Ca trù,59.9,True,True,True,12.24
+45,chauvan_01.mp4,Genre Folder (chauvan),Chầu văn,66.0,8,Quan họ,41.7,Chầu văn,25.6,Quan họ,28.9,False,True,False,5.62
+46,chauvan_codoithuongngan.mp4,Genre Folder (chauvan),Chầu văn,386.0,12,Ca trù,36.8,Chầu văn,22.8,Ca trù,23.9,False,True,False,12.89
+47,chauvan_codoithuongngan_01.mp4,Genre Folder (chauvan),Chầu văn,466.5,12,Quan họ,23.5,Quan họ,25.5,Chầu văn,24.4,False,False,True,13.98
+48,chauvan_conco.mp4,Genre Folder (chauvan),Chầu văn,361.0,12,Ca trù,33.2,Chầu văn,23.9,Ca trù,21.1,False,True,False,12.43
+49,chauvan_conguoisongtrendoitiennhieudelamchi.mp4,Genre Folder (chauvan),Chầu văn,232.5,10,Ca trù,59.1,Chầu văn,24.4,Ca trù,36.7,False,True,False,8.22
+50,chauvan_cooisaoboquenmegia.mp4,Genre Folder (chauvan),Chầu văn,430.0,12,Chầu văn,27.8,Chầu văn,24.8,Chầu văn,27.7,True,True,True,10.67
+51,chauvan_dangvanchauto.mp4,Genre Folder (chauvan),Chầu văn,328.6,12,Ca trù,41.1,Chầu văn,22.1,Ca trù,25.4,False,True,False,10.24
+52,chauvan_daolamcon.mp4,Genre Folder (chauvan),Chầu văn,341.0,12,Chèo,23.0,Quan họ,23.2,Quan họ,21.5,False,False,False,7.71
+53,chauvan_haucobo.mp4,Genre Folder (chauvan),Chầu văn,332.7,12,Quan họ,29.7,Chầu văn,27.4,Quan họ,23.1,False,True,False,6.92
+54,chauvan_loive.mp4,Genre Folder (chauvan),Chầu văn,274.6,12,Quan họ,34.7,Chầu văn,25.1,Quan họ,28.2,False,True,False,7.54
+55,chauvan_luattroi.mp4,Genre Folder (chauvan),Chầu văn,334.4,12,Ca trù,51.3,Chầu văn,21.1,Ca trù,31.2,False,True,False,6.62
+56,chauvan_luattroi_02.mp4,Genre Folder (chauvan),Chầu văn,394.0,12,Quan họ,35.3,Chầu văn,21.9,Quan họ,27.3,False,True,False,7.09
+57,chauvan_ngoibuomnhometaxua.mp4,Genre Folder (chauvan),Chầu văn,585.0,12,Ca trù,49.8,Chèo,26.9,Ca trù,32.1,False,False,False,8.84
+58,chauvan_vanquanquetoi.mp4,Genre Folder (chauvan),Chầu văn,506.0,12,Chèo,22.7,Quan họ,24.1,Chầu văn,23.5,False,False,True,7.25
+59,cheo_dodua.mp4,Genre Folder (cheo),Chèo,222.7,10,Ca trù,68.3,Chèo,24.0,Ca trù,41.9,False,True,False,5.36
+60,cheo_hattamlangmai.mp4,Genre Folder (cheo),Chèo,164.5,10,Chèo,26.0,Chèo,25.3,Hát xẩm,23.9,True,True,False,4.6
+61,cheo_loicadangme.mp4,Genre Folder (cheo),Chèo,256.0,12,Ca trù,26.3,Quan họ,22.5,Chèo,21.0,False,False,True,5.73
+62,cheo_luubinhduongle_01.mp4,Genre Folder (cheo),Chèo,53.0,8,Ca trù,48.1,Chèo,25.1,Ca trù,32.0,False,True,False,3.16
+63,cheo_luubinhduongle_02.mp4,Genre Folder (cheo),Chèo,53.0,8,Ca trù,30.9,Chèo,25.0,Hát xẩm,27.0,False,True,False,3.51
+64,cheo_luubinhduongle_03.mp4,Genre Folder (cheo),Chèo,32.0,6,Ca trù,52.0,Chèo,26.1,Ca trù,36.1,False,True,False,2.36
+65,cheo_luubinhduongle_04.mp4,Genre Folder (cheo),Chèo,119.0,10,Ca trù,42.7,Chèo,24.9,Ca trù,33.0,False,True,False,4.25
+66,cheo_luubinhduongle_05.mp4,Genre Folder (cheo),Chèo,94.0,10,Chèo,36.4,Chèo,22.8,Chèo,29.8,True,True,True,4.1
+67,cheo_luubinhduongle_06.mp4,Genre Folder (cheo),Chèo,153.0,10,Chèo,35.2,Cải lương,23.1,Chèo,26.3,True,False,True,4.4
+68,cheo_luubinhduongle_07.mp4,Genre Folder (cheo),Chèo,86.0,8,Chèo,38.7,Chèo,22.4,Chèo,29.7,True,True,True,3.43
+69,cheo_luubinhduongle_08.mp4,Genre Folder (cheo),Chèo,45.0,8,Chèo,46.6,Chèo,24.1,Chèo,34.7,True,True,True,3.64
+70,cheo_luubinhduongle_09.mp4,Genre Folder (cheo),Chèo,84.0,8,Ca trù,56.9,Chèo,23.3,Ca trù,38.5,False,True,False,3.62
+71,cheo_luubinhduongle_10.mp4,Genre Folder (cheo),Chèo,52.0,8,Ca trù,39.8,Chèo,26.1,Ca trù,28.2,False,True,False,3.06
+72,cheo_motthoidenho.mp4,Genre Folder (cheo),Chèo,450.0,12,Chèo,35.3,Quan họ,22.9,Quan họ,28.2,True,False,False,7.38
+73,cheo_nhodemtrangkyniem.mp4,Genre Folder (cheo),Chèo,355.0,12,Quan họ,52.0,Quan họ,26.1,Quan họ,38.7,False,False,False,6.74
+74,cheo_quacauvang_01.mp4,Genre Folder (cheo),Chèo,30.0,6,Chèo,46.0,Chèo,26.6,Chèo,35.4,True,True,True,2.36
+75,cheo_quacauvang_02.mp4,Genre Folder (cheo),Chèo,82.0,8,Chèo,40.0,Chèo,24.7,Chèo,31.0,True,True,True,3.58
+76,cheo_quacauvang_03.mp4,Genre Folder (cheo),Chèo,59.0,8,Chèo,41.2,Chèo,28.1,Chèo,33.6,True,True,True,3.25
+77,cheo_quacauvang_04.mp4,Genre Folder (cheo),Chèo,36.0,6,Quan họ,34.9,Quan họ,29.1,Quan họ,30.1,False,False,False,2.42
+78,cheo_quacauvang_05.mp4,Genre Folder (cheo),Chèo,50.0,8,Chèo,41.1,Quan họ,27.7,Chèo,32.2,True,False,True,3.16
+79,cheo_quacauvang_06.mp4,Genre Folder (cheo),Chèo,140.0,10,Quan họ,36.5,Hát xẩm,22.3,Quan họ,27.0,False,False,False,5.28
+80,cheo_quacauvang_07.mp4,Genre Folder (cheo),Chèo,69.0,8,Chèo,49.6,Chèo,27.2,Chèo,37.1,True,True,True,3.31
+81,cheo_quacauvang_08.mp4,Genre Folder (cheo),Chèo,45.0,8,Ca trù,40.7,Chèo,24.2,Chèo,28.9,False,True,True,3.23
+82,cheo_quacauvang_09.mp4,Genre Folder (cheo),Chèo,88.0,8,Chèo,45.8,Chèo,23.7,Chèo,34.9,True,True,True,3.45
+83,cheo_quacauvang_10.mp4,Genre Folder (cheo),Chèo,80.0,8,Ca trù,36.9,Hát xẩm,23.9,Ca trù,23.7,False,False,False,3.5
+84,cheo_quantuvudich.mp4,Genre Folder (cheo),Chèo,361.0,12,Quan họ,36.5,Chèo,21.9,Quan họ,27.5,False,True,False,7.59
+85,cheo_ronrangdatnuocvaoxuan.mp4,Genre Folder (cheo),Chèo,268.0,12,Quan họ,40.9,Chầu văn,24.3,Quan họ,30.9,False,False,False,7.04
+86,cheo_salechchenh.mp4,Genre Folder (cheo),Chèo,200.0,10,Chèo,29.5,Quan họ,27.4,Chèo,24.3,True,False,True,5.61
+87,cheo_tamcam_01.mp4,Genre Folder (cheo),Chèo,67.0,8,Chầu văn,24.7,Chầu văn,21.9,Chầu văn,25.4,False,False,False,3.46
+88,cheo_tamcam_02.mp4,Genre Folder (cheo),Chèo,59.0,8,Quan họ,37.4,Chầu văn,21.9,Quan họ,27.2,False,False,False,3.13
+89,cheo_tamcam_03.mp4,Genre Folder (cheo),Chèo,85.0,8,Quan họ,36.0,Chèo,23.3,Quan họ,26.3,False,True,False,3.66
+90,cheo_tamcam_04.mp4,Genre Folder (cheo),Chèo,51.0,8,Quan họ,37.0,Chèo,21.9,Quan họ,27.2,False,True,False,3.4
+91,cheo_tamcam_05.mp4,Genre Folder (cheo),Chèo,77.0,8,Quan họ,28.3,Chèo,22.4,Quan họ,23.1,False,True,False,3.42
+92,cheo_tamcam_06.mp4,Genre Folder (cheo),Chèo,89.0,8,Chèo,32.3,Chầu văn,22.6,Chèo,25.6,True,False,True,3.88
+93,cheo_tamcam_07.mp4,Genre Folder (cheo),Chèo,70.0,8,Quan họ,40.7,Quan họ,24.1,Quan họ,32.0,False,False,False,3.44
+94,cheo_tamcam_08.mp4,Genre Folder (cheo),Chèo,121.0,10,Chèo,33.5,Chầu văn,21.8,Chèo,26.9,True,False,True,4.29
+95,cheo_tamcam_09.mp4,Genre Folder (cheo),Chèo,51.0,8,Quan họ,36.2,Quan họ,22.6,Quan họ,28.5,False,False,False,3.3
+96,cheo_tamcam_10.mp4,Genre Folder (cheo),Chèo,51.0,8,Chèo,42.0,Quan họ,24.9,Chèo,29.7,True,False,True,3.38
+97,cheo_tiengcheotrenmanhdatquehuong.mp4,Genre Folder (cheo),Chèo,278.0,12,Quan họ,32.5,Chầu văn,20.9,Quan họ,25.7,False,False,False,6.08
+98,quanho_beodatmaytroi.mp4,Genre Folder (quanho),Quan họ,228.0,10,Quan họ,75.4,Quan họ,26.8,Quan họ,52.6,True,True,True,5.37
+99,quanho_caytrucxinh.mp4,Genre Folder (quanho),Quan họ,202.0,10,Quan họ,82.9,Quan họ,28.1,Quan họ,56.2,True,True,True,4.94
+100,quanho_conduyen.mp4,Genre Folder (quanho),Quan họ,231.0,10,Quan họ,75.2,Quan họ,27.0,Quan họ,51.8,True,True,True,5.24
+101,quanho_demquanhoban.mp4,Genre Folder (quanho),Quan họ,325.0,12,Quan họ,56.4,Quan họ,24.7,Quan họ,40.6,True,True,True,6.45
+102,quanho_goido.mp4,Genre Folder (quanho),Quan họ,252.7,12,Quan họ,63.6,Quan họ,25.8,Quan họ,44.6,True,True,True,5.7
+103,quanho_guivequanho.mp4,Genre Folder (quanho),Quan họ,325.0,12,Quan họ,44.2,Quan họ,28.6,Quan họ,35.8,True,True,True,6.51
+104,quanho_muoinho.mp4,Genre Folder (quanho),Quan họ,249.0,12,Quan họ,52.9,Cải lương,22.2,Quan họ,36.5,True,False,True,5.5
+105,quanho_namlieubaylo.mp4,Genre Folder (quanho),Quan họ,255.0,12,Quan họ,64.8,Quan họ,28.7,Quan họ,46.8,True,True,True,6.22
+106,quanho_nguoioinguoiodungve.mp4,Genre Folder (quanho),Quan họ,410.0,12,Quan họ,60.7,Quan họ,25.8,Quan họ,43.0,True,True,True,7.02
+107,quanho_nonbatam.mp4,Genre Folder (quanho),Quan họ,288.0,12,Quan họ,55.9,Chầu văn,20.4,Quan họ,38.5,True,False,True,5.87
+108,quanho_rephuongchialoan.mp4,Genre Folder (quanho),Quan họ,432.5,12,Quan họ,61.6,Quan họ,21.4,Quan họ,43.0,True,True,True,7.32
+109,quanho_thanluonbaoquanlamdau.mp4,Genre Folder (quanho),Quan họ,299.8,12,Quan họ,61.7,Cải lương,23.1,Quan họ,42.4,True,False,True,6.39
+110,quanho_tinhquequanho.mp4,Genre Folder (quanho),Quan họ,235.7,10,Quan họ,33.0,Cải lương,22.1,Quan họ,25.0,True,False,True,5.1
+111,quanho_traucauquanho.mp4,Genre Folder (quanho),Quan họ,219.8,10,Quan họ,69.0,Chầu văn,21.7,Quan họ,45.4,True,False,True,5.05
+112,quanho_vaochua.mp4,Genre Folder (quanho),Quan họ,234.8,10,Quan họ,70.3,Quan họ,29.1,Quan họ,49.5,True,True,True,5.13
+113,xam_anhdungyeu.mp4,Genre Folder (xam),Hát xẩm,444.0,12,Ca trù,35.8,Quan họ,21.9,Hát xẩm,27.0,False,False,True,7.31
+114,xam_chanque.mp4,Genre Folder (xam),Hát xẩm,234.0,10,Ca trù,36.5,Cải lương,27.9,Ca trù,23.7,False,False,False,5.12
+115,xam_chodongxuan.mp4,Genre Folder (xam),Hát xẩm,514.9,12,Ca trù,55.3,Chầu văn,24.1,Ca trù,34.2,False,False,False,7.83
+116,xam_chungbausuame.mp4,Genre Folder (xam),Hát xẩm,422.0,12,Ca trù,33.1,Chèo,23.2,Ca trù,22.4,False,False,False,6.74
+117,xam_conoimechangcanchi.mp4,Genre Folder (xam),Hát xẩm,376.7,12,Ca trù,55.2,Hát xẩm,25.4,Ca trù,35.0,False,True,False,7.04
+118,xam_haiphongdoson.mp4,Genre Folder (xam),Hát xẩm,264.0,12,Ca trù,32.0,Hát xẩm,27.4,Hát xẩm,28.1,False,True,True,5.94
+119,xam_khimeconotrangian.mp4,Genre Folder (xam),Hát xẩm,162.0,10,Ca trù,57.7,Hát xẩm,34.5,Ca trù,34.5,False,True,False,4.53
+120,xam_ngamcaisudoi.mp4,Genre Folder (xam),Hát xẩm,642.0,12,Ca trù,80.2,Hát xẩm,23.5,Ca trù,48.4,False,True,False,8.22
+121,xam_nhitinh.mp4,Genre Folder (xam),Hát xẩm,259.0,12,Ca trù,50.6,Hát xẩm,19.2,Ca trù,32.0,False,True,False,5.79
+122,xam_quyettrituthan.mp4,Genre Folder (xam),Hát xẩm,159.9,10,Ca trù,36.2,Chầu văn,24.6,Hát xẩm,29.6,False,False,True,4.53
+123,xam_thaibinhladatanchoi.mp4,Genre Folder (xam),Hát xẩm,320.8,12,Chèo,26.6,Quan họ,26.1,Chầu văn,22.0,False,False,False,6.29
+124,xam_thapan.mp4,Genre Folder (xam),Hát xẩm,309.0,12,Ca trù,58.1,Quan họ,32.7,Ca trù,33.9,False,False,False,6.06
+125,xam_thuonghoa.mp4,Genre Folder (xam),Hát xẩm,343.4,12,Ca trù,56.6,Chèo,27.8,Ca trù,37.1,False,False,False,6.54
+126,cailuong_tinhanhbanchieu.mp4,Wild Test Folder,Cải lương,519.7,12,Quan họ,26.5,Chầu văn,24.4,Quan họ,20.3,False,False,False,7.62
+127,catru_chapcanhrongbay.mp4,Wild Test Folder,Ca trù,437.1,12,Ca trù,89.3,Ca trù,21.6,Ca trù,57.6,True,True,True,7.09
+128,chauvan_conoimechangcanchi.mp4,Wild Test Folder,Chầu văn,314.0,12,Quan họ,29.5,Chầu văn,20.8,Quan họ,23.5,False,True,False,6.14
+129,cheo_tinhanhlinhtre.mp4,Wild Test Folder,Chèo,388.0,12,Quan họ,34.9,Quan họ,25.9,Quan họ,29.3,False,False,False,6.84
+130,quanho_buonbacbuondau.mp4,Wild Test Folder,Quan họ,288.0,12,Quan họ,57.0,Quan họ,24.9,Quan họ,40.6,True,True,True,5.86
+131,xam_chodongxuan.mp4,Wild Test Folder,Hát xẩm,272.0,12,Quan họ,30.4,Quan họ,26.2,Quan họ,26.7,False,False,False,6.1

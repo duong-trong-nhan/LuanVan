@@ -1,0 +1,5 @@
+Method,Best_Weight_CNN,Test_Acc,Test_Macro_F1
+F1_CNN_FuzzyRF,0.66,94.03,93.96
+F2_CNN_SVM_RBF,0.62,97.36,97.36
+F3_TriModal_CNN_Raw_Fuzzy,"w_cnn=0.4, w_raw=0.27, w_fuzzy=0.33",97.22,97.22
+F6_Song_Level_Pooling_F2,Pooled Across Segments,97.78,97.78

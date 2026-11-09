@@ -1,0 +1,25 @@
+STT,Title,Video_File,Source_Group,True_Genre,Fused_Prediction,Fused_Confidence,Audio_Prediction,Audio_Confidence,Visual_Prediction,Visual_Confidence,Audio_Concepts,Visual_Concepts,Processing_Time_s
+1,Chắp Cánh Rồng Bay,catru_chapcanhrongbay.mp4,In-The-Wild YouTube,Ca trù,Ca trù,58.4,Ca trù,57.6,Ca trù,59.9,,,16.47
+2,Tình Anh Bán Chiếu,cailuong_tinhanhbanchieu.mp4,In-The-Wild YouTube,Cải lương,Cải lương,29.9,Quan họ,20.3,Cải lương,56.6,,,15.17
+3,Tình Anh Lính Trẻ,cheo_tinhanhlinhtre.mp4,In-The-Wild YouTube,Chèo,Cải lương,25.4,Quan họ,29.3,Cải lương,55.6,,,13.12
+4,Cô Nơi Mẹ Chẳng Cần Chi,chauvan_conoimechangcanchi.mp4,In-The-Wild YouTube,Chầu văn,Chầu văn,25.7,Quan họ,23.5,Chầu văn,37.8,,,13.46
+5,Buôn Bấc Buôn Dầu,quanho_buonbacbuondau.mp4,In-The-Wild YouTube,Quan họ,Quan họ,60.1,Quan họ,40.6,Quan họ,96.1,,,17.59
+6,Xẩm Chợ Đồng Xuân (Bản độc lập),xam_chodongxuan.mp4,In-The-Wild YouTube,Hát xẩm,Cải lương,30.7,Quan họ,26.7,Cải lương,62.0,,,16.13
+7,Cailuong Hoatimbanglang,cailuong_hoatimbanglang.mp4,CBM Test Partition,Cải lương,Quan họ,29.5,Quan họ,38.6,Cải lương,41.4,,,12.88
+8,Cailuong Tienghosonghau 02,cailuong_tienghosonghau_02.mp4,CBM Test Partition,Cải lương,Cải lương,44.8,Cải lương,27.0,Cải lương,77.8,,,7.61
+9,Cailuong Tienghosonghau 04,cailuong_tienghosonghau_04.mp4,CBM Test Partition,Cải lương,Cải lương,42.2,Ca trù,25.9,Cải lương,83.4,,,5.96
+10,Cailuong Tienghosonghau 08,cailuong_tienghosonghau_08.mp4,CBM Test Partition,Cải lương,Cải lương,45.1,Cải lương,23.2,Cải lương,86.0,,,9.18
+11,Catru Daudephoguom,catru_daudephoguom.mp4,CBM Test Partition,Ca trù,Ca trù,57.6,Ca trù,49.7,Ca trù,72.3,,,8.7
+12,Catru Tayhohoaico 03,catru_tayhohoaico_03.mp4,CBM Test Partition,Ca trù,Ca trù,68.1,Ca trù,59.6,Ca trù,83.9,,,5.91
+13,Chauvan Conguoisongtrendoitiennhieudelamchi,chauvan_conguoisongtrendoitiennhieudelamchi.mp4,CBM Test Partition,Chầu văn,Chầu văn,30.6,Ca trù,36.7,Chầu văn,62.1,,,7.49
+14,Chauvan Daolamcon,chauvan_daolamcon.mp4,CBM Test Partition,Chầu văn,Cải lương,21.3,Quan họ,21.5,Cải lương,35.9,,,11.33
+15,Chauvan Luattroi,chauvan_luattroi.mp4,CBM Test Partition,Chầu văn,Cải lương,33.6,Ca trù,31.2,Cải lương,77.9,,,8.54
+16,Cheo Luubinhduongle 05,cheo_luubinhduongle_05.mp4,CBM Test Partition,Chèo,Chèo,52.2,Chèo,29.7,Chèo,93.8,,,6.67
+17,Cheo Hattamlangmai,cheo_hattamlangmai.mp4,CBM Test Partition,Chèo,Chèo,47.6,Hát xẩm,23.9,Chèo,92.1,,,6.83
+18,Cheo Luubinhduongle 06,cheo_luubinhduongle_06.mp4,CBM Test Partition,Chèo,Chèo,50.3,Chèo,26.3,Chèo,94.9,,,6.63
+19,Cheo Motthoidenho,cheo_motthoidenho.mp4,CBM Test Partition,Chèo,Quan họ,32.9,Quan họ,28.1,Quan họ,41.7,,,10.72
+20,Quanho Conduyen,quanho_conduyen.mp4,CBM Test Partition,Quan họ,Quan họ,66.7,Quan họ,51.8,Quan họ,94.3,,,9.58
+21,Quanho Nonbatam,quanho_nonbatam.mp4,CBM Test Partition,Quan họ,Quan họ,39.0,Quan họ,38.5,Quan họ,39.9,,,9.19
+22,Quanho Vaochua,quanho_vaochua.mp4,CBM Test Partition,Quan họ,Quan họ,60.5,Quan họ,49.6,Quan họ,80.7,,,7.03
+23,Xam Quyettrituthan,xam_quyettrituthan.mp4,CBM Test Partition,Hát xẩm,Hát xẩm,37.9,Hát xẩm,29.6,Hát xẩm,53.3,,,4.6
+24,Xam Ngamcaisudoi,xam_ngamcaisudoi.mp4,CBM Test Partition,Hát xẩm,Ca trù,32.7,Ca trù,48.4,Cải lương,36.8,,,10.18
