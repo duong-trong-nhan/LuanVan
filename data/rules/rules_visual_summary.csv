@@ -1,47 +1,46 @@
 ﻿Mô hình,Luật (IF Điều kiện),Dự đoán (THEN),Độ tin cậy,Độ hỗ trợ,Score
 Visual RIPPER (Separate-and-Conquer),ao_thao_khan_nhieu_ao_the == 1 AND dan_day == 1,Ca trù,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),ao_thao_khan_nhieu_ao_the == 1 AND dien_tho_hau_dong == 0 AND co_trang_mao_giap_dinh_hat == 0 AND dao_cu_hau_dong_kiem_cung_mam == 0,Ca trù,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),ao_dai_ao_ba_ba == 0 AND ao_tu_than_yem_dao == 0 AND dan_day == 1,Ca trù,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),chieu_cheo_san_dinh == 1 AND khong_nhac_cu == 0,Chèo,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),ao_thao_khan_nhieu_ao_the == 1 AND co_trang_mao_giap_dinh_hat == 0 AND dien_tho_hau_dong == 0 AND dao_cu_hau_dong_kiem_cung_mam == 0,Ca trù,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),ban_phach_trong_chau == 1 AND dan_kim_dan_nguyet == 0 AND dan_co_dan_nhi == 0 AND ao_thao_khan_nhieu_ao_the == 0,Ca trù,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),chieu_cheo_san_dinh == 1,Chèo,85.0%,10,2.0
 Visual RIPPER (Separate-and-Conquer),trang_phuc_he_cheo == 1,Chèo,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),ao_dai_ao_ba_ba == 1 AND khong_nhac_cu == 0 AND dien_tho_hau_dong == 0 AND ao_tu_than_yem_dao == 1,Chèo,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),ao_dai_ao_ba_ba == 1 AND khong_nhac_cu == 0 AND trong_cheo_mo_quat_giay == 1,Chèo,85.0%,10,2.0
 Visual RIPPER (Separate-and-Conquer),dien_tho_hau_dong == 1,Chầu văn,85.0%,10,2.0
 Visual RIPPER (Separate-and-Conquer),dao_cu_hau_dong_kiem_cung_mam == 1 AND co_trang_mao_giap_dinh_hat == 0,Chầu văn,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),khan_chau_ao_ngu_hau_dong == 1,Chầu văn,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),dan_kim_dan_nguyet == 1 AND ban_phach_trong_chau == 1,Chầu văn,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),ao_tu_than_yem_dao == 0 AND khong_nhac_cu == 1 AND ao_dai_ao_ba_ba == 0,Cải lương,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),ao_tu_than_yem_dao == 0 AND khong_nhac_cu == 1,Cải lương,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),ao_tu_than_yem_dao == 0 AND guitar_phim_lom == 1,Cải lương,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),dan_kim_dan_nguyet == 1 AND khan_chau_ao_ngu_hau_dong == 1,Chầu văn,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),dan_kim_dan_nguyet == 1 AND guitar_phim_lom == 0 AND ao_dai_ao_ba_ba == 1 AND dan_co_dan_nhi == 1,Chầu văn,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),dan_kim_dan_nguyet == 1 AND guitar_phim_lom == 0 AND dan_tranh == 0 AND ban_phach_trong_chau == 1,Chầu văn,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),san_khau_kich_hat == 1 AND ao_nau_kinh_den_mu_cat == 0 AND khong_nhac_cu == 0 AND ao_dai_ao_ba_ba == 1,Cải lương,85.0%,10,2.0
 Visual RIPPER (Separate-and-Conquer),co_trang_mao_giap_dinh_hat == 1,Cải lương,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),ao_tu_than_yem_dao == 0 AND ao_dai_ao_ba_ba == 1 AND dien_tho_hau_dong == 0 AND chieu_cheo_san_dinh == 0 AND ao_nau_kinh_den_mu_cat == 0 AND dan_kim_dan_nguyet == 0 AND trong_cheo_mo_quat_giay == 0 AND dao_cu_hau_dong_kiem_cung_mam == 0,Cải lương,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),ao_nau_kinh_den_mu_cat == 1 AND senh_tien_trong_manh == 1,Hát xẩm,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),ao_nau_kinh_den_mu_cat == 1 AND khong_nhac_cu == 0 AND trong_cheo_mo_quat_giay == 0 AND chieu_cheo_san_dinh == 0,Hát xẩm,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),dan_co_dan_nhi == 1 AND dan_kim_dan_nguyet == 0 AND trong_cheo_mo_quat_giay == 0 AND dan_tranh == 0,Hát xẩm,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),khong_nhac_cu == 0 AND chieu_cheo_san_dinh == 0 AND non_quai_thao_khan_mo_qua_ao_mo_ba == 1,Hát xẩm,85.0%,10,2.0
-Visual RIPPER (Separate-and-Conquer),khong_nhac_cu == 1 AND ao_tu_than_yem_dao == 1,Quan họ,85.0%,10,2.0
-Visual CN2 (Beam Search Sequential Covering),dan_day == 1,Ca trù,100.0%,119,4.787
-Visual CN2 (Beam Search Sequential Covering),ban_phach_trong_chau == 1 AND dan_kim_dan_nguyet == 0 AND dien_tho_hau_dong == 0,Ca trù,98.8%,82,4.365
-Visual CN2 (Beam Search Sequential Covering),ao_thao_khan_nhieu_ao_the == 1 AND dien_tho_hau_dong == 0 AND co_trang_mao_giap_dinh_hat == 0,Ca trù,91.0%,211,4.874
-Visual CN2 (Beam Search Sequential Covering),chieu_cheo_san_dinh == 1 AND khong_nhac_cu == 0,Chèo,100.0%,349,5.858
-Visual CN2 (Beam Search Sequential Covering),trang_phuc_he_cheo == 1,Chèo,100.0%,291,5.677
+Visual RIPPER (Separate-and-Conquer),guitar_phim_lom == 1,Cải lương,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),ao_tu_than_yem_dao == 0 AND ao_dai_ao_ba_ba == 1 AND dien_tho_hau_dong == 0 AND chieu_cheo_san_dinh == 0 AND dan_co_dan_nhi == 0 AND dan_kim_dan_nguyet == 0 AND san_khau_kich_hat == 1,Cải lương,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),ao_nau_kinh_den_mu_cat == 1,Hát xẩm,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),dan_co_dan_nhi == 1 AND dan_kim_dan_nguyet == 0,Hát xẩm,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),non_quai_thao_khan_mo_qua_ao_mo_ba == 1 AND doi_dap_nam_nu_quan_ho == 1,Quan họ,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),non_quai_thao_khan_mo_qua_ao_mo_ba == 1 AND chieu_cheo_san_dinh == 0 AND ao_nau_kinh_den_mu_cat == 0 AND khong_nhac_cu == 1,Quan họ,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),non_quai_thao_khan_mo_qua_ao_mo_ba == 1 AND chieu_cheo_san_dinh == 0 AND ao_nau_kinh_den_mu_cat == 0,Quan họ,85.0%,10,2.0
+Visual RIPPER (Separate-and-Conquer),ao_dai_ao_ba_ba == 1 AND doi_dap_nam_nu_quan_ho == 1,Quan họ,85.0%,10,2.0
+Visual CN2 (Beam Search Sequential Covering),dan_day == 1 AND dan_co_dan_nhi == 0 AND dien_tho_hau_dong == 0,Ca trù,100.0%,125,4.836
+Visual CN2 (Beam Search Sequential Covering),ban_phach_trong_chau == 1 AND ao_thao_khan_nhieu_ao_the == 1 AND dien_tho_hau_dong == 0,Ca trù,100.0%,154,5.043
+Visual CN2 (Beam Search Sequential Covering),ao_thao_khan_nhieu_ao_the == 1 AND co_trang_mao_giap_dinh_hat == 0 AND dien_tho_hau_dong == 0,Ca trù,89.8%,236,4.912
+Visual CN2 (Beam Search Sequential Covering),ban_phach_trong_chau == 1 AND dan_kim_dan_nguyet == 0 AND dan_co_dan_nhi == 0,Ca trù,97.5%,163,4.975
+Visual CN2 (Beam Search Sequential Covering),trang_phuc_he_cheo == 1,Chèo,100.0%,303,5.717
+Visual CN2 (Beam Search Sequential Covering),chieu_cheo_san_dinh == 1 AND non_quai_thao_khan_mo_qua_ao_mo_ba == 0,Chèo,100.0%,294,5.687
+Visual CN2 (Beam Search Sequential Covering),chieu_cheo_san_dinh == 1,Chèo,99.5%,368,5.879
 Visual CN2 (Beam Search Sequential Covering),trong_cheo_mo_quat_giay == 1,Chèo,100.0%,7,2.079
-Visual CN2 (Beam Search Sequential Covering),ao_tu_than_yem_dao == 1 AND non_quai_thao_khan_mo_qua_ao_mo_ba == 0 AND dien_tho_hau_dong == 0,Chèo,85.3%,312,4.899
-Visual CN2 (Beam Search Sequential Covering),dien_tho_hau_dong == 1,Chầu văn,100.0%,189,5.247
-Visual CN2 (Beam Search Sequential Covering),dao_cu_hau_dong_kiem_cung_mam == 1 AND co_trang_mao_giap_dinh_hat == 0,Chầu văn,100.0%,125,4.836
-Visual CN2 (Beam Search Sequential Covering),khan_chau_ao_ngu_hau_dong == 1,Chầu văn,100.0%,167,5.124
-Visual CN2 (Beam Search Sequential Covering),ban_phach_trong_chau == 1 AND dan_kim_dan_nguyet == 1,Chầu văn,100.0%,55,4.025
-Visual CN2 (Beam Search Sequential Covering),dan_kim_dan_nguyet == 1 AND ao_dai_ao_ba_ba == 1 AND dan_tranh == 0,Chầu văn,74.4%,39,2.743
-Visual CN2 (Beam Search Sequential Covering),dan_kim_dan_nguyet == 1 AND guitar_phim_lom == 0 AND dan_tranh == 0,Chầu văn,61.6%,151,3.094
-Visual CN2 (Beam Search Sequential Covering),co_trang_mao_giap_dinh_hat == 1 AND dao_cu_hau_dong_kiem_cung_mam == 0,Cải lương,100.0%,156,5.056
-Visual CN2 (Beam Search Sequential Covering),guitar_phim_lom == 1,Cải lương,100.0%,117,4.771
-Visual CN2 (Beam Search Sequential Covering),dan_tranh == 1 AND ban_phach_trong_chau == 0,Cải lương,100.0%,90,4.511
-Visual CN2 (Beam Search Sequential Covering),dan_bau == 1,Cải lương,100.0%,46,3.85
-Visual CN2 (Beam Search Sequential Covering),khong_nhac_cu == 1 AND ao_tu_than_yem_dao == 0 AND san_khau_kich_hat == 1,Cải lương,86.6%,387,5.16
-Visual CN2 (Beam Search Sequential Covering),co_trang_mao_giap_dinh_hat == 1,Cải lương,97.4%,193,5.131
-Visual CN2 (Beam Search Sequential Covering),dan_kim_dan_nguyet == 1 AND ban_phach_trong_chau == 0 AND ao_dai_ao_ba_ba == 0,Cải lương,76.2%,193,4.012
-Visual CN2 (Beam Search Sequential Covering),dan_co_dan_nhi == 1 AND ao_nau_kinh_den_mu_cat == 0 AND ban_phach_trong_chau == 0,Cải lương,66.7%,108,3.128
-Visual CN2 (Beam Search Sequential Covering),ao_dai_ao_ba_ba == 1 AND khong_nhac_cu == 0 AND dien_tho_hau_dong == 0,Cải lương,36.4%,379,2.163
-Visual CN2 (Beam Search Sequential Covering),senh_tien_trong_manh == 1,Hát xẩm,100.0%,114,4.745
-Visual CN2 (Beam Search Sequential Covering),ao_nau_kinh_den_mu_cat == 1 AND khong_nhac_cu == 0 AND chieu_cheo_san_dinh == 0,Hát xẩm,98.4%,186,5.147
-Visual CN2 (Beam Search Sequential Covering),dan_co_dan_nhi == 1 AND dan_kim_dan_nguyet == 0 AND dan_tranh == 0,Hát xẩm,87.0%,192,4.577
+Visual CN2 (Beam Search Sequential Covering),ao_tu_than_yem_dao == 1 AND non_quai_thao_khan_mo_qua_ao_mo_ba == 0 AND dien_tho_hau_dong == 0,Chèo,91.0%,312,5.231
+Visual CN2 (Beam Search Sequential Covering),dien_tho_hau_dong == 1 AND ban_phach_trong_chau == 0,Chầu văn,100.0%,241,5.489
+Visual CN2 (Beam Search Sequential Covering),dao_cu_hau_dong_kiem_cung_mam == 1 AND co_trang_mao_giap_dinh_hat == 0,Chầu văn,100.0%,126,4.844
+Visual CN2 (Beam Search Sequential Covering),khan_chau_ao_ngu_hau_dong == 1,Chầu văn,100.0%,220,5.398
+Visual CN2 (Beam Search Sequential Covering),dan_kim_dan_nguyet == 1 AND ban_phach_trong_chau == 1 AND dan_bau == 0,Chầu văn,98.2%,54,3.933
+Visual CN2 (Beam Search Sequential Covering),dien_tho_hau_dong == 1,Chầu văn,99.6%,268,5.574
+Visual CN2 (Beam Search Sequential Covering),dao_cu_hau_dong_kiem_cung_mam == 1 AND ao_thao_khan_nhieu_ao_the == 0 AND ao_dai_ao_ba_ba == 0,Chầu văn,87.4%,135,4.294
+Visual CN2 (Beam Search Sequential Covering),dan_kim_dan_nguyet == 1 AND ao_dai_ao_ba_ba == 1 AND guitar_phim_lom == 0,Chầu văn,72.1%,43,2.728
+Visual CN2 (Beam Search Sequential Covering),dao_cu_hau_dong_kiem_cung_mam == 1 AND ao_dai_ao_ba_ba == 1,Chầu văn,77.8%,9,1.791
+Visual CN2 (Beam Search Sequential Covering),dao_cu_hau_dong_kiem_cung_mam == 1 AND ao_thao_khan_nhieu_ao_the == 1,Chầu văn,50.0%,34,1.778
+Visual CN2 (Beam Search Sequential Covering),dan_kim_dan_nguyet == 1 AND guitar_phim_lom == 0 AND dan_tranh == 0,Chầu văn,62.5%,152,3.144
+Visual CN2 (Beam Search Sequential Covering),co_trang_mao_giap_dinh_hat == 1 AND dao_cu_hau_dong_kiem_cung_mam == 0,Cải lương,100.0%,152,5.03
+Visual CN2 (Beam Search Sequential Covering),guitar_phim_lom == 1,Cải lương,100.0%,126,4.844
+Visual CN2 (Beam Search Sequential Covering),san_khau_kich_hat == 1 AND ao_dai_ao_ba_ba == 1 AND khong_nhac_cu == 0,Cải lương,100.0%,275,5.62
+Visual CN2 (Beam Search Sequential Covering),dan_tranh == 1 AND ao_dai_ao_ba_ba == 0,Cải lương,100.0%,110,4.71
+Visual CN2 (Beam Search Sequential Covering),dan_bau == 1,Cải lương,100.0%,49,3.912
+Visual CN2 (Beam Search Sequential Covering),khong_nhac_cu == 1 AND ao_tu_than_yem_dao == 0 AND san_khau_kich_hat == 1,Cải lương,95.7%,23,3.04
