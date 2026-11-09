@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="18" viewBox="0 0 160 18" fill="none">
+  <!-- Top Border Rule -->
+  <line x1="0" y1="1" x2="160" y2="1" stroke="#8C6239" stroke-width="0.8" opacity="0.6"/>
+  
+  <!-- Row 1: Sawtooth / Chevrons (Kỷ hà răng cưa Đông Sơn) -->
+  <polygon points="0,6 4,2 8,6 12,2 16,6 20,2 24,6 28,2 32,6 36,2 40,6 44,2 48,6 52,2 56,6 60,2 64,6 68,2 72,6 76,2 80,6 84,2 88,6 92,2 96,6 100,2 104,6 108,2 112,6 116,2 120,6 124,2 128,6 132,2 136,6 140,2 144,6 148,2 152,6 156,2 160,6" fill="none" stroke="#C84B31" stroke-width="0.75" opacity="0.75"/>
+  <line x1="0" y1="6.5" x2="160" y2="6.5" stroke="#8C6239" stroke-width="0.6" opacity="0.45"/>
+  
+  <!-- Row 2: Concentric Tangent Circles with Center Dots (Vòng tròn đồng tâm tiếp tuyến có chấm tâm) -->
+  <!-- Circle 1 (x=10) -->
+  <circle cx="10" cy="11.5" r="4.2" stroke="#8C6239" stroke-width="0.7" opacity="0.85"/>
+  <circle cx="10" cy="11.5" r="2.2" stroke="#C84B31" stroke-width="0.5" opacity="0.65"/>
+  <circle cx="10" cy="11.5" r="0.9" fill="#C84B31"/>
+  <!-- Tangent line between 1 and 2 -->
+  <line x1="14.2" y1="11.5" x2="25.8" y2="11.5" stroke="#8C6239" stroke-width="0.6" opacity="0.6"/>
+
+  <!-- Circle 2 (x=30) -->
+  <circle cx="30" cy="11.5" r="4.2" stroke="#8C6239" stroke-width="0.7" opacity="0.85"/>
+  <circle cx="30" cy="11.5" r="2.2" stroke="#C84B31" stroke-width="0.5" opacity="0.65"/>
+  <circle cx="30" cy="11.5" r="0.9" fill="#C84B31"/>
+  <line x1="34.2" y1="11.5" x2="45.8" y2="11.5" stroke="#8C6239" stroke-width="0.6" opacity="0.6"/>
+
+  <!-- Circle 3 (x=50) -->
+  <circle cx="50" cy="11.5" r="4.2" stroke="#8C6239" stroke-width="0.7" opacity="0.85"/>
+  <circle cx="50" cy="11.5" r="2.2" stroke="#C84B31" stroke-width="0.5" opacity="0.65"/>
+  <circle cx="50" cy="11.5" r="0.9" fill="#C84B31"/>
+  <line x1="54.2" y1="11.5" x2="65.8" y2="11.5" stroke="#8C6239" stroke-width="0.6" opacity="0.6"/>
+
+  <!-- Circle 4 (x=70) -->
+  <circle cx="70" cy="11.5" r="4.2" stroke="#8C6239" stroke-width="0.7" opacity="0.85"/>
+  <circle cx="70" cy="11.5" r="2.2" stroke="#C84B31" stroke-width="0.5" opacity="0.65"/>
+  <circle cx="70" cy="11.5" r="0.9" fill="#C84B31"/>
+  <line x1="74.2" y1="11.5" x2="85.8" y2="11.5" stroke="#8C6239" stroke-width="0.6" opacity="0.6"/>
+
+  <!-- Circle 5 (x=90) -->
+  <circle cx="90" cy="11.5" r="4.2" stroke="#8C6239" stroke-width="0.7" opacity="0.85"/>
+  <circle cx="90" cy="11.5" r="2.2" stroke="#C84B31" stroke-width="0.5" opacity="0.65"/>
+  <circle cx="90" cy="11.5" r="0.9" fill="#C84B31"/>
+  <line x1="94.2" y1="11.5" x2="105.8" y2="11.5" stroke="#8C6239" stroke-width="0.6" opacity="0.6"/>
+
+  <!-- Circle 6 (x=110) -->
+  <circle cx="110" cy="11.5" r="4.2" stroke="#8C6239" stroke-width="0.7" opacity="0.85"/>
+  <circle cx="110" cy="11.5" r="2.2" stroke="#C84B31" stroke-width="0.5" opacity="0.65"/>
+  <circle cx="110" cy="11.5" r="0.9" fill="#C84B31"/>
+  <line x1="114.2" y1="11.5" x2="125.8" y2="11.5" stroke="#8C6239" stroke-width="0.6" opacity="0.6"/>
+
+  <!-- Circle 7 (x=130) -->
+  <circle cx="130" cy="11.5" r="4.2" stroke="#8C6239" stroke-width="0.7" opacity="0.85"/>
+  <circle cx="130" cy="11.5" r="2.2" stroke="#C84B31" stroke-width="0.5" opacity="0.65"/>
+  <circle cx="130" cy="11.5" r="0.9" fill="#C84B31"/>
+  <line x1="134.2" y1="11.5" x2="145.8" y2="11.5" stroke="#8C6239" stroke-width="0.6" opacity="0.6"/>
+
+  <!-- Circle 8 (x=150) -->
+  <circle cx="150" cy="11.5" r="4.2" stroke="#8C6239" stroke-width="0.7" opacity="0.85"/>
+  <circle cx="150" cy="11.5" r="2.2" stroke="#C84B31" stroke-width="0.5" opacity="0.65"/>
+  <circle cx="150" cy="11.5" r="0.9" fill="#C84B31"/>
+  <!-- Tangent wrap around -->
+  <line x1="154.2" y1="11.5" x2="160" y2="11.5" stroke="#8C6239" stroke-width="0.6" opacity="0.6"/>
+  <line x1="0" y1="11.5" x2="5.8" y2="11.5" stroke="#8C6239" stroke-width="0.6" opacity="0.6"/>
+
+  <!-- Bottom Border Rule -->
+  <line x1="0" y1="17" x2="160" y2="17" stroke="#8C6239" stroke-width="0.8" opacity="0.6"/>
+</svg>

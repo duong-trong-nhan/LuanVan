@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <!-- Swiss Editorial Light Mode Stylesheet -->
-  <link rel="stylesheet" href="/static/css/index.css?v=3.16">
+  <link rel="stylesheet" href="/static/css/index.css?v=3.22">
 
   <!-- Three.js WebGL & OrbitControls -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -41,7 +41,7 @@
     </div>
     <div class="header-right-tools">
       <div class="header-samples-group">
-        <span class="header-samples-label"><i class="fa-solid fa-bolt" style="color: var(--accent-amber);"></i> Thử nhanh:</span>
+        <span class="header-samples-label">Thử nhanh:</span>
         <div class="sample-chips" id="sample-chips-container">
           <!-- Tự động nạp từ /api/sample_files -->
           <span style="font-size: 11px; color: var(--text-tertiary);">Đang nạp danh sách mẫu...</span>
@@ -82,10 +82,10 @@
             <div class="tab-content active" id="tab-media">
               <input type="file" id="media-file-input" accept="video/mp4,video/quicktime,video/x-msvideo,video/webm,audio/wav,audio/mpeg,audio/flac,audio/ogg,audio/mp4,audio/aac" style="display: none;" />
               <div class="dropzone-box" id="media-dropzone">
-                <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
+                <img src="/static/img/heritage_empty_state.svg" alt="Di sản đa phương thức" class="heritage-empty-hero-img" />
                 <div class="dropzone-text">
                   <h4>Kéo thả tệp Video hoặc Âm thanh hoặc bấm để tải lên</h4>
-                  <p>Hỗ trợ Video (.mp4, .avi, .mov) &amp; Âm thanh (.wav, .mp3, .flac) • Tự động nhận diện định dạng &amp; phân tích</p>
+                  <p>Hỗ trợ Video (.mp4, .avi, .mov) &amp; Âm thanh (.wav, .mp3, .flac) • Tối đa 200 MB, thời lượng dưới 10 phút • Tự động nhận diện &amp; phân tích</p>
                 </div>
               </div>
 
@@ -143,11 +143,11 @@
                   <i class="fa-brands fa-youtube" style="color: #E74C3C; font-size: 18px;"></i>
                   <input type="url" id="url-video-input" placeholder="Dán liên kết YouTube hoặc URL video trực tiếp (https://...)" />
                   <button class="btn-primary" id="btn-analyze-url" type="button" style="padding: 7px 16px; font-size: 12px; white-space: nowrap;">
-                    <i class="fa-solid fa-bolt"></i> Phân tích
+                    Phân tích
                   </button>
                 </div>
                 <div class="url-preset-ribbon">
-                  <span class="url-preset-label"><i class="fa-solid fa-lightbulb" style="color: var(--accent-amber);"></i> Thử nhanh:</span>
+                  <span class="url-preset-label">Thử nhanh:</span>
                   <button class="url-chip" type="button" data-url="https://www.youtube.com/watch?v=wpnlG--lgqA" data-title="Ca trù Tây Hồ Hoài Cổ">
                     <span class="chip-dot" style="background-color: var(--genre-catru);"></span> Ca trù
                   </button>
@@ -168,7 +168,6 @@
             <div class="mm-tabs-header">
               <div class="mm-header-title-wrap">
                 <span class="card-title">
-                  <i class="fa-solid fa-timeline" style="color: var(--accent-vermilion);"></i>
                   Phân đoạn Dự đoán Thời gian (Chunk 3–5s)
                 </span>
               </div>
@@ -202,7 +201,7 @@
               <div class="mm-tab-pane active" id="mm-pane-visual" data-mm-pane="visual">
                 <div class="mm-subcard">
                   <div class="mm-subcard-head">
-                    <h4><i class="fa-solid fa-film" style="color: var(--accent-amber);"></i> Dải Phân đoạn Thời gian &amp; Keyframes Thị giác</h4>
+                    <h4>Dải Phân đoạn Thời gian &amp; Keyframes Thị giác</h4>
                     <span class="mm-subcard-hint">Bấm vào từng thẻ phân đoạn để tua trình phát và xem bằng chứng tại thời điểm đó</span>
                   </div>
                   <div class="timeline-scroll-strip" id="timeline-scroll-strip">
@@ -218,7 +217,7 @@
                 <div class="mm-audio-split-grid">
                   <div class="mm-subcard">
                     <div class="mm-subcard-head">
-                      <h4><i class="fa-solid fa-sliders" style="color: var(--accent-jade);"></i> 7 Trục Đặc trưng Âm học Chuẩn MPEG-7</h4>
+                      <h4>7 Trục Đặc trưng Âm học Chuẩn MPEG-7</h4>
                       <span class="mm-subcard-hint">Giá trị chuẩn hóa [0, 100%] &amp; Nhãn mờ</span>
                     </div>
                     <div class="radar-bars-list" id="radar-bars-container">
@@ -228,7 +227,7 @@
 
                   <div class="mm-subcard">
                     <div class="mm-subcard-head">
-                      <h4><i class="fa-solid fa-wave-square" style="color: var(--accent-vermilion);"></i> Lưới Ảnh Phổ Mel-Spectrogram theo Phân đoạn</h4>
+                      <h4>Lưới Ảnh Phổ Mel-Spectrogram theo Phân đoạn</h4>
                       <span class="mm-subcard-hint">Trích xuất tần số – thời gian từng chunk</span>
                     </div>
                     <div class="spectrogram-grid" id="spectrogram-grid-container">
@@ -242,8 +241,8 @@
               <div class="mm-tab-pane" id="mm-pane-fused" data-mm-pane="fused" style="display: none;">
                 <div class="mm-subcard">
                   <div class="mm-subcard-head">
-                    <h4><i class="fa-solid fa-chart-line" style="color: var(--accent-vermilion);"></i> Biểu đồ Diễn biến Xác suất Đa phương thức theo Thời gian</h4>
-                    <span class="chart-hint-tag"><i class="fa-solid fa-hand-pointer"></i> Bấm mốc thời gian trên biểu đồ để tua và kiểm chứng</span>
+                    <h4>Biểu đồ Diễn biến Xác suất Đa phương thức theo Thời gian</h4>
+                    <span class="chart-hint-tag">Bấm mốc thời gian trên biểu đồ để tua và kiểm chứng</span>
                   </div>
                   <div class="timeline-chart-container" id="timeline-chart-container">
                     <div class="chart-header-row">
@@ -259,7 +258,7 @@
                   <!-- Dải phân bố thể loại theo thời gian (Nằm dưới biểu đồ diễn biến xác suất) -->
                   <div class="fused-timeline-ribbon-box" style="margin-top: 14px;">
                     <div class="overview-timeline-meta">
-                      <span><i class="fa-solid fa-timeline" style="color: var(--accent-vermilion);"></i> Dải phân bố thể loại theo thời gian (Bấm để tua nhanh):</span>
+                      <span>Dải phân bố thể loại theo thời gian:</span>
                       <button type="button" class="btn-link-jump" id="btn-jump-keyframes" data-jump-section="sec-multimodal" data-jump-mmtab="visual">
                         Xem chi tiết phân đoạn <i class="fa-solid fa-arrow-right"></i>
                       </button>
@@ -283,7 +282,6 @@
             <div id="wave-canvas-container"></div>
             <div class="ambient-sphere-meta">
               <span class="wave-meta-tag" id="wave-meta-tag">
-                <i class="fa-solid fa-atom" id="wave-meta-icon" style="color: var(--accent-jade);"></i> 
                 <span id="wave-mode-title">Quả cầu 3D phản hồi âm thanh</span>
               </span>
               <div class="wave-vu-indicator">
@@ -318,17 +316,13 @@
                 </div>
               </div>
 
-              <!-- Khu vực Xác suất: Mặc định hiển thị Top 1, mở rộng bằng Accordion -->
+              <!-- Khu vực Xác suất: Mở rộng bằng Accordion -->
               <div class="probs-section" id="probs-section">
-                <div class="prob-top-winner-wrap" id="prob-top-winner-wrap">
-                  <div class="prob-empty-notice" style="font-size: 12px; color: var(--text-tertiary); font-style: italic; padding: 6px 0;">
-                    <i class="fa-solid fa-chart-simple" style="margin-right: 6px;"></i>Chưa có phân phối xác suất
-                  </div>
-                </div>
+                <div class="prob-top-winner-wrap" id="prob-top-winner-wrap" style="display: none;"></div>
 
                 <div class="probs-collapsible-wrapper collapsed" id="probs-collapsible-wrapper">
                   <div class="probs-other-divider">
-                    <span><i class="fa-solid fa-bars-staggered"></i> Toàn bộ xác suất các lớp khác (Thứ tự giảm dần):</span>
+                    <span>Toàn bộ xác suất các lớp khác (Thứ tự giảm dần):</span>
                   </div>
                   <div class="probs-list" id="probabilities-other-list"></div>
                 </div>
@@ -370,16 +364,14 @@
           <!-- Card 2: Khung Lời Lý giải Tổng hợp Đa phương thức Khoa học (XAI) -->
           <div class="card-panel xai-narrative-card" id="xai-card">
             <div class="card-header">
-              <span class="card-title">
-                <i class="fa-solid fa-feather" style="color: var(--accent-vermilion);"></i> Lời giải thích kết quả phân tích (XAI)
-              </span>
-              <span class="tag-badge"><i class="fa-solid fa-circle-check"></i> Cơ sở suy luận</span>
+              <span class="card-title">Lời giải thích kết quả phân tích (XAI)</span>
+              <span class="tag-badge">Cơ sở suy luận</span>
             </div>
             <div class="card-body xai-narrative-body">
               <!-- Banner phân đoạn đang chọn (Segment Inspection Banner) -->
               <div class="xai-segment-banner" id="xai-segment-banner" style="display: none;">
                 <div class="segment-banner-left">
-                  <span class="segment-focus-badge"><i class="fa-solid fa-crosshairs"></i> <span id="xai-segment-time">Phân đoạn 00:00 - 00:04</span></span>
+                  <span class="segment-focus-badge"><span id="xai-segment-time">Phân đoạn 00:00 - 00:04</span></span>
                   <span class="segment-focus-genre" id="xai-segment-genre-badge">--</span>
                 </div>
                 <button class="btn-return-overall" id="btn-return-overall-xai" type="button" title="Xem lại lời giải thích tổng thể toàn video">
@@ -414,20 +406,20 @@
     <div class="drawer-header">
       <div class="drawer-header-left">
         <span class="drawer-step-badge" id="drawer-step-badge">KHU VỰC 3</span>
-        <h3 class="drawer-header-title" id="drawer-header-title">Đồ thị Concept–Rule (Evidence Map)</h3>
+        <h3 class="drawer-header-title" id="drawer-header-title">Đồ thị bằng chứng (Evidence Map)</h3>
       </div>
       <div class="drawer-quick-nav" id="drawer-quick-nav">
         <button type="button" class="drawer-quick-btn active" data-drawer-target="sec-concept-graph">
-          <i class="fa-solid fa-diagram-project"></i> <span>3. Đồ thị</span>
+          <span>3. Đồ thị bằng chứng</span>
         </button>
         <button type="button" class="drawer-quick-btn" data-drawer-target="sec-rule-explorer">
-          <i class="fa-solid fa-code-branch"></i> <span>4. Khám phá luật</span>
+          <span>4. Khám phá luật</span>
         </button>
         <button type="button" class="drawer-quick-btn" data-drawer-target="sec-explanation-explorer">
-          <i class="fa-solid fa-code-compare"></i> <span>5. Đối chiếu What-If</span>
+          <span>5. Đối chiếu What-If</span>
         </button>
         <button type="button" class="drawer-quick-btn" data-drawer-target="sec-summary">
-          <i class="fa-solid fa-clipboard-check"></i> <span>6. Báo cáo tổng kết</span>
+          <span>6. Báo cáo tổng kết</span>
         </button>
       </div>
       <button type="button" class="drawer-close-btn" id="drawer-close-btn" title="Quay lại giao diện chính (Esc)">
@@ -437,15 +429,9 @@
 
     <div class="drawer-body" id="drawer-body">
       <!-- PANE 3: ĐỒ THỊ CONCEPT-RULE (EVIDENCE MAP) -->
-      <div class="drawer-pane active" id="pane-sec-concept-graph" data-pane="sec-concept-graph">
-    <section class="workspace-section active-ws-section" id="sec-concept-graph" data-section-id="sec-concept-graph">
-      <div class="card-panel evidence-map-card" id="evidence-map-main-card">
-        <div class="card-header evidence-map-header">
+      <section class="drawer-pane workspace-section active-ws-section active" id="sec-concept-graph" data-pane="sec-concept-graph" data-section-id="sec-concept-graph">
+        <div class="evidence-map-header">
           <div class="evidence-map-header-left">
-            <span class="card-title">
-              <i class="fa-solid fa-diagram-project" style="color: var(--accent-vermilion);"></i>
-              Bản đồ bằng chứng đa phương thức (Multimodal Evidence Map)
-            </span>
             <span class="tag-badge jade" id="evidence-map-badge">Chuỗi suy luận XAI</span>
           </div>
 
@@ -453,15 +439,15 @@
           <div class="evidence-map-toolbar">
             <!-- Nhóm 1: Lọc ẩn/hiện từng nhánh -->
             <div class="map-toolbar-group">
-              <span class="map-group-label"><i class="fa-solid fa-filter"></i> Lọc nhánh:</span>
+              <span class="map-group-label">Lọc nhánh:</span>
               <button type="button" class="map-branch-btn active" id="map-toggle-audio" data-branch="audio" title="Ẩn/hiện nhánh Âm thanh">
-                <i class="fa-solid fa-headphones"></i> Âm thanh
+                <span class="legend-color-dot dot-audio"></span> Âm thanh
               </button>
               <button type="button" class="map-branch-btn active" id="map-toggle-visual" data-branch="visual" title="Ẩn/hiện nhánh Thị giác">
-                <i class="fa-solid fa-eye"></i> Thị giác
+                <span class="legend-color-dot dot-visual"></span> Thị giác
               </button>
               <button type="button" class="map-branch-btn active" id="map-toggle-reasoning" data-branch="reasoning" title="Ẩn/hiện nhánh Luật &amp; Hợp nhất">
-                <i class="fa-solid fa-code-branch"></i> Luật &amp; Hợp nhất
+                <span class="legend-color-dot dot-rule"></span> Luật &amp; Hợp nhất
               </button>
             </div>
 
@@ -587,51 +573,42 @@
             </div>
           </aside>
         </div>
-      </div>
-    </section>
-    </div>
+      </section>
 
-    <!-- PANE 4: KHÁM PHÁ LUẬT (RULE EXPLORER) -->
-    <div class="drawer-pane" id="pane-sec-rule-explorer" data-pane="sec-rule-explorer">
-    <section class="workspace-section active-ws-section" id="sec-rule-explorer" data-section-id="sec-rule-explorer">
-      <div class="card-panel rule-explorer-card">
-        <div class="card-header">
-          <span class="card-title">
-            <i class="fa-solid fa-code-branch" style="color: var(--accent-vermilion);"></i> Hệ luật quyết định tượng trưng được kích hoạt
-          </span>
+      <!-- PANE 4: KHÁM PHÁ LUẬT (RULE EXPLORER) -->
+      <section class="drawer-pane workspace-section" id="sec-rule-explorer" data-pane="sec-rule-explorer" data-section-id="sec-rule-explorer">
+        <div class="drawer-pane-header">
+          <div class="drawer-pane-header-left">
+            <span class="tag-badge vermilion" id="rule-explorer-badge">Khu vực 04 • Luật suy luận</span>
+            <span class="card-subtitle-note" style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">
+              Hệ luật suy luận tượng trưng (Neuro-Symbolic) từ mô hình học máy
+            </span>
+          </div>
           <span class="tag-badge" id="rule-explorer-count-badge">0 luật kích hoạt</span>
         </div>
-        <div class="card-body rule-explorer-body">
-          <!-- Cột Trái (36%): Danh sách chọn luật -->
+        <div class="rule-explorer-body">
+          <!-- Cột Trái (240px): Danh sách chọn luật -->
           <div class="rule-explorer-master">
-            <div class="rule-master-label">Danh sách luật kích hoạt (Chọn để xem):</div>
+            <div class="rule-master-label">Các luật kích hoạt:</div>
             <div class="rules-list-container" id="rules-list-container">
               <span style="font-size: 12px; color: var(--text-tertiary);">Chưa có luật nào được kích hoạt.</span>
             </div>
           </div>
 
-          <!-- Cột Phải (64%): Khung chi tiết luật đang chọn -->
+          <!-- Cột Phải: Khung chi tiết luật đang chọn -->
           <div class="rule-explorer-detail" id="rule-explorer-detail">
             <div class="rule-detail-empty">
-              <i class="fa-solid fa-scale-balanced" style="font-size: 22px; color: var(--text-tertiary); margin-bottom: 8px;"></i>
-              <p>Hãy phân tích một mẫu và chọn một luật ở danh sách bên trái để khám phá chi tiết mệnh đề logic mờ (IF–THEN), độ tin cậy, số mẫu huấn luyện và liên kết tới đồ thị suy luận.</p>
+              <p>Chọn một luật ở danh sách bên trái để xem chi tiết mệnh đề IF–THEN và độ tin cậy.</p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    </div>
+      </section>
 
-    <!-- PANE 5: DIỄN GIẢI VÀ ĐỐI CHIẾU (EXPLANATION EXPLORER) -->
-    <div class="drawer-pane" id="pane-sec-explanation-explorer" data-pane="sec-explanation-explorer">
-    <section class="workspace-section active-ws-section" id="sec-explanation-explorer" data-section-id="sec-explanation-explorer">
-      <div class="card-panel contrastive-card" id="contrastive-main-card">
-        <div class="card-header contrastive-header-bar">
-          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-            <span class="card-title">
-              <i class="fa-solid fa-code-compare" style="color: var(--accent-vermilion);"></i>
-              Trình khám phá đối chứng (Contrastive Explanation Explorer)
-            </span>
+      <!-- PANE 5: DIỄN GIẢI VÀ ĐỐI CHIẾU (EXPLANATION EXPLORER) -->
+      <section class="drawer-pane workspace-section" id="sec-explanation-explorer" data-pane="sec-explanation-explorer" data-section-id="sec-explanation-explorer">
+        <div class="contrastive-header-bar">
+          <div class="contrastive-header-label" style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">
+            Cặp thể loại so sánh:
           </div>
 
           <!-- Bộ điều khiển chọn Thể loại đối chứng -->
@@ -655,13 +632,13 @@
         <div class="exp-explorer-tabs-bar">
           <div class="exp-tabs-nav" role="tablist">
             <button type="button" class="exp-tab-btn active" data-exp-tab="aspect">
-              <i class="fa-solid fa-Sliders"></i> 1. Đối chiếu theo Khía cạnh (Aspect Explorer)
+              1. Khía cạnh phân biệt (Aspect Explorer)
             </button>
             <button type="button" class="exp-tab-btn" data-exp-tab="groups">
-              <i class="fa-solid fa-layer-group"></i> 2. Tổng hợp 3 Nhóm Đặc trưng
+              2. Ba nhóm đặc trưng
             </button>
             <button type="button" class="exp-tab-btn" data-exp-tab="whatif">
-              <i class="fa-solid fa-flask-vial"></i> 3. Thử nghiệm Giả định (What-If)
+              3. Thử nghiệm giả định (What-If)
             </button>
           </div>
 
@@ -671,7 +648,7 @@
           </button>
         </div>
 
-        <div class="card-body contrastive-body">
+        <div class="contrastive-body">
 
           <!-- TAB 1: KHÁM PHÁ THEO KHÍA CẠNH / TIÊU CHÍ (Master-Detail Aspect Explorer) -->
           <div class="exp-tab-pane active" id="exp-pane-aspect" data-exp-pane="aspect">
@@ -908,22 +885,21 @@
           </div>
 
         </div>
-      </div>
-    </section>
-    </div>
+      </section>
 
-    <!-- PANE 6: BÁO CÁO TỔNG KẾT (EXECUTIVE SUMMARY) -->
-    <div class="drawer-pane" id="pane-sec-summary" data-pane="sec-summary">
-    <section class="workspace-section active-ws-section" id="sec-summary" data-section-id="sec-summary">
-      <div class="card-panel summary-workspace-card">
-        <div class="card-header">
-          <span class="card-title">
-            <i class="fa-solid fa-clipboard-check" style="color: var(--accent-jade);"></i> Báo cáo Tổng hợp &amp; Kết luận Suy luận Đa phương thức
-          </span>
-          <span class="tag-badge jade"><i class="fa-solid fa-circle-check"></i> Cơ sở suy luận chuẩn hóa</span>
+      <!-- PANE 6: BÁO CÁO TỔNG KẾT (EXECUTIVE SUMMARY) -->
+      <section class="drawer-pane workspace-section" id="sec-summary" data-pane="sec-summary" data-section-id="sec-summary">
+        <div class="drawer-pane-header">
+          <div class="drawer-pane-header-left">
+            <span class="tag-badge indigo" id="summary-header-badge">Khu vực 06 • Báo cáo tổng kết</span>
+            <span class="card-subtitle-note" style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">
+              Tổng hợp kết quả phán quyết và nguồn tri thức kiểm chứng
+            </span>
+          </div>
+          <span class="tag-badge jade">Cơ sở suy luận chuẩn hóa</span>
         </div>
 
-        <div class="card-body summary-workspace-grid">
+        <div class="summary-workspace-grid">
           <!-- Cột Trái: Lời giải thích tổng hợp & Accordion Nguồn trích dẫn -->
           <div class="summary-narrative-col">
             <div class="summary-block-label">Diễn giải chi tiết kết quả phân tích:</div>
@@ -934,7 +910,7 @@
             <!-- Accordion cho Tài liệu & Nguồn kiểm chứng chuẩn hóa -->
             <div class="summary-accordion" id="citations-accordion">
               <button type="button" class="summary-accordion-trigger" id="btn-toggle-citations" aria-expanded="true">
-                <span><i class="fa-solid fa-book-bookmark" style="color: var(--accent-jade);"></i> Tài liệu &amp; Nguồn kiểm chứng chuẩn hóa</span>
+                <span>Tài liệu &amp; Nguồn kiểm chứng chuẩn hóa</span>
                 <i class="fa-solid fa-chevron-up accordion-arrow" id="citations-acc-icon"></i>
               </button>
               <div class="summary-accordion-content summary-accordion-body open" id="citations-accordion-body">
@@ -952,7 +928,7 @@
             <div class="summary-block-label">Các phát hiện quan trọng (Key Findings):</div>
             <div class="summary-takeaways-grid" id="summary-key-findings">
               <div class="takeaway-card">
-                <div class="takeaway-icon"><i class="fa-solid fa-crown"></i></div>
+                <div class="takeaway-icon">01</div>
                 <div class="takeaway-meta">
                   <span class="takeaway-label">Phán quyết &amp; Độ tin cậy</span>
                   <strong class="takeaway-val" id="takeaway-verdict-val">Chưa có dữ liệu</strong>
@@ -961,7 +937,7 @@
               </div>
 
               <div class="takeaway-card">
-                <div class="takeaway-icon jade"><i class="fa-solid fa-layer-group"></i></div>
+                <div class="takeaway-icon jade">02</div>
                 <div class="takeaway-meta">
                   <span class="takeaway-label">Sự đồng thuận Đa phương thức</span>
                   <strong class="takeaway-val" id="takeaway-modality-val">--</strong>
@@ -970,7 +946,7 @@
               </div>
 
               <div class="takeaway-card">
-                <div class="takeaway-icon amber"><i class="fa-solid fa-code-branch"></i></div>
+                <div class="takeaway-icon amber">03</div>
                 <div class="takeaway-meta">
                   <span class="takeaway-label">Khái niệm &amp; Luật suy luận cốt lõi</span>
                   <strong class="takeaway-val" id="takeaway-rule-val">--</strong>
@@ -979,7 +955,7 @@
               </div>
 
               <div class="takeaway-card">
-                <div class="takeaway-icon indigo"><i class="fa-solid fa-scale-balanced"></i></div>
+                <div class="takeaway-icon indigo">04</div>
                 <div class="takeaway-meta">
                   <span class="takeaway-label">Đặc trưng phân biệt quyết định</span>
                   <strong class="takeaway-val" id="takeaway-disc-val">--</strong>
@@ -989,9 +965,7 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    </div>
+      </section>
     </div>
   </aside>
 
@@ -1012,7 +986,7 @@
     <div class="edge-sidebar-panel" id="edge-sidebar-panel">
       <div class="edge-panel-head">
         <div class="edge-panel-eyebrow">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> CÔNG CỤ SUY LUẬN XAI
+          CÔNG CỤ SUY LUẬN XAI
         </div>
         <h4 class="edge-panel-title">Phân tích chuyên sâu</h4>
       </div>
@@ -1093,10 +1067,19 @@
        Loading Overlay & Feedback Toast
        ======================================================================== -->
   <div class="loading-overlay" id="loading-overlay">
-    <div class="loading-spinner"></div>
-    <div class="loading-text" style="text-align: center;">
-      <h3>Đang xử lý phân tích dữ liệu...</h3>
-      <p>Phân tích đặc trưng âm thanh theo phân đoạn &amp; suy luận quyết định</p>
+    <div class="loading-crest-wrap">
+      <img src="/static/img/chim_lac_loading.svg" alt="Chim Lạc Đông Sơn" class="loading-crest-svg" />
+    </div>
+    <div class="loading-text-content">
+      <div class="loading-phase-pill">
+        <span class="loading-phase-dot"></span>
+        <span class="loading-phase-label">HỆ THỐNG XAI DI SẢN</span>
+      </div>
+      <h3 class="loading-title">Đang xử lý phân tích dữ liệu...</h3>
+      <p class="loading-desc">Trích xuất đặc trưng đa phương thức &amp; kích hoạt luật suy luận bản sắc</p>
+    </div>
+    <div class="loading-progress-bar">
+      <div class="loading-progress-indeterminate"></div>
     </div>
   </div>
 
@@ -1160,10 +1143,149 @@
     </div>
   </div>
 
+  <!-- ========================================================================
+       Modal Cảnh báo Quá Thời lượng & Công cụ Cắt Video Trực quan
+       ======================================================================== -->
+  <div class="modal-backdrop" id="video-trim-modal" style="display: none;">
+    <div class="modal-dialog trim-modal-dialog" role="dialog" aria-labelledby="modal-trim-title" aria-modal="true">
+      
+      <!-- GIAO DIỆN BƯỚC 1: CẢNH BÁO QUÁ THỜI LƯỢNG -->
+      <div id="trim-view-warning">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <span class="modal-eyebrow"><i class="fa-solid fa-triangle-exclamation"></i> Giới hạn thời lượng đầu vào</span>
+            <h3 id="modal-trim-title">Video vượt quá giới hạn 10 phút</h3>
+          </div>
+          <button class="modal-close-btn" id="btn-close-trim-warn" type="button" aria-label="Đóng">&times;</button>
+        </div>
+        <div class="modal-body" style="padding: 22px 24px;">
+          <div class="trim-warn-box">
+            <div class="trim-warn-icon-wrap">
+              <i class="fa-solid fa-clock-rotate-left trim-warn-icon"></i>
+            </div>
+            <div class="trim-warn-info">
+              <h4 id="trim-warn-filename">Tên tệp: video_bieu_dien.mp4</h4>
+              <p class="trim-warn-desc">
+                Thời lượng tệp phát hiện: <strong id="trim-warn-duration" class="trim-highlight-text">14:32</strong>. 
+                Giới hạn phân tích tối đa của hệ thống là <strong>10 phút (600 giây)</strong>.
+              </p>
+              <div class="trim-warn-callout">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Để tối ưu hóa thời gian tính toán và độ chính xác của mạng nơ-ron đa phương thức, bạn có thể <strong>cắt lấy phân đoạn trọng tâm (dưới 10 phút)</strong> trực tiếp trên hệ thống với đầy đủ hình ảnh xem trước tại điểm cắt.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer" style="justify-content: flex-end; gap: 10px;">
+          <button class="btn-outline" id="btn-trim-cancel" type="button" style="padding: 8px 18px; font-size: 13px;">
+            <i class="fa-solid fa-arrow-left"></i> Quay lại
+          </button>
+          <button class="btn-primary" id="btn-trim-proceed" type="button" style="padding: 8px 20px; font-size: 13px; background-color: var(--accent-vermilion);">
+            <i class="fa-solid fa-scissors"></i> Cắt video trực tiếp
+          </button>
+        </div>
+      </div>
+
+      <!-- GIAO DIỆN BƯỚC 2: CÔNG CỤ CẮT VIDEO TRỰC QUAN CÓ HÌNH ẢNH & FILMSTRIP -->
+      <div id="trim-view-editor" style="display: none;">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <span class="modal-eyebrow"><i class="fa-solid fa-scissors"></i> Công cụ cắt video trực tiếp</span>
+            <h3>Chọn phân đoạn video để phân tích</h3>
+          </div>
+          <button class="modal-close-btn" id="btn-close-trim-editor" type="button" aria-label="Đóng">&times;</button>
+        </div>
+        <div class="modal-body" style="padding: 18px 24px;">
+          <!-- 1. Màn hình xem trước khung hình tại mốc cắt -->
+          <div class="trim-preview-box">
+            <video id="trim-preview-video" playsinline preload="auto"></video>
+            <div class="trim-preview-overlays">
+              <span class="trim-overlay-pill" id="trim-current-frame-badge">
+                <i class="fa-regular fa-image"></i> <span id="trim-frame-time-label">00:00</span>
+              </span>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <button type="button" class="btn-trim-volume" id="btn-trim-volume" title="Bật/Tắt âm thanh">
+                  <i class="fa-solid fa-volume-high" id="trim-volume-icon"></i>
+                </button>
+                <button type="button" class="btn-trim-preview-play" id="btn-trim-preview-play" title="Xem thử phân đoạn đã chọn">
+                  <i class="fa-solid fa-play"></i> <span id="trim-play-text">Xem thử đoạn cắt</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Thước phim hình ảnh (Filmstrip Thumbnails) -->
+          <div class="trim-filmstrip-section">
+            <div class="trim-filmstrip-head">
+              <span class="filmstrip-title"><i class="fa-solid fa-film"></i> Dòng thời gian hình ảnh video</span>
+              <span class="filmstrip-hint"><i class="fa-solid fa-hand-pointer"></i> Bấm khung hình để xem hoặc kéo thanh trượt</span>
+            </div>
+            <div class="trim-filmstrip-track-wrap">
+              <div class="trim-filmstrip-track" id="trim-filmstrip-track">
+                <!-- 8 canvas thumbnails được render tự động bằng JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Bộ thanh trượt chọn phạm vi (Dual Range Timeline Slider) -->
+          <div class="trim-slider-section">
+            <div class="trim-range-wrap" id="trim-range-container">
+              <div class="trim-track-bg"></div>
+              <div class="trim-range-highlight" id="trim-range-highlight"></div>
+              <input type="range" class="trim-range-input slider-start" id="trim-slider-start" min="0" max="100" step="0.5" value="0">
+              <input type="range" class="trim-range-input slider-end" id="trim-slider-end" min="0" max="100" step="0.5" value="100">
+            </div>
+
+            <!-- Tinh chỉnh thời gian chính xác -->
+            <div class="trim-time-controls">
+              <div class="trim-time-group">
+                <label><i class="fa-solid fa-hourglass-start"></i> Bắt đầu:</label>
+                <div class="trim-input-stepper">
+                  <button type="button" class="btn-step" id="btn-step-start-down">-5s</button>
+                  <span class="trim-time-display" id="trim-val-start">00:00</span>
+                  <button type="button" class="btn-step" id="btn-step-start-up">+5s</button>
+                </div>
+              </div>
+              <div class="trim-duration-badge-wrap">
+                <span class="trim-dur-label">Độ dài đoạn chọn:</span>
+                <strong class="trim-dur-val" id="trim-val-duration">08:30</strong>
+                <span class="trim-dur-limit">/ 10:00</span>
+              </div>
+              <div class="trim-time-group">
+                <label><i class="fa-solid fa-hourglass-end"></i> Kết thúc:</label>
+                <div class="trim-input-stepper">
+                  <button type="button" class="btn-step" id="btn-step-end-down">-5s</button>
+                  <span class="trim-time-display" id="trim-val-end">08:30</span>
+                  <button type="button" class="btn-step" id="btn-step-end-up">+5s</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Thông báo trạng thái hợp lệ -->
+            <div class="trim-validation-bar" id="trim-validation-bar">
+              <span class="trim-valid-pill valid" id="trim-valid-pill">
+                <i class="fa-solid fa-circle-check"></i> Đoạn cắt hợp lệ (dưới 10 phút)
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer" style="justify-content: space-between;">
+          <button class="btn-outline" id="btn-trim-back-to-warn" type="button" style="padding: 8px 18px; font-size: 13px;">
+            <i class="fa-solid fa-arrow-left"></i> Quay lại
+          </button>
+          <button class="btn-primary" id="btn-trim-confirm" type="button" style="padding: 8px 24px; font-size: 13px; background-color: var(--accent-vermilion);">
+            Xác nhận &amp; Phân tích đoạn này
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Scripts -->
-  <script src="/static/js/audio_wave.js?v=3.16"></script>
-  <script src="/static/js/graph3d.js?v=3.16"></script>
-  <script src="/static/js/audio_recorder.js?v=3.16"></script>
-  <script src="/static/js/app.js?v=3.16"></script>
+  <script src="/static/js/audio_wave.js?v=3.22"></script>
+  <script src="/static/js/graph3d.js?v=3.22"></script>
+  <script src="/static/js/audio_recorder.js?v=3.22"></script>
+  <script src="/static/js/app.js?v=3.22"></script>
 </body>
 </html>

@@ -49,7 +49,10 @@ GENRE_COLORS = {
     'Chầu văn': '#8C3B88',    # Ceremonial Purple
     'Cải lương': '#C97A1B',   # Amber Ochre
     'Hát xẩm': '#7A6248',     # Earth Brown
-    'Quan họ': '#1E6B5B'      # Jade Emerald
+    'Quan họ': '#1E6B5B',     # Jade Emerald
+    'Thể loại khác': '#64748B',  # Slate Gray
+    'Thể loại khác / Không đủ dữ liệu xác định': '#64748B',
+    'Chưa xác định': '#64748B'
 }
 
 # 7 trục âm học MPEG-7
@@ -438,9 +441,14 @@ class HeritageInferenceEngine:
                 if float(c_probs[idx]) >= th:
                     detected_cues.append(col)
 
+            # Chỉ xếp hạng lấy cues nếu có ít nhất 1 cue có xác suất đáng kể (>= 0.28)
+            # Tránh tự động gán nhãn đạo cụ di sản cho hình ảnh tùy ý (phim hoạt hình, phong cảnh, xe cộ,...)
             if not detected_cues:
-                ranked = sorted([(c, c_probs[i]) for i, c in enumerate(self.visual_concept_cols) if c != 'khong_nhac_cu'], key=lambda x: x[1], reverse=True)
-                detected_cues = [c[0] for c in ranked[:3]]
+                valid_probs = [float(c_probs[i]) for i, c in enumerate(self.visual_concept_cols) if c != 'khong_nhac_cu']
+                max_p = max(valid_probs) if valid_probs else 0.0
+                if max_p >= 0.28:
+                    ranked = sorted([(c, c_probs[i]) for i, c in enumerate(self.visual_concept_cols) if c != 'khong_nhac_cu'], key=lambda x: x[1], reverse=True)
+                    detected_cues = [c[0] for c in ranked[:3]]
 
             return detected_cues, vis_probs_map
         except Exception as e:
@@ -810,13 +818,11 @@ class HeritageInferenceEngine:
                 cues.extend(['dan_day', 'ban_phach_trong_chau', 'ao_thao_khan_nhieu_ao_the'])
             else:
                 cues.extend(['dan_co_dan_nhi', 'senh_tien_trong_manh', 'chieu_xam_duong_pho_cho'])
-        elif edge_density > 0.12:
+        elif edge_density > 0.15:
             cues.extend(['non_quai_thao_khan_mo_qua_ao_mo_ba', 'ao_tu_than_yem_dao', 'doi_dap_nam_nu_quan_ho'])
         else:
-            if mean_h > 40 and mean_h < 85:
+            if mean_h > 40 and mean_h < 85 and edge_density > 0.10:
                 cues.extend(['dan_co_dan_nhi', 'senh_tien_trong_manh', 'chieu_xam_duong_pho_cho'])
-            else:
-                cues.extend(['chieu_cheo_san_dinh', 'trong_cheo_mo_quat_giay', 'ao_tu_than_yem_dao'])
 
         return list(dict.fromkeys(cues))[:4]
 
@@ -988,6 +994,9 @@ class HeritageInferenceEngine:
             key=lambda x: (float(x.get('confidence', 0.0) or 0.0), float(x.get('score', 0.0) or 0.0)),
             reverse=True
         )
+        # Lưu lại danh sách các luật mờ thực sự kích hoạt (không tính luật fallback)
+        real_matched_rules = list(matched_rules)
+
         top_rule = matched_rules[0] if matched_rules else {
             'rule_text': f"Pitch == '{crisp.get('Pitch')}' AND Energy == '{crisp.get('Energy')}' AND Timbre == '{crisp.get('Timbre')}'",
             'consequent': pred_genre,
@@ -1113,6 +1122,7 @@ class HeritageInferenceEngine:
             'modalities': modalities,
             'top_rule': top_rule,
             'matched_rules': matched_rules[:3],
+            'real_matched_rules': real_matched_rules,
             'audio_concepts': audio_concepts,
             'visual_concepts': visual_concepts,
             'visual_cues': detected_visual_cues
@@ -1358,7 +1368,9 @@ class HeritageInferenceEngine:
         file_path: Union[str, Path],
         mode: str = "audio",
         chunk_sec: float = 4.0,
-        hop_sec: float = 2.0
+        hop_sec: float = 2.0,
+        override_n_chunks: Optional[int] = None,
+        bypass_duration_limit: bool = False
     ) -> Dict[str, Any]:
         """
         Quy trình chuẩn: Cắt phân đoạn 3-5s (overlap 50%), dự đoán từng chunk,
@@ -1432,6 +1444,16 @@ class HeritageInferenceEngine:
 
         duration_total = len(audio_data) / sr
 
+        # Giới hạn thời lượng tối đa cho phép: 10 phút (600 giây)
+        MAX_DURATION_SECONDS = 600.0
+        if not bypass_duration_limit and duration_total > MAX_DURATION_SECONDS:
+            mins = int(duration_total // 60)
+            secs = int(duration_total % 60)
+            raise ValueError(
+                f"Thời lượng tệp ({mins} phút {secs:02d} giây) vượt quá giới hạn tối đa cho phép là 10 phút (600 giây). "
+                f"Vui lòng cắt ngắn hoặc chọn tệp dưới 10 phút."
+            )
+
         # 2. Tạo các cửa sổ chunking 3-5s (overlap 50%)
         # Đảm bảo có ít nhất 1 chunk
         chunks_info = []
@@ -1444,7 +1466,9 @@ class HeritageInferenceEngine:
         else:
             # Phân đoạn thích ứng động theo độ dài video (Dynamic Adaptive Chunking)
             # Tự động điều chỉnh số chunk để bao phủ 100% dòng thời gian liên tục không lỗ hổng
-            if duration_total <= 16:
+            if override_n_chunks is not None:
+                n_chunks = max(1, int(override_n_chunks))
+            elif duration_total <= 16:
                 n_chunks = max(2, int(np.ceil(duration_total / 4.0)))
             elif duration_total <= 45:
                 n_chunks = 6
@@ -1452,8 +1476,10 @@ class HeritageInferenceEngine:
                 n_chunks = 8
             elif duration_total <= 240:
                 n_chunks = 10
-            else:
+            elif duration_total <= 480:
                 n_chunks = 12
+            else:
+                n_chunks = 14
 
             chunk_slices = []
             seg_duration = duration_total / n_chunks
@@ -1569,6 +1595,7 @@ class HeritageInferenceEngine:
                 'spectrogram_img': spec_img_b64,
                 'keyframe_img': keyframe_b64,
                 'visual_cues': vis_cues,
+                'real_rules': chunk_pred.get('real_matched_rules', []),
                 'active_audio_concepts': [c['concept_id'] for c in chunk_pred['audio_concepts']],
                 'active_visual_concepts': [c['concept_id'] for c in chunk_pred['visual_concepts']]
             })
@@ -1584,173 +1611,243 @@ class HeritageInferenceEngine:
         final_genre = max(fused_probs.keys(), key=lambda k: fused_probs[k])
         final_confidence = float(fused_probs[final_genre])
 
-        # 5. Lọc top concept & top rules cho toàn thể
-        final_audio_concepts = [c for c in aggregated_concepts.values() if c['type'] == 'audio']
-        final_visual_concepts = [c for c in aggregated_concepts.values() if c['type'] == 'visual']
+        # Sắp xếp xác suất phân phối 6 thể loại để đánh giá biên quyết định
+        sorted_probs = sorted(fused_probs.items(), key=lambda x: x[1], reverse=True)
+        top1_g, top1_p = sorted_probs[0]
+        top2_g, top2_p = sorted_probs[1] if len(sorted_probs) > 1 else (None, 0.0)
+        prob_margin = top1_p - top2_p
 
-        # Sắp xếp theo số lượng timestamp kích hoạt
-        final_audio_concepts.sort(key=lambda x: len(x['timestamps']), reverse=True)
-        final_visual_concepts.sort(key=lambda x: len(x['timestamps']), reverse=True)
+        # Thu thập các luật mờ chuyên gia thực sự kích hoạt cho thể loại dẫn đầu top1_g
+        # trong các phân đoạn có độ tin cậy có ý nghĩa (>= 35.0%)
+        all_real_rules = []
+        for cp in chunks_info:
+            c_conf = float(cp.get('confidence', 0.0))
+            if c_conf >= 35.0:
+                for r in cp.get('real_rules', []):
+                    if r.get('consequent') == top1_g:
+                        r_txt = r.get('rule_text', '')
+                        if r_txt and r not in all_real_rules:
+                            all_real_rules.append(r)
 
-        # Đảm bảo luôn có các khái niệm cốt lõi đại diện cho thể loại (Fallback Guarantee)
-        if not final_audio_concepts and hasattr(self, 'audio_bridge') and hasattr(self.audio_bridge, 'df_concepts'):
-            df_g = self.audio_bridge.df_concepts[self.audio_bridge.df_concepts['genre'].astype(str).str.lower() == final_genre.lower()]
-            if df_g.empty and 'genre_name' in self.audio_bridge.df_concepts.columns:
-                df_g = self.audio_bridge.df_concepts[self.audio_bridge.df_concepts['genre_name'].astype(str).str.lower() == final_genre.lower()]
-            for _, row in df_g.head(4).iterrows():
-                final_audio_concepts.append({
-                    'concept_id': str(row.get('concept_id', '')),
-                    'aspect': str(row.get('aspect', 'am_hoc')),
-                    'type': 'audio',
-                    'evidence_level': str(row.get('evidence_level', 'direct_audio')),
-                    'concept_sentence': str(row.get('concept_sentence', '')),
-                    'source': str(row.get('source', 'UNESCO')),
-                    'timestamps': [chunks_info[0]['timestamp']] if chunks_info else ['00:00 - 00:04'],
-                    'score': 0.88,
-                    'enabled': True
-                })
+        # Thu thập các cues thị giác thực sự phát hiện được (chỉ tính trong phân đoạn có tín hiệu thị giác)
+        all_detected_cues = []
+        for cp in chunks_info:
+            c_vis = cp.get('modalities', {}).get('visual')
+            if c_vis and float(c_vis.get('confidence', 0.0)) >= 30.0:
+                for cue in cp.get('visual_cues', []):
+                    if cue and cue not in all_detected_cues:
+                        all_detected_cues.append(cue)
 
-        # Bổ sung dự phòng cốt lõi nếu âm học vẫn chưa đủ khái niệm
-        if len(final_audio_concepts) < 2:
-            CORE_AUDIO_CONCEPTS = {
-                'Ca trù': [
-                    {'concept_id': 'CT_AUD_01', 'aspect': 'nhac_cu', 'concept_sentence': 'Tiếng đàn đáy với kỹ thuật vê dây, ngón nhấn chùng mang âm sắc trầm đục đặc trưng của Ca trù.', 'source': 'UNESCO'},
-                    {'concept_id': 'CT_AUD_02', 'aspect': 'tiet_tau', 'concept_sentence': 'Tiết tấu nhịp phách gỗ khoan thai, giòn giã điểm nhịp cho đào nương xướng âm.', 'source': 'ICHCAP'},
-                    {'concept_id': 'CT_AUD_03', 'aspect': 'ky_thuat_hat', 'concept_sentence': 'Kỹ thuật hát khuôn, đổ hột nảy hạt tinh tế và ém hơi chặt chẽ.', 'source': 'Viện Âm nhạc'}
-                ],
-                'Chèo': [
-                    {'concept_id': 'CH_AUD_01', 'aspect': 'nhac_cu', 'concept_sentence': 'Tiếng trống đế giòn giã dẫn dắt tiết tấu và nhịp điệu sân khấu Chèo truyền thống.', 'source': 'UNESCO'},
-                    {'concept_id': 'CH_AUD_02', 'aspect': 'ky_thuat_hat', 'concept_sentence': 'Làn điệu chèo uyển chuyển với kỹ thuật luyến láy, ngân nga mang đậm hồn quê Bắc Bộ.', 'source': 'Viện Âm nhạc'},
-                    {'concept_id': 'CH_AUD_03', 'aspect': 'tiet_tau', 'concept_sentence': 'Nhịp đuộc, nhịp bắn linh hoạt thay đổi theo từng tình huống diễn xướng kịch tích.', 'source': 'ICHCAP'}
-                ],
-                'Chầu văn': [
-                    {'concept_id': 'CV_AUD_01', 'aspect': 'nhac_cu', 'concept_sentence': 'Đàn nguyệt réo rắt với các ngón nhấn, ngón vuốt chủ đạo dẫn dắt không gian tâm linh.', 'source': 'UNESCO'},
-                    {'concept_id': 'CV_AUD_02', 'aspect': 'tiet_tau', 'concept_sentence': 'Nhịp điệu dồn dập, tiết tấu đảo phách kích động của trống ban và sênh tiền.', 'source': 'ICHCAP'},
-                    {'concept_id': 'CV_AUD_03', 'aspect': 'ky_thuat_hat', 'concept_sentence': 'Lối hát văn dồn dập, ngân vang thiêng liêng trong các vấn hầu đồng.', 'source': 'Viện Âm nhạc'}
-                ],
-                'Cải lương': [
-                    {'concept_id': 'CL_AUD_01', 'aspect': 'nhac_cu', 'concept_sentence': 'Tiếng đàn tranh, đàn kìm mềm mại dìu dặt theo từng câu vọng cổ sâu lắng.', 'source': 'UNESCO'},
-                    {'concept_id': 'CL_AUD_02', 'aspect': 'ky_thuat_hat', 'concept_sentence': 'Kỹ thuật ngân dài hơi (vibrato sâu), xuống xề ngọt ngào đặc trưng Nam Bộ.', 'source': 'Viện Âm nhạc'},
-                    {'concept_id': 'CL_AUD_03', 'aspect': 'hoa_am', 'concept_sentence': 'Hệ thống điệu Bắc - điệu Nam phối hợp biểu đạt trọn vẹn cung bậc cảm xúc.', 'source': 'ICHCAP'}
-                ],
-                'Hát xẩm': [
-                    {'concept_id': 'HX_AUD_01', 'aspect': 'nhac_cu', 'concept_sentence': 'Tiếng đàn nhị nỉ non réo rắt quyện cùng âm vang mộc mạc của trống mảnh và sênh sứa.', 'source': 'UNESCO'},
-                    {'concept_id': 'HX_AUD_02', 'aspect': 'tiet_tau', 'concept_sentence': 'Nhịp xẩm bình dân, tự sự, đĩnh đạc kể chuyện nhân tình thế thái.', 'source': 'Viện Âm nhạc'},
-                    {'concept_id': 'HX_AUD_03', 'aspect': 'ky_thuat_hat', 'concept_sentence': 'Giọng hát mộc mạc, gần gũi với lối ngâm ngợi phản ánh đời sống người lao động.', 'source': 'ICHCAP'}
-                ],
-                'Quan họ': [
-                    {'concept_id': 'QH_AUD_01', 'aspect': 'ky_thuat_hat', 'concept_sentence': 'Đặc trưng kỹ thuật Vang - Rền - Nền - Nảy điêu luyện của liền anh liền chị Kinh Bắc.', 'source': 'UNESCO'},
-                    {'concept_id': 'QH_AUD_02', 'aspect': 'giai_dieu', 'concept_sentence': 'Giai điệu đối đáp mượt mà, tình tứ, đậm đà phong vị dân ca Bắc Ninh.', 'source': 'Viện Âm nhạc'},
-                    {'concept_id': 'QH_AUD_03', 'aspect': 'tiet_tau', 'concept_sentence': 'Lối hát không có nhạc đệm (hát chay) hoặc đệm tấu tao nhã nâng đỡ giọng hát.', 'source': 'ICHCAP'}
+        # ---------------------------------------------------------------------
+        # ĐÁNH GIÁ 3 ĐIỀU KIỆN NHẬN DIỆN THỂ LOẠI KHÁC (OUT-OF-DISTRIBUTION / UNKNOWN)
+        # ---------------------------------------------------------------------
+        # Điều kiện 1: Độ bất định thống kê cao:
+        # P_max < 0.30 (gần mức ngẫu nhiên 16.7%) HOẶC (P_max < 0.40 kèm margin < 0.15 khi phân phối phẳng)
+        cond1_uncertainty = (top1_p < 0.30) or (top1_p < 0.40 and prob_margin < 0.15)
+
+        # Điều kiện 2: Không có bất kỳ luật mờ chuyên gia di sản thực tế nào được kích hoạt
+        cond2_no_symbolic_rules = (len(all_real_rules) == 0)
+
+        # Điều kiện 3: Không phát hiện được thực thể di sản (nhạc cụ, trang phục)
+        cond3_no_heritage_cues = (len(all_detected_cues) == 0) if is_video else cond2_no_symbolic_rules
+
+        # Nhận diện ngoại lai khi thỏa mãn đồng thời cả 3 điều kiện
+        is_ood = cond1_uncertainty and cond2_no_symbolic_rules and cond3_no_heritage_cues
+
+        if is_ood:
+            final_genre = "Thể loại khác / Không đủ dữ liệu xác định"
+            final_confidence = float(top1_p)
+            final_audio_concepts = []
+            final_visual_concepts = []
+            active_concepts_list = []
+            unique_rules = [{
+                'rule_text': "Statistical_Uncertainty == 'Cao' AND Symbolic_Heritage_Evidence == 'None'",
+                'consequent': final_genre,
+                'confidence': final_confidence,
+                'support': 0,
+                'score': 0.0
+            }]
+            translated_rules = [{
+                'rule_text': unique_rules[0]['rule_text'],
+                'consequent': final_genre,
+                'confidence': float(final_confidence),
+                'support': 0,
+                'score': 0.0,
+                'summary_text': "Không thỏa mãn các tiêu chuẩn nhận diện của 6 thể loại di sản văn hóa phi vật thể",
+                'clauses': [
+                    f"Độ bất định xác suất thống kê cao (Top 1 chỉ đạt {final_confidence * 100:.1f}%, độ chênh lệch biên {prob_margin * 100:.1f}% không đáng kể)",
+                    "Không có luật mờ chuyên gia nào về đặc tính âm học (Pitch, Energy, Timbre, Vibrato) được kích hoạt",
+                    "Không phát hiện được nhạc cụ truyền thống hoặc trang phục diễn xướng di sản" if is_video else "Không có tín hiệu âm sắc hoặc tiết tấu cổ truyền hỗ trợ"
                 ]
-            }
-            existing_cids = {c['concept_id'] for c in final_audio_concepts}
-            for fallback_c in CORE_AUDIO_CONCEPTS.get(final_genre, CORE_AUDIO_CONCEPTS['Ca trù']):
-                if fallback_c['concept_id'] not in existing_cids:
+            }]
+        else:
+            # 5. Lọc top concept & top rules cho toàn thể
+            final_audio_concepts = [c for c in aggregated_concepts.values() if c['type'] == 'audio']
+            final_visual_concepts = [c for c in aggregated_concepts.values() if c['type'] == 'visual']
+
+            # Sắp xếp theo số lượng timestamp kích hoạt
+            final_audio_concepts.sort(key=lambda x: len(x['timestamps']), reverse=True)
+            final_visual_concepts.sort(key=lambda x: len(x['timestamps']), reverse=True)
+
+            # Đảm bảo luôn có các khái niệm cốt lõi đại diện cho thể loại (Fallback Guarantee)
+            if not final_audio_concepts and hasattr(self, 'audio_bridge') and hasattr(self.audio_bridge, 'df_concepts'):
+                df_g = self.audio_bridge.df_concepts[self.audio_bridge.df_concepts['genre'].astype(str).str.lower() == final_genre.lower()]
+                if df_g.empty and 'genre_name' in self.audio_bridge.df_concepts.columns:
+                    df_g = self.audio_bridge.df_concepts[self.audio_bridge.df_concepts['genre_name'].astype(str).str.lower() == final_genre.lower()]
+                for _, row in df_g.head(4).iterrows():
                     final_audio_concepts.append({
-                        **fallback_c,
+                        'concept_id': str(row.get('concept_id', '')),
+                        'aspect': str(row.get('aspect', 'am_hoc')),
                         'type': 'audio',
-                        'evidence_level': 'direct_audio',
+                        'evidence_level': str(row.get('evidence_level', 'direct_audio')),
+                        'concept_sentence': str(row.get('concept_sentence', '')),
+                        'source': str(row.get('source', 'UNESCO')),
                         'timestamps': [chunks_info[0]['timestamp']] if chunks_info else ['00:00 - 00:04'],
                         'score': 0.88,
                         'enabled': True
                     })
-                if len(final_audio_concepts) >= 3:
-                    break
 
-        if is_video and not final_visual_concepts and hasattr(self, 'visual_bridge') and hasattr(self.visual_bridge, 'df_concepts'):
-            df_vg = self.visual_bridge.df_concepts[self.visual_bridge.df_concepts['genre'].astype(str).str.lower() == final_genre.lower()]
-            if df_vg.empty and 'genre_name' in self.visual_bridge.df_concepts.columns:
-                df_vg = self.visual_bridge.df_concepts[self.visual_bridge.df_concepts['genre_name'].astype(str).str.lower() == final_genre.lower()]
-            for _, row in df_vg.head(4).iterrows():
-                final_visual_concepts.append({
-                    'concept_id': str(row.get('concept_id', '')),
-                    'aspect': str(row.get('aspect', 'thi_giac')),
-                    'type': 'visual',
-                    'evidence_level': str(row.get('evidence_level', 'single_frame')),
-                    'concept_sentence': str(row.get('concept_sentence', '')),
-                    'source': str(row.get('source', 'UNESCO / ICHCAP')),
-                    'timestamps': [chunks_info[0]['timestamp']] if chunks_info else ['00:00 - 00:04'],
-                    'score': 0.92,
-                    'enabled': True
-                })
-
-        # Lấy tối thiểu 3, tối đa 8 concepts kết hợp
-        active_concepts_list = (final_audio_concepts[:4] + final_visual_concepts[:4])
-        for c in active_concepts_list:
-            if not c.get('timestamps'):
-                c['timestamps'] = [chunks_info[0]['timestamp']] if chunks_info else ['00:00 - 00:04']
-
-        # Chọn top rules đại diện (đảm bảo đa phương thức: cả Âm thanh và Thị giác)
-        unique_rules = []
-        seen_texts = set()
-        for r in all_matched_rules:
-            txt = r.get('rule_text', '')
-            if txt and txt not in seen_texts:
-                seen_texts.add(txt)
-                unique_rules.append(r)
-
-        # Đảm bảo có ít nhất 1 luật thị giác nếu là video và có visual rules
-        if is_video and hasattr(self, 'visual_rules') and self.visual_rules:
-            has_vis_rule = any(
-                any(k in r.get('rule_text', '').lower() for k in [
-                    'dan_day', 'ao_the', 'ao_thao', 'khan_nhieu', 'doi_hinh', 'ban_phach',
-                    'trong_cheo', 'quat', 'ao_tu_than', 'yem_dao', 'he_cheo', 'chieu_cheo',
-                    'guitar', 'phim_lom', 'dan_kim', 'dan_nguyet', 'co_trang', 'mao_giap',
-                    'dao_cu', 'hau_dong', 'khan_chau', 'ao_ngu', 'dien_tho',
-                    'non_quai_thao', 'khan_mo_qua', 'doi_dap', 'dan_co', 'dan_nhi',
-                    'senh_tien', 'chieu_xam', 'ao_nau'
-                ]) for r in unique_rules
-            )
-            if not has_vis_rule:
-                for vr in self.visual_rules:
-                    if vr.get('consequent') == final_genre:
-                        vr_text = vr.get('rule_text', '')
-                        if vr_text not in seen_texts:
-                            seen_texts.add(vr_text)
-                            unique_rules.append(vr)
-                            break
-
-        # Đảm bảo có ít nhất 1 luật âm học / crisp nếu chưa có
-        has_aud_rule = any(
-            any(k in r.get('rule_text', '').lower() for k in ['pitch', 'energy', 'timbre', 'vibrato', 'tempo', 'harmony', 'spectral'])
-            for r in unique_rules
-        )
-        if not has_aud_rule and hasattr(self, 'crisp_rules') and self.crisp_rules:
-            for cr in self.crisp_rules:
-                if cr.get('consequent') == final_genre:
-                    cr_text = cr.get('rule_text', '')
-                    if cr_text not in seen_texts:
-                        seen_texts.add(cr_text)
-                        unique_rules.append(cr)
+            # Bổ sung dự phòng cốt lõi nếu âm học vẫn chưa đủ khái niệm
+            if len(final_audio_concepts) < 2:
+                CORE_AUDIO_CONCEPTS = {
+                    'Ca trù': [
+                        {'concept_id': 'CT_AUD_01', 'aspect': 'nhac_cu', 'concept_sentence': 'Tiếng đàn đáy với kỹ thuật vê dây, ngón nhấn chùng mang âm sắc trầm đục đặc trưng của Ca trù.', 'source': 'UNESCO'},
+                        {'concept_id': 'CT_AUD_02', 'aspect': 'tiet_tau', 'concept_sentence': 'Tiết tấu nhịp phách gỗ khoan thai, giòn giã điểm nhịp cho đào nương xướng âm.', 'source': 'ICHCAP'},
+                        {'concept_id': 'CT_AUD_03', 'aspect': 'ky_thuat_hat', 'concept_sentence': 'Kỹ thuật hát khuôn, đổ hột nảy hạt tinh tế và ém hơi chặt chẽ.', 'source': 'Viện Âm nhạc'}
+                    ],
+                    'Chèo': [
+                        {'concept_id': 'CH_AUD_01', 'aspect': 'nhac_cu', 'concept_sentence': 'Tiếng trống đế giòn giã dẫn dắt tiết tấu và nhịp điệu sân khấu Chèo truyền thống.', 'source': 'UNESCO'},
+                        {'concept_id': 'CH_AUD_02', 'aspect': 'ky_thuat_hat', 'concept_sentence': 'Làn điệu chèo uyển chuyển với kỹ thuật luyến láy, ngân nga mang đậm hồn quê Bắc Bộ.', 'source': 'Viện Âm nhạc'},
+                        {'concept_id': 'CH_AUD_03', 'aspect': 'tiet_tau', 'concept_sentence': 'Nhịp đuộc, nhịp bắn linh hoạt thay đổi theo từng tình huống diễn xướng kịch tích.', 'source': 'ICHCAP'}
+                    ],
+                    'Chầu văn': [
+                        {'concept_id': 'CV_AUD_01', 'aspect': 'nhac_cu', 'concept_sentence': 'Đàn nguyệt réo rắt với các ngón nhấn, ngón vuốt chủ đạo dẫn dắt không gian tâm linh.', 'source': 'UNESCO'},
+                        {'concept_id': 'CV_AUD_02', 'aspect': 'tiet_tau', 'concept_sentence': 'Nhịp điệu dồn dập, tiết tấu đảo phách kích động của trống ban và sênh tiền.', 'source': 'ICHCAP'},
+                        {'concept_id': 'CV_AUD_03', 'aspect': 'ky_thuat_hat', 'concept_sentence': 'Lối hát văn dồn dập, ngân vang thiêng liêng trong các vấn hầu đồng.', 'source': 'Viện Âm nhạc'}
+                    ],
+                    'Cải lương': [
+                        {'concept_id': 'CL_AUD_01', 'aspect': 'nhac_cu', 'concept_sentence': 'Tiếng đàn tranh, đàn kìm mềm mại dìu dặt theo từng câu vọng cổ sâu lắng.', 'source': 'UNESCO'},
+                        {'concept_id': 'CL_AUD_02', 'aspect': 'ky_thuat_hat', 'concept_sentence': 'Kỹ thuật ngân dài hơi (vibrato sâu), xuống xề ngọt ngào đặc trưng Nam Bộ.', 'source': 'Viện Âm nhạc'},
+                        {'concept_id': 'CL_AUD_03', 'aspect': 'hoa_am', 'concept_sentence': 'Hệ thống điệu Bắc - điệu Nam phối hợp biểu đạt trọn vẹn cung bậc cảm xúc.', 'source': 'ICHCAP'}
+                    ],
+                    'Hát xẩm': [
+                        {'concept_id': 'HX_AUD_01', 'aspect': 'nhac_cu', 'concept_sentence': 'Tiếng đàn nhị nỉ non réo rắt quyện cùng âm vang mộc mạc của trống mảnh và sênh sứa.', 'source': 'UNESCO'},
+                        {'concept_id': 'HX_AUD_02', 'aspect': 'tiet_tau', 'concept_sentence': 'Nhịp xẩm bình dân, tự sự, đĩnh đạc kể chuyện nhân tình thế thái.', 'source': 'Viện Âm nhạc'},
+                        {'concept_id': 'HX_AUD_03', 'aspect': 'ky_thuat_hat', 'concept_sentence': 'Giọng hát mộc mạc, gần gũi với lối ngâm ngợi phản ánh đời sống người lao động.', 'source': 'ICHCAP'}
+                    ],
+                    'Quan họ': [
+                        {'concept_id': 'QH_AUD_01', 'aspect': 'ky_thuat_hat', 'concept_sentence': 'Đặc trưng kỹ thuật Vang - Rền - Nền - Nảy điêu luyện của liền anh liền chị Kinh Bắc.', 'source': 'UNESCO'},
+                        {'concept_id': 'QH_AUD_02', 'aspect': 'giai_dieu', 'concept_sentence': 'Giai điệu đối đáp mượt mà, tình tứ, đậm đà phong vị dân ca Bắc Ninh.', 'source': 'Viện Âm nhạc'},
+                        {'concept_id': 'QH_AUD_03', 'aspect': 'tiet_tau', 'concept_sentence': 'Lối hát không có nhạc đệm (hát chay) hoặc đệm tấu tao nhã nâng đỡ giọng hát.', 'source': 'ICHCAP'}
+                    ]
+                }
+                existing_cids = {c['concept_id'] for c in final_audio_concepts}
+                for fallback_c in CORE_AUDIO_CONCEPTS.get(final_genre, CORE_AUDIO_CONCEPTS['Ca trù']):
+                    if fallback_c['concept_id'] not in existing_cids:
+                        final_audio_concepts.append({
+                            **fallback_c,
+                            'type': 'audio',
+                            'evidence_level': 'direct_audio',
+                            'timestamps': [chunks_info[0]['timestamp']] if chunks_info else ['00:00 - 00:04'],
+                            'score': 0.88,
+                            'enabled': True
+                        })
+                    if len(final_audio_concepts) >= 3:
                         break
 
-        if not unique_rules:
-            unique_rules.append({
-                'rule_text': f"Dominant_Acoustic_Aura == '{final_genre}'",
-                'consequent': final_genre,
-                'confidence': final_confidence,
-                'support': 142,
-                'score': 2.89
-            })
+            if is_video and not final_visual_concepts and hasattr(self, 'visual_bridge') and hasattr(self.visual_bridge, 'df_concepts'):
+                df_vg = self.visual_bridge.df_concepts[self.visual_bridge.df_concepts['genre'].astype(str).str.lower() == final_genre.lower()]
+                if df_vg.empty and 'genre_name' in self.visual_bridge.df_concepts.columns:
+                    df_vg = self.visual_bridge.df_concepts[self.visual_bridge.df_concepts['genre_name'].astype(str).str.lower() == final_genre.lower()]
+                for _, row in df_vg.head(4).iterrows():
+                    final_visual_concepts.append({
+                        'concept_id': str(row.get('concept_id', '')),
+                        'aspect': str(row.get('aspect', 'thi_giac')),
+                        'type': 'visual',
+                        'evidence_level': str(row.get('evidence_level', 'single_frame')),
+                        'concept_sentence': str(row.get('concept_sentence', '')),
+                        'source': str(row.get('source', 'UNESCO / ICHCAP')),
+                        'timestamps': [chunks_info[0]['timestamp']] if chunks_info else ['00:00 - 00:04'],
+                        'score': 0.92,
+                        'enabled': True
+                    })
 
-        # 6. Dịch các mệnh đề luật mờ sang văn bản tiếng Việt
-        translated_rules = []
-        for r in unique_rules[:4]:
-            t_info = self.audio_bridge.translate_rule_to_vietnamese(
-                rule=r,
-                default_consequent=final_genre,
-                default_confidence=final_confidence
+            # Lấy tối thiểu 3, tối đa 8 concepts kết hợp
+            active_concepts_list = (final_audio_concepts[:4] + final_visual_concepts[:4])
+            for c in active_concepts_list:
+                if not c.get('timestamps'):
+                    c['timestamps'] = [chunks_info[0]['timestamp']] if chunks_info else ['00:00 - 00:04']
+
+            # Chọn top rules đại diện (đảm bảo đa phương thức: cả Âm thanh và Thị giác)
+            unique_rules = []
+            seen_texts = set()
+            for r in all_matched_rules:
+                txt = r.get('rule_text', '')
+                if txt and txt not in seen_texts:
+                    seen_texts.add(txt)
+                    unique_rules.append(r)
+
+            # Đảm bảo có ít nhất 1 luật thị giác nếu là video và có visual rules
+            if is_video and hasattr(self, 'visual_rules') and self.visual_rules:
+                has_vis_rule = any(
+                    any(k in r.get('rule_text', '').lower() for k in [
+                        'dan_day', 'ao_the', 'ao_thao', 'khan_nhieu', 'doi_hinh', 'ban_phach',
+                        'trong_cheo', 'quat', 'ao_tu_than', 'yem_dao', 'he_cheo', 'chieu_cheo',
+                        'guitar', 'phim_lom', 'dan_kim', 'dan_nguyet', 'co_trang', 'mao_giap',
+                        'dao_cu', 'hau_dong', 'khan_chau', 'ao_ngu', 'dien_tho',
+                        'non_quai_thao', 'khan_mo_qua', 'doi_dap', 'dan_co', 'dan_nhi',
+                        'senh_tien', 'chieu_xam', 'ao_nau'
+                    ]) for r in unique_rules
+                )
+                if not has_vis_rule:
+                    for vr in self.visual_rules:
+                        if vr.get('consequent') == final_genre:
+                            vr_text = vr.get('rule_text', '')
+                            if vr_text not in seen_texts:
+                                seen_texts.add(vr_text)
+                                unique_rules.append(vr)
+                                break
+
+            # Đảm bảo có ít nhất 1 luật âm học / crisp nếu chưa có
+            has_aud_rule = any(
+                any(k in r.get('rule_text', '').lower() for k in ['pitch', 'energy', 'timbre', 'vibrato', 'tempo', 'harmony', 'spectral'])
+                for r in unique_rules
             )
-            translated_rules.append({
-                'rule_text': r.get('rule_text', ''),
-                'consequent': r.get('consequent', final_genre),
-                'confidence': float(r.get('confidence', final_confidence)),
-                'support': int(r.get('support', 100)),
-                'score': float(r.get('score', 2.5)),
-                'summary_text': t_info['rule_summary_text'],
-                'clauses': t_info['clause_explanations']
-            })
+            if not has_aud_rule and hasattr(self, 'crisp_rules') and self.crisp_rules:
+                for cr in self.crisp_rules:
+                    if cr.get('consequent') == final_genre:
+                        cr_text = cr.get('rule_text', '')
+                        if cr_text not in seen_texts:
+                            seen_texts.add(cr_text)
+                            unique_rules.append(cr)
+                            break
+
+            if not unique_rules:
+                unique_rules.append({
+                    'rule_text': f"Dominant_Acoustic_Aura == '{final_genre}'",
+                    'consequent': final_genre,
+                    'confidence': final_confidence,
+                    'support': 142,
+                    'score': 2.89
+                })
+
+            # 6. Dịch các mệnh đề luật mờ sang văn bản tiếng Việt
+            translated_rules = []
+            for r in unique_rules[:4]:
+                t_info = self.audio_bridge.translate_rule_to_vietnamese(
+                    rule=r,
+                    default_consequent=final_genre,
+                    default_confidence=final_confidence
+                )
+                translated_rules.append({
+                    'rule_text': r.get('rule_text', ''),
+                    'consequent': r.get('consequent', final_genre),
+                    'confidence': float(r.get('confidence', final_confidence)),
+                    'support': int(r.get('support', 100)),
+                    'score': float(r.get('score', 2.5)),
+                    'summary_text': t_info['rule_summary_text'],
+                    'clauses': t_info['clause_explanations']
+                })
 
         # 7. Sinh lời giải thích tự nhiên hoàn chỉnh (Natural Language XAI)
         nl_explanation = self._build_segment_aware_explanation(
@@ -2750,6 +2847,31 @@ class HeritageInferenceEngine:
             cleaned = re.sub(r'\[\s*(?:Nguồn|Source)[^\]]*\]|\(\s*(?:Nguồn|Source)[^\)]*\)', '', txt, flags=re.IGNORECASE)
             return re.sub(r'\s+', ' ', cleaned).strip()
 
+        # Xử lý trường hợp Thể loại khác / Không đủ dữ liệu xác định (Out-of-Distribution)
+        if "thể loại khác" in genre.lower() or "không đủ dữ liệu" in genre.lower() or "chưa xác định" in genre.lower():
+            narrative = (
+                f"**Kết quả Nhận diện:** Tệp đầu vào được xếp vào nhóm **{genre.upper()}** "
+                f"(Độ bất định cao, không thỏa mãn các điều kiện nhận diện của 6 thể loại di sản hỗ trợ).\n\n"
+                f"**Căn cứ đánh giá Đa phương thức:**\n"
+                f"• **Phân bố xác suất phân tán:** Độ tin cậy dự đoán cao nhất chỉ đạt {conf_pct}, các thể loại còn lại có phân bố xác suất phân tán đều, phản ánh mức độ không chắc chắn cao của mô hình nơ-ron thống kê.\n"
+                f"• **Không có luật mờ chuyên gia hợp lệ:** Các chỉ số âm học (cao độ, năng lượng, tiết tấu, độ rung, phổ âm) đo đạc được trên toàn bộ thời lượng {duration:.1f}s không thỏa mãn bất kỳ luật suy luận mờ đặc trưng nào của 6 thể loại di sản.\n"
+            )
+            if is_video:
+                narrative += (
+                    f"• **Không phát hiện thực thể thị giác di sản:** Mô hình CBM không nhận diện được các nhạc cụ truyền thống (đàn đáy, đàn kìm, đàn nhị, trống chèo...) hay trang phục đặc trưng (áo tứ thân, khăn chầu, nón quai thao...) trên các khung hình biểu diễn.\n\n"
+                )
+            narrative += (
+                f"**Kết luận:** Hệ thống bảo lưu kết quả và không gán ép vào 6 thể loại truyền thống nhằm đảm bảo tính an toàn và minh bạch khoa học."
+            )
+            return {
+                'structured_points': {
+                    'audio': ["Không phát hiện đặc trưng âm học khớp với 6 thể loại truyền thống."],
+                    'visual': ["Không phát hiện nhạc cụ hoặc trang phục diễn xướng truyền thống."] if is_video else []
+                },
+                'sources': ["Hệ thống Luật Chuyên gia & CBM Out-Of-Distribution Gate"],
+                'narrative': narrative
+            }
+
         # Xác định các phân đoạn nổi bật
         peak_chunks = [c for c in chunks if c['prediction'] == genre]
         if not peak_chunks:
@@ -3370,13 +3492,22 @@ class HeritageInferenceEngine:
             })
 
             # Tạo các đường nối từ Khái niệm -> Luật
-            for cn_id in matched_c_nodes:
+            if matched_c_nodes:
+                for cn_id in matched_c_nodes:
+                    links.append({
+                        'source': cn_id,
+                        'target': rid,
+                        'modality': 'fused',
+                        'weight': round(r_conf if r_conf <= 1.0 else r_conf / 100.0, 2),
+                        'label': 'Điều kiện tiền đề (IF)'
+                    })
+            else:
                 links.append({
-                    'source': cn_id,
+                    'source': 'node_feat_audio_cnn',
                     'target': rid,
-                    'modality': 'fused',
-                    'weight': round(r_conf if r_conf <= 1.0 else r_conf / 100.0, 2),
-                    'label': 'Điều kiện tiền đề (IF)'
+                    'modality': 'audio',
+                    'weight': 0.8,
+                    'label': 'Dữ liệu đo đạc (IF)'
                 })
 
         # Đảm bảo 100% các Khái niệm trung gian (Tầng 2/3) đều có ít nhất 1 liên kết tới Luật (Tầng 3/4)

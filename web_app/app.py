@@ -154,20 +154,49 @@ async def list_sample_files():
 @app.post("/api/analyze")
 async def analyze_uploaded_file(
     file: UploadFile = File(...),
-    mode: str = Form("audio")
+    mode: str = Form("audio"),
+    start_time: Optional[float] = Form(None),
+    end_time: Optional[float] = Form(None)
 ):
     """
     API tiếp nhận tệp tải lên (Video, Audio hoặc Bản ghi âm từ Microphone).
     Thực hiện quy chuẩn Chunking 3-5s, trích xuất 7 trục MPEG-7, đối chiếu luật mờ và sinh XAI.
+    Hỗ trợ cắt video trực tiếp qua start_time và end_time nếu tệp vượt quá 10 phút.
+    Giới hạn dung lượng tối đa 200 MB.
     """
+    MAX_FILE_SIZE_BYTES = 200 * 1024 * 1024  # 200 MB
+
     # Làm sạch tên file và lưu vào thư mục temp
     safe_name = "".join(c for c in file.filename if c.isalnum() or c in "._- ")
     if not safe_name:
         safe_name = f"recorded_audio_{os.urandom(4).hex()}.wav"
 
     save_path = TEMP_DIR / safe_name
-    with open(save_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
+    written_size = 0
+    try:
+        with open(save_path, "wb") as buffer:
+            while True:
+                chunk = file.file.read(1024 * 1024)
+                if not chunk:
+                    break
+                written_size += len(chunk)
+                if written_size > MAX_FILE_SIZE_BYTES:
+                    buffer.close()
+                    if save_path.exists():
+                        try: os.remove(save_path)
+                        except Exception: pass
+                    raise HTTPException(
+                        status_code=413,
+                        detail=f"Dung lượng tệp ({written_size / (1024 * 1024):.1f} MB) vượt quá giới hạn tối đa cho phép là 200 MB. Vui lòng chọn tệp nhỏ hơn."
+                    )
+                buffer.write(chunk)
+    except HTTPException:
+        raise
+    except Exception as e:
+        if save_path.exists():
+            try: os.remove(save_path)
+            except Exception: pass
+        raise HTTPException(status_code=500, detail=f"Lỗi khi lưu tệp tải lên: {str(e)}")
 
     try:
         # Tự động điều chỉnh mode nếu phát hiện đuôi video
@@ -178,6 +207,42 @@ async def analyze_uploaded_file(
             if mode not in ["mic", "audio"]:
                 mode = "audio"
 
+        # Nếu có yêu cầu cắt phân đoạn video (video trimming)
+        if start_time is not None and end_time is not None:
+            s_time = max(0.0, float(start_time))
+            e_time = float(end_time)
+            if e_time > s_time:
+                cut_dur = e_time - s_time
+                if cut_dur > 605.0:
+                    raise HTTPException(
+                        status_code=400,
+                        detail=f"Đoạn cắt ({cut_dur/60:.1f} phút) vượt quá giới hạn tối đa cho phép là 10 phút."
+                    )
+                trimmed_name = f"{save_path.stem}_cut_{int(s_time)}_{int(e_time)}{save_path.suffix}"
+                trimmed_path = TEMP_DIR / trimmed_name
+                import subprocess
+                cmd = [
+                    'ffmpeg', '-y',
+                    '-ss', str(s_time),
+                    '-i', str(save_path),
+                    '-t', str(cut_dur),
+                    '-c:v', 'libx264', '-preset', 'ultrafast', '-crf', '22',
+                    '-strict', '-2',
+                    '-c:a', 'aac', '-b:a', '192k',
+                    str(trimmed_path)
+                ]
+                try:
+                    res_trim = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, check=False)
+                    if res_trim.returncode != 0:
+                        print(f"[FFmpeg Trim Warning] Return code: {res_trim.returncode}, err: {res_trim.stderr.decode('utf-8', errors='ignore')}")
+                    if trimmed_path.exists() and trimmed_path.stat().st_size > 1000:
+                        try: os.remove(save_path)
+                        except Exception: pass
+                        save_path = trimmed_path
+                        safe_name = trimmed_name
+                except Exception as ex:
+                    print(f"[FFmpeg Trim] Lỗi khi cắt video: {ex}")
+
         # Phân tích qua Inference Engine
         result = inference_engine.analyze(save_path, mode=mode)
 
@@ -186,6 +251,8 @@ async def analyze_uploaded_file(
         result["file_name"] = safe_name
 
         return JSONResponse(content=result)
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
     except Exception as e:
         import traceback
         traceback.print_exc()
@@ -209,6 +276,8 @@ async def analyze_sample_file(req: SampleAnalyzeRequest):
         result["media_url"] = f"/api/media_stream?path={rel_path}"
         result["file_name"] = full_path.name
         return JSONResponse(content=result)
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
     except Exception as e:
         import traceback
         traceback.print_exc()

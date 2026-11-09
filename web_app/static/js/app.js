@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.audioWave = audioWave;
     window.graph3d = graph3d;
 
-    // Bảng màu 6 Di sản Văn hóa Âm nhạc Việt Nam chuẩn hóa đồng bộ với Backend
+    // Bảng màu Di sản Văn hóa Âm nhạc Việt Nam chuẩn hóa đồng bộ với Backend
     const GENRE_COLORS = {
         "Ca trù": "#C84B31", // Đỏ gạch nung (Vermilion)
         Chèo: "#2E5A88", // Xanh chàm đình làng (Indigo)
@@ -35,6 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "Cải lương": "#C97A1B", // Vàng đồng / Hổ phách (Amber Ochre)
         "Hát xẩm": "#7A6248", // Nâu đất chiếu xẩm (Earth Brown)
         "Quan họ": "#1E6B5B", // Xanh ngọc quan họ (Jade Emerald)
+        "Thể loại khác": "#64748B", // Xám slate trung tính (Out-of-Distribution)
+        "Thể loại khác / Không đủ dữ liệu xác định": "#64748B",
+        "Chưa xác định": "#64748B",
     };
 
     // State quản lý kết quả hiện tại & Nguồn đầu vào duy nhất (Single Active Input)
@@ -200,11 +203,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const winnerWrap = document.getElementById("prob-top-winner-wrap");
         if (winnerWrap) {
-            winnerWrap.innerHTML = `
-        <div class="prob-empty-notice" style="font-size: 12px; color: var(--text-tertiary); font-style: italic; padding: 6px 0;">
-          <i class="fa-solid fa-chart-simple" style="margin-right: 6px;"></i>Chưa có phân phối xác suất
-        </div>
-      `;
+            winnerWrap.innerHTML = "";
+            winnerWrap.style.display = "none";
         }
 
         const otherList = document.getElementById("probabilities-other-list");
@@ -492,11 +492,47 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================================================
     function handleMediaFileSelection(file) {
         if (!file) return;
+
+        // Giới hạn dung lượng tối đa 200 MB
+        const MAX_FILE_SIZE_MB = 200;
+        const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+        if (file.size > MAX_FILE_SIZE_BYTES) {
+            const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+            showToast(`Dung lượng tệp (${sizeMb} MB) vượt quá giới hạn tối đa ${MAX_FILE_SIZE_MB} MB. Vui lòng chọn tệp nhỏ hơn!`);
+            return;
+        }
+
         const isVideo =
             file.type.startsWith("video/") ||
             /\.(mp4|avi|mov|mkv|webm|flv|m4v)$/i.test(file.name);
         const targetMode = isVideo ? "video" : "audio";
-        uploadAndAnalyze(file, targetMode);
+
+        // Kiểm tra trước thời lượng của Video bằng thẻ Video tạm thời
+        if (isVideo) {
+            const probeVideo = document.createElement("video");
+            probeVideo.preload = "metadata";
+            const probeUrl = URL.createObjectURL(file);
+            probeVideo.src = probeUrl;
+
+            probeVideo.onloadedmetadata = () => {
+                const dur = probeVideo.duration;
+                URL.revokeObjectURL(probeUrl);
+                if (dur && dur > 600) {
+                    // Mở popup cảnh báo quá thời lượng & công cụ cắt video trực tiếp
+                    openVideoTrimModal(file, dur);
+                } else {
+                    uploadAndAnalyze(file, targetMode);
+                }
+            };
+
+            probeVideo.onerror = () => {
+                URL.revokeObjectURL(probeUrl);
+                // Nếu codec lạ hoặc trình duyệt không đọc được metadata trước, gửi lên server kiểm tra
+                uploadAndAnalyze(file, targetMode);
+            };
+        } else {
+            uploadAndAnalyze(file, targetMode);
+        }
     }
 
     setupDropzone("media-dropzone", mediaInput, handleMediaFileSelection);
@@ -531,7 +567,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    async function uploadAndAnalyze(file, mode) {
+    async function uploadAndAnalyze(file, mode, startTime = null, endTime = null) {
         let localBlobUrl = null;
         const isVideo =
             mode === "video" ||
@@ -540,16 +576,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const targetMode = isVideo ? "video" : "audio";
         clearAllInputsExcept(targetMode);
 
+        const isTrimmed = startTime !== null && endTime !== null;
+
         if (targetMode === "video") {
             switchTab("media");
-            localBlobUrl = URL.createObjectURL(file);
-            videoPlayer.src = localBlobUrl;
-            videoPlayer.load();
+            if (!isTrimmed) {
+                localBlobUrl = URL.createObjectURL(file);
+                videoPlayer.src = localBlobUrl;
+                videoPlayer.load();
+            }
             if (mediaDropzone) mediaDropzone.style.display = "none";
             if (videoContainer) videoContainer.style.display = "block";
             if (audioContainer) audioContainer.style.display = "none";
-            if (videoFileName)
-                videoFileName.innerHTML = `<i class="fa-solid fa-film"></i> ${file.name}`;
+            if (videoFileName) {
+                if (isTrimmed) {
+                    videoFileName.innerHTML = `<i class="fa-solid fa-scissors"></i> ${file.name} <span style="font-size: 11px; opacity: 0.85; color: var(--accent-vermilion); font-family: var(--font-mono);">[Đoạn cắt: ${formatTimeMinutes(startTime)} - ${formatTimeMinutes(endTime)}]</span>`;
+                } else {
+                    videoFileName.innerHTML = `<i class="fa-solid fa-film"></i> ${file.name}`;
+                }
+            }
         } else {
             if (mode === "mic") {
                 switchTab("mic");
@@ -571,11 +616,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const formData = new FormData();
         formData.append("file", file);
         formData.append("mode", targetMode);
+        if (startTime !== null && endTime !== null) {
+            formData.append("start_time", startTime);
+            formData.append("end_time", endTime);
+        }
 
-        showLoading(
-            "Đang tải tệp & xử lý phân đoạn...",
-            `Tệp: ${file.name} (${(file.size / (1024 * 1024)).toFixed(1)} MB)`,
-        );
+        const loadingTitle = isTrimmed ? "Đang tải & cắt video theo yêu cầu..." : "Đang tải tệp & xử lý phân đoạn...";
+        const loadingSub = isTrimmed 
+            ? `Cắt đoạn [${formatTimeMinutes(startTime)} - ${formatTimeMinutes(endTime)}] từ ${file.name}`
+            : `Tệp: ${file.name} (${(file.size / (1024 * 1024)).toFixed(1)} MB)`;
+
+        showLoading(loadingTitle, loadingSub);
 
         try {
             const res = await fetch("/api/analyze", {
@@ -583,20 +634,454 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: formData,
             });
 
-            if (!res.ok) throw new Error("Máy chủ trả về mã lỗi " + res.status);
+            if (!res.ok) {
+                let errMsg = `Máy chủ trả về mã lỗi ${res.status}`;
+                try {
+                    const errJson = await res.json();
+                    if (errJson && errJson.detail) errMsg = errJson.detail;
+                } catch (_) {}
+                throw new Error(errMsg);
+            }
             const data = await res.json();
             if (!data.file_name) data.file_name = file.name;
-            if (localBlobUrl) data._localBlobUrl = localBlobUrl;
+            if (isTrimmed) {
+                // Với video đã cắt, nguồn phát là tệp video đã cắt trên server để đảm bảo đủ cả hình lẫn tiếng
+                data._localBlobUrl = null;
+                if (videoPlayer && data.media_url) {
+                    videoPlayer.src = data.media_url;
+                    videoPlayer.load();
+                }
+            } else if (localBlobUrl) {
+                data._localBlobUrl = localBlobUrl;
+            }
             handleAnalysisResult(data);
             showToast(
                 `Đã hoàn tất phân loại: ${data.prediction} (${data.confidence}%)`,
             );
         } catch (err) {
             console.error(err);
-            showToast("Lỗi phân tích tệp: " + err.message);
+            // Nếu lỗi do video quá 10 phút chưa cắt, mở popup cắt video
+            if (err.message && err.message.includes("vượt quá giới hạn tối đa cho phép là 10 phút") && isVideo) {
+                openVideoTrimModal(file, 650);
+            } else {
+                showToast("Lỗi phân tích tệp: " + err.message);
+            }
         } finally {
             hideLoading();
         }
+    }
+
+    // =========================================================================
+    // 4B. QUẢN LÝ POPUP CẢNH BÁO QUÁ THỜI LƯỢNG & CÔNG CỤ CẮT VIDEO TRỰC QUAN
+    // =========================================================================
+    let pendingTrimFile = null;
+    let pendingTrimDuration = 0.0;
+    let trimStartTime = 0.0;
+    let trimEndTime = 600.0;
+    let previewPlayInterval = null;
+
+    function formatTimeMinutes(sec) {
+        if (isNaN(sec) || sec < 0) return "00:00";
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+    }
+
+    function openVideoTrimModal(file, duration) {
+        pendingTrimFile = file;
+        pendingTrimDuration = Math.max(duration || 601, 10);
+        trimStartTime = 0.0;
+        trimEndTime = Math.min(600.0, pendingTrimDuration);
+
+        const modal = document.getElementById("video-trim-modal");
+        const viewWarning = document.getElementById("trim-view-warning");
+        const viewEditor = document.getElementById("trim-view-editor");
+        const warnFilename = document.getElementById("trim-warn-filename");
+        const warnDuration = document.getElementById("trim-warn-duration");
+
+        if (warnFilename) warnFilename.innerText = `Tệp: ${file.name}`;
+        if (warnDuration) warnDuration.innerText = `${formatTimeMinutes(pendingTrimDuration)} (${Math.round(pendingTrimDuration)}s)`;
+
+        if (viewWarning) viewWarning.style.display = "block";
+        if (viewEditor) viewEditor.style.display = "none";
+        if (modal) modal.style.display = "flex";
+    }
+
+    function closeVideoTrimModal() {
+        const modal = document.getElementById("video-trim-modal");
+        const previewVideo = document.getElementById("trim-preview-video");
+        if (previewVideo) {
+            previewVideo.pause();
+            if (previewVideo.src) {
+                URL.revokeObjectURL(previewVideo.src);
+                previewVideo.src = "";
+            }
+        }
+        if (previewPlayInterval) {
+            clearInterval(previewPlayInterval);
+            previewPlayInterval = null;
+        }
+        if (modal) modal.style.display = "none";
+        pendingTrimFile = null;
+        if (mediaInput) mediaInput.value = "";
+    }
+
+    function initTrimEditor() {
+        const viewWarning = document.getElementById("trim-view-warning");
+        const viewEditor = document.getElementById("trim-view-editor");
+        if (viewWarning) viewWarning.style.display = "none";
+        if (viewEditor) viewEditor.style.display = "block";
+
+        const previewVideo = document.getElementById("trim-preview-video");
+        if (previewVideo && pendingTrimFile) {
+            previewVideo.muted = false;
+            previewVideo.volume = 1.0;
+            previewVideo.removeAttribute("data-manual-mute");
+            previewVideo.src = URL.createObjectURL(pendingTrimFile);
+            previewVideo.currentTime = trimStartTime;
+        }
+        updateTrimVolumeIcon();
+
+        const sliderStart = document.getElementById("trim-slider-start");
+        const sliderEnd = document.getElementById("trim-slider-end");
+
+        if (sliderStart) {
+            sliderStart.min = 0;
+            sliderStart.max = pendingTrimDuration;
+            sliderStart.step = 1;
+            sliderStart.value = 0;
+        }
+
+        if (sliderEnd) {
+            sliderEnd.min = 0;
+            sliderEnd.max = pendingTrimDuration;
+            sliderEnd.step = 1;
+            sliderEnd.value = trimEndTime;
+        }
+
+        updateTrimUI();
+        generateFilmstripThumbnails(pendingTrimFile, pendingTrimDuration);
+    }
+
+    function updateTrimUI() {
+        const sliderStart = document.getElementById("trim-slider-start");
+        const sliderEnd = document.getElementById("trim-slider-end");
+        const highlight = document.getElementById("trim-range-highlight");
+        const valStart = document.getElementById("trim-val-start");
+        const valEnd = document.getElementById("trim-val-end");
+        const valDuration = document.getElementById("trim-val-duration");
+        const validPill = document.getElementById("trim-valid-pill");
+        const btnConfirm = document.getElementById("btn-trim-confirm");
+
+        if (sliderStart) sliderStart.value = trimStartTime;
+        if (sliderEnd) sliderEnd.value = trimEndTime;
+
+        const dur = Math.max(0, trimEndTime - trimStartTime);
+
+        if (valStart) valStart.innerText = formatTimeMinutes(trimStartTime);
+        if (valEnd) valEnd.innerText = formatTimeMinutes(trimEndTime);
+        if (valDuration) valDuration.innerText = formatTimeMinutes(dur);
+
+        if (highlight && pendingTrimDuration > 0) {
+            const leftPct = (trimStartTime / pendingTrimDuration) * 100;
+            const widthPct = (dur / pendingTrimDuration) * 100;
+            highlight.style.left = `${leftPct}%`;
+            highlight.style.width = `${widthPct}%`;
+        }
+
+        const isValid = dur <= 600.0 && dur >= 5.0;
+        if (validPill) {
+            if (isValid) {
+                validPill.className = "trim-valid-pill valid";
+                validPill.innerHTML = '<i class="fa-solid fa-circle-check"></i> Đoạn cắt hợp lệ (dưới 10 phút)';
+            } else if (dur < 5.0) {
+                validPill.className = "trim-valid-pill invalid";
+                validPill.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Phân đoạn quá ngắn (tối thiểu 5 giây)';
+            } else {
+                const excess = dur - 600.0;
+                validPill.className = "trim-valid-pill invalid";
+                validPill.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Vượt quá 10 phút (+${formatTimeMinutes(excess)})! Hãy kéo nhỏ đoạn chọn`;
+            }
+        }
+
+        if (btnConfirm) {
+            btnConfirm.disabled = !isValid;
+            btnConfirm.style.opacity = isValid ? "1" : "0.5";
+            btnConfirm.style.cursor = isValid ? "pointer" : "not-allowed";
+        }
+    }
+
+    function seekPreview(timeSec, labelText) {
+        const previewVideo = document.getElementById("trim-preview-video");
+        const frameLabel = document.getElementById("trim-frame-time-label");
+        if (previewVideo) {
+            previewVideo.currentTime = timeSec;
+        }
+        if (frameLabel) {
+            frameLabel.innerText = `${formatTimeMinutes(timeSec)} (${labelText || "Xem trước"})`;
+        }
+    }
+
+    function generateFilmstripThumbnails(file, totalDuration) {
+        const track = document.getElementById("trim-filmstrip-track");
+        if (!track || !file) return;
+
+        track.innerHTML = `<div class="filmstrip-loading"><i class="fa-solid fa-spinner fa-spin"></i> Đang trích xuất 8 khung hình đại diện...</div>`;
+
+        const captureVideo = document.createElement("video");
+        captureVideo.preload = "auto";
+        captureVideo.muted = true;
+        captureVideo.playsInline = true;
+        const blobUrl = URL.createObjectURL(file);
+        captureVideo.src = blobUrl;
+
+        const numThumbs = 8;
+        const timePoints = [];
+        for (let i = 0; i < numThumbs; i++) {
+            const t = Math.max(0.5, Math.min(totalDuration - 0.5, (totalDuration * (i + 0.5)) / numThumbs));
+            timePoints.push(t);
+        }
+
+        const capturedItems = [];
+        let curIdx = 0;
+
+        function captureNext() {
+            if (curIdx >= timePoints.length) {
+                URL.revokeObjectURL(blobUrl);
+                renderThumbnailsToTrack(track, capturedItems);
+                return;
+            }
+            captureVideo.currentTime = timePoints[curIdx];
+        }
+
+        captureVideo.onseeked = () => {
+            try {
+                const canvas = document.createElement("canvas");
+                canvas.width = 128;
+                canvas.height = 72;
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(captureVideo, 0, 0, canvas.width, canvas.height);
+                capturedItems.push({ canvas, time: timePoints[curIdx] });
+            } catch (e) {
+                console.warn("Lỗi trích xuất frame:", e);
+            }
+            curIdx++;
+            captureNext();
+        };
+
+        captureVideo.onerror = () => {
+            URL.revokeObjectURL(blobUrl);
+            track.innerHTML = `<div class="filmstrip-fallback"><i class="fa-solid fa-film"></i> Dòng thời gian video (${formatTimeMinutes(totalDuration)})</div>`;
+        };
+
+        captureVideo.onloadedmetadata = () => {
+            captureNext();
+        };
+    }
+
+    function renderThumbnailsToTrack(track, items) {
+        track.innerHTML = "";
+        items.forEach(({ canvas, time }) => {
+            const thumbDiv = document.createElement("div");
+            thumbDiv.className = "filmstrip-thumb";
+            thumbDiv.title = `Khung hình tại ${formatTimeMinutes(time)} - Bấm để chuyển đến`;
+
+            const timeTag = document.createElement("span");
+            timeTag.className = "filmstrip-thumb-time";
+            timeTag.innerText = formatTimeMinutes(time);
+
+            thumbDiv.appendChild(canvas);
+            thumbDiv.appendChild(timeTag);
+
+            thumbDiv.addEventListener("click", () => {
+                seekPreview(time, "Khung hình được chọn");
+            });
+
+            track.appendChild(thumbDiv);
+        });
+    }
+
+    // Gắn sự kiện cho các thành phần của Trim Modal
+    const btnTrimCancel = document.getElementById("btn-trim-cancel");
+    const btnTrimProceed = document.getElementById("btn-trim-proceed");
+    const btnCloseTrimWarn = document.getElementById("btn-close-trim-warn");
+    const btnCloseTrimEditor = document.getElementById("btn-close-trim-editor");
+    const btnTrimBackToWarn = document.getElementById("btn-trim-back-to-warn");
+    const btnTrimConfirm = document.getElementById("btn-trim-confirm");
+
+    if (btnTrimCancel) btnTrimCancel.addEventListener("click", closeVideoTrimModal);
+    if (btnCloseTrimWarn) btnCloseTrimWarn.addEventListener("click", closeVideoTrimModal);
+    if (btnCloseTrimEditor) btnCloseTrimEditor.addEventListener("click", closeVideoTrimModal);
+
+    if (btnTrimProceed) {
+        btnTrimProceed.addEventListener("click", () => {
+            initTrimEditor();
+        });
+    }
+
+    if (btnTrimBackToWarn) {
+        btnTrimBackToWarn.addEventListener("click", () => {
+            const viewWarning = document.getElementById("trim-view-warning");
+            const viewEditor = document.getElementById("trim-view-editor");
+            if (viewWarning) viewWarning.style.display = "block";
+            if (viewEditor) viewEditor.style.display = "none";
+            const previewVideo = document.getElementById("trim-preview-video");
+            if (previewVideo) previewVideo.pause();
+        });
+    }
+
+    const sliderStart = document.getElementById("trim-slider-start");
+    const sliderEnd = document.getElementById("trim-slider-end");
+
+    if (sliderStart) {
+        sliderStart.addEventListener("input", (e) => {
+            let val = parseFloat(e.target.value);
+            if (val >= trimEndTime - 5) {
+                val = Math.max(0, trimEndTime - 5);
+                e.target.value = val;
+            }
+            trimStartTime = val;
+            seekPreview(trimStartTime, "Điểm bắt đầu");
+            updateTrimUI();
+        });
+    }
+
+    if (sliderEnd) {
+        sliderEnd.addEventListener("input", (e) => {
+            let val = parseFloat(e.target.value);
+            if (val <= trimStartTime + 5) {
+                val = Math.min(pendingTrimDuration, trimStartTime + 5);
+                e.target.value = val;
+            }
+            trimEndTime = val;
+            seekPreview(trimEndTime, "Điểm kết thúc");
+            updateTrimUI();
+        });
+    }
+
+    // Các nút stepper cộng trừ 5 giây
+    const btnStepStartDown = document.getElementById("btn-step-start-down");
+    const btnStepStartUp = document.getElementById("btn-step-start-up");
+    const btnStepEndDown = document.getElementById("btn-step-end-down");
+    const btnStepEndUp = document.getElementById("btn-step-end-up");
+
+    if (btnStepStartDown) {
+        btnStepStartDown.addEventListener("click", () => {
+            trimStartTime = Math.max(0, trimStartTime - 5);
+            seekPreview(trimStartTime, "Điểm bắt đầu");
+            updateTrimUI();
+        });
+    }
+    if (btnStepStartUp) {
+        btnStepStartUp.addEventListener("click", () => {
+            trimStartTime = Math.min(trimEndTime - 5, trimStartTime + 5);
+            seekPreview(trimStartTime, "Điểm bắt đầu");
+            updateTrimUI();
+        });
+    }
+    if (btnStepEndDown) {
+        btnStepEndDown.addEventListener("click", () => {
+            trimEndTime = Math.max(trimStartTime + 5, trimEndTime - 5);
+            seekPreview(trimEndTime, "Điểm kết thúc");
+            updateTrimUI();
+        });
+    }
+    if (btnStepEndUp) {
+        btnStepEndUp.addEventListener("click", () => {
+            trimEndTime = Math.min(pendingTrimDuration, trimEndTime + 5);
+            seekPreview(trimEndTime, "Điểm kết thúc");
+            updateTrimUI();
+        });
+    }
+
+    function updateTrimVolumeIcon() {
+        const previewVideo = document.getElementById("trim-preview-video");
+        const volumeIcon = document.getElementById("trim-volume-icon");
+        if (!previewVideo || !volumeIcon) return;
+        if (previewVideo.muted || previewVideo.volume === 0) {
+            volumeIcon.className = "fa-solid fa-volume-xmark";
+        } else {
+            volumeIcon.className = "fa-solid fa-volume-high";
+        }
+    }
+
+    const btnTrimVolume = document.getElementById("btn-trim-volume");
+    if (btnTrimVolume) {
+        btnTrimVolume.addEventListener("click", () => {
+            const previewVideo = document.getElementById("trim-preview-video");
+            if (!previewVideo) return;
+            previewVideo.muted = !previewVideo.muted;
+            if (!previewVideo.muted && previewVideo.volume === 0) {
+                previewVideo.volume = 1.0;
+            }
+            previewVideo.setAttribute("data-manual-mute", previewVideo.muted ? "true" : "false");
+            updateTrimVolumeIcon();
+        });
+    }
+
+    // Nút xem thử đoạn cắt
+    const btnTrimPreviewPlay = document.getElementById("btn-trim-preview-play");
+    const trimPlayText = document.getElementById("trim-play-text");
+    if (btnTrimPreviewPlay) {
+        btnTrimPreviewPlay.addEventListener("click", () => {
+            const previewVideo = document.getElementById("trim-preview-video");
+            if (!previewVideo) return;
+
+            if (previewVideo.paused) {
+                if (previewVideo.muted && previewVideo.getAttribute("data-manual-mute") !== "true") {
+                    previewVideo.muted = false;
+                }
+                previewVideo.currentTime = trimStartTime;
+                const playPromise = previewVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch((e) => {
+                        console.warn("Autoplay audio blocked, falling back to muted play:", e);
+                        previewVideo.muted = true;
+                        updateTrimVolumeIcon();
+                        previewVideo.play();
+                    });
+                }
+                updateTrimVolumeIcon();
+                if (trimPlayText) trimPlayText.innerText = "Tạm dừng";
+
+                if (previewPlayInterval) clearInterval(previewPlayInterval);
+                previewPlayInterval = setInterval(() => {
+                    const frameLabel = document.getElementById("trim-frame-time-label");
+                    if (frameLabel) frameLabel.innerText = `${formatTimeMinutes(previewVideo.currentTime)} (Đang phát)`;
+                    if (previewVideo.currentTime >= trimEndTime) {
+                        previewVideo.pause();
+                        previewVideo.currentTime = trimStartTime;
+                        if (trimPlayText) trimPlayText.innerText = "Xem thử đoạn cắt";
+                        clearInterval(previewPlayInterval);
+                        previewPlayInterval = null;
+                    }
+                }, 200);
+            } else {
+                previewVideo.pause();
+                if (trimPlayText) trimPlayText.innerText = "Xem thử đoạn cắt";
+                if (previewPlayInterval) {
+                    clearInterval(previewPlayInterval);
+                    previewPlayInterval = null;
+                }
+            }
+        });
+    }
+
+    // Nút xác nhận cắt và phân tích
+    if (btnTrimConfirm) {
+        btnTrimConfirm.addEventListener("click", () => {
+            if (!pendingTrimFile) return;
+            const dur = trimEndTime - trimStartTime;
+            if (dur > 600.0) {
+                showToast("Đoạn cắt vượt quá giới hạn 10 phút. Vui lòng thu hẹp lại!");
+                return;
+            }
+            const fileToAnalyze = pendingTrimFile;
+            const sTime = trimStartTime;
+            const eTime = trimEndTime;
+            closeVideoTrimModal();
+            uploadAndAnalyze(fileToAnalyze, "video", sTime, eTime);
+        });
     }
 
     // =========================================================================
@@ -941,46 +1426,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const [topGenre, topScore] = sortedEntries[0];
         const otherGenres = sortedEntries.slice(1);
 
-        // 1. Render Top Winner Genre vào #prob-top-winner-wrap (Luôn hiển thị ban đầu)
+        // 1. Không hiển thị thanh div prob-row winner nữa vì thanh verdict-hero đã hiển thị thể loại và độ tin cậy
         const winnerWrap = document.getElementById("prob-top-winner-wrap");
         if (winnerWrap) {
-            const topSafeId = topGenre.replace(/\s+/g, "_");
-            winnerWrap.innerHTML = `
-        <div class="prob-row winner" id="prob-row-${topSafeId}">
-          <span class="prob-genre-name">
-            <i class="fa-solid fa-crown" style="color: var(--accent-amber); font-size: 11px; margin-right: 5px;"></i>${topGenre}
-          </span>
-          <div class="prob-track">
-            <div class="prob-fill" id="fill-${topSafeId}" style="width: 0%;"></div>
-          </div>
-          <span class="prob-val-text" id="val-${topSafeId}">0.0%</span>
-        </div>
-      `;
-
-            const fillEl = winnerWrap.querySelector(".prob-fill");
-            const valEl = winnerWrap.querySelector(".prob-val-text");
-
-            if (window.gsap && fillEl && valEl) {
-                gsap.to(fillEl, {
-                    width: `${topScore}%`,
-                    duration: 0.9,
-                    ease: "power3.out",
-                    delay: 0.05,
-                });
-                const counter = { val: 0 };
-                gsap.to(counter, {
-                    val: topScore,
-                    duration: 0.9,
-                    ease: "power3.out",
-                    delay: 0.05,
-                    onUpdate: () => {
-                        valEl.innerText = `${counter.val.toFixed(1)}%`;
-                    },
-                });
-            } else if (fillEl && valEl) {
-                fillEl.style.width = `${topScore}%`;
-                valEl.innerText = `${topScore.toFixed(1)}%`;
-            }
+            winnerWrap.innerHTML = "";
+            winnerWrap.style.display = "none";
         }
 
         // 2. Render 5 thể loại còn lại theo thứ tự GIẢM DẦN vào #probabilities-other-list
@@ -1566,13 +2016,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             box.innerHTML = `
         <div class="rule-selector-top">
-          <span class="rule-selector-code">[LUẬT #${idx + 1}] ➜ ${escapeContrastHtml(r.consequent)}</span>
-          <div class="rule-metrics-badges">
-            <span class="rule-metric-badge">Tin cậy: ${confPct}</span>
-            <span class="rule-metric-badge">Mẫu: ${r.support}</span>
-          </div>
+          <span class="rule-selector-id">Luật #${idx + 1}</span>
+          <span class="rule-metric-badge">${confPct}</span>
         </div>
-        <div class="rule-selector-snippet">IF ${escapeContrastHtml(r.rule_text)} THEN ${escapeContrastHtml(r.consequent)}</div>
+        <div class="rule-selector-consequent">➜ ${escapeContrastHtml(r.consequent)}</div>
       `;
 
             box.addEventListener("click", () => {
@@ -1631,55 +2078,58 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .join("");
 
+        const semanticSummaryHtml = r.summary_text && r.summary_text.trim().length > 0
+            ? `
+            <div>
+              <div class="rule-detail-section-label">Diễn giải ngữ nghĩa</div>
+              <div class="rule-detail-vi-box">${escapeContrastHtml(r.summary_text)}</div>
+            </div>`
+            : "";
+
         detailPanel.innerHTML = `
           <div class="rule-detail-card">
             <div class="rule-detail-header">
               <div class="rule-detail-title-group">
-                <span class="rule-detail-eyebrow">LUẬT SUY LUẬN TƯỢNG TRƯNG #${activeIdx + 1} / ${rules.length}</span>
+                <span class="rule-detail-eyebrow">Luật #${activeIdx + 1} / ${rules.length}</span>
                 <div class="rule-detail-consequent">
-                  Kết luận suy diễn:
-                  <span class="consequent-genre-tag" style="background:${gColor}15; color:${gColor}; border:1px solid ${gColor}45;">
-                    <i class="fa-solid fa-crown" style="font-size:11px;"></i> ${escapeContrastHtml(r.consequent)}
+                  Kết luận:
+                  <span class="consequent-genre-tag" style="background:${gColor}15; color:${gColor}; border:1px solid ${gColor}45; font-weight: 600;">
+                    ${escapeContrastHtml(r.consequent)}
                   </span>
                 </div>
               </div>
               <button type="button" class="btn-locate-rule-graph" id="btn-locate-active-rule">
-                <i class="fa-solid fa-diagram-project"></i> Định vị trên Đồ thị Concept–Rule
+                <i class="fa-solid fa-diagram-project"></i> Định vị trên đồ thị
               </button>
             </div>
 
             <div class="rule-detail-metrics-row">
               <div class="rule-detail-metric-box">
-                <span class="rd-metric-label">Độ tin cậy (Confidence)</span>
+                <span class="rd-metric-label">Độ tin cậy</span>
                 <span class="rd-metric-val" style="color: var(--accent-vermilion);">${confPct}</span>
               </div>
               <div class="rule-detail-metric-box">
-                <span class="rd-metric-label">Số mẫu huấn luyện (Support)</span>
-                <span class="rd-metric-val">${escapeContrastHtml(r.support ?? "--")} mẫu</span>
+                <span class="rd-metric-label">Số mẫu hỗ trợ</span>
+                <span class="rd-metric-val">${escapeContrastHtml(r.support ?? "--")}</span>
               </div>
               <div class="rule-detail-metric-box">
-                <span class="rd-metric-label">Cường độ kích hoạt</span>
+                <span class="rd-metric-label">Độ kích hoạt</span>
                 <span class="rd-metric-val" style="color: var(--accent-jade);">${scorePct}</span>
               </div>
             </div>
 
             <div>
-              <div class="rule-detail-section-label">Cấu trúc mệnh đề hình thức (IF – THEN)</div>
+              <div class="rule-detail-section-label">Mệnh đề logic (IF – THEN)</div>
               <div class="rule-detail-code-block">
                 <span class="kw-if">IF</span> ${escapeContrastHtml(r.rule_text)} <span class="kw-then">THEN</span> <strong>${escapeContrastHtml(r.consequent)}</strong>
               </div>
             </div>
 
-            <div>
-              <div class="rule-detail-section-label">Diễn giải ngữ nghĩa chuyên gia</div>
-              <div class="rule-detail-vi-box">
-                ${escapeContrastHtml(r.summary_text || "Luật suy diễn kết hợp các khái niệm trung gian đa phương thức để củng cố xác suất nhận diện thể loại di sản.")}
-              </div>
-            </div>
+            ${semanticSummaryHtml}
 
             <div class="rule-clauses-accordion">
               <button type="button" class="rule-clauses-acc-header" id="btn-toggle-rule-clauses">
-                <span><i class="fa-solid fa-list-check" style="color: var(--accent-indigo); margin-right: 6px;"></i> Chi tiết từng mệnh đề điều kiện (${clausesList.length} mệnh đề)</span>
+                <span>Danh sách điều kiện (${clausesList.length})</span>
                 <i class="fa-solid fa-chevron-down" id="icon-toggle-rule-clauses"></i>
               </button>
               <div class="rule-clauses-acc-body" id="body-rule-clauses">
@@ -4639,7 +5089,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         .map((cid) => {
                             const cNode = evidenceMapState.nodeMap.get(cid);
                             const cName = cNode ? cNode.name : cid;
-                            return `<button type="button" class="inspector-chip" data-node-link="${escapeXml(cid)}"><i class="fa-solid fa-sparkles"></i> ${escapeXml(cName)}</button>`;
+                            return `<button type="button" class="inspector-chip" data-node-link="${escapeXml(cid)}">${escapeXml(cName)}</button>`;
                         })
                         .join("");
                 } else {
@@ -5062,19 +5512,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const DRAWER_PANES_META = {
         "sec-concept-graph": {
             badge: "KHU VỰC 3",
-            title: "Phân tích chuyên sâu: Đồ thị Concept–Rule (Evidence Map)",
+            title: "Đồ thị bằng chứng (Evidence Map)",
         },
         "sec-rule-explorer": {
             badge: "KHU VỰC 4",
-            title: "Khám phá luật suy luận (Rule Explorer)",
+            title: "Khám phá luật suy luận",
         },
         "sec-explanation-explorer": {
             badge: "KHU VỰC 5",
-            title: "Trình khám phá đối chứng (Explanation Explorer)",
+            title: "Giải thích đối chứng & Thử nghiệm",
         },
         "sec-summary": {
             badge: "KHU VỰC 6",
-            title: "Tổng kết & Kết luận phân tích (Executive Summary)",
+            title: "Báo cáo tổng kết",
         },
     };
 

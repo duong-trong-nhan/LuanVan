@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
+  <defs>
+    <linearGradient id="bronzeSunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C97A1B"/>
+      <stop offset="50%" stop-color="#C84B31"/>
+      <stop offset="100%" stop-color="#8C6239"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <g transform="translate(90, 90)">
+    <!-- Outer concentric ornamental rings -->
+    <circle r="84" stroke="#8C6239" stroke-width="1.2" stroke-dasharray="2 3" opacity="0.45"/>
+    <circle r="78" stroke="#C84B31" stroke-width="0.8" opacity="0.5"/>
+    <circle r="70" stroke="#8C6239" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
+    <circle r="64" stroke="#C97A1B" stroke-width="0.75" opacity="0.4"/>
+
+    <!-- 14-Pointed Dong Son Sun Rays (Mặt trời 14 tia Đông Sơn) -->
+    <!-- Group rotating slowly -->
+    <g class="dongson-sun-core">
+      <!-- 14 Triangular Rays -->
+      <path d="
+        M 0 -38 L 5 -20 L -5 -20 Z
+        M 16.5 -34.2 L 14.8 -18.7 L 6.1 -21.4 Z
+        M 29.8 -23.6 L 21.6 -11.9 L 15.6 -18.4 Z
+        M 37.1 -8.3 L 23.5 -2.4 L 21.2 -10.1 Z
+        M 37.1 8.3 L 21.2 10.1 L 23.5 2.4 Z
+        M 29.8 23.6 L 15.6 18.4 L 21.6 11.9 Z
+        M 16.5 34.2 L 6.1 21.4 L 14.8 18.7 Z
+        M 0 38 L -5 20 L 5 20 Z
+        M -16.5 34.2 L -14.8 18.7 L -6.1 21.4 Z
+        M -29.8 23.6 L -21.6 11.9 L -15.6 18.4 Z
+        M -37.1 8.3 L -23.5 2.4 L -21.2 10.1 Z
+        M -37.1 -8.3 L -21.2 -10.1 L -23.5 -2.4 Z
+        M -29.8 -23.6 L -15.6 -18.4 L -21.6 -11.9 Z
+        M -16.5 -34.2 L -6.1 -21.4 L -14.8 -18.7 Z
+      " fill="url(#bronzeSunGrad)" opacity="0.85"/>
+      <!-- Sun Core Circles -->
+      <circle r="15" fill="#FAF9F5" stroke="#C84B31" stroke-width="1.5"/>
+      <circle r="10" stroke="#8C6239" stroke-width="1" stroke-dasharray="2 2" fill="none"/>
+      <circle r="4" fill="#C84B31"/>
+    </g>
+
+    <!-- Chim Lạc sải cánh bay lượn (Stylized Dong Son Lac Bird Orbiting) -->
+    <!-- Bird 1 (Top right in flight orbit) -->
+    <g transform="translate(0, -68) rotate(15)">
+      <!-- Body & Neck -->
+      <path d="M -18 6 C -12 2, 2 -2, 16 -1 C 24 -1, 30 2, 34 5 C 30 7, 22 7, 16 6 C 6 6, -8 8, -18 6 Z" fill="#C84B31"/>
+      <!-- Long Sharp Beak (Mỏ dài nhọn đặc trưng) -->
+      <path d="M 34 5 Q 46 7, 56 6 Q 44 9, 32 8 Z" fill="#C84B31"/>
+      <!-- Curved Head Crest (Mào chim Lạc vươn cong ra sau) -->
+      <path d="M 28 2 Q 32 -8, 26 -14 Q 24 -8, 24 1 Z" fill="#C97A1B"/>
+      <!-- Upper Broad Wing (Cánh lớn vươn cao đón gió) -->
+      <path d="M 4 -1 C -2 -14, -14 -28, -26 -34 C -20 -24, -12 -12, -4 2 Z" fill="#8C6239" opacity="0.9"/>
+      <path d="M -2 -1 C -8 -11, -18 -22, -28 -27 C -22 -19, -15 -9, -9 2 Z" fill="#C84B31" opacity="0.6"/>
+      <!-- Trailing Tail Feathers (Đuôi xòe dài thanh thoát) -->
+      <path d="M -18 6 C -28 9, -40 14, -50 18 C -42 13, -32 8, -22 6 Z" fill="#C97A1B"/>
+      <path d="M -18 7 C -26 12, -36 18, -45 23 C -38 16, -28 10, -20 7 Z" fill="#8C6239" opacity="0.75"/>
+      <!-- Eye -->
+      <circle cx="28" cy="4" r="1.2" fill="#FFFFFF"/>
+    </g>
+
+    <!-- Bird 2 (Bottom left opposite in flight orbit, creating 180° rotation symmetry) -->
+    <g transform="translate(0, 68) rotate(195)">
+      <!-- Body & Neck -->
+      <path d="M -18 6 C -12 2, 2 -2, 16 -1 C 24 -1, 30 2, 34 5 C 30 7, 22 7, 16 6 C 6 6, -8 8, -18 6 Z" fill="#C84B31"/>
+      <path d="M 34 5 Q 46 7, 56 6 Q 44 9, 32 8 Z" fill="#C84B31"/>
+      <path d="M 28 2 Q 32 -8, 26 -14 Q 24 -8, 24 1 Z" fill="#C97A1B"/>
+      <path d="M 4 -1 C -2 -14, -14 -28, -26 -34 C -20 -24, -12 -12, -4 2 Z" fill="#8C6239" opacity="0.9"/>
+      <path d="M -2 -1 C -8 -11, -18 -22, -28 -27 C -22 -19, -15 -9, -9 2 Z" fill="#C84B31" opacity="0.6"/>
+      <path d="M -18 6 C -28 9, -40 14, -50 18 C -42 13, -32 8, -22 6 Z" fill="#C97A1B"/>
+      <path d="M -18 7 C -26 12, -36 18, -45 23 C -38 16, -28 10, -20 7 Z" fill="#8C6239" opacity="0.75"/>
+      <circle cx="28" cy="4" r="1.2" fill="#FFFFFF"/>
+    </g>
+  </g>
+</svg>

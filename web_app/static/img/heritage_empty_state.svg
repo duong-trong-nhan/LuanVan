@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="150" viewBox="0 0 220 150" fill="none">
+  <!-- Subtle Background Dong Son Drum Circle -->
+  <circle cx="110" cy="75" r="62" stroke="#8C6239" stroke-width="0.75" stroke-dasharray="3 3" opacity="0.25"/>
+  <circle cx="110" cy="75" r="48" stroke="#C84B31" stroke-width="0.6" opacity="0.2"/>
+  <circle cx="110" cy="75" r="32" stroke="#1E6B5B" stroke-width="0.5" stroke-dasharray="2 3" opacity="0.2"/>
+  
+  <!-- Stylized Sun Star in Background -->
+  <path d="
+    M 110 52 L 112 68 L 108 68 Z
+    M 126 58 L 118 70 L 115 67 Z
+    M 133 75 L 117 77 L 117 73 Z
+    M 126 92 L 115 83 L 118 80 Z
+    M 110 98 L 108 82 L 112 82 Z
+    M 94 92 L 102 80 L 105 83 Z
+    M 87 75 L 103 73 L 103 77 Z
+    M 94 58 L 105 67 L 102 70 Z
+  " fill="#C97A1B" opacity="0.18"/>
+
+  <!-- Multimodal Soundwave Curves (Dải sóng âm giao thoa) -->
+  <path d="M 20 85 C 50 65, 80 105, 110 75 C 140 45, 170 95, 200 70" stroke="#1E6B5B" stroke-width="1.2" stroke-linecap="round" opacity="0.45"/>
+  <path d="M 25 90 C 55 75, 85 100, 110 80 C 135 60, 165 90, 195 80" stroke="#C84B31" stroke-width="0.8" stroke-linecap="round" opacity="0.35"/>
+
+  <!-- Instrument 1 (Left): Đàn Đáy (Ca trù) - Thân hình thang đáy rộng, cần dài -->
+  <g transform="translate(62, 35) rotate(-14)">
+    <!-- Long slender neck -->
+    <rect x="-2" y="0" width="4" height="68" rx="2" fill="#8C6239" opacity="0.85"/>
+    <!-- Headstock & 3 Tuning Pegs -->
+    <path d="M -4 0 L 4 0 L 3 -14 L -3 -14 Z" fill="#8C6239" opacity="0.9"/>
+    <circle cx="-6" cy="-4" r="2" fill="#C84B31" opacity="0.8"/>
+    <circle cx="6" cy="-8" r="2" fill="#C84B31" opacity="0.8"/>
+    <circle cx="-6" cy="-12" r="2" fill="#C84B31" opacity="0.8"/>
+    <!-- Trapezoidal Soundbox (Thùng đàn hình thang đặc trưng) -->
+    <path d="M -9 68 L 9 68 L 14 96 L -14 96 Z" fill="#FAF9F5" stroke="#8C6239" stroke-width="1.2"/>
+    <rect x="-4" y="74" width="8" height="14" rx="1.5" fill="#8C6239" opacity="0.25"/>
+    <!-- Tailpiece -->
+    <rect x="-5" y="93" width="10" height="3" fill="#C84B31" opacity="0.85"/>
+  </g>
+
+  <!-- Instrument 2 (Right): Đàn Nguyệt / Đàn Kìm (Cải lương & Đờn ca tài tử) - Thùng tròn như mặt trăng -->
+  <g transform="translate(155, 38) rotate(16)">
+    <!-- Slender Neck -->
+    <rect x="-2" y="0" width="4" height="62" rx="2" fill="#8C6239" opacity="0.85"/>
+    <!-- Headstock with crescent/curved peghead -->
+    <path d="M -3 0 L 3 0 L 4 -12 Q 0 -16, -4 -12 Z" fill="#8C6239" opacity="0.9"/>
+    <circle cx="-6" cy="-4" r="2" fill="#C97A1B" opacity="0.8"/>
+    <circle cx="6" cy="-9" r="2" fill="#C97A1B" opacity="0.8"/>
+    <!-- Circular Soundbox (Thùng đàn tròn trịa) -->
+    <circle cx="0" cy="80" r="18" fill="#FAF9F5" stroke="#C84B31" stroke-width="1.3"/>
+    <circle cx="0" cy="80" r="14" stroke="#8C6239" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/>
+    <circle cx="0" cy="80" r="4" fill="#C84B31" opacity="0.3"/>
+    <!-- Bridge / Tailpiece -->
+    <rect x="-4" y="88" width="8" height="2.5" fill="#8C6239" opacity="0.85"/>
+  </g>
+
+  <!-- Central Acoustic Resonator Focus Point -->
+  <circle cx="110" cy="75" r="5" fill="#C84B31" opacity="0.7"/>
+  <circle cx="110" cy="75" r="9" stroke="#C84B31" stroke-width="0.8" opacity="0.4"/>
+</svg>
