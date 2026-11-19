@@ -1,0 +1,132 @@
+video_id,genre,duration_sec,video_path,quota,split
+yt_cailuong_cailuong_doicoluu_01,Cải lương,44.21,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_doicoluu_01.mp4,1,train
+yt_cailuong_cailuong_doicoluu_02,Cải lương,37.94,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_doicoluu_02.mp4,1,train
+yt_cailuong_cailuong_doicoluu_03,Cải lương,61.9,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_doicoluu_03.mp4,2,test
+yt_cailuong_cailuong_doicoluu_04,Cải lương,73.64,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_doicoluu_04.mp4,2,val
+yt_cailuong_cailuong_doicoluu_05,Cải lương,25.26,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_doicoluu_05.mp4,1,test
+yt_cailuong_cailuong_doicoluu_06,Cải lương,72.14,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_doicoluu_06.mp4,2,train
+yt_cailuong_cailuong_doicoluu_07,Cải lương,36.24,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_doicoluu_07.mp4,1,val
+yt_cailuong_cailuong_doicoluu_08,Cải lương,29.83,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_doicoluu_08.mp4,1,train
+yt_cailuong_cailuong_doicoluu_09,Cải lương,94.13,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_doicoluu_09.mp4,3,train
+yt_cailuong_cailuong_doicoluu_10,Cải lương,56.12,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_doicoluu_10.mp4,2,train
+yt_cailuong_cailuong_dongsongqueem,Cải lương,488.92,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_dongsongqueem.mp4,16,train
+yt_cailuong_cailuong_hoamuatrang,Cải lương,525.67,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_hoamuatrang.mp4,18,test
+yt_cailuong_cailuong_hoatimbanglang,Cải lương,492.99,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_hoatimbanglang.mp4,16,train
+yt_cailuong_cailuong_maunhuomsanchua_01,Cải lương,31.72,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_maunhuomsanchua_01.mp4,1,val
+yt_cailuong_cailuong_maunhuomsanchua_02,Cải lương,90.88,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_maunhuomsanchua_02.mp4,3,val
+yt_cailuong_cailuong_maunhuomsanchua_03,Cải lương,68.56,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_maunhuomsanchua_03.mp4,2,train
+yt_cailuong_cailuong_maunhuomsanchua_04,Cải lương,51.64,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_maunhuomsanchua_04.mp4,2,train
+yt_cailuong_cailuong_maunhuomsanchua_05,Cải lương,120.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_maunhuomsanchua_05.mp4,4,train
+yt_cailuong_cailuong_maunhuomsanchua_06,Cải lương,82.84,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_maunhuomsanchua_06.mp4,3,train
+yt_cailuong_cailuong_maunhuomsanchua_07,Cải lương,92.04,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_maunhuomsanchua_07.mp4,3,train
+yt_cailuong_cailuong_maunhuomsanchua_08,Cải lương,78.96,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_maunhuomsanchua_08.mp4,3,train
+yt_cailuong_cailuong_maunhuomsanchua_09,Cải lương,40.32,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_maunhuomsanchua_09.mp4,1,train
+yt_cailuong_cailuong_maunhuomsanchua_10,Cải lương,62.4,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_maunhuomsanchua_10.mp4,2,train
+yt_cailuong_cailuong_tienghosonghau_01,Cải lương,91.43,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_tienghosonghau_01.mp4,3,val
+yt_cailuong_cailuong_tienghosonghau_02,Cải lương,62.13,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_tienghosonghau_02.mp4,2,train
+yt_cailuong_cailuong_tienghosonghau_03,Cải lương,92.93,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_tienghosonghau_03.mp4,3,train
+yt_cailuong_cailuong_tienghosonghau_04,Cải lương,48.27,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_tienghosonghau_04.mp4,2,train
+yt_cailuong_cailuong_tienghosonghau_05,Cải lương,24.03,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_tienghosonghau_05.mp4,1,val
+yt_cailuong_cailuong_tienghosonghau_06,Cải lương,102.37,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_tienghosonghau_06.mp4,3,train
+yt_cailuong_cailuong_tienghosonghau_07,Cải lương,66.03,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_tienghosonghau_07.mp4,2,train
+yt_cailuong_cailuong_tienghosonghau_08,Cải lương,107.03,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_tienghosonghau_08.mp4,4,val
+yt_cailuong_cailuong_tienghosonghau_09,Cải lương,72.03,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_tienghosonghau_09.mp4,2,train
+yt_cailuong_cailuong_tienghosonghau_10,Cải lương,84.73,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_tienghosonghau_10.mp4,3,train
+yt_cailuong_cailuong_vongcolatrau,Cải lương,435.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cailuong/cailuong_vongcolatrau.mp4,14,train
+yt_catru_catru_daotayho,Ca trù,416.96,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/catru/catru_daotayho.mp4,14,val
+yt_catru_catru_daudephoguom,Ca trù,357.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/catru/catru_daudephoguom.mp4,12,train
+yt_catru_catru_diendieu,Ca trù,255.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/catru/catru_diendieu.mp4,8,train
+yt_catru_catru_honghongtuyettuyet,Ca trù,354.05,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/catru/catru_honghongtuyettuyet.mp4,12,train
+yt_catru_catru_huongsonphongcanh,Ca trù,311.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/catru/catru_huongsonphongcanh.mp4,10,train
+yt_catru_catru_lecatru,Ca trù,233.04,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/catru/catru_lecatru.mp4,8,test
+yt_catru_catru_tayhohoaico_01,Ca trù,82.08,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/catru/catru_tayhohoaico_01.mp4,3,test
+yt_catru_catru_tayhohoaico_02,Ca trù,73.24,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/catru/catru_tayhohoaico_02.mp4,2,train
+yt_catru_catru_tayhohoaico_03,Ca trù,85.84,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/catru/catru_tayhohoaico_03.mp4,3,train
+yt_catru_catru_tranganhoaico,Ca trù,306.37,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/catru/catru_tranganhoaico.mp4,10,train
+yt_chauvan_chauvan_01,Chầu văn,66.8,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_01.mp4,2,test
+yt_chauvan_chauvan_codoithuongngan,Chầu văn,386.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_codoithuongngan.mp4,13,test
+yt_chauvan_chauvan_codoithuongngan_01,Chầu văn,466.5,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_codoithuongngan_01.mp4,16,train
+yt_chauvan_chauvan_conco,Chầu văn,361.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_conco.mp4,12,train
+yt_chauvan_chauvan_conguoisongtrendoitiennhieudelamchi,Chầu văn,232.53,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_conguoisongtrendoitiennhieudelamchi.mp4,8,test
+yt_chauvan_chauvan_cooisaoboquenmegia,Chầu văn,430.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_cooisaoboquenmegia.mp4,14,train
+yt_chauvan_chauvan_dangvanchauto,Chầu văn,328.63,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_dangvanchauto.mp4,11,train
+yt_chauvan_chauvan_daolamcon,Chầu văn,341.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_daolamcon.mp4,11,train
+yt_chauvan_chauvan_haucobo,Chầu văn,332.68,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_haucobo.mp4,11,test
+yt_chauvan_chauvan_loive,Chầu văn,274.6,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_loive.mp4,9,val
+yt_chauvan_chauvan_luattroi,Chầu văn,334.43,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_luattroi.mp4,11,val
+yt_chauvan_chauvan_luattroi_02,Chầu văn,394.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_luattroi_02.mp4,13,train
+yt_chauvan_chauvan_ngoibuomnhometaxua,Chầu văn,585.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_ngoibuomnhometaxua.mp4,20,train
+yt_chauvan_chauvan_vanquanquetoi,Chầu văn,506.04,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/chauvan/chauvan_vanquanquetoi.mp4,17,train
+yt_cheo_cheo_dodua,Chèo,222.72,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_dodua.mp4,7,train
+yt_cheo_cheo_hattamlangmai,Chèo,164.5,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_hattamlangmai.mp4,5,test
+yt_cheo_cheo_loicadangme,Chèo,256.02,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_loicadangme.mp4,9,train
+yt_cheo_cheo_luubinhduongle_01,Chèo,53.4,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_luubinhduongle_01.mp4,2,train
+yt_cheo_cheo_luubinhduongle_02,Chèo,55.12,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_luubinhduongle_02.mp4,2,val
+yt_cheo_cheo_luubinhduongle_03,Chèo,33.36,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_luubinhduongle_03.mp4,1,test
+yt_cheo_cheo_luubinhduongle_04,Chèo,124.72,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_luubinhduongle_04.mp4,4,train
+yt_cheo_cheo_luubinhduongle_05,Chèo,95.76,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_luubinhduongle_05.mp4,3,val
+yt_cheo_cheo_luubinhduongle_06,Chèo,154.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_luubinhduongle_06.mp4,5,test
+yt_cheo_cheo_luubinhduongle_07,Chèo,88.24,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_luubinhduongle_07.mp4,3,train
+yt_cheo_cheo_luubinhduongle_08,Chèo,47.32,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_luubinhduongle_08.mp4,2,train
+yt_cheo_cheo_luubinhduongle_09,Chèo,87.32,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_luubinhduongle_09.mp4,3,train
+yt_cheo_cheo_luubinhduongle_10,Chèo,56.6,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_luubinhduongle_10.mp4,2,train
+yt_cheo_cheo_motthoidenho,Chèo,450.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_motthoidenho.mp4,15,train
+yt_cheo_cheo_nhodemtrangkyniem,Chèo,355.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_nhodemtrangkyniem.mp4,12,train
+yt_cheo_cheo_quacauvang_01,Chèo,31.72,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_quacauvang_01.mp4,1,train
+yt_cheo_cheo_quacauvang_02,Chèo,82.52,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_quacauvang_02.mp4,3,train
+yt_cheo_cheo_quacauvang_03,Chèo,60.56,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_quacauvang_03.mp4,2,val
+yt_cheo_cheo_quacauvang_04,Chèo,37.68,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_quacauvang_04.mp4,1,val
+yt_cheo_cheo_quacauvang_05,Chèo,55.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_quacauvang_05.mp4,2,train
+yt_cheo_cheo_quacauvang_06,Chèo,143.56,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_quacauvang_06.mp4,5,test
+yt_cheo_cheo_quacauvang_07,Chèo,71.44,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_quacauvang_07.mp4,2,train
+yt_cheo_cheo_quacauvang_08,Chèo,46.36,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_quacauvang_08.mp4,2,train
+yt_cheo_cheo_quacauvang_09,Chèo,90.16,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_quacauvang_09.mp4,3,train
+yt_cheo_cheo_quacauvang_10,Chèo,80.08,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_quacauvang_10.mp4,3,test
+yt_cheo_cheo_quantuvudich,Chèo,361.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_quantuvudich.mp4,12,train
+yt_cheo_cheo_ronrangdatnuocvaoxuan,Chèo,268.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_ronrangdatnuocvaoxuan.mp4,9,train
+yt_cheo_cheo_salechchenh,Chèo,200.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_salechchenh.mp4,7,train
+yt_cheo_cheo_tamcam_01,Chèo,71.08,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_tamcam_01.mp4,2,val
+yt_cheo_cheo_tamcam_02,Chèo,63.96,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_tamcam_02.mp4,2,train
+yt_cheo_cheo_tamcam_03,Chèo,85.48,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_tamcam_03.mp4,3,test
+yt_cheo_cheo_tamcam_04,Chèo,53.6,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_tamcam_04.mp4,2,train
+yt_cheo_cheo_tamcam_05,Chèo,81.8,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_tamcam_05.mp4,3,train
+yt_cheo_cheo_tamcam_06,Chèo,91.72,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_tamcam_06.mp4,3,test
+yt_cheo_cheo_tamcam_07,Chèo,70.48,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_tamcam_07.mp4,2,test
+yt_cheo_cheo_tamcam_08,Chèo,125.68,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_tamcam_08.mp4,4,train
+yt_cheo_cheo_tamcam_09,Chèo,52.4,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_tamcam_09.mp4,2,test
+yt_cheo_cheo_tamcam_10,Chèo,51.8,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_tamcam_10.mp4,2,test
+yt_cheo_cheo_tiengcheotrenmanhdatquehuong,Chèo,278.01,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/cheo/cheo_tiengcheotrenmanhdatquehuong.mp4,9,val
+yt_quanho_quanho_beodatmaytroi,Quan họ,229.2,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_beodatmaytroi.mp4,8,train
+yt_quanho_quanho_caytrucxinh,Quan họ,202.04,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_caytrucxinh.mp4,7,train
+yt_quanho_quanho_conduyen,Quan họ,233.07,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_conduyen.mp4,8,test
+yt_quanho_quanho_demquanhoban,Quan họ,324.99,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_demquanhoban.mp4,11,train
+yt_quanho_quanho_goido,Quan họ,252.72,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_goido.mp4,8,test
+yt_quanho_quanho_guivequanho,Quan họ,325.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_guivequanho.mp4,11,train
+yt_quanho_quanho_muoinho,Quan họ,249.02,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_muoinho.mp4,8,train
+yt_quanho_quanho_namlieubaylo,Quan họ,254.99,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_namlieubaylo.mp4,8,train
+yt_quanho_quanho_nguoioinguoiodungve,Quan họ,416.23,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_nguoioinguoiodungve.mp4,14,train
+yt_quanho_quanho_nonbatam,Quan họ,288.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_nonbatam.mp4,10,test
+yt_quanho_quanho_rephuongchialoan,Quan họ,432.47,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_rephuongchialoan.mp4,14,train
+yt_quanho_quanho_thanluonbaoquanlamdau,Quan họ,299.83,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_thanluonbaoquanlamdau.mp4,10,train
+yt_quanho_quanho_tinhquequanho,Quan họ,235.67,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_tinhquequanho.mp4,8,train
+yt_quanho_quanho_traucauquanho,Quan họ,219.76,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_traucauquanho.mp4,7,val
+yt_quanho_quanho_vaochua,Quan họ,234.77,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/quanho/quanho_vaochua.mp4,8,val
+yt_test_cailuong_tinhanhbanchieu,Cải lương,519.65,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/test/cailuong_tinhanhbanchieu.mp4,17,test
+yt_test_catru_chapcanhrongbay,Ca trù,437.08,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/test/catru_chapcanhrongbay.mp4,15,test
+yt_test_chauvan_conoimechangcanchi,Chầu văn,314.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/test/chauvan_conoimechangcanchi.mp4,10,test
+yt_test_cheo_tinhanhlinhtre,Chèo,388.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/test/cheo_tinhanhlinhtre.mp4,13,test
+yt_test_quanho_buonbacbuondau,Quan họ,287.99,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/test/quanho_buonbacbuondau.mp4,10,test
+yt_test_xam_chodongxuan,Hát xẩm,271.97,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/test/xam_chodongxuan.mp4,9,test
+yt_xam_xam_anhdungyeu,Hát xẩm,444.04,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/xam/xam_anhdungyeu.mp4,15,test
+yt_xam_xam_chanque,Hát xẩm,234.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/xam/xam_chanque.mp4,8,train
+yt_xam_xam_chodongxuan,Hát xẩm,514.84,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/xam/xam_chodongxuan.mp4,17,train
+yt_xam_xam_chungbausuame,Hát xẩm,421.99,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/xam/xam_chungbausuame.mp4,14,train
+yt_xam_xam_conoimechangcanchi,Hát xẩm,376.64,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/xam/xam_conoimechangcanchi.mp4,13,test
+yt_xam_xam_haiphongdoson,Hát xẩm,264.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/xam/xam_haiphongdoson.mp4,9,train
+yt_xam_xam_khimeconotrangian,Hát xẩm,162.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/xam/xam_khimeconotrangian.mp4,5,val
+yt_xam_xam_ngamcaisudoi,Hát xẩm,641.97,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/xam/xam_ngamcaisudoi.mp4,21,train
+yt_xam_xam_nhitinh,Hát xẩm,259.0,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/xam/xam_nhitinh.mp4,9,train
+yt_xam_xam_quyettrituthan,Hát xẩm,159.88,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/xam/xam_quyettrituthan.mp4,5,train
+yt_xam_xam_thaibinhladatanchoi,Hát xẩm,320.76,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/xam/xam_thaibinhladatanchoi.mp4,11,train
+yt_xam_xam_thapan,Hát xẩm,314.05,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/xam/xam_thapan.mp4,10,val
+yt_xam_xam_thuonghoa,Hát xẩm,343.44,/content/drive/MyDrive/Colab Notebooks/LuanVan/dataset/video/xam/xam_thuonghoa.mp4,11,train
