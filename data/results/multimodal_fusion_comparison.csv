@@ -1,0 +1,15 @@
+﻿Nhom_Phuong_Phap,Ten_Mo_Hinh_Hoac_To_Hop,HF_Test_Accuracy (%),HF_Test_Macro_F1 (%),YouTube_Test_Accuracy (%),YouTube_Test_Macro_F1 (%),Unified_Test_Macro_F1 (%),Ket_Luan_Va_Vai_Tro
+1. Mo hinh Cu (Chi train Hugging Face),EXP-13 (EfficientNet-B0 Mel+CQT 4s cu),92.5,92.5,49.78,45.39,81.28,Bi lech mien (Domain Shift) tren YouTube -> Thay the bang To hop moi
+1. Mo hinh Cu (Chi train Hugging Face),Pipeline WebApp Cu (0.55 EXP-13 + 0.35 Fuzzy_RF + 0.10 Heuristic),94.03,93.96,50.67,45.75,82.48,Chi giu lam che do du phong (Fallback) khi thieu checkpoint moi
+2. Hoc May 167 Dac trung Tho (Chi train HF),SVM (RBF Kernel - 167 Raw Features),93.75,93.88,39.11,31.21,78.96,Loai bo: Z-score 167 chieu nhay nhieu phong thu + trich xuat pyin cham (5.6s/doan)
+2. Hoc May 167 Dac trung Tho (Chi train HF),Random Forest (167 Raw Features),89.86,89.94,56.0,53.15,81.18,Loai bo: Kem hon 32.45% F1 tren YouTube so voi mo hinh moi
+3. Bo Luat & Phan loai Mo (7 Truc MPEG-7),Random Forest Continuous (27 Do thuoc mo GMM),70.28,70.15,37.33,34.6,61.68,Cung cap 30 luat Top RF cho ham mat mat Neuro-Symbolic (khong cong truc tiep xac suat)
+3. Bo Luat & Phan loai Mo (7 Truc MPEG-7),60 Luat Mo Lien Tuc (DT + RF Top Rules),56.53,56.2,33.78,28.41,49.58,Tich hop vao DifferentiableFuzzyRuleLoss cua M5c & giai thich XAI
+3. Bo Luat & Phan loai Mo (7 Truc MPEG-7),Cac bo luat roi rac (Decision Tree Crisp / CN2 / RIPPER),51.25,50.4,21.33,15.91,42.19,Chi dung de phien dich menh de giai thich XAI tieng Viet (khong cong xac suat)
+4. Dai dien Tot nhat 5 Phuong an Moi (Train HF + YouTube),M1c: Baseline CNN (Mel+CQT) [Dai dien PA 1],81.67,81.65,64.44,62.57,77.49,Moc co so (Baseline): Khong co Transformer nen han che tren YouTube
+4. Dai dien Tot nhat 5 Phuong an Moi (Train HF + YouTube),M2a: CNN + Transformer (Single Mel) [Dai dien PA 2],93.33,93.29,80.44,81.29,90.34,Duoc chon vao To hop 4 Ho (weight = 0.25): Manh nhat tren YouTube don le
+4. Dai dien Tot nhat 5 Phuong an Moi (Train HF + YouTube),M3c: Pretrained DenseNet121 + Transformer [Dai dien PA 3],92.22,92.11,74.67,74.21,88.12,Duoc chon vao To hop 4 Ho (weight = 0.25): Dac trung DenseNet da tang
+4. Dai dien Tot nhat 5 Phuong an Moi (Train HF + YouTube),M4d: Multimodal EfficientNet-B0 + 7 Axes Concat [Dai dien PA 4],91.53,91.46,76.0,76.12,87.98,Duoc chon vao To hop 4 Ho (weight = 0.25): Dung hop anh pho Mel+CQT va 7 truc MPEG-7
+4. Dai dien Tot nhat 5 Phuong an Moi (Train HF + YouTube),M5c: Neuro-Symbolic EfficientNet-B0 Gated + Fuzzy Loss [Dai dien PA 5],93.06,93.02,75.11,76.09,88.85,Duoc chon vao To hop 4 Ho (weight = 0.25): Xuat 27 khai niem mo + tuan thu 60 luat IF-THEN
+5. Doi chung Cac Phuong an Ket hop (Ensemble Ablation),Ket hop Tat ca (Mo hinh cu + SVM + Luat roi rac + Mo hinh moi deu nhau),91.8,91.75,81.78,81.83,89.39,Khong toi uu: Cac mo hinh cu va luat cung keo giam -3.77% F1 tren YouTube
+5. Doi chung Cac Phuong an Ket hop (Ensemble Ablation),TO HOP 4 HO TOI UU (0.25 M2a + 0.25 M3c + 0.25 M4d + 0.25 M5c),94.86,94.82,85.33,85.6,92.64,CHON TICH HOP CHINH THUC (Nhanh Audio) + Ket hop 0.30 Visual CBM dat 100% tren Video Test
