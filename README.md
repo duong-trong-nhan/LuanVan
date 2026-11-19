@@ -1,197 +1,134 @@
-# HerittageFNS — Bảo Tồn & Nhận Diện Di Sản Âm Nhạc Dân Tộc Việt Nam
-> **Bước 1: Trích Xuất Đặc Trưng Âm Thanh Đa Chiều & Xây Dựng Không Gian Hồ Sơ Mờ (Audio Feature Extraction & Fuzzy Clustering Pipeline)**
+# HeritageFNS — Hệ thống Phân lớp & Giải thích Đa phương thức Di sản Âm nhạc Cổ truyền Việt Nam
+
+> **Interpretable Multimodal Neuro-Symbolic XAI for Vietnamese Intangible Cultural Heritage**  
+> **6 Thể loại nghiên cứu:** Ca trù, Chèo, Chầu văn, Cải lương, Hát xẩm, Quan họ
 
 ---
 
-## 1. Tổng Quan Dữ Liệu & Tiền Xử Lý (Audio Preprocessing)
+## 1. Tổng quan Đề tài
 
-* **Bộ dữ liệu nguồn**: `NTQAI/Vietnamese-Traditional-Music` (Hugging Face Hub).
-* **6 thể loại âm nhạc truyền thống**: Cải lương, Quan họ, Chầu văn, Chèo, Ca trù, Hát xẩm.
-* **Quy mô thực nghiệm**: Lấy mẫu cân bằng (Balanced sampling) 300 mẫu/thể loại, tổng cộng 1.800 mẫu âm thanh.
-* **Chuẩn hóa kỹ thuật DSP**:
-  * **Resample**: Chuẩn hóa toàn bộ tần số lấy mẫu về **16.000 Hz** (16 kHz), đồng bộ tương thích với các mô hình Audio Foundation Models ở các bước sau (MERT, AudioMAE).
-  * **Channel**: Chuyển đổi về đơn kênh (Mono) nhằm triệt tiêu hiện tượng lệch pha tín hiệu stereo.
-  * **Audio Segmentation**: Áp dụng cửa sổ trung tâm **10 giây** tiêu biểu sau khi lọc bỏ khoảng lặng (trim silence), tối ưu hóa việc nắm bắt đặc trưng cục bộ (luyến láy, rung âm) và tăng tốc độ xử lý.
+Dự án xây dựng một hệ thống Trí tuệ Nhân tạo Đa phương thức có khả năng giải thích (**Multimodal Neuro-Symbolic XAI**) nhằm phân loại và giải thích trực quan 6 loại hình nghệ thuật diễn xướng di sản văn hóa phi vật thể Việt Nam từ tệp âm thanh, video biểu diễn thực tế, đường dẫn YouTube hoặc thu âm micro trực tiếp.
 
----
+Hệ thống giải quyết đồng thời hai thách thức cốt lõi của bài toán nhận diện di sản ngoài đời thực:
+1. **Khắc phục hiện tượng lệch miền phân phối (Domain Shift):** Các mô hình học sâu thế hệ đầu chỉ huấn luyện trên dữ liệu thu âm phòng thu (Hugging Face) bị sụt giảm mạnh khi gặp video YouTube có tạp âm sân khấu. Dự án hợp nhất dữ liệu đa nguồn (**3,600 mẫu Hugging Face + 902 phân đoạn 12 giây từ 131 video YouTube** theo giao thức chống rò rỉ cấp độ bài hát và cấp độ video) và phát triển **21 mô hình Đa phương thức & Neuro-Symbolic (`M1a–M5e`)** nâng Macro-F1 trên tập kiểm thử YouTube thực tế từ **45.39% lên 85.60%**.
+2. **Minh bạch hóa quyết định (Explainable AI):** Kết hợp **7 trục ngữ nghĩa âm học MPEG-7**, **27 khái niệm mờ liên tục**, **60 luật mờ khả vi (`IF-THEN`)** và **25 khái niệm thị giác (Visual CBM — nhạc cụ, trang phục, bối cảnh)** chuẩn hóa theo kho tri thức UNESCO/ICHCAP.
 
-## 2. Thống Kê 167 Đặc Trưng Âm Thanh Được Trích Xuất
-
-Toàn bộ 167 đặc trưng số học sau khi trích xuất được lưu trữ trong file `data/features_all.csv` (1.800 dòng × 169 cột, gồm 2 cột nhãn metadata và 167 cột đặc trưng), phân bổ theo 9 nhóm âm học chuyên sâu:
-
-| STT | Nhóm đặc trưng | Số lượng | Danh sách đặc trưng chi tiết | Ý nghĩa âm học |
-| :---: | :--- | :---: | :--- | :--- |
-| 1 | **Cao độ (Pitch / F0)** | **5** | `pitch_mean`, `pitch_std`, `pitch_range`, `pitch_median`, `voiced_ratio` | Tần số dao động thanh đới cơ bản trích từ thuật toán pYIN, độ biến thiên cao độ và tỷ lệ đoạn có tiếng. |
-
-| 2 | **Nhịp điệu (Tempo & Beat)** | **3** | `tempo`, `beat_count`, `beat_regularity` | Tốc độ nhịp (BPM), số lượng xung nhịp và độ ổn định của bước nhịp. |
-
-| 3 | **Rung âm (Vibrato)** | **2** | `vibrato_extent`, `vibrato_energy` | Đặc trưng luyến láy, đổ hột qua bộ lọc thông dải Butterworth (dải tần 4 - 10 Hz) trên đường bao F0. |
-
-| 4 | **Năng lượng (Energy / RMS)** | **4** | `energy_mean`, `energy_std`, `dynamic_range`, `energy_skew` | Cường độ năng lượng gốc (RMS), độ phân tán, dải động lực và độ lệch phân phối biên độ. |
-
-| 5 | **Âm sắc MFCC & Đạo hàm** | **106** | • 40 hệ số tĩnh (mean & std): `mfcc_01_mean` -> `mfcc_40_std` (80 đặc trưng)<br>• 13 hệ số vận tốc Delta (mean): `dmfcc_01_mean` -> `dmfcc_13_mean` (13 đặc trưng)<br>• 13 hệ số gia tốc Delta-Delta (mean): `d2mfcc_01_mean` -> `d2mfcc_13_mean` (13 đặc trưng) | Dấu vân tay âm sắc (Timbre) mô tả hình dáng bao phổ cảm nhận bởi thính giác con người và sự biến thiên âm sắc theo thời gian. |
-
-| 6 | **Hòa âm (Chroma STFT)** | **25** | • 12 bán âm (mean & std): `chroma_C_mean` -> `chroma_B_std` (24 đặc trưng)<br>• Độ lệch chuẩn toàn cục: `chroma_std_overall` (1 đặc trưng) | Phân bố năng lượng trên 12 nửa cung (C, C#, D, D#, E, F, F#, G, G#, A, A#, B), phản ánh thang âm và điệu thức dân gian. |
-
-| 7 | **Đặc tính phổ & Tần số (Spectral & ZCR)** | **14** | `spectral_centroid_mean`, `spectral_centroid_std`, `spectral_bandwidth_mean`, `spectral_rolloff_mean`, `spectral_flatness_mean`, `spectral_contrast_1` -> `spectral_contrast_7` (7 dải tần), `zcr_mean`, `zcr_std` | Trọng tâm phổ (độ sáng âm thanh), độ rộng dải phổ, điểm suy giảm phổ, độ phẳng phổ, độ tương phản âm sắc và tỷ lệ đổi dấu tín hiệu. |
-
-| 8 | **Không gian hợp âm (Tonnetz)** | **6** | `tonnetz_1`, `tonnetz_2`, `tonnetz_3`, `tonnetz_4`, `tonnetz_5`, `tonnetz_6` | Hệ tọa độ hòa thanh 6 chiều mô tả quan hệ quãng năm, quãng ba trưởng/thứ trong cấu trúc điệu thức. |
-
-| 9 | **Quang phổ Mel (Mel-Spectrogram)** | **2** | `mel_mean`, `mel_std` | Giá trị trung bình và độ lệch chuẩn năng lượng trên 128 dải lọc tần số Mel. |
-| **TỔNG** | **Toàn bộ đặc trưng âm thanh** | **167** | | |
+### Tài liệu Chi tiết đi kèm
+- **Báo cáo tổng hợp toàn dự án, các phát hiện khoa học & kiến trúc Pipeline:** [BAO_CAO_TONG_HOP_TOAN_DU_AN.md](BAO_CAO_TONG_HOP_TOAN_DU_AN.md)
+- **Sơ đồ bố cục thư mục & mô tả chức năng từng file cốt lõi:** [MO_TA_CAC_FILE.md](MO_TA_CAC_FILE.md)
+- **Báo cáo thực nghiệm đối chứng & lựa chọn bộ trọng số Multimodal:** [data/results/multimodal_fusion_ablation_report.md](data/results/multimodal_fusion_ablation_report.md)
+- **Bảng số liệu benchmark 21 mô hình & tổ hợp đa phương thức:** [experiments/results/model_comparison_metrics.csv](experiments/results/model_comparison_metrics.csv) | [experiments/results/multimodal_fusion_comparison.csv](experiments/results/multimodal_fusion_comparison.csv)
 
 ---
 
-## 3. Các Trục Ngữ Nghĩa (Semantic Axes) & 27 Mức Độ Mờ (Fuzzy Levels)
+## 2. Kiến trúc Hệ thống Đầu cuối (End-to-End Pipeline)
 
-Để chuyển đổi từ các con số kỹ thuật vô hướng sang **Hồ sơ mờ có thể diễn giải được (Interpretable Fuzzy Profiles)**, 167 đặc trưng được chuẩn hóa theo thang đo [0, 1] qua `MinMaxScaler` và gom nhóm thành **7 Trục ngữ nghĩa cốt lõi** (`FUZZY_AXES`).
-
-Dựa trên tổng quan y văn nghiên cứu chuyên ngành (Music Information Retrieval & Fuzzy Audio Analysis), số lượng mức độ mờ cho từng trục được thiết lập chuẩn xác như sau:
-* **Energy**: 5 mức (`Rất yếu`, `Yếu`, `Vừa`, `Mạnh`, `Rất mạnh`)
-* **Harmony**: 3 mức (`Thấp`, `Trung bình`, `Cao`)
-* **Pitch**: 5 mức (`Rất trầm`, `Trầm`, `Trung`, `Cao`, `Rất cao`)
-* **Spectral**: 3 mức (`Thấp`, `Trung bình`, `Cao`)
-* **Tempo**: 3 mức (`Chậm`, `Vừa`, `Nhanh`)
-* **Timbre**: 5 mức (`Rất thấp`, `Thấp`, `Trung bình`, `Cao`, `Rất cao`)
-* **Vibrato**: 3 mức (`Ít luyến`, `Vừa`, `Nhiều luyến`)
-* **Tổng cộng**: 5 + 3 + 5 + 3 + 3 + 5 + 3 = **27 đặc trưng mức độ mờ liên tục [0, 1]**.
-
-```
-167 Đặc trưng số học thô (features_all.csv)
-       │
-       ▼ (Gom nhóm theo tính chất vật lý & nhạc học)
- 7 Trục ngữ nghĩa (Semantic Axes)
-       │
-       ▼ (Phân cụm mờ Fuzzy C-Means & GMM)
- Hồ sơ mờ ngữ nghĩa (fuzzy_profiles.json)
-```
-
-### Chi tiết 7 Trục ngữ nghĩa và các đặc trưng thành phần:
-
-1. **Trục `Tempo` (Nhịp điệu)**
-   * **Các đặc trưng thành phần**: `tempo` (BPM), `beat_regularity` (độ ổn định nhịp).
-   * **Các tập mờ ngôn ngữ (Linguistic terms)**: `Chậm`, `Vừa`, `Nhanh`.
-   * **Ý nghĩa**: Phản ánh tốc độ diễn tấu của tiết tấu bài nhạc.
-
-2. **Trục `Pitch` (Cao độ)**
-   * **Các đặc trưng thành phần**: `pitch_mean` (tần số F0 trung bình), `pitch_range` (độ rộng âm vực).
-   * **Các tập mờ ngôn ngữ**: `Trầm`, `Trung`, `Cao`.
-   * **Ý nghĩa**: Định hình cao độ giọng hát chính của nghệ nhân và nhạc cụ dẫn dắt.
-
-3. **Trục `Vibrato` (Độ rung & Luyến láy)**
-   * **Các đặc trưng thành phần**: `vibrato_extent` (độ sâu rung ngân), `vibrato_energy` (năng lượng dải luyến 4 - 10 Hz).
-   * **Các tập mờ ngôn ngữ**: `Ít luyến`, `Vừa`, `Nhiều luyến`.
-   * **Ý nghĩa**: Bắt trọn kỹ thuật hát đặc thù của nhạc cổ truyền (đổ hột trong Ca trù, nảy hạt trong Quan họ, ngân rung trong Chầu văn).
-
-4. **Trục `Energy` (Năng lượng âm thanh)**
-   * **Các đặc trưng thành phần**: `energy_mean` (RMS trung bình), `dynamic_range` (khoảng chênh lệch to/nhỏ).
-   * **Các tập mờ ngôn ngữ**: `Yếu`, `Vừa`, `Mạnh`.
-   * **Ý nghĩa**: Biểu thị cường độ âm thanh và tính chất trữ tình êm dịu hay hào hùng, sôi động.
-
-5. **Trục `Timbre` (Màu sắc âm sắc)**
-   * **Các đặc trưng thành phần**: 13 hệ số MFCC bậc đầu (`mfcc_01_mean` -> `mfcc_13_mean`).
-   * **Các tập mờ ngôn ngữ**: `Rất thấp`, `Thấp`, `Trung bình`, `Cao`.
-   * **Ý nghĩa**: Mô tả cấu trúc chất giọng và sự pha trộn âm sắc giữa các nhạc cụ dân tộc trong dàn nhạc.
-
-6. **Trục `Harmony` (Cấu trúc hòa âm & Bán âm)**
-   * **Các đặc trưng thành phần**: 7 bán âm chủ đạo (`chroma_C_mean`, `chroma_D_mean`, `chroma_E_mean`, `chroma_F_mean`, `chroma_G_mean`, `chroma_A_mean`, `chroma_B_mean`).
-   * **Các tập mờ ngôn ngữ**: `Rất thấp`, `Thấp`, `Trung bình`, `Cao`.
-   * **Ý nghĩa**: Thể hiện các nốt trụ và cấu trúc thang âm ngũ cung đặc trưng của âm nhạc phương Đông.
-
-7. **Trục `Spectral` (Độ sáng & Phân bố dải tần)**
-   * **Các đặc trưng thành phần**: `spectral_centroid_mean` (độ sáng phổ), `spectral_bandwidth_mean` (độ rộng dải tần), `spectral_rolloff_mean` (ngưỡng suy giảm tần số).
-   * **Các tập mờ ngôn ngữ**: `Thấp`, `Trung bình`, `Cao`.
-   * **Ý nghĩa**: Đánh giá sự phong phú của họa âm tần số cao do các nhạc cụ gõ (thanh la, não bạt, mõ, trống) tạo ra.
-
----
-
-## 4. Cấu Trúc Thư Mục Kết Quả (`data/`)
-
-```
-data/
-├── features_all.csv              # Bảng chứa đầy đủ 1.800 mẫu × 167 đặc trưng âm học
-├── features_fuzzy_crisp.csv      # Bảng 1.800 mẫu × 7 cột nhãn chữ (Rời rạc hóa cứng)
-├── features_fuzzy_continuous.csv # Bảng 1.800 mẫu × 27 cột mức độ mờ liên tục [0, 1]
-├── features_cache.pkl            # Cache nhị phân chứa spectrogram, F0 contour, waveform thô
-├── fuzzy_profiles.json           # Hồ sơ mờ định lượng dạng JSON cho 6 thể loại
-├── fcm_results.pkl               # Kết quả huấn luyện ma trận độ thuộc Fuzzy C-Means
-├── gmm_results.pkl               # Kết quả xác suất hậu nghiệm Gaussian Mixture Model
-│
-├── data/
-│   ├── datasets/                      # Các tập dữ liệu đặc trưng và tập holdout
-│   │   ├── features_all.csv           # 3.600 mẫu × 172 cột đặc trưng gốc & metadata
-│   │   ├── features_fuzzy_crisp.csv   # 3.600 mẫu × 11 cột (7 trục nhãn chữ)
-│   │   ├── features_fuzzy_continuous.csv # 3.600 mẫu × 31 cột (27 mức độ mờ liên tục)
-│   │   ├── holdout_samples_for_inference.csv # 18 bài hát độc lập (3 bài/thể loại)
-│   │   ├── holdout_features_all.csv   # 167 đặc trưng âm học của 18 bài holdout
-│   │   ├── holdout_fuzzy_crisp.csv    # Hồ sơ mờ Crisp của 18 bài holdout
-│   │   ├── holdout_fuzzy_continuous.csv # Độ thuộc liên tục [0, 1] của 18 bài holdout
-│   │   └── features_cache.pkl         # Cache nạp nhanh đặc trưng âm thanh
-│   │
-│   ├── models/                        # Mô hình phân cụm và hồ sơ mờ
-│   │   ├── fcm_results.pkl            # Kết quả phân cụm Fuzzy C-Means (tâm cụm, độ thuộc)
-│   │   ├── gmm_results.pkl            # Kết quả mô hình hỗn hợp Gauss (GMM)
-│   │   └── fuzzy_profiles.json        # Hồ sơ mờ ngôn ngữ học theo thể loại
-│   │
-│   ├── rules/                         # Toàn bộ hệ luật trích xuất từ cây và rừng cây
-│   │   ├── rules_decision_tree_crisp.json
-│   │   ├── rules_decision_tree_continuous.json
-│   │   ├── rules_random_forest_crisp_all.json
-│   │   ├── rules_random_forest_crisp_aggregated.json
-│   │   ├── rules_random_forest_crisp_top.json
-│   │   ├── rules_random_forest_all.json
-│   │   ├── rules_random_forest_aggregated.json
-│   │   ├── rules_summary.csv          # Bảng tổng kết các luật vàng dạng văn bản dễ đọc
-│   │   ├── common_rule_conditions_top5_per_genre.csv # Điểm chung điều kiện (tần số >= 3/5) trong Top 5 luật
-│   │   ├── holdout_top5_rules_summary.csv # Bảng tổng hợp Top 5 luật mờ cho 18 bài holdout
-│   │   └── holdout_top5_rules_explanation.json # Giải thích chi tiết độ khớp và kích hoạt luật
-│   │
-│   └── plots/                         # Toàn bộ biểu đồ và hình ảnh trực quan hóa
-│       ├── 01_genre_distribution.png  # Phân phối file gốc theo thể loại
-│       ├── 02_violin_comparison.png   # Violin plot mật độ đặc trưng giữa 6 thể loại
-│       ├── 03_radar_chart.png         # Biểu đồ mạng nhện "dấu vân tay âm thanh"
-│       ├── 04_pca_tsne.png            # Không gian giảm chiều 2D (PCA & t-SNE)
-│       ├── 05_correlation.png         # Ma trận tương quan đặc trưng
-│       ├── 06_optimal_k.png           # Khảo sát k tối ưu (Elbow, Silhouette, BIC)
-│       ├── 07_clustering_comparison.png # So sánh K-Means, GMM, FCM, DBSCAN
-│       ├── 08_fuzzy_profile_heatmap.png # Bản đồ nhiệt hồ sơ mờ tổng hợp
-│       ├── 09_decision_tree_crisp_graph.png # Sơ đồ Cây quyết định Crisp
-│       ├── 10_decision_tree_continuous_graph.png # Sơ đồ Cây quyết định Continuous
-│       ├── 11_rf_feature_importance.png # Tỷ trọng quan trọng của 27 mức độ mờ
-│       ├── 12_model_performance_comparison.png # So sánh hiệu năng 4 mô hình & Confusion Matrix
-│       ├── 13_holdout_rule_activation_summary.png # Thống kê số lượng luật kích hoạt trên 18 bài holdout
-│       ├── 14_genre_fuzzy_archetypes_common_patterns.png # Heatmap đặc tính cốt lõi (Archetype) & Độ tin cậy
-│       ├── holdout_rules_dashboard.html # Giao diện tra cứu trực quan tương tác Top luật
-│       ├── membership_*.png           # 7 biểu đồ hàm liên thuộc mờ trên 7 trục ngữ nghĩa
-│       └── viz_*.png                  # 6 biểu đồ phân tích âm phổ mẫu tiêu biểu cho 6 thể loại
+```text
+[ĐẦU VÀO: Video MP4 / Audio WAV-MP3 / Link YouTube / Thu âm Micro]
+                                │
+                                ▼
+   ┌────────────────────────────────────────────────────────────┐
+   │ TIỀN XỬ LÝ & PHÂN ĐOẠN THÍCH ỨNG (<= 10 PHÚT, 6–14 CHUNKS) │
+   │ • Cắt video trực tuyến (ffmpeg) nếu thời lượng > 600 giây  │
+   │ • Mỗi phân đoạn: Cửa sổ âm thanh 12.0s + 1 Keyframe nét    │
+   └──────────────┬─────────────────────────────┬───────────────┘
+                  │                             │
+                  ▼                             ▼
+┌───────────────────────────────────┐ ┌───────────────────────────────────┐
+│ NHÁNH ÂM THANH (NEURO-SYMBOLIC)   │ │ NHÁNH THỊ GIÁC (VISUAL CBM)       │
+│ • Ảnh phổ Mel & CQT (128x128)     │ │ • Khung hình RGB (224x224)        │
+│ • 7 trục MPEG-7 + 27 độ thuộc mờ  │ │ • ConvNeXt-Tiny (Asymmetric Loss) │
+│ • Tổ hợp 4 Họ Kiến trúc (0.25/mô):│ │   -> 25 xác suất khái niệm Sigmoid│
+│   M2a + M3c + M4d + M5c           │ │ • Ngưỡng F1 riêng từng khái niệm  │
+│ • Xuất P_Audio & 27 concept mờ    │ │ • Visual Random Forest Continuous │
+└─────────────────┬─────────────────┘ └─────────────────┬─────────────────┘
+                  │                                     │
+                  └──────────────────┬──────────────────┘
+                                     ▼
+   ┌────────────────────────────────────────────────────────────┐
+   │ DUNG HỢP MUỘN ĐA PHƯƠNG THỨC: 0.70 * P_Audio + 0.30 * P_Vis│
+   │ • Tổng hợp chuỗi phân đoạn (Temporal Average Pooling)      │
+   │ • Bộ lọc 3 điều kiện nhận diện video ngoại lai (OOD)       │
+   │ • Đối chiếu 60 Luật mờ + Phiên dịch khái niệm UNESCO/ICHCAP│
+   └─────────────────────────────────┬──────────────────────────┘
+                                     ▼
+[ĐẦU RA XAI: Phán quyết | Evidence Map 4 tầng | Contrastive XAI | Can thiệp CBM | Đồ thị 3D]
 ```
 
 ---
 
-## 5. Huấn Luyện Decision Tree, Random Forest & Trích Xuất Hệ Luật Mờ (`02_fuzzy_decision_tree_random_forest.ipynb`)
+## 3. Kết quả Thực nghiệm Nổi bật
 
-Pipeline đã thực hiện huấn luyện đối chứng 4 mô hình trên tập Train/Test (80/20 Stratified, 2.880 train / 720 test) từ 2 bảng dữ liệu mờ (3.600 mẫu cân bằng):
+Xuyên suốt đồ án đã huấn luyện và đối chứng tổng cộng **57 mô hình phân loại / học sâu có giám sát** (cùng 4 thuật toán phân cụm mờ không giám sát `K-Means`, `DBSCAN`, `FCM`, `GMM`):
+- **6 mô hình phân loại & cảm nạp luật mờ âm thanh** (`DT Crisp/Cont`, `RF Crisp/Cont`, `RIPPER`, `CN2`)
+- **10 mô hình Học máy trên 167 đặc trưng thô** (tối ưu bằng Optuna + giải thích SHAP)
+- **13 mô hình CNN Transfer Learning Thế hệ 1** (`EXP-01` đến `EXP-13`)
+- **7 mô hình nhánh Thị giác** (`ConvNeXt-Tiny Visual CBM` 25 khái niệm + 6 bộ phân loại/luật tầng trên)
+- **21 mô hình Đa phương thức & Neuro-Symbolic Thế hệ 2** (`M1a–M5e` thuộc 5 Phương án kiến trúc)
 
-### Kết quả đối chứng hiệu năng phân loại:
-* **1. Decision Tree (Crisp 7 trục)**: Accuracy = **51.25%** | F1-Score = **50.58%**
-* **2. Random Forest (Crisp 7 trục)**: Accuracy = **55.97%** | F1-Score = **55.04%**
-* **3. Decision Tree (Continuous 27 mức)**: Accuracy = **56.53%** | F1-Score = **56.06%**
-* **4. Random Forest (Continuous 27 mức)**: Accuracy = **64.17%** | F1-Score = **63.71%**
+### Bảng So sánh Hiệu năng Cốt lõi
 
-> **Nhận xét học thuật**: Giữ lại các giá trị mức độ mờ liên tục [0, 1] giúp mô hình Random Forest tăng thêm hơn **8.2%** độ chính xác so với việc ép cứng thành 7 nhãn chữ (đạt 64.17%), đồng thời vẫn bảo toàn 100% tính diễn giải ngôn ngữ tự nhiên thông qua hệ luật IF-THEN.
+| Nhóm Phương pháp / Mô hình | HF Test Acc (%) *(720 mẫu)* | HF Test Macro-F1 (%) | YouTube Test Acc (%) *(225 mẫu / 30 video)* | YouTube Test Macro-F1 (%) | Unified Test Macro-F1 (%) *(945 mẫu)* |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| `EXP-13` (CNN Thế hệ 1 — chỉ học Hugging Face) | 92.50 | 92.50 | 49.78 | 45.39 | 81.28 |
+| `SVM-RBF` (167 đặc trưng thô — chỉ học Hugging Face) | 93.75 | 93.88 | 39.11 | 31.21 | 78.96 |
+| `M1c`: Baseline CNN (Mel+CQT) *[PA 1]* | 81.67 | 81.65 | 64.44 | 62.57 | 77.49 |
+| `M2a`: CNN + Transformer (Single Mel) *[PA 2]* | 93.33 | 93.29 | 80.44 | 81.29 | 90.34 |
+| `M3c`: Pretrained DenseNet121 + Transformer *[PA 3]* | 92.22 | 92.11 | 74.67 | 74.21 | 88.12 |
+| `M4d`: Multimodal EfficientNet-B0 + 7 Trục Concat *[PA 4]* | 91.53 | 91.46 | 76.00 | 76.12 | 87.98 |
+| `M5c`: Neuro-Symbolic EffNet-B0 Gated + 60 Luật mờ *[PA 5]* | 93.06 | 93.02 | 75.11 | 76.09 | 88.85 |
+| **Tổ hợp 4 Họ Audio (`0.25 M2a + 0.25 M3c + 0.25 M4d + 0.25 M5c`)** | **94.86** | **94.82** | **85.33** | **85.60** | **92.64** |
+
+- **Hiệu năng cấp độ Video:** Tổ hợp 4 Họ Audio đạt **27/30 (90.0%)** trên 30 video YouTube Test độc lập; khi kết hợp cùng **Visual CBM (`ConvNeXt-Tiny` mAP `86.25%` + `Visual RF Continuous` `90.0%`)** theo tỷ lệ tối ưu **`0.70 Audio + 0.30 Visual`**, hệ thống đạt **100.0%** trên tập video kiểm thử độc lập của cả hai nhánh (`LogLoss = 0.2881`).
 
 ---
 
-## 6. Kiểm Nghiệm & Giải Thích Suy Luận Mờ (XAI) Trên 18 Mẫu Hold-out (`03_inference_and_rule_explanation.ipynb`)
+## 4. Các Tính năng Chính trên Ứng dụng Web XAI (`web_app/`)
 
-Notebook thứ ba thực hiện kiểm nghiệm thực tế và giải thích suy luận trên **18 mẫu bài hát độc lập** (3 bài/thể loại) chưa từng tham gia huấn luyện:
-1. **Trích xuất âm học & Chiếu không gian mờ**: Chiếu đặc trưng 18 bài sang dạng Crisp (7 nhãn chữ) và Continuous (27 độ thuộc [0, 1]).
-2. **Kích hoạt & Xếp hạng Top 5 luật phù hợp nhất**: So khớp từng bài với 1.408 luật Crisp và 718 luật Continuous, lọc ra các luật thỏa mãn điều kiện và xếp hạng theo tiêu chí `(is_correct, score, confidence)`.
-3. **Phân tích điểm chung cốt lõi (Archetype Profile)**:
-   - **Ca trù**: Nhịp *Chậm - Vừa*, Âm vực *Trầm*, Năng lượng *Rất yếu - Yếu*, Âm sắc *Rất thấp*, Hòa âm *Thấp - Trung bình*.
-   - **Chèo**: Hòa âm *Cao*, Âm vực *Trung - Cao*, Luyến láy *Vừa - Nhiều luyến*.
-   - **Chầu văn**: Âm vực *Rất trầm* (tiếng đàn Nguyệt), Luyến láy *Ít luyến* (nhịp dồn dập hầu đồng), Hòa âm *Cao*.
-   - **Cải lương**: Luyến láy *Vừa - Nhiều luyến* (vọng cổ ngân sâu), Âm sắc *Cao - Rất cao*, Hòa âm *Cao*.
-   - **Hát xẩm**: Âm sắc *Rất thấp - Thấp*, Luyến láy *Ít luyến*, Phổ tần *Thấp - Trung bình* (tính tự sự đường phố).
-   - **Quan họ**: Năng lượng *Mạnh - Rất mạnh* (Vang - Rền - Nền - Nảy), Nhịp *Vừa*, Âm sắc *Rất cao*.
-4. **Dashboard tra cứu trực quan**: Tra cứu chi tiết và thân thiện qua [holdout_rules_dashboard.html](data/plots/holdout_rules_dashboard.html) và đồ thị [14_genre_fuzzy_archetypes_common_patterns.png](data/plots/14_genre_fuzzy_archetypes_common_patterns.png).
+- **Phân tích đa nguồn đầu vào:** Hỗ trợ tải file Audio/Video, dán link YouTube trực tiếp, thu âm micro và 6 mẫu biểu diễn chuẩn.
+- **Trình cắt Video trực tuyến (Interactive Trimmer):** Tự động phát hiện video dài quá 10 phút và cho phép người dùng kéo thanh trượt chọn đoạn cần phân tích (có hình ảnh xem trước và âm thanh).
+- **Dòng thời gian đa phương thức:** Đồng bộ trình phát video với dải phân đoạn thông minh (Smart Grouping), biểu đồ diễn biến xác suất theo thời gian, ảnh phổ và biểu đồ Radar 7 trục MPEG-7.
+- **Bản đồ Bằng chứng Đa phương thức 4 tầng (`Multimodal Evidence Map`):** Đồ thị tương tác truy vết từ Tín hiệu đầu vào -> Đặc trưng -> Khái niệm CBM -> Luật suy luận mờ -> Phán quyết; bấm vào mốc thời gian để tua video tới đúng bằng chứng.
+- **Giải thích Đối chứng (`Contrastive Explanation`) & Can thiệp Phản sự thực (`Counterfactual CBM Intervention`):** Lý giải tại sao chọn thể loại A thay vì thể loại B, đồng thời cho phép bật/tắt từng khái niệm âm thanh và thị giác để kiểm chứng sự thay đổi xác suất theo thời gian thực.
+- **Nhận diện ngoại lai (Out-of-Distribution):** Tự động gắn nhãn *"Thể loại khác / Không đủ dữ liệu xác định"* khi đầu vào không thuộc 6 thể loại di sản.
+
+---
+
+## 5. Cấu trúc Thư mục Chính
+
+```text
+LuanVan/
+├── web_app/                                      # Ứng dụng Web FastAPI + Frontend Editorial Dashboard + Three.js
+├── experiments/                                  # 21 checkpoint chuẩn (M1a–M5e), bảng kết quả CSV & biểu đồ 300 DPI
+├── data/                                         # Dữ liệu đặc trưng, mô hình Visual CBM, bộ luật IF-THEN & báo cáo
+├── concept/                                      # Từ điển 43 Audio Concepts & 38 Visual Concepts (UNESCO/ICHCAP)
+├── dataset/video/                                # Kho 131 video biểu diễn thực tế thu thập từ YouTube
+├── phase7_audio_visual_concept_mapper.py         # Cầu nối ngữ nghĩa dịch luật mờ & ánh xạ khái niệm
+├── train_multimodal_audio_cnn_experiments.ipynb  # Notebook huấn luyện 21 mô hình Thế hệ 2 (M1a–M5e)
+├── Visual_CBM_and_Rule_Extraction_Colab.ipynb    # Notebook huấn luyện Visual CBM & cảm nạp luật thị giác
+├── BAO_CAO_TONG_HOP_TOAN_DU_AN.md                # Báo cáo tổng hợp chi tiết toàn dự án
+└── MO_TA_CAC_FILE.md                             # Mô tả đầy đủ cấu trúc và chức năng từng file
+```
+
+---
+
+## 6. Hướng dẫn Cài đặt & Khởi chạy
+
+### Yêu cầu môi trường
+- Python 3.10+ và `ffmpeg` đã được cài đặt trong biến môi trường hệ thống (`PATH`).
+
+### Cài đặt thư viện
+```bash
+pip install -r requirements.txt
+```
+
+### Kiểm thử hệ thống Backend
+```bash
+python web_app/test_backend.py
+```
+
+### Khởi chạy Ứng dụng Web
+```bash
+python -m uvicorn web_app.app:app --host 127.0.0.1 --port 8000 --reload
+```
+Mở trình duyệt tại địa chỉ: `http://127.0.0.1:8000`
