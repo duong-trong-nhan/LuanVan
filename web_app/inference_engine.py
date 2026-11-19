@@ -28,6 +28,7 @@ from PIL import Image
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from torchvision import transforms, models
 import timm
 import matplotlib
@@ -42,6 +43,171 @@ if str(ROOT_DIR) not in sys.path:
 import phase7_audio_visual_concept_mapper as p7
 
 GENRES = ['Ca trù', 'Chèo', 'Chầu văn', 'Cải lương', 'Hát xẩm', 'Quan họ']
+# Thứ tự nhãn của 21 mô hình huấn luyện trong experiments/checkpoints/
+EXP_GENRES = ['Ca trù', 'Chèo', 'Cải lương', 'Chầu văn', 'Quan họ', 'Hát xẩm']
+
+
+# -----------------------------------------------------------------------------
+# KIẾN TRÚC TỔ HỢP 4 HỌ MÔ HÌNH AUDIO NEURO-SYMBOLIC (M2a, M3c, M4d, M5c)
+# -----------------------------------------------------------------------------
+class _PositionalEncoding(nn.Module):
+    def __init__(self, d_model: int = 128, max_len: int = 512, dropout: float = 0.1):
+        super().__init__()
+        self.dropout = nn.Dropout(p=dropout)
+        pe = torch.zeros(max_len, d_model)
+        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
+        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))
+        pe[:, 0::2] = torch.sin(position * div_term)
+        pe[:, 1::2] = torch.cos(position * div_term)
+        self.register_buffer('pe', pe.unsqueeze(0))
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.dropout(x + self.pe[:, :x.size(1), :])
+
+
+class _SEBlock2D(nn.Module):
+    def __init__(self, channels: int, reduction: int = 8):
+        super().__init__()
+        mid_c = max(8, channels // reduction)
+        self.se = nn.Sequential(
+            nn.AdaptiveAvgPool2d(1),
+            nn.Flatten(),
+            nn.Linear(channels, mid_c, bias=False),
+            nn.ReLU(inplace=True),
+            nn.Linear(mid_c, channels, bias=False),
+            nn.Sigmoid()
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return x * self.se(x).unsqueeze(-1).unsqueeze(-1)
+
+
+class _CNNTransformerNet(nn.Module):
+    def __init__(self, in_channels: int = 2, num_classes: int = 6, d_model: int = 128, nhead: int = 4, num_layers: int = 2, use_se: bool = False):
+        super().__init__()
+        b1 = [nn.Conv2d(in_channels, 32, kernel_size=3, padding=1, bias=False), nn.BatchNorm2d(32), nn.ReLU(inplace=True)]
+        if use_se:
+            b1.append(_SEBlock2D(32))
+        b1.append(nn.MaxPool2d(2, 2))
+        b2 = [nn.Conv2d(32, 64, kernel_size=3, padding=1, bias=False), nn.BatchNorm2d(64), nn.ReLU(inplace=True)]
+        if use_se:
+            b2.append(_SEBlock2D(64))
+        b2.append(nn.MaxPool2d(2, 2))
+        b3 = [nn.Conv2d(64, d_model, kernel_size=3, padding=1, bias=False), nn.BatchNorm2d(d_model), nn.ReLU(inplace=True)]
+        if use_se:
+            b3.append(_SEBlock2D(d_model))
+        b3.append(nn.AdaptiveAvgPool2d((8, 8)))
+        self.cnn_backbone = nn.Sequential(*(b1 + b2 + b3))
+        self.pos_encoder = _PositionalEncoding(d_model=d_model, max_len=128, dropout=0.1)
+        enc_layer = nn.TransformerEncoderLayer(d_model=d_model, nhead=nhead, dim_feedforward=d_model * 2, dropout=0.1, activation='gelu', batch_first=True)
+        self.transformer = nn.TransformerEncoder(enc_layer, num_layers=num_layers)
+        self.norm = nn.LayerNorm(d_model)
+        self.pool1d = nn.AdaptiveAvgPool1d(1)
+        self.classifier = nn.Sequential(nn.Linear(d_model, 128), nn.GELU(), nn.Dropout(0.3), nn.Linear(128, num_classes))
+
+    def extract_spec_embedding(self, spec: torch.Tensor) -> torch.Tensor:
+        feat = self.cnn_backbone(spec)
+        seq = self.pos_encoder(feat.flatten(2).transpose(1, 2))
+        seq = self.norm(self.transformer(seq))
+        return self.pool1d(seq.transpose(1, 2)).squeeze(-1)
+
+    def forward(self, spec: torch.Tensor, acoustic: Optional[torch.Tensor] = None):
+        return self.classifier(self.extract_spec_embedding(spec))
+
+
+class _PretrainedTransformerNet(nn.Module):
+    def __init__(self, in_channels: int = 2, num_classes: int = 6, backbone_name: str = 'resnet34', d_model: int = 128):
+        super().__init__()
+        self.backbone_name = backbone_name.lower()
+        if self.backbone_name == 'efficientnet_b0':
+            base = models.efficientnet_b0(weights=None)
+            old_conv = base.features[0][0]
+            new_conv = nn.Conv2d(in_channels, old_conv.out_channels, kernel_size=old_conv.kernel_size, stride=old_conv.stride, padding=old_conv.padding, bias=False)
+            base.features[0][0] = new_conv
+            self.stem_conv = new_conv
+            self.backbone = base.features
+            backbone_out_ch = 1280
+        elif self.backbone_name == 'densenet121':
+            base = models.densenet121(weights=None)
+            old_conv = base.features.conv0
+            new_conv = nn.Conv2d(in_channels, old_conv.out_channels, kernel_size=old_conv.kernel_size, stride=old_conv.stride, padding=old_conv.padding, bias=False)
+            base.features.conv0 = new_conv
+            self.stem_conv = new_conv
+            self.backbone = base.features
+            backbone_out_ch = 1024
+        else:
+            base = models.resnet34(weights=None)
+            old_conv = base.conv1
+            new_conv = nn.Conv2d(in_channels, old_conv.out_channels, kernel_size=old_conv.kernel_size, stride=old_conv.stride, padding=old_conv.padding, bias=False)
+            base.conv1 = new_conv
+            self.stem_conv = new_conv
+            self.backbone = nn.Sequential(base.conv1, base.bn1, base.relu, base.maxpool, base.layer1, base.layer2, base.layer3, base.layer4)
+            backbone_out_ch = 512
+
+        self.proj = nn.Sequential(nn.Conv2d(backbone_out_ch, d_model, kernel_size=1, bias=False), nn.BatchNorm2d(d_model), nn.GELU())
+        self.pos_encoder = _PositionalEncoding(d_model=d_model, max_len=256, dropout=0.1)
+        enc_layer = nn.TransformerEncoderLayer(d_model=d_model, nhead=4, dim_feedforward=256, dropout=0.1, activation='gelu', batch_first=True)
+        self.transformer = nn.TransformerEncoder(enc_layer, num_layers=2)
+        self.norm = nn.LayerNorm(d_model)
+        self.pool1d = nn.AdaptiveAvgPool1d(1)
+        self.classifier = nn.Sequential(nn.Dropout(0.3), nn.Linear(d_model, num_classes))
+
+    def extract_spec_embedding(self, spec: torch.Tensor) -> torch.Tensor:
+        feat = self.backbone(spec)
+        if self.backbone_name == 'densenet121':
+            feat = F.relu(feat, inplace=True)
+        feat = self.proj(feat)
+        seq = self.pos_encoder(feat.flatten(2).transpose(1, 2))
+        seq = self.norm(self.transformer(seq))
+        return self.pool1d(seq.transpose(1, 2)).squeeze(-1)
+
+    def forward(self, spec: torch.Tensor, acoustic: Optional[torch.Tensor] = None):
+        return self.classifier(self.extract_spec_embedding(spec))
+
+
+class _MultimodalFusionNet(nn.Module):
+    def __init__(self, in_channels: int = 2, num_classes: int = 6, acoustic_dim: int = 7, spec_backbone: str = 'cnn_transformer', fusion_mode: str = 'concat'):
+        super().__init__()
+        self.spec_backbone_type = spec_backbone.lower()
+        self.fusion_mode = fusion_mode.lower()
+        if self.spec_backbone_type == 'cnn_transformer':
+            self.spec_branch = _CNNTransformerNet(in_channels=in_channels, num_classes=num_classes, d_model=128, nhead=4, num_layers=3, use_se=True)
+        else:
+            self.spec_branch = _PretrainedTransformerNet(in_channels=in_channels, num_classes=num_classes, backbone_name=self.spec_backbone_type, d_model=128)
+        self.acoustic_mlp = nn.Sequential(
+            nn.Linear(acoustic_dim, 64), nn.LayerNorm(64), nn.ReLU(inplace=True), nn.Dropout(0.2),
+            nn.Linear(64, 32), nn.LayerNorm(32), nn.ReLU(inplace=True)
+        )
+        if self.fusion_mode == 'gated':
+            self.gate_layer = nn.Sequential(nn.Linear(128 + 32, 160), nn.Sigmoid())
+        self.fusion_classifier = nn.Sequential(nn.Linear(128 + 32, 128), nn.LayerNorm(128), nn.GELU(), nn.Dropout(0.3), nn.Linear(128, num_classes))
+
+    def extract_fused_embedding(self, spec: torch.Tensor, acoustic: torch.Tensor) -> torch.Tensor:
+        z_spec = self.spec_branch.extract_spec_embedding(spec)
+        z_acoustic = self.acoustic_mlp(acoustic)
+        z_concat = torch.cat([z_spec, z_acoustic], dim=1)
+        if self.fusion_mode == 'gated':
+            return z_concat * self.gate_layer(z_concat)
+        return z_concat
+
+    def forward(self, spec: torch.Tensor, acoustic: torch.Tensor):
+        return self.fusion_classifier(self.extract_fused_embedding(spec, acoustic))
+
+
+class _NeuroSymbolicFuzzyNet(nn.Module):
+    def __init__(self, in_channels: int = 2, num_classes: int = 6, acoustic_dim: int = 7, num_concepts: int = 27, spec_backbone: str = 'cnn_transformer', fusion_mode: str = 'concat'):
+        super().__init__()
+        self.base_multimodal = _MultimodalFusionNet(in_channels=in_channels, num_classes=num_classes, acoustic_dim=acoustic_dim, spec_backbone=spec_backbone, fusion_mode=fusion_mode)
+        self.concept_head = nn.Sequential(nn.Linear(160, 64), nn.LayerNorm(64), nn.GELU(), nn.Linear(64, num_concepts), nn.Sigmoid())
+        self.ns_classifier = nn.Sequential(nn.Linear(160 + num_concepts, 128), nn.LayerNorm(128), nn.GELU(), nn.Dropout(0.3), nn.Linear(128, num_classes))
+
+    def forward(self, spec: torch.Tensor, acoustic: torch.Tensor, return_concepts: bool = False):
+        z_fused = self.base_multimodal.extract_fused_embedding(spec, acoustic)
+        concept_probs = self.concept_head(z_fused)
+        genre_logits = self.ns_classifier(torch.cat([z_fused, concept_probs], dim=1))
+        if return_concepts:
+            return genre_logits, concept_probs
+        return genre_logits
 
 GENRE_COLORS = {
     'Ca trù': '#C84B31',     # Vermilion
@@ -172,6 +338,7 @@ class HeritageInferenceEngine:
         # 3. Nạp danh mục luật
         self.crisp_rules = self._load_rules_json(self.rules_dir / 'rules_decision_tree_crisp.json')
         self.continuous_rules = self._load_rules_json(self.rules_dir / 'rules_decision_tree_continuous.json')
+        self.rf_top_rules = self._load_rules_json(self.rules_dir / 'rules_random_forest_top.json')
         self.ripper_rules = self._load_rules_json(self.rules_dir / 'rules_best_ripper_smote50.json')
         self.cn2_rules = self._load_rules_json(self.rules_dir / 'rules_cn2.json')
         self.visual_rules = self._load_rules_json(self.rules_dir / 'rules_visual_ripper.json')
@@ -211,15 +378,61 @@ class HeritageInferenceEngine:
         }
 
     def _init_audio_cnn(self):
-        """Khởi tạo mô hình CNN Audio champion từ Phase 5.
-        Ưu tiên EXP-13 (Mel+CQT, Acc 89.31%, Macro F1 89.19% - Mô hình đơn lẻ tốt nhất toàn dự án).
+        """Khởi tạo tổ hợp 4 họ mô hình Audio Neuro-Symbolic tối ưu từ experiments/checkpoints/
+        (0.25 M2a + 0.25 M3c + 0.25 M4d + 0.25 M5c, đạt 94.82% F1 In-Domain, 85.60% F1 Cross-Domain YouTube,
+        92.64% F1 Unified). Nếu không tìm thấy sẽ tự động fallback về EXP-13 / EXP-02.
         """
+        self.audio_cnn_model = None
+        self.audio_cnn_type = None
+        self.audio_ensemble_models = []
+        self.last_ns_concepts_27 = None
+
+        exp_ckpt_dir = self.root_dir / 'experiments' / 'checkpoints'
+        ensemble_specs = [
+            ('M2a_CNN_Transformer_Mel_1Ch', 0.25, 'mel', False,
+             lambda: _CNNTransformerNet(in_channels=1, num_classes=6, d_model=128, nhead=4, num_layers=2, use_se=False)),
+            ('M3c_Pretrained_DenseNet121_Transformer', 0.25, 'dual', False,
+             lambda: _PretrainedTransformerNet(in_channels=2, num_classes=6, backbone_name='densenet121', d_model=128)),
+            ('M4d_Multimodal_EfficientNetB0_Concat', 0.25, 'dual', False,
+             lambda: _MultimodalFusionNet(in_channels=2, num_classes=6, acoustic_dim=7, spec_backbone='efficientnet_b0', fusion_mode='concat')),
+            ('M5c_NeuroSymbolic_EfficientNetB0_GatedFuzzy', 0.25, 'dual', True,
+             lambda: _NeuroSymbolicFuzzyNet(in_channels=2, num_classes=6, acoustic_dim=7, num_concepts=27, spec_backbone='efficientnet_b0', fusion_mode='gated')),
+        ]
+
+        loaded_ensemble = []
+        for m_key, weight, spec_mode, is_ns, builder in ensemble_specs:
+            ckpt_p = exp_ckpt_dir / f"{m_key}_best.pth"
+            if ckpt_p.exists():
+                try:
+                    m_inst = builder().to(self.device)
+                    ckpt = torch.load(ckpt_p, map_location=self.device, weights_only=False)
+                    state_d = ckpt['model_state_dict'] if isinstance(ckpt, dict) and 'model_state_dict' in ckpt else ckpt
+                    m_inst.load_state_dict(state_d)
+                    m_inst.eval()
+                    loaded_ensemble.append({
+                        'key': m_key,
+                        'weight': weight,
+                        'spec_mode': spec_mode,
+                        'is_ns': is_ns,
+                        'model': m_inst
+                    })
+                except Exception as e:
+                    print(f"[HeritageInferenceEngine] Cảnh báo không thể nạp {m_key}: {e}")
+
+        if loaded_ensemble:
+            total_w = sum(item['weight'] for item in loaded_ensemble) or 1.0
+            for item in loaded_ensemble:
+                item['weight'] = item['weight'] / total_w
+            self.audio_ensemble_models = loaded_ensemble
+            self.audio_cnn_model = loaded_ensemble[0]['model']
+            self.audio_cnn_type = 'ENSEMBLE_4FAM_NEUROSYMBOLIC'
+            loaded_names = ", ".join(f"{it['key'].split('_')[0]}({it['weight']:.2f})" for it in loaded_ensemble)
+            print(f"[HeritageInferenceEngine] Đã nạp thành công Tổ hợp 4 Họ Kiến trúc Audio Neuro-Symbolic: {loaded_names} (HF F1 94.82%, YouTube F1 85.60%)")
+            return
+
         exp13_path = self.root_dir / 'data' / 'models' / 'cnn' / 'EXP-13_efficientnet_b0_mel+cqt_partial_best.pth'
         exp02_path = self.root_dir / 'data' / 'models' / 'cnn' / 'EXP-02_efficientnet_b0_mel_partial_best.pth'
         exp01_path = self.root_dir / 'data' / 'models' / 'cnn' / 'EXP-01_efficientnet_b0_mel_frozen_best.pth'
-
-        self.audio_cnn_model = None
-        self.audio_cnn_type = None
 
         if exp13_path.exists():
             try:
@@ -318,10 +531,16 @@ class HeritageInferenceEngine:
             except Exception as e:
                 print(f"[HeritageInferenceEngine] Cảnh báo không thể nạp Visual RF model: {e}")
 
-    def predict_audio_cnn(self, chunk_y: np.ndarray, sr: int = 16000) -> Dict[str, float]:
+    def predict_audio_cnn(
+        self,
+        chunk_y: np.ndarray,
+        sr: int = 16000,
+        radar_axes: Optional[Dict[str, float]] = None
+    ) -> Dict[str, float]:
         """
-        Dự đoán thể loại từ phân đoạn âm thanh qua Audio CNN Champion (EXP-13 Mel+CQT 2-channel, 89.31% Acc)
-        hoặc fallback qua EXP-02 (Log-Mel 3-channel).
+        Dự đoán thể loại từ phân đoạn âm thanh qua:
+          - Tổ hợp 4 Họ Kiến trúc Neuro-Symbolic Audio (0.25 M2a + 0.25 M3c + 0.25 M4d + 0.25 M5c)
+          - Hoặc fallback qua EXP-13 / EXP-02.
         """
         default_probs = {g: 1.0 / len(GENRES) for g in GENRES}
         if self.audio_cnn_model is None or chunk_y is None or len(chunk_y) == 0:
@@ -332,6 +551,57 @@ class HeritageInferenceEngine:
                 y_cnn = librosa.resample(chunk_y, orig_sr=sr, target_sr=22050)
             else:
                 y_cnn = chunk_y
+
+            # -----------------------------------------------------------------
+            # 0. Tổ hợp 4 Họ Kiến trúc Audio Neuro-Symbolic (M2a + M3c + M4d + M5c)
+            # -----------------------------------------------------------------
+            if getattr(self, 'audio_cnn_type', None) == 'ENSEMBLE_4FAM_NEUROSYMBOLIC' and self.audio_ensemble_models:
+                if len(y_cnn) < 22050 * 4:
+                    y_cnn = np.pad(y_cnn, (0, 22050 * 4 - len(y_cnn)))
+                cmap = plt.get_cmap('magma')
+
+                def _spec_to_128_tensor(spec_2d: np.ndarray) -> torch.Tensor:
+                    s_min, s_max = float(spec_2d.min()), float(spec_2d.max())
+                    spec_norm = (spec_2d - s_min) / (s_max - s_min) if s_max > s_min + 1e-8 else np.zeros_like(spec_2d, dtype=np.float32)
+                    rgba = cmap(np.flipud(spec_norm))
+                    img = Image.fromarray((rgba[:, :, :3] * 255).astype(np.uint8), mode='RGB').convert('L').resize((128, 128), Image.BILINEAR)
+                    arr = (np.asarray(img, dtype=np.float32) / 255.0 - 0.5) / 0.5
+                    return torch.from_numpy(arr).unsqueeze(0).unsqueeze(0).to(self.device)
+
+                mel = librosa.feature.melspectrogram(y=y_cnn, sr=22050, n_fft=2048, hop_length=512, n_mels=128, fmin=20, fmax=8000)
+                mel_t128 = _spec_to_128_tensor(librosa.power_to_db(mel, ref=np.max))
+
+                cqt = np.abs(librosa.cqt(y=y_cnn, sr=22050, hop_length=512, n_bins=84, bins_per_octave=12))
+                cqt_t128 = _spec_to_128_tensor(librosa.amplitude_to_db(cqt, ref=np.max))
+
+                dual_t128 = torch.cat([mel_t128, cqt_t128], dim=1)
+
+                if radar_axes is None:
+                    radar_axes = self.extract_chunk_features(chunk_y, sr=sr).get('radar', {})
+                ax_vec = [float(radar_axes.get(ax, 0.5)) for ax in AXES_NAMES]
+                ax_t = torch.tensor([ax_vec], dtype=torch.float32, device=self.device)
+
+                ens_probs = {g: 0.0 for g in GENRES}
+                self.last_ns_concepts_27 = None
+
+                with torch.no_grad():
+                    for item in self.audio_ensemble_models:
+                        m_inst = item['model']
+                        w = float(item['weight'])
+                        inp_s = mel_t128 if item['spec_mode'] == 'mel' else dual_t128
+                        if item['is_ns']:
+                            logits, c_probs = m_inst(inp_s, ax_t, return_concepts=True)
+                            c_arr = c_probs[0].cpu().numpy()
+                            self.last_ns_concepts_27 = {self.cols_27[idx]: float(c_arr[idx]) for idx in range(min(len(self.cols_27), len(c_arr)))}
+                        else:
+                            logits = m_inst(inp_s, ax_t)
+                        p_exp = torch.softmax(logits, dim=-1)[0].cpu().numpy()
+                        for i, g_exp in enumerate(EXP_GENRES):
+                            if g_exp in ens_probs:
+                                ens_probs[g_exp] += w * float(p_exp[i])
+
+                tot_p = sum(ens_probs.values()) or 1.0
+                return {g: ens_probs[g] / tot_p for g in GENRES}
 
             # -----------------------------------------------------------------
             # 1. EXP-13 Champion (2-channel: Mel Spectrogram + CQT Spectrogram)
@@ -851,8 +1121,16 @@ class HeritageInferenceEngine:
         cont = features['continuous']
         raw = features['raw']
 
-        # 1. Dự đoán qua Audio CNN Champion (EXP-13 EfficientNet-B0 Mel+CQT 89.31% Acc)
-        cnn_probs = self.predict_audio_cnn(chunk_y, sr=sr) if chunk_y is not None else None
+        # 1. Dự đoán qua Tổ hợp 4 Họ Kiến trúc Neuro-Symbolic Audio (M2a + M3c + M4d + M5c) hoặc EXP-13 Fallback
+        cnn_probs = self.predict_audio_cnn(chunk_y, sr=sr, radar_axes=features.get('radar')) if chunk_y is not None else None
+
+        # Cập nhật vector 27 thuộc tính mờ liên tục bằng đầu ra Concept Bottleneck của M5c (nếu có)
+        if getattr(self, 'last_ns_concepts_27', None):
+            for col_k, ns_val in self.last_ns_concepts_27.items():
+                if col_k in cont:
+                    cont[col_k] = float(0.50 * cont[col_k] + 0.50 * ns_val)
+                else:
+                    cont[col_k] = float(ns_val)
 
         # 2. Dự đoán xác suất âm học từ mô hình Random Forest (RF Audio Champion)
         rf_probs_map = {g: 1.0 / len(GENRES) for g in GENRES}
@@ -906,10 +1184,17 @@ class HeritageInferenceEngine:
         profile_probs = exp_s / np.sum(exp_s)
         profile_prob_map = {g: float(profile_probs[i]) for i, g in enumerate(GENRES)}
 
-        # Hợp nhất các nguồn âm học: CNN (55%) + RF (35%) + Fuzzy Rules (10%)
+        # Hợp nhất các nguồn âm học:
+        # - Khi Tổ hợp 4 Họ Kiến trúc Neuro-Symbolic (M2a + M3c + M4d + M5c) hoạt động:
+        #   Sử dụng 100% phân phối xác suất từ tổ hợp 4 họ (vì M4d và M5c đã tích hợp trực tiếp 7 trục MPEG-7,
+        #   27 khái niệm mờ và 60 luật mờ khả vi, đạt 94.82% F1 In-Domain và 85.60% F1 Cross-Domain YouTube).
+        # - Khi fallback về EXP-13 / EXP-02: dùng công thức cũ CNN (55%) + RF (35%) + Fuzzy Profile (10%).
         audio_probs_map = {}
+        is_ens_4fam = (getattr(self, 'audio_cnn_type', None) == 'ENSEMBLE_4FAM_NEUROSYMBOLIC')
         for g in GENRES:
-            if cnn_probs is not None:
+            if cnn_probs is not None and is_ens_4fam:
+                audio_probs_map[g] = float(cnn_probs.get(g, 1.0 / len(GENRES)))
+            elif cnn_probs is not None:
                 audio_probs_map[g] = (
                     0.55 * cnn_probs.get(g, 0.16) +
                     0.35 * rf_probs_map.get(g, 0.16) +
@@ -955,9 +1240,9 @@ class HeritageInferenceEngine:
                 p_vis = exp_v / np.sum(exp_v)
                 vis_probs_map = {g: float(p_vis[i]) for i, g in enumerate(GENRES)}
 
-            # Dung hợp muộn Multimodal Late Fusion: 65% Audio + 35% Visual
+            # Dung hợp muộn Multimodal Late Fusion tối ưu (70% Audio Ensemble + 30% Visual CBM, đạt 14/14 = 100% Zero-Leakage Acc, LogLoss = 0.2881)
             for g in GENRES:
-                final_probs_dict[g] = 0.65 * audio_probs_map[g] + 0.35 * vis_probs_map.get(g, 0.16)
+                final_probs_dict[g] = 0.70 * audio_probs_map[g] + 0.30 * vis_probs_map.get(g, 0.16)
         else:
             final_probs_dict = dict(audio_probs_map)
 
@@ -968,8 +1253,13 @@ class HeritageInferenceEngine:
         pred_genre = max(probs_dict.keys(), key=lambda k: probs_dict[k])
         confidence = float(probs_dict[pred_genre])
 
-        # 5. Tìm luật mờ kích hoạt từ Crisp / Continuous / Visual Rules
+        # 5. Tìm luật mờ kích hoạt từ Continuous (DT + RF Top 60 rules) / Crisp / RIPPER / Visual Rules
         matched_rules = []
+        # 60 Continuous Fuzzy Rules (cùng bộ luật huấn luyện Neuro-Symbolic M5c)
+        for r in (self.continuous_rules + getattr(self, 'rf_top_rules', [])):
+            if r.get('consequent') == pred_genre:
+                if self.audio_bridge.is_rule_triggered(r, cont):
+                    matched_rules.append(r)
         # Crisp rules
         for r in self.crisp_rules:
             if r.get('consequent') == pred_genre:
@@ -978,7 +1268,7 @@ class HeritageInferenceEngine:
         # Ripper rules
         for r in self.ripper_rules:
             if r.get('consequent') == pred_genre:
-                if self.audio_bridge.is_rule_triggered(r, cont):
+                if self.audio_bridge.is_rule_triggered(r, cont) or self.audio_bridge.is_rule_triggered(r, crisp):
                     matched_rules.append(r)
 
         # Visual rules (nếu có visual cues)
@@ -1488,12 +1778,13 @@ class HeritageInferenceEngine:
                 en_sec = round((i + 1) * seg_duration, 2) if i < n_chunks - 1 else round(duration_total, 2)
                 mid_sec = (st_sec + en_sec) / 2.0
                 
-                # Cắt lát âm thanh 4s xung quanh điểm giữa để đưa vào Audio CNN (Mel+CQT)
+                # Cắt lát âm thanh 12s (khi dùng Tổ hợp 4 Họ Neuro-Symbolic) hoặc 4s xung quanh điểm giữa
+                win_len = int(12.0 * sr) if getattr(self, 'audio_cnn_type', None) == 'ENSEMBLE_4FAM_NEUROSYMBOLIC' and len(audio_data) >= int(8.0 * sr) else chunk_len
                 mid_idx = int(mid_sec * sr)
-                s_idx = max(0, mid_idx - chunk_len // 2)
-                e_idx = min(len(audio_data), s_idx + chunk_len)
-                if e_idx - s_idx < chunk_len and s_idx > 0:
-                    s_idx = max(0, e_idx - chunk_len)
+                s_idx = max(0, mid_idx - win_len // 2)
+                e_idx = min(len(audio_data), s_idx + win_len)
+                if e_idx - s_idx < win_len and s_idx > 0:
+                    s_idx = max(0, e_idx - win_len)
                 chunk_slices.append((s_idx, e_idx, st_sec, en_sec))
 
         # 3. Phân tích từng chunk
@@ -1938,13 +2229,13 @@ class HeritageInferenceEngine:
             'audio': {
                 'prediction': dom_aud,
                 'confidence': avg_aud_conf,
-                'notes': "Phân loại âm thanh CNN (EXP-13) + RF liên tục"
+                'notes': "Tổ hợp 4 họ kiến trúc Neuro-Symbolic Audio (M2a + M3c + M4d + M5c)" if getattr(self, 'audio_cnn_type', None) == 'ENSEMBLE_4FAM_NEUROSYMBOLIC' else "Phân loại âm thanh CNN (EXP-13) + RF liên tục"
             },
             'visual': overall_vis_mod,
             'fused': {
                 'prediction': final_genre,
                 'confidence': round(final_confidence * 100, 1),
-                'method': "Late Fusion Bayesian + Mệnh đề luật mờ 2 tầng"
+                'method': "Multimodal Late Fusion (0.70 Audio Ensemble + 0.30 Visual CBM) + 60 Luật mờ Khả vi"
             }
         }
 

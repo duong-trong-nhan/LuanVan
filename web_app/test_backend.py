@@ -19,7 +19,7 @@ def run_tests():
     print("1. Kiểm tra GET / (Index HTML):")
     res = client.get("/")
     assert res.status_code == 200, f"Expected 200, got {res.status_code}"
-    assert "Hệ thống Phân lớp" in res.text, "Index HTML missing title"
+    assert "<title>HERA</title>" in res.text, "Index HTML missing HERA title"
     print("  -> PASS: Index HTML load thanh cong!")
 
     print("\n2. Kiểm tra GET /api/health:")

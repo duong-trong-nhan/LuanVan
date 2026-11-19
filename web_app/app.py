@@ -31,8 +31,8 @@ STATIC_DIR.mkdir(parents=True, exist_ok=True)
 TEMPLATES_DIR.mkdir(parents=True, exist_ok=True)
 
 app = FastAPI(
-    title="Heritage Multimodal XAI",
-    description="Hệ thống Phân lớp & Giải thích Đa phương thức Di sản Văn hóa Phi vật thể Việt Nam",
+    title="HERA",
+    description="HERA: Hệ thống trí tuệ nhân tạo đa phương thức thông minh và có khả năng giải thích trong phân tích di sản văn hóa phi vật thể",
     version="2.0.0"
 )
 
