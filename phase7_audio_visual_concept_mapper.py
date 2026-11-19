@@ -58,6 +58,35 @@ AXIS_VIETNAMESE_NAMES = {
     'Vibrato': 'Độ rung ngân và Luyến láy (Vibrato / Pitch Modulation)'
 }
 
+# Ánh xạ 25 khái niệm thị giác CBM (snake_case) sang nhãn tiếng Việt chuẩn học thuật
+VISUAL_CONCEPT_VI_LABELS = {
+    'guitar_phim_lom': 'Đàn guitar phím lõm',
+    'dan_kim_dan_nguyet': 'Đàn kìm / Đàn nguyệt',
+    'dan_co_dan_nhi': 'Đàn cò / Đàn nhị',
+    'dan_tranh': 'Đàn tranh',
+    'dan_bau': 'Đàn bầu',
+    'dan_day': 'Đàn đáy cần dài',
+    'ban_phach_trong_chau': 'Bàn phách tre & Trống chầu',
+    'trong_cheo_mo_quat_giay': 'Trống Chèo, mõ & quạt giấy',
+    'dao_cu_hau_dong_kiem_cung_mam': 'Đạo cụ hầu đồng (kiếm, cung, mâm lễ)',
+    'senh_tien_trong_manh': 'Sênh tiền & Trống mảnh',
+    'khong_nhac_cu': 'Hát chay không nhạc cụ đệm',
+    'co_trang_mao_giap_dinh_hat': 'Phục trang cổ trang, mão giáp đính hạt',
+    'ao_dai_ao_ba_ba': 'Áo dài / Áo bà ba',
+    'ao_thao_khan_nhieu_ao_the': 'Áo thao, khăn nhiễu & áo the',
+    'ao_tu_than_yem_dao': 'Áo tứ thân & yếm đào',
+    'trang_phuc_he_cheo': 'Trang phục & hóa trang hề Chèo',
+    'khan_chau_ao_ngu_hau_dong': 'Khăn chầu & áo ngự hầu đồng',
+    'non_quai_thao_khan_mo_qua_ao_mo_ba': 'Nón quai thao, khăn mỏ quạ & áo mớ ba',
+    'ao_nau_kinh_den_mu_cat': 'Áo nâu, kính đen & mũ cát',
+    'san_khau_kich_hat': 'Không gian sân khấu kịch hát',
+    'doi_hinh_3_nguoi_ca_tru': 'Đội hình 3 người Ca trù (đào nương, kép đàn, quan viên)',
+    'chieu_cheo_san_dinh': 'Không gian chiếu Chèo sân đình',
+    'dien_tho_hau_dong': 'Không gian điện thờ hầu đồng',
+    'doi_dap_nam_nu_quan_ho': 'Đội hình hát đối đáp nam nữ Quan họ',
+    'chieu_xam_duong_pho_cho': 'Không gian chiếu Xẩm đường phố / chợ'
+}
+
 # Ánh xạ nhãn tiếng Anh sang tiếng Việt trên 7 trục mờ
 AXIS_LEVEL_EN_TO_VI = {
     'Energy': {
@@ -468,7 +497,8 @@ class AudioRuleToConceptBridge:
 
     def translate_clause_to_vietnamese(self, clause_info: Dict[str, Any]) -> str:
         """
-        Dịch 1 mệnh đề luật thành câu văn giải thích đặc trưng tín hiệu âm học tiếng Việt (Tầng 1).
+        Dịch 1 mệnh đề luật (âm học mờ liên tục, định tính hoặc thị giác nhị phân)
+        thành câu giải thích tiếng Việt mạch lạc, sát thực tế ngưỡng đo.
         """
         ctype = clause_info.get('type')
         axis = clause_info.get('axis')
@@ -477,40 +507,71 @@ class AudioRuleToConceptBridge:
         if ctype == 'continuous':
             level = clause_info.get('level')
             op = clause_info.get('op')
-            thresh = clause_info.get('threshold')
-            level_exp = ACOUSTIC_LEVEL_EXPLANATIONS.get(axis, {}).get(level, '')
+            thresh = float(clause_info.get('threshold', 0.0))
+            level_exp = ACOUSTIC_LEVEL_EXPLANATIONS.get(axis, {}).get(level, '').strip()
 
             if op in ['>', '>=']:
-                return (
-                    f"Độ thuộc mức '{level}' trên trục {axis_name_vi} vượt ngưỡng ({op} {thresh:.3f}), "
-                    f"thể hiện rõ: {level_exp}"
-                )
+                if thresh < 0.12:
+                    if level_exp:
+                        return (
+                            f"Trục {axis_name_vi} ghi nhận thành phần mờ mức '{level}' khác không ({op} {thresh:.3f}), "
+                            f"phản ánh sự hiện diện bước đầu của đặc tính: {level_exp}"
+                        )
+                    return f"Trục {axis_name_vi} có độ thuộc mức '{level}' khác không ({op} {thresh:.3f})."
+                elif thresh < 0.35:
+                    if level_exp:
+                        return (
+                            f"Độ thuộc mức '{level}' trên trục {axis_name_vi} vượt ngưỡng phân tách ({op} {thresh:.3f}), "
+                            f"cho thấy đặc tính: {level_exp}"
+                        )
+                    return f"Độ thuộc mức '{level}' trên trục {axis_name_vi} vượt ngưỡng phân tách ({op} {thresh:.3f})."
+                else:
+                    if level_exp:
+                        return (
+                            f"Độ thuộc mức '{level}' trên trục {axis_name_vi} đạt mức cao ({op} {thresh:.3f}), "
+                            f"thể hiện rõ: {level_exp}"
+                        )
+                    return f"Độ thuộc mức '{level}' trên trục {axis_name_vi} đạt mức cao ({op} {thresh:.3f})."
             else:
                 return (
                     f"Độ thuộc mức '{level}' trên trục {axis_name_vi} giới hạn ở mức thấp ({op} {thresh:.3f}), "
-                    f"xác nhận tín hiệu không nghiêng mạnh về trạng thái này."
+                    f"cho thấy tín hiệu không nghiêng mạnh về trạng thái '{level}'."
                 )
 
         elif ctype == 'crisp_eq':
-            level = clause_info.get('level')
-            level_exp = ACOUSTIC_LEVEL_EXPLANATIONS.get(axis, {}).get(level, '')
-            return (
-                f"Trục {axis_name_vi} đạt mức điển hình '{level}': {level_exp}"
-            )
+            level = str(clause_info.get('level', '')).strip()
+            # Khái niệm thị giác CBM dạng nhị phân (== 1 hoặc == 0)
+            if axis in VISUAL_CONCEPT_VI_LABELS:
+                vis_label = VISUAL_CONCEPT_VI_LABELS[axis]
+                if level in ['1', '1.0', 'True', 'true']:
+                    return f"Phát hiện bằng chứng thị giác trên khung hình: {vis_label}."
+                elif level in ['0', '0.0', 'False', 'false']:
+                    return f"Không ghi nhận yếu tố thị giác '{vis_label}' (góp phần loại trừ các thể loại dễ nhầm lẫn)."
+                return f"Đặc trưng thị giác '{vis_label}' ở trạng thái '{level}'."
+
+            # Luật dự phòng đặc thù không thuộc 7 trục chuẩn
+            if axis == 'Dominant_Acoustic_Aura':
+                return f"Hồ sơ đặc trưng âm học tổng hợp tương thích trực tiếp với mẫu chuẩn của thể loại '{level}'."
+
+            level_exp = ACOUSTIC_LEVEL_EXPLANATIONS.get(axis, {}).get(level, '').strip()
+            if level_exp:
+                return f"Trục {axis_name_vi} đạt mức điển hình '{level}': {level_exp}"
+            return f"Trục {axis_name_vi} đạt mức điển hình '{level}'."
 
         elif ctype == 'crisp_in':
             levels = clause_info.get('levels', [])
             levels_str = ", ".join([f"'{lvl}'" for lvl in levels])
-            # Lấy giải thích của mức đại diện đầu tiên
             sample_exp = ""
             for lvl in levels:
                 if lvl in ACOUSTIC_LEVEL_EXPLANATIONS.get(axis, {}):
                     sample_exp = ACOUSTIC_LEVEL_EXPLANATIONS[axis][lvl]
                     break
-            return (
-                f"Trục {axis_name_vi} nằm trong tập giá trị cho phép [{levels_str}], "
-                f"phù hợp đặc tính tín hiệu ({sample_exp})"
-            )
+            if sample_exp:
+                return (
+                    f"Trục {axis_name_vi} nằm trong tập giá trị cho phép [{levels_str}], "
+                    f"phù hợp đặc tính tín hiệu ({sample_exp})"
+                )
+            return f"Trục {axis_name_vi} nằm trong tập giá trị cho phép [{levels_str}]."
 
         return f"Điều kiện kích hoạt: {clause_info.get('raw')}"
 
@@ -521,7 +582,8 @@ class AudioRuleToConceptBridge:
         default_confidence: Optional[float] = None
     ) -> Dict[str, Any]:
         """
-        Dịch toàn bộ một luật mờ thành văn bản giải thích âm học hoàn chỉnh (Tầng 1).
+        Dịch toàn bộ một luật mờ/thị giác thành tóm tắt ngắn gọn (không lặp lại nguyên văn
+        danh sách mệnh đề) cùng danh sách diễn giải từng điều kiện (Tầng 1).
         """
         if isinstance(rule, str):
             rule_text = rule
@@ -538,17 +600,36 @@ class AudioRuleToConceptBridge:
         parsed_clauses = [self.parse_rule_clause(c) for c in clauses]
         clause_explanations = [self.translate_clause_to_vietnamese(pc) for pc in parsed_clauses]
 
-        # Xây dựng đoạn văn diễn giải tổng quan
-        conf_str = f"{confidence * 100:.1f}%" if isinstance(confidence, (int, float)) and confidence <= 1.0 else str(confidence)
-        support_str = f", dựa trên {support} mẫu huấn luyện" if support is not None else ""
+        # Xác định bản chất luật (Âm học / Thị giác / Kết hợp) và các yếu tố tham gia
+        has_visual = any(pc.get('axis') in VISUAL_CONCEPT_VI_LABELS for pc in parsed_clauses)
+        has_audio = any(pc.get('axis') in AXIS_VIETNAMESE_NAMES for pc in parsed_clauses)
+        if has_visual and has_audio:
+            rule_kind = "Luật suy luận đa phương thức"
+        elif has_visual:
+            rule_kind = "Luật suy luận thị giác (Visual RIPPER)"
+        else:
+            rule_kind = "Luật suy luận mờ âm học"
 
-        summary_lines = [
-            f"Luật mờ kích hoạt kết luận thể loại '{consequent}' với độ tin cậy {conf_str}{support_str}:"
-        ]
-        for idx, exp in enumerate(clause_explanations, 1):
-            summary_lines.append(f"  ({idx}) {exp}")
+        factor_names = []
+        for pc in parsed_clauses:
+            ax = pc.get('axis', '')
+            if ax in VISUAL_CONCEPT_VI_LABELS:
+                lbl = VISUAL_CONCEPT_VI_LABELS[ax]
+                if lbl not in factor_names:
+                    factor_names.append(lbl)
+            elif ax in AXIS_VIETNAMESE_NAMES:
+                short_ax = AXIS_VIETNAMESE_NAMES[ax].split(' (')[0]
+                if short_ax not in factor_names:
+                    factor_names.append(short_ax)
 
-        rule_summary_text = "\n".join(summary_lines)
+        conf_str = f"{confidence * 100:.1f}%" if isinstance(confidence, (int, float)) and confidence <= 1.0 else f"{confidence}%"
+        support_str = f" (rút trích từ {support} mẫu huấn luyện)" if support is not None else ""
+        factors_str = f" dựa trên {len(parsed_clauses)} điều kiện liên quan đến {', '.join(factor_names[:4])}" if factor_names else ""
+
+        rule_summary_text = (
+            f"{rule_kind} đề xuất thể loại '{consequent}' với độ tin cậy {conf_str}{support_str}{factors_str}. "
+            f"Xem phân rã chi tiết từng điều kiện kích hoạt ở mục bên dưới."
+        )
 
         return {
             'rule_text': rule_text,
