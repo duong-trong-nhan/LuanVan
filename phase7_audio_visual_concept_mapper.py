@@ -80,7 +80,7 @@ VISUAL_CONCEPT_VI_LABELS = {
     'non_quai_thao_khan_mo_qua_ao_mo_ba': 'Nón quai thao, khăn mỏ quạ & áo mớ ba',
     'ao_nau_kinh_den_mu_cat': 'Áo nâu, kính đen & mũ cát',
     'san_khau_kich_hat': 'Không gian sân khấu kịch hát',
-    'doi_hinh_3_nguoi_ca_tru': 'Đội hình 3 người Ca trù (đào nương, kép đàn, quan viên)',
+    'doi_hinh_3_nguoi_ca_tru': 'Bố cục trình diễn Ca trù truyền thống (đào nương & kép đàn)',
     'chieu_cheo_san_dinh': 'Không gian chiếu Chèo sân đình',
     'dien_tho_hau_dong': 'Không gian điện thờ hầu đồng',
     'doi_dap_nam_nu_quan_ho': 'Đội hình hát đối đáp nam nữ Quan họ',
