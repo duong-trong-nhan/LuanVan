@@ -1,159 +1,129 @@
 ========================================================================================
-AI SLIDE GENERATION PROMPT: CONCISE ACADEMIC SPECIFICATION
-Project: HerittageFNS — Interpretable Fuzzy Neuro-Symbolic Audio Classification 
-Target Audience: Academic Professor & Thesis Committee
-Presentation Style: Concise, direct, high information density, publication-grade
-Structure: Exactly 8 Focused Slides following the User Workflow
+BÁO CÁO TỔNG QUAN DỰ ÁN LUẬN VĂN TỐT NGHIỆP
+ĐỀ TÀI: HỆ THỐNG PHÂN LỚP & GIẢI THÍCH ĐA PHƯƠNG THỨC DI SẢN ÂM NHẠC CỔ TRUYỀN VIỆT NAM
+(Interpretable Multimodal Neuro-Symbolic XAI for Vietnamese Intangible Cultural Heritage)
+6 Thể loại nghiên cứu: Ca trù, Chèo, Chầu văn, Cải lương, Hát xẩm, Quan họ
 ========================================================================================
 
-SYSTEM INSTRUCTION FOR AI SLIDE BUILDER:
-Build a streamlined, high-impact 8-slide presentation strictly following the 8 workflow steps below. Avoid introductory fluff, lengthy prose, or generic filler. Use concise bullet points, quantitative numbers, explicit feature listings, mathematical rigor, and direct plot references.
+1. BẢN ĐỒ DỮ LIỆU & GIAO THỨC CHỐNG RÒ RỈ (ZERO DATA LEAKAGE)
+----------------------------------------------------------------------------------------
+Để đảm bảo tính khách quan khoa học, dự án sử dụng kết hợp 2 nguồn dữ liệu với giao thức phân chia nghiêm ngặt:
 
-Design Rules:
-- Language: English (keep Vietnamese traditional genre names as proper nouns: Ca trù, Chèo, Chầu văn, Cải lương, Hát xẩm, Quan họ).
-- Theme: Clean academic dark-slate or modern white, high contrast, sharp typography, generous whitespace.
-- Notation: Plain text and Unicode symbols only (ABSOLUTELY NO LaTeX syntax or dollar signs).
-- Visuals: Use only the designated plots for each slide.
+1.1. Tập dữ liệu âm học chuẩn hóa (Benchmark Audio Dataset - Hugging Face):
+- Quy mô: 1,800 bài hát hoàn chỉnh (300 bài / thể loại cho 6 thể loại).
+- Chuẩn hóa phân đoạn: Mỗi bài cắt 2 phân đoạn 12 giây không giao thoa -> 3,600 mẫu âm thanh (600 mẫu / thể loại) ở tần số 22,050 Hz, đơn kênh Mono WAV.
+- Giao thức chia dữ liệu: Áp dụng Song-Level Group Split (data/datasets/split_group_v2.csv) với tỷ lệ 70% Train (2,520 mẫu) / 10% Val (360 mẫu) / 20% Test (720 mẫu), đảm bảo 2 phân đoạn của cùng một bài hát không bao giờ rơi vào cả tập Train và tập Test.
 
-========================================================================================
-SLIDE 1: DATA ACQUISITION & PREPROCESSING FROM HUGGING FACE
-========================================================================================
-Title: Dataset Acquisition & Standardized Audio Preprocessing
-Data Pipeline:
-• Source: Curated Vietnamese traditional audio corpus sourced from Hugging Face Hub.
-• Scope: 6 UNESCO-recognized and traditional genres (Ca trù, Chèo, Chầu văn, Cải lương, Hát xẩm, Quan họ).
-• Scale: 1,800 raw high-fidelity recordings (300 recordings per genre).
-• Standardized Slicing: Two representative 12-second non-overlapping segments per song -> 3,600 balanced audio samples (600 samples per genre).
-• Signal Standardization: Resampled to 22,050 Hz, single-channel mono, 16-bit PCM WAV.
-[Illustration: ./data/plots/01_genre_distribution.png]
-Image Description: Balanced distribution chart demonstrating 3,600 standardized audio segments across the 6 traditional music genres.
+1.2. Tập dữ liệu video biểu diễn thực tế ngoài tự nhiên (In-The-Wild YouTube Dataset):
+- Quy mô: 131 video biểu diễn thực tế trên YouTube (tổng thời lượng 452.2 phút) trong thư mục dataset/video/.
+- Phục vụ 2 nhiệm vụ:
+  + Trích xuất khung hình để huấn luyện và kiểm thử mô hình thắt nút khái niệm thị giác (Visual Concept Bottleneck Model - Visual CBM, 25 khái niệm nhạc cụ/trang phục/bối cảnh).
+  + Phân chia ở cấp độ video (Video-Level Group Split: 81 video Train / 20 video Val / 30 video Test) và cắt phân đoạn thích ứng 12 giây (Adaptive Strided Sampling -> 902 phân đoạn) để huấn luyện và đánh giá khả năng tổng quát hóa thực tế của 21 mô hình Đa phương thức & Neuro-Symbolic thế hệ mới.
 
-========================================================================================
-SLIDE 2: ACOUSTIC EXTRACTION: 167 PHYSICAL VS. 30 SEMANTIC FEATURES
-========================================================================================
-Title: Acoustic Feature Extraction & Dimensionality Reduction
-Signal Processing with Librosa:
-• Extracted 167 physical audio features spanning 9 signal domains:
-  - F0 / Pitch (5), Rhythm & Tempo (3), Vibrato (2), RMS Energy (4), MFCC & Deltas (106), Chroma (25), Spectral & ZCR (15), Tonnetz (6), Mel Energy (2).
-  - Plus 5 tracking metadata columns (sample_idx, label, audio_path, segment_id, segment_time) = 172 DataFrame columns.
-Dimensionality Reduction (Mitigating the Curse of Dimensionality):
-• The Problem: Generating fuzzy logic rules over 167 continuous dimensions causes exponential combinatorial explosion and destroys model interpretability.
-• The Solution: Filtered down to exactly 30 core features for semantic modeling.
-• Empirical Justification: The 30 semantic features retain sufficient acoustic variance to achieve classification performance comparable to black-box models trained on all 167 raw features, while preserving 100% human interpretability.
-[Illustration: ./data/plots/05_correlation.png]
-Image Description: Correlation heatmap demonstrating high collinearity among raw feature blocks and validating the reduction from 167 down to 30 core features.
 
-========================================================================================
-SLIDE 3: 7 SEMANTIC AXES & MUSICOLOGICAL FEATURE MAPPING
-========================================================================================
-Title: 7-Axis Semantic Grouping Grounded in Scientific Literature
-Axis Construction & Fuzzy Granularity:
-• Based on domain literature and ethnomusicology, the 30 features are grouped into 7 perceptual axes:
-1. Energy (Năng lượng) [5 Fuzzy Levels: Very Weak, Weak, Moderate, Strong, Very Strong]:
-   • Features (2): energy_mean, dynamic_range
-2. Harmony (Hòa âm) [3 Fuzzy Levels: Low, Medium, High]:
-   • Features (7): chroma_C_mean, chroma_D_mean, chroma_E_mean, chroma_F_mean, chroma_G_mean, chroma_A_mean, chroma_B_mean
-3. Pitch (Cao độ) [5 Fuzzy Levels: Very Low, Low, Medium, High, Very High]:
-   • Features (2): pitch_mean, pitch_range
-4. Spectral (Độ sáng phổ) [3 Fuzzy Levels: Low, Medium, High]:
-   • Features (3): spectral_centroid_mean, spectral_bandwidth_mean, spectral_rolloff_mean
-5. Tempo (Nhịp độ) [3 Fuzzy Levels: Slow, Moderate, Fast]:
-   • Features (1): tempo
-6. Timbre (Âm sắc) [5 Fuzzy Levels: Very Low, Low, Medium, High, Very High]:
-   • Features (13): mfcc_01_mean through mfcc_13_mean
-7. Vibrato (Luyến láy) [3 Fuzzy Levels: Light Ornament, Moderate, Heavy Ornament]:
-   • Features (2): vibrato_extent, vibrato_energy
-Total: Exactly 30 features structured into 27 linguistic fuzzy sets.
-[Illustration: ./data/plots/03_radar_chart.png]
-Image Description: Multi-axis radar charts displaying the 7-dimensional acoustic profile of each Vietnamese traditional genre.
+2. QUY TRÌNH THỰC HIỆN QUA CÁC GIAI ĐOẠN NGHIÊN CỨU
+----------------------------------------------------------------------------------------
 
-========================================================================================
-SLIDE 4: FUZZY C-MEANS & 4 CRITERIA FOR REPRESENTATIVE X-AXIS SELECTION
-========================================================================================
-Title: Fuzzy C-Means Modeling & 4 Criteria for Representative Features
-Fuzzy Clustering:
-• Applied Fuzzy C-Means (FCM, fuzziness parameter m = 2.0) across each semantic axis to establish data-driven membership functions satisfying Ruspini partition of unity (Sum of mu_i = 1.0).
-The 4 Selection Criteria for the Representative X-Axis Feature:
-1. Direct Semantic Definition: The feature must directly define the physical and perceptual quantity of the axis (e.g., tempo for Tempo, pitch_mean for Pitch, energy_mean for Energy).
-2. Monotonic Mean Progression: The representative feature MUST exhibit strictly increasing mean values across successive fuzzy levels (Level 1 < Level 2 < ... < Level k) to guarantee ordinal consistency.
-3. Highest Variance Separation Ratio: The feature must achieve the highest between-cluster to within-cluster variance ratio (ANOVA F-statistic / Fisher criterion) among candidate features in that group.
-4. Academic Extension for Multi-Dimensional Axes: For high-dimensional axes without a single scalar definition:
-   • Timbre (13 MFCCs): mfcc_01_mean is selected as it captures the primary spectral envelope and dominant acoustic power.
-   • Harmony (7 Chromas): Mean pitch-class energy is used to represent modal harmonic fullness.
-[Illustration: ./data/plots/fuzzy_logic_graphs_all_axes.png]
-Image Description: Comprehensive 7-axis fuzzy membership function graphs showing Ruspini partitions, peaks (mu = 1.0), feet (mu = 0.0), and alpha = 0.5 crossover points.
+GIAI ĐOẠN 1: TRÍCH XUẤT 167 ĐẶC TRƯNG ÂM HỌC THÔ (LIBROSA)
+- Trích xuất 167 đặc trưng âm học số bao phủ 9 miền tín hiệu: Cao độ F0 (5), Tiết tấu/Nhịp độ (3), Luyến láy/Độ rung (2), Năng lượng RMS (4), Hệ số âm sắc MFCC & Đạo hàm Delta/Delta-Delta (106), Hòa âm Chroma (25), Độ tương phản & Hình dạng phổ (15), Cấu trúc âm điệu Tonnetz (6) và Năng lượng Mel (2).
+- Lưu trữ tại data/datasets/features_all.csv (3,600 mẫu x 172 cột).
 
-========================================================================================
-SLIDE 5: GENERATION OF NEW CRISP & CONTINUOUS FUZZY DATASETS
-========================================================================================
-Title: Generating Dual Fuzzy Datasets from Membership Logic
-Transformation Engine:
-• The continuous acoustic samples are mapped into two distinct, structured fuzzy datasets:
-1. Crisp Linguistic Dataset (features_fuzzy_crisp.csv):
-   • 7 categorical attributes mapping each sample to its maximum membership set:
-     x -> argmax_i mu_i(x) (e.g., Tempo = 'Moderate', Energy = 'Very Weak', Timbre = 'Low').
-   • Shape: 3,600 samples x 9 columns (7 linguistic axes + sample_idx + label).
-2. Continuous Fuzzy Membership Dataset (features_fuzzy_continuous.csv):
-   • 27 continuous attributes in range [0, 1] preserving exact membership degrees across all fuzzy sets:
-     [mu_Tempo_Slow, mu_Tempo_Mod, mu_Tempo_Fast, ..., mu_Spectral_High].
-   • Shape: 3,600 samples x 29 columns (27 fuzzy membership degrees + sample_idx + label).
-Key Takeaway: Eliminates artificial hard boundary splits and preserves micro-variation gradient information.
-[Illustration: ./data/plots/08_fuzzy_profile_heatmap.png]
-Image Description: Heatmap showing dominant fuzzy membership values across the 7 axes for all 6 traditional music genres.
+GIAI ĐOẠN 2: THIẾT KẾ 7 TRỤC NGỮ NGHĨA MPEG-7 & MÔ HÌNH HÓA LOGIC MỜ (FUZZY LOGIC)
+- Vấn đề phát hiện: 167 đặc trưng vật lý vi mô chứa nhiều nhiễu phòng thu (đặc biệt các bậc MFCC cao và đặc trưng phẳng phổ) làm mô hình học vẹt môi trường thu âm và không thể giải thích theo ngôn ngữ nhạc lý.
+- Giải pháp: Chọn lọc 30 đặc trưng cốt lõi và gom thành 7 trục ngữ nghĩa MPEG-7:
+  1. Energy (Năng lượng - 5 mức mờ: Rất yếu, Yếu, Vừa, Mạnh, Rất mạnh)
+  2. Harmony (Hòa âm - 3 mức mờ: Thấp, Trung bình, Cao)
+  3. Pitch (Cao độ - 5 mức mờ: Rất trầm, Trầm, Trung, Cao, Rất cao)
+  4. Spectral (Độ sáng phổ - 3 mức mờ: Thấp, Trung bình, Cao)
+  5. Tempo (Nhịp độ - 3 mức mờ: Chậm, Vừa, Nhanh)
+  6. Timbre (Âm sắc - 5 mức mờ: Rất thấp, Thấp, Trung bình, Cao, Rất cao)
+  7. Vibrato (Luyến láy - 3 mức mờ: Ít luyến, Vừa, Nhiều luyến)
+- Phân cụm mờ FCM / GMM và chuẩn hóa phân hoạch Ruspini (tổng độ thuộc trên mỗi trục bằng 1.0), sinh ra tập 27 độ thuộc mờ liên tục (features_fuzzy_continuous.csv) và 7 nhãn định tính ngôn ngữ (features_fuzzy_crisp.csv).
 
-========================================================================================
-SLIDE 6: WHITE-BOX MODEL TRAINING & BENCHMARKING (DT & RF)
-========================================================================================
-Title: White-Box Model Induction & Performance Benchmarking
-Model Architectures (Trained on the New Fuzzy Datasets):
-• Decision Tree & Random Forest (50 trees) with complexity control (max_depth = 5, min_samples_leaf = 10) to guarantee transparent, shallow decision branches.
-Quantitative Evaluation (80/20 Stratified Split, 720 Test Samples):
-• Decision Tree (Crisp 7 Axes):       Accuracy = 51.25% | Macro F1 = 50.58%
-• Random Forest (Crisp 7 Axes):       Accuracy = 55.97% | Macro F1 = 55.04%
-• Decision Tree (Continuous 27 MFs):  Accuracy = 56.53% | Macro F1 = 56.06%
-• Random Forest (Continuous 27 MFs):  Accuracy = 64.17% | Macro F1 = 63.71%
-Core Takeaways:
-• Continuous fuzzy degrees improve Random Forest accuracy by +8.20% over crisp categorical labels.
-• Random Forest ensemble improves accuracy by +7.64% over single Decision Tree.
-• High class precision (> 80%) on Ca trù, Quan họ, and Cải lương.
-[Illustration: ./data/plots/12_model_performance_comparison.png]
-Image Description: Model performance comparison bar chart and confusion matrix for Continuous Fuzzy Random Forest.
+GIAI ĐOẠN 3: CẢM NẠP HỆ LUẬT TƯỢNG TRƯNG (DECISION TREE, RANDOM FOREST, RIPPER, CN2)
+- Khảo sát các kỹ thuật tăng cường dữ liệu mờ (Gaussian Jitter, SMOTE 50%, SMOTE 100%) và trích xuất hệ luật IF-THEN từ Decision Tree, Random Forest, RIPPER và CN2:
+  + Decision Tree (Crisp 7 trục):       HF Test Acc = 51.25% (59.44% với SMOTE)
+  + Decision Tree (Continuous 27 MFs):  HF Test Acc = 56.53% (64.72% với Gaussian Jitter)
+  + Random Forest (Continuous 27 MFs):  HF Test Acc = 70.28% (78.89% với Gaussian Jitter)
+- Trích xuất 60 luật mờ liên tục cốt lõi (30 luật phân hoạch từ Decision Tree + 30 luật độ tin cậy cao 70% - 96% từ Random Forest) làm nền tảng tri thức cho mạng Neuro-Symbolic.
 
-========================================================================================
-SLIDE 7: AUTOMATED SYMBOLIC RULE EXTRACTION FROM DT & RF
-========================================================================================
-Title: Automated Symbolic IF-THEN Rule Extraction
-Extraction Methodology:
-• Traversed all 50 constituent decision trees in the Random Forest ensemble.
-• Converted all decision pathways from root to leaf into Disjunctive Normal Form (DNF) IF-THEN rules:
-  IF (Condition 1) AND (Condition 2) ... AND (Condition k) THEN -> Genre [Confidence, Support, Frequency]
-Pruning & Statistical Significance Thresholds:
-• Minimum Confidence >= 50.0% (rule precision on training set).
-• Minimum Support >= 10 samples (statistical validity).
-• Tree Voting Frequency: Number of trees independently activating the identical rule (e.g., 3/50, 4/50 trees).
-Selected Discovered Golden Rules:
-• Ca trù: IF Energy == 'Very Weak' AND Vibrato IN ['Moderate', 'Heavy'] AND Timbre IN ['Very Low', 'Low'] THEN -> Ca trù (Conf: 75.0%, Supp: 260)
-• Quan họ: IF Tempo == 'Moderate' AND Energy IN ['Strong', 'Very Strong'] AND Timbre IN ['High', 'Very High'] THEN -> Quan họ (Conf: 84.0%, Supp: 327)
-• Cải lương: IF Vibrato == 'Heavy Ornament' AND Timbre IN ['High', 'Very High'] AND Harmony == 'High' THEN -> Cải lương (Conf: 78.4%, Supp: 218)
-[Illustration: ./data/plots/09_decision_tree_crisp_graph.png]
-Image Description: High-contrast visualization of the Crisp Decision Tree, displaying root splits on Timbre and Energy and explicit path-to-rule branches.
+GIAI ĐOẠN 4: BENCHMARK 10 MÔ HÌNH HỌC MÁY TRÊN 167 ĐẶC TRƯNG THÔ & HỌC SÂU CNN THẾ HỆ 1
+- Tối ưu 10 mô hình Học máy trên 167 đặc trưng thô bằng Optuna (50 trials) trên tập chuẩn Hugging Face:
+  + SVM (RBF Kernel): 93.75% Acc | PyTorch MLP: 93.47% | LightGBM: 92.50% | XGBoost: 92.22% | Random Forest: 89.86%.
+- Huấn luyện 13 mô hình CNN Transfer Learning thế hệ 1 (EXP-01 đến EXP-13) trên 7,200 ảnh phổ Mel và CQT của tập Hugging Face:
+  + Mô hình tốt nhất thế hệ 1: EXP-13 (EfficientNet-B0 2 kênh Mel+CQT) đạt 92.50% Accuracy trên tập Hugging Face.
+- Phát hiện thực nghiệm quan trọng khi kiểm thử chéo trên 131 video YouTube thực tế (evaluate_audio_youtube_benchmark.py):
+  + Khi đưa ra môi trường YouTube thực tế (100% Out-of-Distribution), EXP-13 CNN sụt giảm từ 92.50% xuống 38.93% Acc (30.11% Macro-F1), và SVM-RBF (167 đặc trưng thô) sụt giảm xuống 31.21% Macro-F1 do học thuộc dấu vân tay phòng thu Hugging Face.
+  + Ngược lại, mô hình Fuzzy RF (7 trục MPEG-7) đạt 55.73% Acc (54.71% Macro-F1) — vượt xa CNN +24.6% Macro-F1 trên YouTube, chứng minh việc lược bỏ 137 đặc trưng vi mô nhạy nhiễu để giữ lại 7 trục ngữ nghĩa giúp kháng nhiễu môi trường hiệu quả.
 
+GIAI ĐOẠN 5: NHÁNH THỊ GIÁC ĐA PHƯƠNG THỨC (VISUAL CONCEPT BOTTLENECK MODEL - VISUAL CBM)
+- Gán nhãn bán tự động 25 khái niệm thị giác đặc trưng (nhạc cụ, trang phục, bối cảnh) trên các khung hình video YouTube và ảnh tĩnh Roboflow.
+- Huấn luyện mô hình đa nhãn có giám sát yếu ConvNeXt-Tiny (best_visual_cbm.pth) với hàm mất mát Asymmetric Loss (ASL) và tối ưu hóa ngưỡng F1 riêng cho từng khái niệm (visual_concept_thresholds.json), đạt mAP = 86.25% và Macro-F1 khái niệm = 77.67%.
+- Đặt bộ phân loại Random Forest liên tục (best_visual_rf_continuous.joblib) lên trên 25 xác suất khái niệm, đạt 85.99% Frame Test Acc và 90.00% Video Test Acc, kết hợp cảm nạp luật thị giác bằng RIPPER và CN2.
+
+
+3. GIAI ĐOẠN 6: THIẾT KẾ & HUẤN LUYỆN 21 MÔ HÌNH ĐA PHƯƠNG THỨC / NEURO-SYMBOLIC THẾ HỆ 2
+----------------------------------------------------------------------------------------
+(Triển khai trong build_multimodal_audio_cnn_notebook.py -> train_multimodal_audio_cnn_experiments.ipynb)
+
+3.1. Giải pháp xử lý dữ liệu hợp nhất (Hugging Face + YouTube) & Huấn luyện:
+- Chia 131 video YouTube theo Video-Level Group Split: 81 video Train (579 đoạn) / 20 video Val (98 đoạn) / 30 video Test (225 đoạn).
+- Áp dụng lấy mẫu bước nhảy thích ứng 12.0 giây (Adaptive Strided Sampling: Quota_i = min(max(1, round(Duration_i / 30.0)), 40)) hợp nhất với 3,600 mẫu Hugging Face thành 4,502 phân đoạn (Train: 3,099 | Val: 458 | Test: 945).
+- Xử lý mất cân bằng miền: Kết hợp WeightedRandomSampler (2.5x) và Trọng số phạt mất mát nhạy cảm chi phí (Cost-Sensitive Domain Penalty = 3.5x * rarity_boost cho mẫu YouTube).
+- Huấn luyện 2 giai đoạn (2-Stage Transfer Learning) cho các mạng tiền huấn luyện: Stage 1 (10 epochs) khóa các tầng giữa và giữ nguyên thống kê BatchNorm2d của ImageNet nhưng mở khóa tầng tích chập đầu vào 2 kênh (stem_conv) + Transformer Head; Stage 2 (40 epochs) mở khóa toàn mạng.
+- Bộ suy luận 60 Luật mờ khả vi (DifferentiableFuzzyRuleLoss): Biên dịch 60 luật IF-THEN liên tục từ rules_decision_tree_continuous.json và rules_random_forest_top.json thành phép toán Tensor khả vi, đồng bộ hàm mất mát Phương án 5: Loss = Loss_CE + 0.50 * Loss_Concept_BCE + 0.75 * Loss_Rule.
+
+3.2. Kết quả Benchmark Chính thức của 21 Mô hình (5 Phương án Kiến trúc):
+(Trích từ experiments/results/model_comparison_metrics.csv)
+
+[Phương án 1 - Baseline Standard CNN (4 khối Conv2D 32->64->128->256, huấn luyện từ đầu)]
+  + M1a: Baseline CNN (Single Mel 1Ch)  | HF: 80.71% F1 | YT: 63.11% Acc / 62.81% F1 | Unified: 76.29% F1
+  + M1b: Baseline CNN (Single CQT 1Ch)  | HF: 78.53% F1 | YT: 61.78% Acc / 61.64% F1 | Unified: 74.70% F1
+  + M1c: Baseline CNN (Mel+CQT 2Ch)     | HF: 81.65% F1 | YT: 64.44% Acc / 62.57% F1 | Unified: 77.49% F1
+
+[Phương án 2 - CNN + Attention / Transformer Encoder + Positional Encoding]
+  + M2a: CNN + Transformer (Single Mel)       | HF: 93.29% F1 | YT: 80.44% Acc / 81.29% F1 | Unified: 90.34% F1
+  + M2b: CNN + Transformer 1L (Mel+CQT)       | HF: 91.35% F1 | YT: 72.89% Acc / 73.32% F1 | Unified: 87.09% F1
+  + M2c: CNN + Transformer 2L (Mel+CQT)       | HF: 89.14% F1 | YT: 70.67% Acc / 71.83% F1 | Unified: 84.91% F1
+  + M2d: CNN + Transformer 4L (Mel+CQT)       | HF: 85.74% F1 | YT: 64.44% Acc / 64.74% F1 | Unified: 80.74% F1
+  + M2e: SE-CNN + Transformer 4L (Mel+CQT)    | HF: 87.99% F1 | YT: 68.89% Acc / 68.58% F1 | Unified: 83.54% F1
+
+[Phương án 3 - Pretrained ImageNet Transfer Learning + Transformer Encoder]
+  + M3a: Pretrained ResNet34 + Transformer    | HF: 93.06% F1 | YT: 69.78% Acc / 70.10% F1 | Unified: 87.58% F1
+  + M3b: Pretrained EffNetB0 + Transformer    | HF: 92.74% F1 | YT: 73.78% Acc / 73.03% F1 | Unified: 88.27% F1
+  + M3c: Pretrained DenseNet121 + Transformer | HF: 92.11% F1 | YT: 74.67% Acc / 74.21% F1 | Unified: 88.12% F1
+
+[Phương án 4 - Multimodal Feature Fusion (Spectrogram + MLP 7 Trục MPEG-7)]
+  + M4a: Multimodal CNN-Trans + 7 Axes Concat | HF: 91.31% F1 | YT: 63.56% Acc / 61.51% F1 | Unified: 84.77% F1
+  + M4b: Multimodal ResNet34 + 7 Axes Concat  | HF: 84.05% F1 | YT: 68.44% Acc / 69.01% F1 | Unified: 80.75% F1
+  + M4c: Multimodal EffNetB0 + 7 Axes Gated   | HF: 91.63% F1 | YT: 71.56% Acc / 71.12% F1 | Unified: 86.87% F1
+  + M4d: Multimodal EffNetB0 + 7 Axes Concat  | HF: 91.46% F1 | YT: 76.00% Acc / 76.12% F1 | Unified: 87.98% F1
+  + M4e: Multimodal DenseNet121 + 7 Axes Conc | HF: 87.77% F1 | YT: 71.11% Acc / 71.70% F1 | Unified: 83.88% F1
+
+[Phương án 5 - Neuro-Symbolic AI (Concept Bottleneck Head 27D + 60 Differentiable Fuzzy Rules)]
+  + M5a: NS CNN-Trans + Fuzzy Loss            | HF: 87.08% F1 | YT: 67.56% Acc / 68.00% F1 | Unified: 82.55% F1
+  + M5b: NS ResNet34 + Fuzzy Loss             | HF: 91.65% F1 | YT: 69.78% Acc / 68.99% F1 | Unified: 86.54% F1
+  + M5c: NS EffNetB0 Gated + Fuzzy Loss       | HF: 93.02% F1 | YT: 75.11% Acc / 76.09% F1 | Unified: 88.85% F1
+  + M5d: NS EffNetB0 Concat + Fuzzy Loss      | HF: 90.36% F1 | YT: 71.56% Acc / 71.34% F1 | Unified: 85.87% F1
+  + M5e: NS DenseNet121 + Fuzzy Loss          | HF: 93.36% F1 | YT: 72.89% Acc / 72.80% F1 | Unified: 88.66% F1
+
+
+4. PHƯƠNG ÁN TỔ HỢP ĐA PHƯƠNG THỨC TỐI ƯU & ỨNG DỤNG WEB XAI
+----------------------------------------------------------------------------------------
+4.1. Cấu hình Tổ hợp Chính thức trong Hệ thống (web_app/inference_engine.py):
+- Nhánh Âm thanh (Audio Ensemble): Kết hợp đồng đều 4 đại diện mạnh nhất của Phương án 2, 3, 4, 5 (0.25 * M2a + 0.25 * M3c + 0.25 * M4d + 0.25 * M5c):
+  + Đạt 94.86% Acc / 94.82% Macro-F1 trên tập chuẩn Hugging Face Test (720 mẫu).
+  + Đạt 85.33% Acc / 85.60% Macro-F1 trên tập thực tế YouTube Test (225 phân đoạn / 30 video, đạt 27/30 = 90.0% ở cấp độ video).
+  + Đạt 92.64% Macro-F1 trên tập Kiểm thử Tổng hợp (945 mẫu).
+  + Đồng thời trích xuất 27 khái niệm mờ từ Concept Head của M5c để đối chiếu với 60 luật mờ liên tục.
+- Nhánh Thị giác (Visual CBM): Sử dụng best_visual_cbm.pth (ConvNeXt-Tiny 25 khái niệm) + best_visual_rf_continuous.joblib (đạt 90.0% Accuracy trên tập video kiểm thử độc lập).
+- Tầng Dung hợp Đa phương thức (Multimodal Late Fusion): Kết hợp theo tỷ lệ tối ưu 0.70 * P_Audio + 0.30 * P_Visual, đạt độ chính xác 100.0% trên tập video kiểm thử độc lập của cả hai nhánh.
+
+4.2. Các chức năng giải thích XAI & Giao diện tương tác trên Web Application (xem thêm MO_TA_GIAO_DIEN.md):
+- Trạng thái khởi đầu dàn trang biên tập mở (Editorial Light Mode): Slideshow triển lãm 6 di sản kèm bài viết chính thống đồng bộ với Canvas 60fps Hình thái Âm học 6 thể loại.
+- Bản đồ Bằng chứng Đa phương thức 5 tầng (Multimodal Evidence Map SVG) đồng bộ mốc thời gian với trình phát video và thẻ phân đoạn hiển thị phần trăm từng phương thức (Âm thanh / Thị giác / Hợp nhất).
+- Giải thích Đối chứng (Contrastive Explanation) đối chiếu trực tiếp bằng chứng giữa thể loại dự đoán và bất kỳ thể loại đối chứng nào.
+- Can thiệp Khái niệm Phản sự thực (Counterfactual CBM Intervention) đồng bộ theo thể loại đối chứng đang chọn, cho phép bật/tắt từng khái niệm âm thanh và thị giác để kiểm chứng độ nhạy quyết định.
+- Trình cắt video trực tuyến có hình ảnh và âm thanh (cho video > 10 phút), phân tích trực tiếp link YouTube (yt-dlp + Node runtime), Cổng lọc khoảng lặng/độ phẳng phổ Micro và Bộ lọc nhận diện video ngoài miền (OOD Gate).
+- Khởi chạy hệ thống: python -m uvicorn web_app.app:app --host 127.0.0.1 --port 8000 --reload
 ========================================================================================
-SLIDE 8: HOLDOUT VALIDATION, TOP-5 MATCHING & COMMON PATTERN DISCOVERY
-========================================================================================
-Title: Holdout Validation on 18 Unseen Samples & Common Pattern Discovery
-Experimental Protocol:
-• Reserved 18 completely independent unseen recordings (3 separate songs per genre * 6 genres).
-• Extracted 30 features -> computed fuzzy membership -> evaluated against the extracted DT and RF rule sets.
-• Retrieved the Top 5 best matching rules per sample ranked by firing strength and confidence.
-Statistical Aggregation & Invariant Common Archetypes (from common_rule_conditions_top5_per_genre.csv):
-• Ca trù (3/3 samples): 100% agreement on [Energy == 'Very Weak'] AND [Timbre IN ('Very Low', 'Low')] (Chamber quietude).
-• Quan họ (3/3 samples): 100% agreement on [Energy IN ('Strong', 'Very Strong')] AND [Timbre IN ('High', 'Very High')] (Acoustic proof of Vang - Ren - Nen - Nay).
-• Cải lương (3/3 samples): 100% agreement on [Vibrato == 'Heavy Ornament'] AND [Harmony == 'High'] (Vong Co sobbing vibrato + multi-instrumental backing).
-• Chầu văn (3/3 samples): 100% agreement on [Pitch == 'Very Low'] AND [Harmony == 'High'] (Dan Nguyet bass fundamental).
-Conclusion:
-• Verifies that the model learns invariant ethnomusicological archetypes rather than sample-specific noise.
-[Illustration: ./data/plots/14_genre_fuzzy_archetypes_common_patterns.png]
-Image Description: Synthesized Acoustic Archetype heatmap from common_rule_conditions_top5_per_genre.csv and rule activation distribution across hold-out samples.
-========================================================================================
-END OF PRESENTATION SPECIFICATION
