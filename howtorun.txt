@@ -1,0 +1,33 @@
+file dataprep:
+- Chỉnh gán nhãn trực quan bằng tool giao diện:
+  python visual_subclip_annotator.py
+  Truy cập: http://localhost:5000/
+  (Có thể gán nhãn chung cả phân đoạn hoặc click từng frame để gán nhãn riêng)
+- Sau khi gán nhãn xong, chạy Bước 4.2 của file Visual_Data_Prep_and_SemiAuto_Labeling_Colab.ipynb
+- Xong chạy lại file Visual_CBM_and_Rule_Extraction_Colab.ipynb
+
+nạp video mới:
+1. Ở file dataprep:
+Chạy bước 3, 4.1, 4.2
+
+2. Ở file cbm:
+- Đổi TRAINING_MODE="incemental_finetune"
+- Chạy bước 2,3,4,5
+
+khởi động web app:
+python -m uvicorn web_app.app:app --host 127.0.0.1 --port 8000 --reload
+http://127.0.0.1:8000/
+
+chạy test backend web app:
+python web_app/test_backend.py
+
+chạy đánh giá kiểm thử video thực tế ngoài đời (In-the-Wild YouTube Test - 24 video Đa phương thức):
+python evaluate_wild_videos.py
+
+chạy đánh giá kiểm thử nhánh Âm thanh quy mô lớn trên 131 video YouTube thực tế:
+python evaluate_audio_youtube_benchmark.py
+
+
+khi đầu vào < 5s thì không phân tích
+
+
