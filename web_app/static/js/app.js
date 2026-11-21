@@ -11,12 +11,16 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Khởi tạo các thành phần đồ họa 3D & Audio
-    const audioWave = new AudioWaveRibbon("wave-canvas-container");
-    const graph3d = new SemanticGraph3D(
-        "graph-canvas-container",
-        "graph-tooltip",
-    );
+    // 1. Khởi tạo dải phổ âm học 2D tối giản (Audio/Mic) & Bộ ghi âm
+    const audioWave = new AudioWaveRibbon([
+        "audio-spectrum-canvas",
+        "mic-spectrum-canvas",
+    ]);
+    const graph3d =
+        document.getElementById("graph-canvas-container") &&
+        typeof SemanticGraph3D === "function"
+            ? new SemanticGraph3D("graph-canvas-container", "graph-tooltip")
+            : null;
     const recorder = new LiveAudioRecorder({
         timerId: "mic-timer",
         ringId: "mic-timer-ring",
@@ -26,6 +30,124 @@ document.addEventListener("DOMContentLoaded", () => {
     // Lưu trữ tham chiếu toàn cục
     window.audioWave = audioWave;
     window.graph3d = graph3d;
+
+    // Chuẩn hóa từ điển xác suất về thang 0..100 dựa trên TỔNG phân phối (tránh lỗi nhân 100 khi xác suất thực <= 1.0%)
+    function toPercentMap(probsObj) {
+        if (!probsObj || typeof probsObj !== "object") return {};
+        const entries = Object.entries(probsObj);
+        if (entries.length === 0) return {};
+        const total = entries.reduce((acc, [, v]) => acc + (Number(v) || 0), 0);
+        const isUnitScale = total > 0 && total <= 1.5;
+        const out = {};
+        entries.forEach(([k, v]) => {
+            const num = Number(v) || 0;
+            out[k] = isUnitScale ? num * 100 : num;
+        });
+        return out;
+    }
+
+    // Từ điển chuyển mã snake_case sang nhãn tiếng Việt chuẩn cho UI
+    const VISUAL_CUE_VI_MAP = {
+        guitar_phim_lom: "Đàn guitar phím lõm",
+        dan_kim_dan_nguyet: "Đàn kìm / Đàn nguyệt",
+        dan_co_dan_nhi: "Đàn cò / Đàn nhị",
+        dan_tranh: "Đàn tranh",
+        dan_bau: "Đàn bầu",
+        dan_day: "Đàn đáy cần dài",
+        ban_phach_trong_chau: "Bàn phách tre & Trống chầu",
+        trong_cheo_mo_quat_giay: "Trống Chèo, mõ & quạt giấy",
+        dao_cu_hau_dong_kiem_cung_mam: "Đạo cụ hầu đồng (kiếm, cung, mâm lễ)",
+        senh_tien_trong_manh: "Sênh tiền & Trống mảnh",
+        khong_nhac_cu: "Hát chay không nhạc cụ đệm",
+        co_trang_mao_giap_dinh_hat: "Phục trang cổ trang, mão giáp đính hạt",
+        ao_dai_ao_ba_ba: "Áo dài / Áo bà ba",
+        ao_thao_khan_nhieu_ao_the: "Áo thao, khăn nhiễu & áo the",
+        ao_tu_than_yem_dao: "Áo tứ thân & yếm đào",
+        trang_phuc_he_cheo: "Trang phục & hóa trang hề Chèo",
+        khan_chau_ao_ngu_hau_dong: "Khăn chầu & áo ngự hầu đồng",
+        non_quai_thao_khan_mo_qua_ao_mo_ba: "Nón quai thao, khăn mỏ quạ & áo mớ ba",
+        ao_nau_kinh_den_mu_cat: "Áo nâu, kính đen & mũ cát",
+        san_khau_kich_hat: "Không gian sân khấu kịch hát",
+        doi_hinh_3_nguoi_ca_tru: "Đội hình 3 người Ca trù",
+        chieu_cheo_san_dinh: "Không gian chiếu Chèo sân đình",
+        dien_tho_hau_dong: "Không gian điện thờ hầu đồng",
+        doi_dap_nam_nu_quan_ho: "Đội hình hát đối đáp nam nữ Quan họ",
+        chieu_xam_duong_pho_cho: "Không gian chiếu Xẩm đường phố / chợ",
+    };
+
+    const ASPECT_VI_MAP = {
+        nhac_cu: "Nhạc cụ",
+        ky_thuat_thanh_nhac: "Kỹ thuật thanh nhạc",
+        ky_thuat_hat: "Kỹ thuật hát",
+        giai_dieu_hoi_dieu: "Giai điệu & hơi điệu",
+        giai_dieu: "Giai điệu",
+        tiet_tau_nhip: "Tiết tấu & nhịp",
+        tiet_tau: "Tiết tấu",
+        cau_truc_bieu_dien: "Cấu trúc biểu diễn",
+        hoa_am: "Hòa âm",
+        am_hoc: "Đặc trưng âm học",
+        khong_gian_doi_hinh: "Không gian & đội hình",
+        nhac_cu_dao_cu: "Nhạc cụ & đạo cụ",
+        trang_phuc_hoa_trang: "Trang phục & hóa trang",
+        dong_tac_dien_xuat: "Động tác & diễn xuất",
+        thi_giac: "Đặc trưng thị giác",
+        dac_trung: "Đặc trưng di sản",
+    };
+
+    function formatVisualCueVi(cue) {
+        if (!cue) return "";
+        const key = String(cue).trim();
+        return VISUAL_CUE_VI_MAP[key] || key;
+    }
+
+    function formatAspectVi(aspect) {
+        if (!aspect) return "Đặc trưng";
+        const key = String(aspect).trim().toLowerCase();
+        return ASPECT_VI_MAP[key] || String(aspect).replace(/_/g, " ");
+    }
+
+    // Chuyển văn bản diễn giải markdown đơn giản thành cấu trúc đoạn/danh sách báo chí sạch sẽ
+    function formatNarrativeHtml(rawText) {
+        if (!rawText) return "";
+        const escapeHtml = (s) =>
+            String(s)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        const applyInline = (s) =>
+            escapeHtml(s)
+                .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+                .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+
+        const blocks = String(rawText)
+            .split(/\n{2,}/)
+            .map((b) => b.trim())
+            .filter(Boolean);
+
+        return blocks
+            .map((block) => {
+                const lines = block
+                    .split("\n")
+                    .map((l) => l.trim())
+                    .filter(Boolean);
+                if (lines.length > 1 && lines.slice(1).every((l) => l.startsWith("•"))) {
+                    const heading = applyInline(lines[0]);
+                    const items = lines
+                        .slice(1)
+                        .map((l) => `<li>${applyInline(l.replace(/^•\s*/, ""))}</li>`)
+                        .join("");
+                    return `<div class="xai-narrative-section"><div class="xai-section-lead">${heading}</div><ul class="xai-bullet-list">${items}</ul></div>`;
+                }
+                if (lines.every((l) => l.startsWith("•"))) {
+                    const items = lines
+                        .map((l) => `<li>${applyInline(l.replace(/^•\s*/, ""))}</li>`)
+                        .join("");
+                    return `<ul class="xai-bullet-list">${items}</ul>`;
+                }
+                return `<p class="xai-narrative-para">${lines.map(applyInline).join("<br>")}</p>`;
+            })
+            .join("");
+    }
 
     // Bảng màu Di sản Văn hóa Âm nhạc Việt Nam chuẩn hóa đồng bộ với Backend
     const GENRE_COLORS = {
@@ -52,6 +174,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentTimelineSeries = [];
     let currentOverallExplanation = null;
     let currentOverallModalities = null;
+    let currentOverallRadar = null;
+    let currentOverallCrispAxes = null;
     let activeSelectedSegmentId = null;
     let playbackSyncHandler = null;
     let currentTimelineSubtab = "filmstrip";
@@ -150,7 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (mediaInput) mediaInput.value = "";
         if (mediaDropzone) {
-            mediaDropzone.style.display = keepType === null ? "block" : "none";
+            mediaDropzone.style.display = keepType === null ? "" : "none";
         }
 
         // Nếu đã có input (keepType !== null) thì ẩn thanh tab thêm tệp, chỉ hiện lại khi bấm "Thay đổi tệp" (keepType === null)
@@ -169,7 +293,67 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Chuyển đổi gọn gàng giữa Trạng thái Khởi đầu (Mục lục 6 di sản) và Bảng kết quả phân tích
+    function setWorkspaceHasResult(hasResult) {
+        const overviewGrid = document.getElementById("sec-overview");
+        const emptyGuide = document.getElementById("empty-heritage-guide");
+        const emptyLeftArtwork = document.getElementById("empty-left-artwork");
+        const verdictCard = document.getElementById("verdict-main-card");
+        const xaiCard = document.getElementById("xai-card");
+        const mmCard = document.getElementById("sec-multimodal");
+
+        if (overviewGrid) {
+            overviewGrid.classList.toggle("is-empty-state", !hasResult);
+        }
+        if (emptyGuide) {
+            emptyGuide.style.display = hasResult ? "none" : "flex";
+        }
+        if (emptyLeftArtwork) {
+            emptyLeftArtwork.style.display = hasResult ? "none" : "flex";
+        }
+        if (typeof window.setHeritageShowcaseActive === "function") {
+            window.setHeritageShowcaseActive(!hasResult);
+        }
+        if (typeof window.setHeritageAmbientActive === "function") {
+            window.setHeritageAmbientActive(!hasResult);
+        }
+        if (verdictCard) {
+            verdictCard.style.display = hasResult ? "flex" : "none";
+        }
+        if (xaiCard) {
+            xaiCard.style.display = hasResult ? "block" : "none";
+        }
+        if (mmCard) {
+            mmCard.style.display = hasResult ? "block" : "none";
+        }
+
+        // Hiệu ứng hiện mượt mà khi chuyển từ trạng thái trống sang kết quả phân tích
+        if (hasResult) {
+            const targets = [verdictCard, xaiCard, mmCard].filter(Boolean);
+            targets.forEach((el) => {
+                el.style.opacity = "";
+                el.style.transform = "";
+            });
+            if (typeof gsap !== "undefined") {
+                gsap.killTweensOf(targets);
+                gsap.fromTo(
+                    targets,
+                    { opacity: 0, y: 8 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.4,
+                        stagger: 0.05,
+                        ease: "power2.out",
+                        clearProps: "opacity,transform",
+                    },
+                );
+            }
+        }
+    }
+
     function resetAnalysisUI() {
+        setWorkspaceHasResult(false);
         currentAnalysis = null;
         currentTimelineMode = "raw";
         currentRawChunks = [];
@@ -177,6 +361,8 @@ document.addEventListener("DOMContentLoaded", () => {
         currentTimelineSeries = [];
         currentOverallExplanation = null;
         currentOverallModalities = null;
+        currentOverallRadar = null;
+        currentOverallCrispAxes = null;
         activeSelectedSegmentId = null;
 
         if (audioWave && typeof audioWave.setState === "function") {
@@ -209,6 +395,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const otherList = document.getElementById("probabilities-other-list");
         if (otherList) otherList.innerHTML = "";
+        const probsWrapper = document.getElementById("probs-collapsible-wrapper");
+        if (probsWrapper) probsWrapper.classList.add("collapsed");
+        isVerdictExpanded = false;
+        const verdictToggleIcon = document.getElementById("verdict-toggle-icon");
+        if (verdictToggleIcon) {
+            verdictToggleIcon.style.transform = "rotate(0deg)";
+        }
 
         const headlineEl = document.getElementById("xai-headline");
         const bodyEl = document.getElementById("xai-body-text");
@@ -225,6 +418,46 @@ document.addEventListener("DOMContentLoaded", () => {
         if (xaiBanner) xaiBanner.style.display = "none";
         const xaiModsGrid = document.getElementById("xai-modalities-grid");
         if (xaiModsGrid) xaiModsGrid.style.display = "none";
+
+        // Xóa sạch dữ liệu cũ trong 3 pill phương thức & nguồn trích dẫn
+        ["mod-card-audio-pred", "mod-card-visual-pred", "mod-card-fused-pred"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.innerHTML = `<strong>--</strong> <span class="score">--%</span>`;
+        });
+        ["mod-card-audio-content", "mod-card-visual-content", "mod-card-fused-content"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.innerText = "--";
+                el.title = "";
+            }
+        });
+
+        const defaultCitationsHtml = `
+          <li class="citation-item">Hồ sơ Di sản Văn hóa Phi vật thể UNESCO</li>
+          <li class="citation-item">Trung tâm Nghiên cứu Di sản Văn hóa Phi vật thể Châu Á - Thái Bình Dương (ICHCAP)</li>
+          <li class="citation-item">Viện Âm nhạc Việt Nam</li>
+        `;
+        const xaiCitEl = document.getElementById("xai-citations-list");
+        const sumCitEl = document.getElementById("summary-citations-list");
+        if (xaiCitEl) xaiCitEl.innerHTML = defaultCitationsHtml;
+        if (sumCitEl) sumCitEl.innerHTML = defaultCitationsHtml;
+        const sumCitCnt = document.getElementById("summary-citations-count");
+        if (sumCitCnt) sumCitCnt.innerText = "3";
+        const xaiCitCnt = document.getElementById("xai-summary-cit-count");
+        if (xaiCitCnt) xaiCitCnt.innerText = "3";
+
+        const sumHeadlineEl = document.getElementById("summary-xai-headline");
+        const sumBodyEl = document.getElementById("summary-xai-body-text");
+        if (sumHeadlineEl) sumHeadlineEl.innerText = "Chưa có báo cáo phân tích";
+        if (sumBodyEl) {
+            sumBodyEl.innerText =
+                "Hãy tải lên video/audio, chọn mẫu thử nhanh hoặc thu âm trực tiếp để hệ thống thực hiện phân tích đa phương thức và sinh báo cáo tổng kết.";
+        }
+
+        const mmChunkTitle = document.getElementById("mm-chunk-title");
+        if (mmChunkTitle) mmChunkTitle.innerText = "Phân đoạn Dự đoán Thời gian";
+        const mpeg7ScopeEl = document.getElementById("mpeg7-scope-label");
+        if (mpeg7ScopeEl) mpeg7ScopeEl.innerText = "Trung bình toàn tư liệu • Giá trị chuẩn hóa [0, 100%]";
 
         renderConceptPills([]);
 
@@ -259,12 +492,27 @@ document.addEventListener("DOMContentLoaded", () => {
         if (ribbonWrap) ribbonWrap.style.display = "none";
         const svgChart = document.getElementById("timeline-svg-chart");
         if (svgChart) svgChart.innerHTML = "";
+        const chartLegend = document.getElementById("chart-legend-container");
+        if (chartLegend) chartLegend.innerHTML = "";
+        const chartScrub = document.getElementById("chart-scrub-line");
+        if (chartScrub) chartScrub.style.display = "none";
+        const chartTooltip = document.getElementById("chart-hover-tooltip");
+        if (chartTooltip) chartTooltip.style.display = "none";
+        if (typeof switchMultimodalTab === "function") {
+            switchMultimodalTab("visual");
+        }
         const specContainer = document.getElementById(
             "spectrogram-grid-container",
         );
-        if (specContainer) specContainer.innerHTML = "";
+        if (specContainer) {
+            specContainer.innerHTML =
+                '<div class="mm-empty-placeholder">Chưa có ảnh phổ Mel-Spectrogram.</div>';
+        }
         const radarContainer = document.getElementById("radar-bars-container");
-        if (radarContainer) radarContainer.innerHTML = "";
+        if (radarContainer) {
+            radarContainer.innerHTML =
+                '<div class="mm-empty-placeholder">Chưa có dữ liệu đặc trưng âm học. Hãy phân tích một mẫu để xem 7 trục MPEG-7.</div>';
+        }
 
         const mmAudioPill = document.getElementById("mm-pill-audio-count");
         const mmVisualPill = document.getElementById("mm-pill-visual-count");
@@ -346,18 +594,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnToggleVerdict && probsCollapseWrapper && verdictToggleIcon) {
         btnToggleVerdict.addEventListener("click", () => {
             isVerdictExpanded = !isVerdictExpanded;
-            if (isVerdictExpanded) {
-                probsCollapseWrapper.classList.remove("collapsed");
-                btnToggleVerdict.classList.add("expanded");
-                btnToggleVerdict.title = "Thu nhỏ danh sách xác suất";
-                verdictToggleIcon.className = "fa-solid fa-chevron-up";
-            } else {
-                probsCollapseWrapper.classList.add("collapsed");
-                btnToggleVerdict.classList.remove("expanded");
-                btnToggleVerdict.title =
-                    "Mở rộng toàn bộ xác suất (5 thể loại khác)";
-                verdictToggleIcon.className = "fa-solid fa-chevron-down";
-            }
+            probsCollapseWrapper.classList.toggle("collapsed", !isVerdictExpanded);
+            btnToggleVerdict.classList.toggle("expanded", isVerdictExpanded);
+            btnToggleVerdict.title = isVerdictExpanded
+                ? "Thu nhỏ danh sách xác suất"
+                : "Mở rộng toàn bộ xác suất (5 thể loại khác)";
         });
     }
 
@@ -383,6 +624,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 c.classList.remove("active");
             }
         });
+        if (targetTab === "mic" && audioWave && typeof audioWave._drawStatic === "function") {
+            requestAnimationFrame(() => audioWave._drawStatic());
+        }
     }
 
     tabTriggers.forEach((trigger) => {
@@ -397,16 +641,73 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Sự kiện nút "Thay đổi tệp" -> Xóa media hiện tại và mở lại dropzone
-    if (btnChangeVideo) {
-        btnChangeVideo.addEventListener("click", () => {
+    // Chuyển cảnh mượt mà khi bấm "Thay đổi tệp" để quay về trạng thái trống (tránh cắt cảnh đột ngột)
+    let isResettingWorkspace = false;
+    function transitionBackToEmptyState() {
+        if (isResettingWorkspace) return;
+        const outgoing = [
+            document.getElementById("video-player-container"),
+            document.getElementById("audio-player-container"),
+            document.getElementById("verdict-main-card"),
+            document.getElementById("xai-card"),
+            document.getElementById("sec-multimodal"),
+        ].filter((el) => el && el.style.display !== "none");
+
+        const finishReset = () => {
             clearAllInputsExcept(null);
-        });
+            outgoing.forEach((el) => {
+                el.style.opacity = "";
+                el.style.transform = "";
+            });
+
+            if (typeof gsap !== "undefined") {
+                const incoming = [
+                    document.getElementById("media-dropzone"),
+                    document.getElementById("empty-left-artwork"),
+                    document.getElementById("empty-heritage-guide"),
+                ].filter(Boolean);
+                gsap.killTweensOf(incoming);
+                gsap.fromTo(
+                    incoming,
+                    { opacity: 0, y: 10 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.48,
+                        stagger: 0.06,
+                        ease: "power2.out",
+                        clearProps: "opacity,transform",
+                        onComplete: () => {
+                            isResettingWorkspace = false;
+                        },
+                    },
+                );
+            } else {
+                isResettingWorkspace = false;
+            }
+        };
+
+        if (typeof gsap !== "undefined" && outgoing.length > 0) {
+            isResettingWorkspace = true;
+            gsap.killTweensOf(outgoing);
+            gsap.to(outgoing, {
+                opacity: 0,
+                y: 8,
+                duration: 0.24,
+                ease: "power2.in",
+                onComplete: finishReset,
+            });
+        } else {
+            finishReset();
+        }
+    }
+
+    // Sự kiện nút "Thay đổi tệp" -> Xóa media hiện tại và chuyển mượt về trang khởi đầu
+    if (btnChangeVideo) {
+        btnChangeVideo.addEventListener("click", transitionBackToEmptyState);
     }
     if (btnChangeAudio) {
-        btnChangeAudio.addEventListener("click", () => {
-            clearAllInputsExcept(null);
-        });
+        btnChangeAudio.addEventListener("click", transitionBackToEmptyState);
     }
 
     // =========================================================================
@@ -438,11 +739,10 @@ document.addEventListener("DOMContentLoaded", () => {
             chip.type = "button";
             chip.id = `sample-chip-${s.genre.replace(/\s+/g, "_")}`;
             chip.className = "chip-btn";
-            chip.title = `Chạy thử mẫu ${s.title}`;
+            chip.title = `Chạy thử mẫu ${s.title} (${s.duration} · ${s.size || ""})`;
             chip.innerHTML = `
         <span class="chip-dot" style="background-color: ${s.color};"></span>
         <span style="font-weight: 600;">${s.genre}</span>
-        <span style="color: var(--text-tertiary); font-family: var(--font-mono); font-size: 10px;">${s.duration}</span>
       `;
 
             chip.onclick = (e) => {
@@ -459,8 +759,8 @@ document.addEventListener("DOMContentLoaded", () => {
     async function analyzeSampleFile(sample) {
         clearAllInputsExcept(sample.mode === "video" ? "video" : "audio");
         showLoading(
-            `Đang phân tích mẫu ${sample.genre}...`,
-            "Trích xuất chuỗi phân đoạn 3-5s & 7 trục âm học...",
+            `Đang phân tích tư liệu ${sample.genre}`,
+            `${sample.title} • Trích xuất phổ âm học, khung hình biểu diễn và đối chiếu hệ luật di sản.`,
         );
 
         try {
@@ -1121,10 +1421,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     async function analyzeVideoUrl(url) {
-        clearAllInputsExcept("video");
         showLoading(
-            "Đang nạp video từ YouTube / URL...",
-            "Sử dụng yt-dlp tải luồng & trích xuất phân đoạn 3-5s...",
+            "Đang tải và phân tích video từ URL",
+            "Tải luồng media trực tuyến, tách phân đoạn thời gian và trích xuất đặc trưng đa phương thức.",
         );
 
         try {
@@ -1162,7 +1461,11 @@ document.addEventListener("DOMContentLoaded", () => {
             micRecordBtn.style.display = "none";
             if (micStopBtn) micStopBtn.style.display = "inline-flex";
 
-            const started = await recorder.startRecording();
+            const started = await recorder.startRecording((stream) => {
+                if (audioWave && typeof audioWave.connectStream === "function") {
+                    audioWave.connectStream(stream);
+                }
+            });
 
             if (!started) {
                 micRecordBtn.style.display = "inline-flex";
@@ -1196,6 +1499,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 6. XỬ LÝ & HIỂN THỊ KẾT QUẢ VỚI GSAP CHOREOGRAPHY
     // =========================================================================
     function handleAnalysisResult(result) {
+        setWorkspaceHasResult(true);
         currentAnalysis = result;
         currentAnalysis.base_prediction = result.prediction;
         currentAnalysis.base_confidence = result.confidence;
@@ -1203,11 +1507,48 @@ document.addEventListener("DOMContentLoaded", () => {
         currentAnalysis.base_rules = result.triggered_rules
             ? JSON.parse(JSON.stringify(result.triggered_rules))
             : [];
+        currentAnalysis.base_modalities = result.modalities
+            ? JSON.parse(JSON.stringify(result.modalities))
+            : null;
+        currentAnalysis.base_evidence_map = result.evidence_map
+            ? JSON.parse(JSON.stringify(result.evidence_map))
+            : null;
+        currentAnalysis.base_contrastive_analysis = result.contrastive_analysis
+            ? JSON.parse(JSON.stringify(result.contrastive_analysis))
+            : null;
         currentOverallExplanation = result.explanation;
-        currentOverallModalities = result.modalities || null;
+        currentOverallModalities = result.modalities
+            ? JSON.parse(JSON.stringify(result.modalities))
+            : null;
         currentRawChunks = result.chunks || [];
         currentMergedSegments = result.merged_segments || [];
         currentTimelineSeries = result.timeline_series || [];
+
+        // Lưu 7 trục MPEG-7 trung bình toàn tư liệu (đồng bộ 100% với Đồ thị bằng chứng Khu vực 3)
+        if (result.overall_radar && Object.keys(result.overall_radar).length > 0) {
+            currentOverallRadar = result.overall_radar;
+            currentOverallCrispAxes = result.overall_crisp_axes || {};
+        } else if (currentRawChunks.length > 0) {
+            const axes = ["Energy", "Harmony", "Pitch", "Spectral", "Tempo", "Timbre", "Vibrato"];
+            const avgRadar = {};
+            const avgCrisp = {};
+            axes.forEach((ax) => {
+                const vals = currentRawChunks.map((c) => Number(c.radar?.[ax] ?? 0.5));
+                avgRadar[ax] = vals.reduce((a, b) => a + b, 0) / vals.length;
+                const counts = {};
+                currentRawChunks.forEach((c) => {
+                    const lvl = c.crisp_axes?.[ax];
+                    if (lvl) counts[lvl] = (counts[lvl] || 0) + 1;
+                });
+                const topLvl = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+                avgCrisp[ax] = topLvl ? topLvl[0] : "Vừa";
+            });
+            currentOverallRadar = avgRadar;
+            currentOverallCrispAxes = avgCrisp;
+        } else {
+            currentOverallRadar = null;
+            currentOverallCrispAxes = null;
+        }
 
         // 1. Kích hoạt media player và gắn Web Audio API
         setupMediaPlayer(result);
@@ -1486,19 +1827,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const headlineEl = document.getElementById("xai-headline");
         const bodyEl = document.getElementById("xai-body-text");
+        const summaryHeadlineEl = document.getElementById("summary-xai-headline");
         const summaryBodyEl = document.getElementById("summary-xai-body-text");
         const previewEl = document.getElementById("overview-insight-preview");
         const citationsEl = document.getElementById("xai-citations-list");
         const summaryCitationsEl = document.getElementById("summary-citations-list");
+        const summaryCitationsCount = document.getElementById("summary-citations-count");
 
-        if (headlineEl) headlineEl.innerText = explanation.headline;
+        if (headlineEl && explanation.headline) headlineEl.innerText = explanation.headline;
+        if (summaryHeadlineEl && explanation.headline) summaryHeadlineEl.innerText = explanation.headline;
         if (explanation.narrative) {
-            let formatted = explanation.narrative
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
-                .replace(/\n/g, "<br>");
+            const formatted = formatNarrativeHtml(explanation.narrative);
             if (bodyEl) bodyEl.innerHTML = formatted;
             if (summaryBodyEl) summaryBodyEl.innerHTML = formatted;
 
@@ -1518,22 +1857,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 explanation.citations.forEach((cit) => {
                     const li = document.createElement("li");
                     li.className = "citation-item";
-                    li.innerHTML = `<i class="fa-solid fa-bookmark" style="color: var(--accent-jade); font-size: 10px;"></i> ${cit}`;
+                    li.innerText = cit;
                     targetEl.appendChild(li);
                 });
             };
             populateCitations(citationsEl);
             populateCitations(summaryCitationsEl);
-        }
-
-        // GSAP Fade-in
-        if (window.gsap) {
-            gsap.from("#xai-card", {
-                opacity: 0,
-                y: 10,
-                duration: 0.6,
-                ease: "power2.out",
-            });
+            const citLen = String(explanation.citations.length);
+            if (summaryCitationsCount) {
+                summaryCitationsCount.innerText = citLen;
+            }
+            const xaiCitCnt = document.getElementById("xai-summary-cit-count");
+            if (xaiCitCnt) {
+                xaiCitCnt.innerText = citLen;
+            }
         }
     }
 
@@ -1573,9 +1910,8 @@ document.addEventListener("DOMContentLoaded", () => {
             pill.setAttribute("data-enabled", "true");
             pill.title = `${c.concept_sentence || c.concept_id} (Bấm để bật/tắt thử nghiệm giả định)`;
 
-            const shortAspect = c.aspect
-                ? c.aspect.replace(/_/g, " ")
-                : "Đặc trưng";
+            const shortAspect =
+                c.aspect_label || formatAspectVi(c.aspect);
             const tsHint =
                 c.timestamps && c.timestamps.length
                     ? `• ${c.timestamps[0]}`
@@ -1583,8 +1919,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             pill.innerHTML = `
         <span class="pill-check">✓</span>
-        <span style="font-weight: 600;">${c.concept_id}</span>
-        <span>${shortAspect}</span>
+        <span style="font-weight: 600;">${shortAspect}</span>
+        <span class="pill-code" style="font-family: var(--font-mono); font-size: 10px; opacity: 0.65;">${c.concept_id}</span>
         <span class="pill-pct">${tsHint}</span>
       `;
 
@@ -1829,16 +2165,25 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // Cập nhật 2 thanh mini progress bar Top 1 và Top 2
+        // Cập nhật 2 thanh mini progress bar: Top 1 và Thể loại đối chứng đang chọn (mặc định Top 2)
         if (resultData.probs && typeof resultData.probs === "object") {
-            const sorted = Object.entries(resultData.probs).sort((a, b) => b[1] - a[1]);
+            const pctProbs = toPercentMap(resultData.probs);
+            const sorted = Object.entries(pctProbs).sort((a, b) => b[1] - a[1]);
             if (sorted.length >= 2) {
                 const [top1G, rawP1] = sorted[0];
-                const [top2G, rawP2] = sorted[1];
-                const p1 = rawP1 <= 1.0 ? (rawP1 * 100).toFixed(1) : Number(rawP1).toFixed(1);
-                const p2 = rawP2 <= 1.0 ? (rawP2 * 100).toFixed(1) : Number(rawP2).toFixed(1);
-                const p1Val = parseFloat(p1);
-                const p2Val = parseFloat(p2);
+                const [runnerG, rawRunnerP] = sorted[1];
+                const hasCustomContrast =
+                    selectedContrastGenre &&
+                    selectedContrastGenre !== top1G &&
+                    Object.prototype.hasOwnProperty.call(pctProbs, selectedContrastGenre);
+                const bar2G = hasCustomContrast ? selectedContrastGenre : runnerG;
+                const rawP2 = hasCustomContrast ? pctProbs[selectedContrastGenre] : rawRunnerP;
+                const bar2Prefix = bar2G === runnerG ? "Top 2" : "Đối chứng";
+
+                const p1Val = Number(rawP1) || 0;
+                const p2Val = Number(rawP2) || 0;
+                const p1 = p1Val.toFixed(1);
+                const p2 = p2Val.toFixed(1);
 
                 const b1Name = document.getElementById("cbm-bar1-name");
                 const b1Pct = document.getElementById("cbm-bar1-pct");
@@ -1851,9 +2196,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (b1Pct) b1Pct.innerText = `${p1}%`;
                 if (b1Fill) b1Fill.style.width = `${Math.min(100, Math.max(0, p1Val))}%`;
 
-                if (b2Name) b2Name.innerText = `Top 2: ${top2G}`;
+                if (b2Name) b2Name.innerText = `${bar2Prefix}: ${bar2G}`;
                 if (b2Pct) b2Pct.innerText = `${p2}%`;
-                if (b2Fill) b2Fill.style.width = `${Math.min(100, Math.max(0, p2Val))}%`;
+                if (b2Fill) {
+                    b2Fill.style.width = `${Math.min(100, Math.max(0, p2Val))}%`;
+                    if (GENRE_COLORS[bar2G]) {
+                        b2Fill.style.backgroundColor = GENRE_COLORS[bar2G];
+                    }
+                }
             }
         }
 
@@ -1869,7 +2219,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     impactStr = `tăng ${diff.toFixed(1)}%`;
                 }
-                expText.innerHTML = `Vừa <strong>${actionStr}</strong> khái niệm <code>${toggledConceptId}</code> ➔ ${impactStr} độ tin cậy thể loại.`;
+                const matchedC = (currentAnalysis.active_concepts || []).find(
+                    (c) => c.concept_id === toggledConceptId,
+                );
+                const cDisplay = matchedC
+                    ? `${matchedC.aspect_label || formatAspectVi(matchedC.aspect)} (${toggledConceptId})`
+                    : toggledConceptId;
+                expText.innerHTML = `Vừa <strong>${actionStr}</strong> khái niệm <strong>${cDisplay}</strong> ➔ ${impactStr} độ tin cậy thể loại.`;
             } else {
                 expText.innerHTML = "Bấm vào bất kỳ khái niệm thị giác hoặc âm thanh bên dưới để thử nghiệm giả định.";
             }
@@ -1911,21 +2267,81 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 if (res.ok) {
                     const data = await res.json();
-                    currentAnalysis.probs = data.probs;
-                    currentAnalysis.prediction = data.prediction;
-                    currentAnalysis.confidence = data.confidence;
+                    const restoredProbs = currentAnalysis.base_probs
+                        ? Object.assign({}, currentAnalysis.base_probs)
+                        : data.probs;
+                    const restoredPred =
+                        currentAnalysis.base_prediction || data.prediction;
+                    const restoredConf =
+                        currentAnalysis.base_confidence ?? data.confidence;
+                    const restoredRules = currentAnalysis.base_rules
+                        ? JSON.parse(JSON.stringify(currentAnalysis.base_rules))
+                        : data.triggered_rules || [];
+
+                    currentAnalysis.probs = restoredProbs;
+                    currentAnalysis.prediction = restoredPred;
+                    currentAnalysis.confidence = restoredConf;
+                    currentAnalysis.triggered_rules = restoredRules;
+
                     updateProbabilityBarsSmooth(
-                        data.probs,
-                        data.prediction,
-                        data.confidence,
+                        restoredProbs,
+                        restoredPred,
+                        restoredConf,
                     );
-                    updateCbmLiveImpact(data, null, true);
+
+                    // Đồng bộ khôi phục lại 3 pill phương thức trên Verdict card
+                    if (currentAnalysis.base_modalities) {
+                        currentOverallModalities = JSON.parse(
+                            JSON.stringify(currentAnalysis.base_modalities),
+                        );
+                        currentAnalysis.modalities = currentOverallModalities;
+                        updateModalitiesGrid(
+                            currentOverallModalities,
+                            restoredPred,
+                            restoredConf,
+                            false,
+                        );
+                    }
+
+                    // Đồng bộ khôi phục lại Luật, Đối chứng, Evidence Map và Khu vực 6
+                    renderTriggeredRules(restoredRules);
+
+                    const restoredContrastive =
+                        currentAnalysis.base_contrastive_analysis ||
+                        data.contrastive_analysis;
+                    if (restoredContrastive) {
+                        currentAnalysis.contrastive_analysis = restoredContrastive;
+                        renderContrastiveMatrix(
+                            restoredContrastive,
+                            restoredProbs,
+                            restoredPred,
+                        );
+                    }
+
+                    const restoredMap =
+                        currentAnalysis.base_evidence_map || data.evidence_map;
+                    if (restoredMap) {
+                        currentAnalysis.evidence_map = restoredMap;
+                        renderEvidenceMap(restoredMap);
+                    }
+
+                    renderExecutiveSummary(currentAnalysis);
+                    updateCbmLiveImpact(
+                        {
+                            probs: restoredProbs,
+                            prediction: restoredPred,
+                            confidence: restoredConf,
+                        },
+                        null,
+                        true,
+                    );
+
                     const expText = document.getElementById(
                         "cbm-live-explanation-text",
                     );
                     if (expText)
                         expText.innerText =
-                            "Đã khôi phục toàn bộ các khái niệm về trạng thái ban đầu.";
+                            "Đã khôi phục toàn bộ các khái niệm và chỉ số phân tích về trạng thái ban đầu.";
                     showToast("Đã khôi phục tất cả khái niệm");
                 }
             } catch (e) {
@@ -2243,12 +2659,30 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // 3. Render 7 Trục MPEG-7 từ phân đoạn đầu tiên
-        if (currentRawChunks[0] && currentRawChunks[0].radar) {
-            renderMpeg7RadarBars(currentRawChunks[0]);
+        // 3. Render 7 Trục MPEG-7 mặc định theo TRUNG BÌNH TOÀN TƯ LIỆU (đồng bộ 100% với Đồ thị bằng chứng Khu vực 3)
+        if (currentOverallRadar) {
+            renderMpeg7RadarBars(
+                {
+                    radar: currentOverallRadar,
+                    crisp_axes: currentOverallCrispAxes || {},
+                },
+                "Trung bình toàn tư liệu",
+            );
+        } else if (currentRawChunks[0] && currentRawChunks[0].radar) {
+            renderMpeg7RadarBars(currentRawChunks[0], `Phân đoạn ${currentRawChunks[0].timestamp}`);
         }
 
-        // 4. Thiết lập sự kiện chuyển 4 subtab
+        // Cập nhật tiêu đề số đoạn & thời lượng thực tế thay cho nhãn cứng "(Chunk 3–5s)"
+        const mmChunkTitle = document.getElementById("mm-chunk-title");
+        if (mmChunkTitle && currentRawChunks.length > 0) {
+            const avgDur =
+                currentRawChunks.reduce((acc, c) => acc + (Number(c.duration) || 0), 0) /
+                currentRawChunks.length;
+            const durLabel = avgDur > 0 ? ` • ~${avgDur.toFixed(0)}s/đoạn` : "";
+            mmChunkTitle.innerText = `Phân đoạn Dự đoán Thời gian (${currentRawChunks.length} đoạn${durLabel})`;
+        }
+
+        // 4. Thiết lập sự kiện chuyển 3 chế độ xem
         setupTimelineSubtabs();
     }
 
@@ -2294,29 +2728,46 @@ document.addEventListener("DOMContentLoaded", () => {
                 ? `<span class="merged-count-badge"><i class="fa-solid fa-layer-group"></i> Gộp ${item.chunk_count} chunk</span>`
                 : "";
 
-            // Hiển thị kết quả theo từng phương thức trên thẻ (Requirement 2)
+            // Hiển thị kết quả kèm phần trăm độ tin cậy từng phương thức ngay trên thẻ phân đoạn
             let modChipsHtml = "";
             const hasAud = item.modalities && item.modalities.audio;
             const hasVis =
                 item.modalities &&
                 item.modalities.visual &&
                 item.modalities.visual.prediction;
+            const isVideoAnalysis = currentAnalysis && currentAnalysis.mode === "video";
 
             if (hasAud) {
-                modChipsHtml += `<span class="mod-pill mod-audio" title="Âm thanh: ${item.modalities.audio.prediction} (${item.modalities.audio.confidence}%)"><i class="fa-solid fa-volume-high"></i> ${item.modalities.audio.prediction}</span>`;
+                const audConf = Number(item.modalities.audio.confidence ?? item.confidence ?? 0).toFixed(1);
+                modChipsHtml += `<span class="mod-pill mod-audio" title="Âm thanh: ${item.modalities.audio.prediction} (${audConf}%)"><i class="fa-solid fa-volume-high"></i><span class="mod-pill-val"><span>${item.modalities.audio.prediction}</span><span class="mod-pill-pct">${audConf}%</span></span></span>`;
             }
             if (hasVis) {
-                modChipsHtml += `<span class="mod-pill mod-visual" title="Thị giác: ${item.modalities.visual.prediction} (${item.modalities.visual.confidence}%)"><i class="fa-solid fa-eye"></i> ${item.modalities.visual.prediction}</span>`;
+                const visConf = Number(item.modalities.visual.confidence ?? 0).toFixed(1);
+                modChipsHtml += `<span class="mod-pill mod-visual" title="Thị giác: ${item.modalities.visual.prediction} (${visConf}%)"><i class="fa-solid fa-eye"></i><span class="mod-pill-val"><span>${item.modalities.visual.prediction}</span><span class="mod-pill-pct">${visConf}%</span></span></span>`;
+            } else if (isVideoAnalysis) {
+                modChipsHtml += `<span class="mod-pill mod-visual-empty" title="Khung hình này không phát hiện nhạc cụ hay trang phục di sản; nhánh hợp nhất giữ nguyên kết quả Âm thanh"><i class="fa-solid fa-eye-slash"></i><span class="mod-pill-val"><span>Không rõ thị giác</span><span class="mod-pill-pct">—</span></span></span>`;
             }
-            modChipsHtml += `<span class="mod-pill mod-fused" title="Hợp nhất: ${item.prediction} (${item.confidence}%)"><i class="fa-solid fa-scale-balanced"></i> ${item.prediction}</span>`;
+            const fusedConf = Number(item.confidence ?? 0).toFixed(1);
+            modChipsHtml += `<span class="mod-pill mod-fused" title="Hợp nhất: ${item.prediction} (${fusedConf}%)"><i class="fa-solid fa-scale-balanced"></i><span class="mod-pill-val"><span>${item.prediction}</span><span class="mod-pill-pct">${fusedConf}%</span></span></span>`;
 
-            // Cues phụ
+            // Cues phụ (dịch sang tiếng Việt, không lộ raw snake_case)
+            const displayCues =
+                Array.isArray(item.visual_cues_display) && item.visual_cues_display.length
+                    ? item.visual_cues_display
+                    : Array.isArray(item.visual_cues) && item.visual_cues.length
+                      ? item.visual_cues.map(formatVisualCueVi)
+                      : [];
             const cuesText =
-                item.visual_cues && item.visual_cues.length
-                    ? item.visual_cues.join(", ")
+                displayCues.length > 0
+                    ? displayCues.join(", ")
                     : item.crisp_axes
                       ? `Cao độ: ${item.crisp_axes.Pitch || "Vừa"} • Năng lượng: ${item.crisp_axes.Energy || "Vừa"}`
                       : "";
+
+            const segColor =
+                item.genre_color ||
+                GENRE_COLORS[item.prediction] ||
+                "var(--accent-vermilion)";
 
             seg.innerHTML = `
         <div class="segment-thumb">
@@ -2326,7 +2777,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <div class="segment-meta">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span class="segment-genre" style="color: ${item.genre_color || "var(--accent-vermilion)"}; font-weight: 700;">${item.prediction}</span>
+            <span class="segment-genre" style="color: ${segColor}; font-weight: 700;">${item.prediction}</span>
             <span class="segment-score">${item.confidence}% tin cậy</span>
           </div>
           <div class="segment-modality-tags">${modChipsHtml}</div>
@@ -2344,7 +2795,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 seekToTimestamp(item.start_time);
                 highlightChunkConcepts(item);
-                renderMpeg7RadarBars(item);
+                renderMpeg7RadarBars(item, `Phân đoạn ${item.timestamp}`);
                 renderSegmentExplanation(item);
             });
 
@@ -2352,7 +2803,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Cập nhật phần diễn giải theo phân đoạn tương ứng (Requirement 1 & 2)
+    // Cập nhật phần diễn giải theo phân đoạn tương ứng (hỗ trợ cả kiểu object và string)
     function renderSegmentExplanation(item) {
         const banner = document.getElementById("xai-segment-banner");
         const timeEl = document.getElementById("xai-segment-time");
@@ -2364,32 +2815,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (timeEl) {
             timeEl.innerText = item.is_merged
-                ? `Vùng gộp: ${item.timestamp} (${item.chunk_count} chunk)`
+                ? `Vùng gộp: ${item.timestamp} (${item.chunk_count} đoạn)`
                 : `Phân đoạn: ${item.timestamp}`;
         }
 
         if (genreEl) {
+            const gColor =
+                item.genre_color ||
+                GENRE_COLORS[item.prediction] ||
+                "var(--accent-vermilion)";
             genreEl.innerText = `${item.prediction} • ${item.confidence}%`;
-            genreEl.style.color = item.genre_color || "var(--accent-vermilion)";
+            genreEl.style.backgroundColor = gColor;
+            genreEl.style.color = "#ffffff";
         }
 
         if (item.explanation) {
-            if (headlineEl) {
-                headlineEl.innerText =
-                    item.explanation.headline ||
-                    `Diễn giải phân đoạn ${item.timestamp}`;
-            }
-            if (item.explanation.narrative) {
-                let formatted = item.explanation.narrative
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
-                    .replace(/\n/g, "<br>");
-                if (bodyEl) bodyEl.innerHTML = formatted;
+            const isObj = typeof item.explanation === "object" && item.explanation !== null;
+            const segHeadline = isObj
+                ? item.explanation.headline || `Diễn giải phân đoạn ${item.timestamp}`
+                : `Diễn giải phân đoạn ${item.timestamp} — ${item.prediction} (${item.confidence}%)`;
+            const segNarrative = isObj
+                ? item.explanation.narrative || ""
+                : String(item.explanation);
+
+            if (headlineEl) headlineEl.innerText = segHeadline;
+            if (segNarrative) {
+                if (bodyEl) bodyEl.innerHTML = formatNarrativeHtml(segNarrative);
                 const previewEl = document.getElementById("overview-insight-preview");
                 if (previewEl) {
-                    previewEl.innerText = item.explanation.narrative
+                    previewEl.innerText = segNarrative
                         .replace(/\*\*([^*]+)\*\*/g, "$1")
                         .replace(/\n+/g, " ")
                         .trim();
@@ -2429,8 +2883,16 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         }
 
-        if (currentRawChunks && currentRawChunks[0]) {
-            renderMpeg7RadarBars(currentRawChunks[0]);
+        if (currentOverallRadar) {
+            renderMpeg7RadarBars(
+                {
+                    radar: currentOverallRadar,
+                    crisp_axes: currentOverallCrispAxes || {},
+                },
+                "Trung bình toàn tư liệu",
+            );
+        } else if (currentRawChunks && currentRawChunks[0]) {
+            renderMpeg7RadarBars(currentRawChunks[0], `Phân đoạn ${currentRawChunks[0].timestamp}`);
         }
 
         document.querySelectorAll(".concept-pill").forEach((p) => {
@@ -2458,7 +2920,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const audioPredEl = document.getElementById("mod-card-audio-pred");
         const audioPred = modalities?.audio?.prediction || fallbackGenre;
         const audioConf = modalities?.audio?.confidence || fallbackConfidence;
-        const aNote = modalities?.audio?.notes || "Phân loại âm thanh CNN (EXP-13) + RF liên tục";
+        const aNote =
+            modalities?.audio?.notes ||
+            "Tổ hợp 4 họ Neuro-Symbolic Audio (M2a + M3c + M4d + M5c)";
 
         if (audioPredEl) {
             audioPredEl.innerHTML = `<strong>${audioPred}</strong> <span class="score">${audioConf}%</span>`;
@@ -2473,9 +2937,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const visualPredEl = document.getElementById("mod-card-visual-pred");
         const visualPred = modalities?.visual?.prediction || fallbackGenre;
         const visualConf = modalities?.visual?.confidence || fallbackConfidence;
-        const vCues = modalities?.visual?.cues && modalities.visual.cues.length
-            ? modalities.visual.cues.join(", ")
-            : modalities?.visual?.notes || "Nhận diện nhạc cụ, trang phục & đạo cụ";
+        const vCues =
+            modalities?.visual?.cues && modalities.visual.cues.length
+                ? modalities.visual.cues.map(formatVisualCueVi).join(", ")
+                : modalities?.visual?.notes || "Nhận diện nhạc cụ, trang phục & đạo cụ";
 
         if (visualPredEl) {
             visualPredEl.innerHTML = `<strong>${visualPred}</strong> <span class="score">${visualConf}%</span>`;
@@ -2581,9 +3046,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function renderMpeg7RadarBars(chunk) {
+    function renderMpeg7RadarBars(chunk, scopeLabel) {
         const radarList = document.getElementById("radar-bars-container");
         if (!radarList) return;
+
+        const scopeEl = document.getElementById("mpeg7-scope-label");
+        if (scopeEl) {
+            const prefix = scopeLabel || (chunk && chunk.timestamp ? `Phân đoạn ${chunk.timestamp}` : "Trung bình toàn tư liệu");
+            scopeEl.innerText = `${prefix} • Giá trị chuẩn hóa [0, 100%]`;
+        }
 
         radarList.innerHTML = "";
         const axesOrder = [
@@ -2614,7 +3085,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="axis-progress-fill" style="width: ${val * 100}%;"></div>
         </div>
         <span class="axis-crisp-badge" title="${crispVal}">${crispVal}</span>
-        <span class="axis-val-num">${(val * 100).toFixed(0)}%</span>
+        <span class="axis-val-num">${(val * 100).toFixed(1)}%</span>
       `;
             radarList.appendChild(row);
         });
@@ -2663,7 +3134,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const item = items[matchedIdx];
             if (item) {
                 highlightChunkConcepts(item);
-                renderMpeg7RadarBars(item);
+                renderMpeg7RadarBars(item, `Phân đoạn ${item.timestamp}`);
                 renderSegmentExplanation(item);
             }
         }
@@ -2763,8 +3234,8 @@ document.addEventListener("DOMContentLoaded", () => {
         series.forEach((pt) => {
             if (pt.prediction) activeGenres.add(pt.prediction);
             if (pt.probs) {
-                Object.entries(pt.probs).forEach(([g, rawP]) => {
-                    const pVal = rawP <= 1.0 ? rawP * 100 : rawP;
+                const pctMap = toPercentMap(pt.probs);
+                Object.entries(pctMap).forEach(([g, pVal]) => {
                     if (pVal >= 8.0) activeGenres.add(g);
                 });
             }
@@ -2839,11 +3310,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         : (pt.start_time + pt.end_time) / 2;
                 let pVal = 0;
                 if (pt.probs && pt.probs[genre] !== undefined) {
-                    pVal = pt.probs[genre];
+                    const pctMap = toPercentMap(pt.probs);
+                    pVal = pctMap[genre] ?? 0;
                 } else if (pt.prediction === genre) {
                     pVal = pt.confidence || 60;
                 }
-                if (pVal <= 1.0) pVal = pVal * 100;
                 return {
                     time: t,
                     prob: Math.max(0, Math.min(100, pVal)),
@@ -2906,11 +3377,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     : (pt.start_time + pt.end_time) / 2;
             const x = pad.left + (Math.max(0, Math.min(dur, t)) / dur) * plotW;
             const topGenre = pt.prediction;
-            let topProb =
-                pt.probs && pt.probs[topGenre] !== undefined
-                    ? pt.probs[topGenre]
+            const pctMap = pt.probs ? toPercentMap(pt.probs) : null;
+            const topProb =
+                pctMap && pctMap[topGenre] !== undefined
+                    ? pctMap[topGenre]
                     : pt.confidence || 60;
-            if (topProb <= 1.0) topProb = topProb * 100;
             const y = pad.top + plotH - (topProb / 100) * plotH;
             const col = GENRE_COLORS[topGenre] || "#C84B31";
 
@@ -2945,18 +3416,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 pt.setAttribute("r", "8");
                 if (tooltip) {
                     const topG = chk.prediction;
-                    let conf = chk.confidence;
-                    if (conf <= 1.0) conf = conf * 100;
+                    const conf = Number(chk.confidence) || 0;
                     const cues =
-                        chk.visual_cues && chk.visual_cues.length
-                            ? chk.visual_cues.join(", ")
-                            : "";
+                        chk.visual_cues_display && chk.visual_cues_display.length
+                            ? chk.visual_cues_display.join(", ")
+                            : chk.visual_cues && chk.visual_cues.length
+                              ? chk.visual_cues.map(formatVisualCueVi).join(", ")
+                              : "";
 
                     // Liệt kê xác suất các lớp
                     let probsListHtml = "";
                     if (chk.probs) {
-                        const sorted = Object.entries(chk.probs)
-                            .map(([g, p]) => [g, p <= 1.0 ? p * 100 : p])
+                        const pctMap = toPercentMap(chk.probs);
+                        const sorted = Object.entries(pctMap)
                             .sort((a, b) => b[1] - a[1])
                             .slice(0, 3);
                         probsListHtml = sorted
@@ -3212,48 +3684,90 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Khởi tạo sự kiện cho Menu Dropdown Bằng chứng Đa phương thức
+    // Khởi tạo sự kiện cho Menu Dropdown Bằng chứng Đa phương thức (hỗ trợ đầy đủ bàn phím & A11y)
+    let isTimelineSubtabsBound = false;
     function setupTimelineSubtabs() {
         const trigger = document.getElementById("custom-subtab-trigger");
         const menu = document.getElementById("custom-subtab-menu");
+        const items = Array.from(document.querySelectorAll(".custom-dropdown-item"));
+
+        const closeMenu = () => {
+            if (!menu || !trigger) return;
+            menu.classList.remove("show");
+            trigger.classList.remove("open");
+            trigger.setAttribute("aria-expanded", "false");
+        };
+
+        const openMenu = () => {
+            if (!menu || !trigger) return;
+            menu.classList.add("show");
+            trigger.classList.add("open");
+            trigger.setAttribute("aria-expanded", "true");
+        };
+
+        const selectItem = (item) => {
+            const tabName = item.getAttribute("data-mm-tab");
+            if (tabName) {
+                switchMultimodalTab(tabName);
+            }
+            closeMenu();
+            if (trigger) trigger.focus();
+        };
 
         if (trigger && menu) {
             trigger.onclick = (e) => {
                 e.stopPropagation();
-                const isOpen = menu.classList.toggle("show");
-                trigger.classList.toggle("open", isOpen);
-                trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+                if (menu.classList.contains("show")) closeMenu();
+                else openMenu();
             };
 
-            document.addEventListener("click", (e) => {
-                if (!trigger.contains(e.target) && !menu.contains(e.target)) {
-                    menu.classList.remove("show");
-                    trigger.classList.remove("open");
-                    trigger.setAttribute("aria-expanded", "false");
+            trigger.onkeydown = (e) => {
+                if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    openMenu();
+                    const active = items.find((it) => it.classList.contains("active")) || items[0];
+                    if (active) active.focus();
+                } else if (e.key === "Escape") {
+                    closeMenu();
                 }
-            });
+            };
 
-            document.addEventListener("keydown", (e) => {
-                if (e.key === "Escape" && menu.classList.contains("show")) {
-                    menu.classList.remove("show");
-                    trigger.classList.remove("open");
-                    trigger.setAttribute("aria-expanded", "false");
-                }
-            });
+            if (!isTimelineSubtabsBound) {
+                isTimelineSubtabsBound = true;
+                document.addEventListener("click", (e) => {
+                    if (!trigger.contains(e.target) && !menu.contains(e.target)) {
+                        closeMenu();
+                    }
+                });
+                document.addEventListener("keydown", (e) => {
+                    if (e.key === "Escape" && menu.classList.contains("show")) {
+                        closeMenu();
+                        trigger.focus();
+                    }
+                });
+            }
         }
 
-        // Gắn sự kiện chuyển tab cho từng item trong menu dropdown
-        document.querySelectorAll(".custom-dropdown-item").forEach((item) => {
+        items.forEach((item, idx) => {
+            item.setAttribute("tabindex", "0");
             item.onclick = (e) => {
                 e.stopPropagation();
-                const tabName = item.getAttribute("data-mm-tab");
-                if (tabName) {
-                    switchMultimodalTab(tabName);
-                }
-                if (menu && trigger) {
-                    menu.classList.remove("show");
-                    trigger.classList.remove("open");
-                    trigger.setAttribute("aria-expanded", "false");
+                selectItem(item);
+            };
+            item.onkeydown = (e) => {
+                if (e.key === "ArrowDown") {
+                    e.preventDefault();
+                    items[(idx + 1) % items.length].focus();
+                } else if (e.key === "ArrowUp") {
+                    e.preventDefault();
+                    items[(idx - 1 + items.length) % items.length].focus();
+                } else if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    selectItem(item);
+                } else if (e.key === "Escape") {
+                    e.preventDefault();
+                    closeMenu();
+                    if (trigger) trigger.focus();
                 }
             };
         });
@@ -3267,26 +3781,67 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================================================
-    // 10. TIỆN ÍCH GIAO DIỆN: LOADING OVERLAY & TOAST NOTIFICATION
+    // 10. TIỆN ÍCH GIAO DIỆN: LOADING OVERLAY (EDITORIAL ARCHIVAL) & TOAST
     // =========================================================================
+    let loadingElapsedTimer = null;
+    let loadingStageTimers = [];
+
+    function updateLoadingStage(activeStep) {
+        const steps = document.querySelectorAll(".loading-step-item");
+        steps.forEach((stepEl, idx) => {
+            const stepNum = idx + 1;
+            stepEl.classList.toggle("is-done", stepNum < activeStep);
+            stepEl.classList.toggle("is-active", stepNum === activeStep);
+        });
+        const fill = document.getElementById("loading-progress-fill");
+        if (fill) {
+            const pct = activeStep === 1 ? 26 : activeStep === 2 ? 62 : 88;
+            fill.style.width = `${pct}%`;
+        }
+    }
+
+    function clearLoadingTimers() {
+        if (loadingElapsedTimer) {
+            clearInterval(loadingElapsedTimer);
+            loadingElapsedTimer = null;
+        }
+        loadingStageTimers.forEach((t) => clearTimeout(t));
+        loadingStageTimers = [];
+    }
+
     function showLoading(title, subtitle) {
+        clearLoadingTimers();
         if (audioWave && typeof audioWave.setProcessingState === "function") {
             audioWave.setProcessingState(true);
         }
-        const sphereBackdrop = document.getElementById("ambient-sphere-backdrop");
-        if (sphereBackdrop) {
-            sphereBackdrop.classList.add("loading-centered");
-        }
         if (loadingOverlay) {
-            const h3 = loadingOverlay.querySelector("h3");
-            const p = loadingOverlay.querySelector("p");
-            if (h3) h3.innerText = title;
-            if (p) p.innerText = subtitle;
+            const h3 = loadingOverlay.querySelector(".loading-title") || loadingOverlay.querySelector("h3");
+            const p = loadingOverlay.querySelector(".loading-desc") || loadingOverlay.querySelector("p");
+            const timerEl = document.getElementById("loading-elapsed-timer");
+            if (h3) h3.innerText = title || "Đang phân tích tư liệu di sản...";
+            if (p) p.innerText = subtitle || "Đang trích xuất đặc trưng âm học, khung hình và hệ luật suy luận.";
+            if (timerEl) timerEl.innerText = "00:00";
+
+            updateLoadingStage(1);
             loadingOverlay.style.display = "flex";
+
+            const startTs = Date.now();
+            loadingElapsedTimer = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - startTs) / 1000);
+                const mm = String(Math.floor(elapsed / 60)).padStart(2, "0");
+                const ss = String(elapsed % 60).padStart(2, "0");
+                if (timerEl) timerEl.innerText = `${mm}:${ss}`;
+            }, 1000);
+
+            loadingStageTimers.push(
+                setTimeout(() => updateLoadingStage(2), 9000),
+                setTimeout(() => updateLoadingStage(3), 26000),
+            );
         }
     }
 
     function hideLoading() {
+        clearLoadingTimers();
         if (audioWave && typeof audioWave.setProcessingState === "function") {
             audioWave.setProcessingState(false);
         }
@@ -3295,6 +3850,8 @@ document.addEventListener("DOMContentLoaded", () => {
             sphereBackdrop.classList.remove("loading-centered");
         }
         if (loadingOverlay) {
+            const fill = document.getElementById("loading-progress-fill");
+            if (fill) fill.style.width = "100%";
             loadingOverlay.style.display = "none";
         }
     }
@@ -3563,6 +4120,11 @@ document.addEventListener("DOMContentLoaded", () => {
             top1BaseProb: top1Prob,
             top2BaseProb: contrastProb,
         };
+
+        // Đồng bộ thanh đối chứng trong bảng Can thiệp Khái niệm CBM ngay khi đổi thể loại đối chứng
+        if (currentAnalysis && typeof updateCbmLiveImpact === "function") {
+            updateCbmLiveImpact(currentAnalysis, null, null);
+        }
 
         // 1. Cập nhật Header Metadata & Màu nhận diện riêng của từng thể loại
         const winnerTag = document.getElementById("meta-winner-tag");
@@ -4590,13 +5152,13 @@ document.addEventListener("DOMContentLoaded", () => {
             evidenceMapState.nodeMap.set(node.id, node);
         });
 
-        // Cấu hình kích thước và tọa độ từng cột
+        // Cấu hình kích thước và tọa độ từng cột (2 hàng rõ ràng: Hàng 1 tiêu đề toàn chiều rộng, Hàng 2 giá trị + badge phải)
         const colConfig = [
-            { x: 45, w: 180, h: 56, title: "1. ĐẦU VÀO PHƯƠNG THỨC" },
-            { x: 265, w: 200, h: 46, title: "2. ĐẶC TRƯNG TRÍCH XUẤT" },
-            { x: 505, w: 205, h: 52, title: "3. KHÁI NIỆM TRUNG GIAN (CBM)" },
-            { x: 750, w: 220, h: 58, title: "4. LUẬT SUY LUẬN MỜ (RULES)" },
-            { x: 1010, w: 215, h: 64, title: "5. PHÁN QUYẾT DI SẢN (VERDICT)" },
+            { x: 35, w: 205, h: 62, title: "1. ĐẦU VÀO PHƯƠNG THỨC" },
+            { x: 280, w: 222, h: 56, title: "2. ĐẶC TRƯNG TRÍCH XUẤT" },
+            { x: 542, w: 228, h: 58, title: "3. KHÁI NIỆM TRUNG GIAN (CBM)" },
+            { x: 810, w: 238, h: 64, title: "4. LUẬT SUY LUẬN MỜ (RULES)" },
+            { x: 1088, w: 232, h: 68, title: "5. PHÁN QUYẾT DI SẢN (VERDICT)" },
         ];
 
         const topMargin = 65;
@@ -4708,9 +5270,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 else if (node.category === "rule") iconSymbol = "⚖";
                 else if (isVerdict) iconSymbol = "👑";
 
-                const badgeText = node.badge ? escapeXml(node.badge) : "";
-                const badgeW = Math.max(50, badgeText.length * 6.5 + 12);
+                const badgeRaw = node.badge ? String(node.badge) : "";
+                const badgeText = badgeRaw ? escapeXml(truncateStr(badgeRaw, 18)) : "";
+                const badgeW = badgeText
+                    ? Math.max(46, Math.min(116, Math.round(badgeText.length * 5.6 + 14)))
+                    : 0;
                 const badgeX = node.x + node.w - badgeW - 8;
+                const badgeY = node.y + node.h - 23;
+
+                // Hàng 1 dành trọn chiều rộng cho tiêu đề -> KHÔNG BAO GIỜ bị badge đè chữ
+                const maxTitleChars = Math.max(14, Math.floor((node.w - 38) / 6.3));
+                const titleDisplay = escapeXml(truncateStr(node.name || "", maxTitleChars));
+
+                // Hàng 2: giá trị phụ nằm bên trái, tự động giới hạn độ dài để không chạm badge bên phải
+                const subAvailPx = badgeText
+                    ? Math.max(40, badgeX - (node.x + 14) - 8)
+                    : node.w - 24;
+                const maxSubChars = Math.max(8, Math.floor(subAvailPx / 5.7));
+                const subDisplay = escapeXml(truncateStr(node.value || "", maxSubChars));
 
                 nodesHtml += `
           <g class="evidence-node ${nodeClass}" 
@@ -4718,36 +5295,35 @@ document.addEventListener("DOMContentLoaded", () => {
              data-layer="${node.layer}" 
              data-modality="${escapeXml(mod)}" 
              data-category="${escapeXml(node.category)}">
+            <title>${escapeXml(node.name || "")}${node.value ? " — " + escapeXml(node.value) : ""}</title>
             <!-- Thẻ nền chính -->
             <rect class="node-card" x="${node.x}" y="${node.y}" width="${node.w}" height="${node.h}" />
             
             <!-- Dải màu chỉ thị phương thức bên trái -->
-            <rect class="node-pill" x="${node.x + 3}" y="${node.y + 6}" width="3.5" height="${node.h - 12}" rx="2" fill="${pillColor}" />
+            <rect class="node-pill" x="${node.x + 3}" y="${node.y + 7}" width="3.5" height="${node.h - 14}" rx="2" fill="${pillColor}" />
             
-            <!-- Biểu tượng ký hiệu -->
-            <text x="${node.x + 14}" y="${node.y + 20}" font-size="11" fill="${pillColor}">${iconSymbol}</text>
-            
-            <!-- Tiêu đề Node -->
-            <text class="node-title-text" x="${node.x + 28}" y="${node.y + 19}">
-              ${escapeXml(truncateStr(node.name, 19))}
+            <!-- Hàng 1: Biểu tượng + Tiêu đề đầy đủ -->
+            <text x="${node.x + 14}" y="${node.y + 21}" font-size="11" fill="${pillColor}">${iconSymbol}</text>
+            <text class="node-title-text" x="${node.x + 29}" y="${node.y + 21}">
+              ${titleDisplay}
             </text>
             
-            <!-- Huy hiệu Badge (Định lượng/Trạng thái) -->
+            <!-- Hàng 2 (Trái): Dòng giá trị trích xuất / Nhãn phụ -->
+            <text class="node-sub-text" x="${node.x + 14}" y="${node.y + node.h - 11}">
+              ${subDisplay}
+            </text>
+
+            <!-- Hàng 2 (Phải): Huy hiệu Badge tách biệt hoàn toàn với tiêu đề -->
             ${
                 badgeText
                     ? `
-              <rect class="node-badge-rect" x="${badgeX}" y="${node.y + 6}" width="${badgeW}" height="16" fill="rgba(240, 238, 233, 0.9)" stroke="var(--border-hairline)" />
-              <text class="node-badge-text" x="${badgeX + badgeW / 2}" y="${node.y + 18}" fill="${pillColor}">
+              <rect class="node-badge-rect" x="${badgeX}" y="${badgeY}" width="${badgeW}" height="16" rx="4" fill="rgba(244, 241, 234, 0.96)" stroke="var(--border-hairline)" />
+              <text class="node-badge-text" x="${badgeX + badgeW / 2}" y="${badgeY + 11.5}" fill="${pillColor}">
                 ${badgeText}
               </text>
             `
                     : ""
             }
-            
-            <!-- Dòng giá trị trích xuất thực tế / Nhãn định tính -->
-            <text class="node-sub-text" x="${node.x + 14}" y="${node.y + (node.h > 56 ? 43 : 38)}">
-              ${escapeXml(truncateStr(node.value || "", 26))}
-            </text>
           </g>
         `;
             });
@@ -4778,8 +5354,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const svgW = svgRect.width || 850;
         const svgH = svgRect.height || 540;
 
-        const graphW = 1270; // 1015 + 215 + 40
-        const graphH = 500;
+        const graphW = 1390; // 1088 + 232 + 70 margin phải
+        const graphH = 560;
 
         const scaleX = (svgW - 40) / graphW;
         const scaleY = (svgH - 40) / graphH;
@@ -5538,6 +6114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const edgeSidebar = document.getElementById("edge-sidebar");
         if (edgeSidebar) edgeSidebar.classList.remove("is-expanded");
 
+        drawer.inert = false;
         drawer.classList.add("open");
         drawer.setAttribute("aria-hidden", "false");
         if (backdrop) backdrop.classList.add("open");
@@ -5550,8 +6127,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const drawer = document.getElementById("slide-drawer");
         const backdrop = document.getElementById("drawer-backdrop");
         if (drawer) {
+            if (document.activeElement && drawer.contains(document.activeElement)) {
+                document.activeElement.blur();
+            }
             drawer.classList.remove("open");
             drawer.setAttribute("aria-hidden", "true");
+            drawer.inert = true;
         }
         if (backdrop) {
             backdrop.classList.remove("open");
@@ -5572,12 +6153,22 @@ document.addEventListener("DOMContentLoaded", () => {
         if (badgeEl && meta) badgeEl.innerText = meta.badge;
         if (titleEl && meta) titleEl.innerText = meta.title;
 
-        // Kích hoạt pane tương ứng và ẩn các pane còn lại
+        // Kích hoạt pane tương ứng và ẩn các pane còn lại (kèm hiệu ứng mờ nhẹ 220ms)
+        let activePaneEl = null;
         document.querySelectorAll(".drawer-pane").forEach((pane) => {
             const isMatch = pane.getAttribute("data-pane") === targetSectionId;
             pane.classList.toggle("active", isMatch);
             pane.style.display = isMatch ? "block" : "none";
+            if (isMatch) activePaneEl = pane;
         });
+        if (activePaneEl && typeof gsap !== "undefined") {
+            gsap.killTweensOf(activePaneEl);
+            gsap.fromTo(
+                activePaneEl,
+                { opacity: 0, y: 6 },
+                { opacity: 1, y: 0, duration: 0.22, ease: "power2.out", clearProps: "opacity,transform" },
+            );
+        }
 
         // Cập nhật nút nhanh trên Header của Drawer
         document.querySelectorAll(".drawer-quick-btn").forEach((btn) => {
@@ -5812,16 +6403,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     topRule.confidence <= 1.0
                         ? (topRule.confidence * 100).toFixed(1)
                         : Number(topRule.confidence).toFixed(1);
-                tkRuleVal.innerText = `${rules.length} luật (Top #1: ${topRConf}%)`;
+                tkRuleVal.innerText = `${rules.length} luật (${topRConf}%)`;
             } else {
                 tkRuleVal.innerText = "0 luật kích hoạt";
             }
         }
         if (tkRuleSub) {
-            if (rules.length > 0 && rules[0].rule_text) {
-                tkRuleSub.innerText = `IF ${rules[0].rule_text} ➜ ${rules[0].consequent}`;
+            if (rules.length > 0 && rules[0].consequent) {
+                const rCount = Array.isArray(rules[0].clauses) ? rules[0].clauses.length : 1;
+                tkRuleSub.innerText = `Luật #1 dẫn dắt: ${rCount} điều kiện → ${rules[0].consequent}`;
             } else {
-                tkRuleSub.innerText = "Suy luận dựa trên mạng nơ-ron cơ sở";
+                tkRuleSub.innerText = "Suy luận từ tổ hợp nơ-ron đa phương thức";
             }
         }
 
@@ -5977,7 +6569,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        // 7. Sự kiện Accordion mở/đóng Tài liệu viện dẫn học thuật (Khu vực 6)
+        // 7. Sự kiện Accordion mở/đóng Tài liệu viện dẫn học thuật (Khu vực 6 — mặc định thu gọn)
         const btnCitations = document.getElementById("btn-toggle-citations");
         const bodyCitations = document.getElementById(
             "citations-accordion-body",
@@ -5985,16 +6577,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const iconCitations = document.getElementById("citations-acc-icon");
         if (btnCitations && bodyCitations) {
             btnCitations.addEventListener("click", () => {
-                const isCollapsed =
-                    bodyCitations.classList.toggle("collapsed");
+                const isOpen = bodyCitations.classList.toggle("open");
                 btnCitations.setAttribute(
                     "aria-expanded",
-                    isCollapsed ? "false" : "true",
+                    isOpen ? "true" : "false",
                 );
                 if (iconCitations) {
-                    iconCitations.className = isCollapsed
-                        ? "fa-solid fa-chevron-down"
-                        : "fa-solid fa-chevron-up";
+                    iconCitations.className = isOpen
+                        ? "fa-solid fa-chevron-up accordion-arrow"
+                        : "fa-solid fa-chevron-down accordion-arrow";
                 }
             });
         }
@@ -6014,7 +6605,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // 8. Sự kiện mở Slide Drawer từ các thẻ chức năng trong Edge Sidebar (.dock-edge-tab)
+        // 8. Sự kiện mở Slide Drawer từ Edge Sidebar (.dock-edge-tab) & Lối tắt chân thẻ XAI (.xai-deepdive-link)
         document.querySelectorAll(".dock-edge-tab").forEach((tab) => {
             tab.addEventListener("click", () => {
                 const targetSec = tab.getAttribute("data-open-drawer");
@@ -6031,6 +6622,761 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         });
+
+        document.querySelectorAll(".xai-deepdive-link[data-open-drawer]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const targetSec = btn.getAttribute("data-open-drawer");
+                if (targetSec) openSlideDrawer(targetSec);
+            });
+        });
+
+        // 8b. Slideshow Triển lãm 6 Thể loại Di sản ở Trạng thái Khởi đầu (tự chuyển 8s, dừng khi hover)
+        const HERITAGE_SLIDES = [
+            {
+                genre: "Ca trù",
+                region: "Bắc Bộ · Di sản UNESCO (2009)",
+                articleUrl: "https://vienamnhac.vn/di-san/ca-tru/bai-viet/vai-net-ve-ca-tru-quang-binh",
+                articleLabel: "Đọc tư liệu · Viện Âm nhạc",
+                paragraphs: [
+                    "Ca trù (còn gọi là hát ả đào, hát cửa đình) là nghệ thuật hát thơ thính phòng bác học vùng Bắc Bộ và Bắc Trung Bộ, được UNESCO ghi danh Di sản Văn hóa Phi vật thể cần bảo vệ khẩn cấp năm 2009.",
+                    "Đội hình kinh điển gồm ba thành phần: đào nương vừa hát theo kỹ thuật ém hơi, đổ hột nảy hạt vừa gõ phách tre; kép đàn đệm đàn đáy cần dài; và quan viên cầm roi điểm tiếng trống chầu thưởng thức câu hát.",
+                ],
+                cues: [
+                    ["Âm học", "Nảy hạt, ém hơi, nhịp phách giòn"],
+                    ["Nhạc cụ", "Đàn đáy, bàn phách, trống chầu"],
+                    ["Không gian", "Hát cửa đình & thính phòng"],
+                ],
+            },
+            {
+                genre: "Cải lương",
+                region: "Nam Bộ · Sân khấu Kịch hát Truyền thống",
+                articleUrl: "https://lyluanphebinh.vn/tin-tuc/nghien-cuu-trao-doi/3162/phuc-trang-cai-luong-mien-nam-voi-no-luc-giu-gin-va-phat-trien",
+                articleLabel: "Đọc bài viết · Lý luận VHNT",
+                paragraphs: [
+                    "Cải lương là loại hình sân khấu kịch hát tiêu biểu Nam Bộ hình thành từ đầu thế kỷ 20 trên nền tảng Đờn ca tài tử và ca ra bộ, kết hợp nhuần nhuyễn ca hát biểu cảm, lời thoại kịch và diễn xuất hình thể.",
+                    "Dấu ấn nhận diện cốt lõi là hệ thống bài bản Vọng cổ cùng các hơi Bắc – Nam – Oán sâu lắng, hòa âm với dàn nhạc tài tử mà linh hồn là cây đàn guitar phím lõm, đàn kìm và đàn tranh.",
+                ],
+                cues: [
+                    ["Âm học", "Vọng cổ ngân sâu, hơi Bắc–Nam–Oán"],
+                    ["Nhạc cụ", "Guitar phím lõm, đàn kìm, đàn tranh"],
+                    ["Không gian", "Sân khấu kịch hát & phục trang cổ"],
+                ],
+            },
+            {
+                genre: "Chèo",
+                region: "Đồng bằng Bắc Bộ · Sân khấu Dân gian",
+                articleUrl: "https://scov.gov.vn/ban-sac-van-hoa/gioi-thieu-ban-sac-van-hoa/cheo-nghe-thuat-san-khau-truyen-thong-tieu-bieu-cua-nguoi-viet.html",
+                articleLabel: "Đọc bài viết · Bản sắc Việt",
+                paragraphs: [
+                    "Chèo là nghệ thuật sân khấu kịch hát dân gian lâu đời nhất vùng châu thổ sông Hồng, gắn bó mật thiết với không gian chiếu cói sân đình, hội làng và đời sống tinh thần bình dị của người dân Bắc Bộ.",
+                    "Nghệ thuật Chèo dung hòa giữa ca hát (ngân đuôi, lưu không, bẻ làn nắn điệu), nói thoại, múa quạt ước lệ cùng nét hài hước thâm thúy của vai hề Chèo, dẫn nhịp xuyên suốt bằng tiếng trống đế, trống Chèo và mõ.",
+                ],
+                cues: [
+                    ["Âm học", "Ngân đuôi, lưu không, bẻ làn nắn điệu"],
+                    ["Nhạc cụ", "Trống Chèo, trống đế, mõ, đàn nhị"],
+                    ["Không gian", "Chiếu cói sân đình & áo tứ thân"],
+                ],
+            },
+            {
+                genre: "Chầu văn",
+                region: "Tín ngưỡng Thờ Mẫu · Di sản UNESCO (2016)",
+                articleUrl: "https://dsvh.gov.vn/nghi-le-chau-van-cua-nguoi-viet-3150",
+                articleLabel: "Đọc tư liệu · Cục Di sản",
+                paragraphs: [
+                    "Hát Chầu văn (hát văn) là nghệ thuật âm nhạc nghi lễ gắn với Tín ngưỡng thờ Mẫu Tam phủ của người Việt — Di sản Văn hóa Phi vật thể đại diện của nhân loại được UNESCO ghi danh năm 2016.",
+                    "Trong không gian đền, phủ trang nghiêm, giọng hát giàu nội lực của cung văn hòa cùng đàn nguyệt, trống ban, phách và thanh la, biến hóa theo từng giá hầu đồng với khăn chầu áo ngự rực rỡ.",
+                ],
+                cues: [
+                    ["Âm học", "Tiết tấu biến hóa, nhấn lệch phách"],
+                    ["Nhạc cụ", "Đàn nguyệt, trống ban, phách, thanh la"],
+                    ["Không gian", "Điện thờ & nghi thức hầu đồng"],
+                ],
+            },
+            {
+                genre: "Quan họ",
+                region: "Kinh Bắc · Di sản UNESCO (2009)",
+                articleUrl: "https://ich.unesco.org/en/RL/quan-ho-bac-ninh-folk-songs-00183",
+                articleLabel: "Xem hồ sơ · UNESCO ICH",
+                paragraphs: [
+                    "Dân ca Quan họ Bắc Ninh là nghệ thuật hát đối đáp giao duyên tinh tế giữa các cặp liền anh, liền chị vùng Kinh Bắc, được UNESCO vinh danh Di sản Văn hóa Phi vật thể đại diện của nhân loại năm 2009.",
+                    "Truyền thống Quan họ cổ đề cao hát không nhạc đệm (hát chay) đạt bốn phẩm chất thanh nhạc 'vang, rền, nền, nảy', gắn liền với trang phục áo mớ ba mớ bảy, nón quai thao, áo the khăn xếp và lễ hội Hội Lim.",
+                ],
+                cues: [
+                    ["Âm học", "Vang–rền–nền–nảy, hát đối đáp"],
+                    ["Trang phục", "Nón quai thao, áo mớ ba, áo the"],
+                    ["Không gian", "Hội Lim, canh hát & thuyền rồng"],
+                ],
+            },
+            {
+                genre: "Hát xẩm",
+                region: "Bắc Bộ · Di sản Âm nhạc Dân gian Đô thị",
+                articleUrl: "https://hanoi.gov.vn/tin-tuc-su-kien-noi-bat/ha-noi-tim-lai-cho-dung-cho-hat-xam-4000102581.htm",
+                articleLabel: "Đọc bài viết · Cổng TTĐT Hà Nội",
+                paragraphs: [
+                    "Hát xẩm là loại hình dân ca kể chuyện mộc mạc từng vang lên khắp các góc chợ, bến đò, đình làng và những chuyến tàu điện phố cổ Hà Nội xưa, phản ánh chân thực tâm tư và nhân tình thế thái của người lao động.",
+                    "Với các làn điệu đặc trưng như xẩm chợ, xẩm thập âm, xẩm tàu điện, giọng hát tự sự giàu biểu cảm của nghệ nhân quyện chặt vào tiếng đàn nhị réo rắt, đàn bầu, trống mảnh và nhịp sênh tiền giòn giã.",
+                ],
+                cues: [
+                    ["Âm học", "Tự sự bình dân, tiết tấu xẩm chợ"],
+                    ["Nhạc cụ", "Đàn nhị, đàn bầu, trống mảnh, sênh tiền"],
+                    ["Không gian", "Chiếu xẩm phố cổ & chợ quê"],
+                ],
+            },
+        ];
+
+        const showcaseRoot = document.getElementById("empty-heritage-guide");
+        const showcaseTabs = Array.from(document.querySelectorAll(".showcase-tab"));
+        const showcaseImgs = Array.from(document.querySelectorAll(".showcase-img"));
+        const showcaseRegion = document.getElementById("showcase-region-badge");
+        const showcaseCounter = document.getElementById("showcase-counter");
+        const showcaseTitle = document.getElementById("showcase-genre-title");
+        const showcaseDesc = document.getElementById("showcase-desc");
+        const showcaseCues = document.getElementById("showcase-cues-row");
+        const btnShowcaseArticle = document.getElementById("btn-showcase-article");
+        const showcaseArticleLabel = document.getElementById("showcase-article-label");
+        const btnShowcasePrev = document.getElementById("showcase-prev-btn");
+        const btnShowcaseNext = document.getElementById("showcase-next-btn");
+
+        let showcaseIdx = 0;
+        let showcaseRafId = null;
+        let showcaseLastTs = 0;
+        let slideElapsedMs = 0;
+        let showcasePaused = false;
+        let showcaseVisible = true;
+        let showcaseCopyFadeTimer = null;
+        const showcaseCopyEl = showcaseRoot ? showcaseRoot.querySelector(".showcase-copy") : null;
+        const showcaseProgressBars = showcaseTabs.map((tab) => tab.querySelector(".st-progress"));
+        const SLIDE_INTERVAL_MS = 8000;
+
+        function renderShowcaseProgress() {
+            const ratio = Math.max(0, Math.min(1, slideElapsedMs / SLIDE_INTERVAL_MS));
+            showcaseProgressBars.forEach((bar, i) => {
+                if (!bar) return;
+                bar.style.transform = i === showcaseIdx ? `scaleX(${ratio.toFixed(4)})` : "scaleX(0)";
+            });
+        }
+
+        function stopShowcaseClock() {
+            if (showcaseRafId !== null) {
+                cancelAnimationFrame(showcaseRafId);
+                showcaseRafId = null;
+            }
+            showcaseLastTs = 0;
+        }
+
+        function tickShowcaseClock(ts) {
+            if (!showcaseVisible || showcasePaused || document.hidden) {
+                showcaseRafId = null;
+                showcaseLastTs = 0;
+                return;
+            }
+            if (showcaseLastTs > 0) {
+                const dtMs = Math.min(100, ts - showcaseLastTs);
+                slideElapsedMs += dtMs;
+            }
+            showcaseLastTs = ts;
+
+            if (slideElapsedMs >= SLIDE_INTERVAL_MS) {
+                slideElapsedMs = 0;
+                goToShowcaseSlide((showcaseIdx + 1) % HERITAGE_SLIDES.length);
+            } else {
+                renderShowcaseProgress();
+            }
+            showcaseRafId = requestAnimationFrame(tickShowcaseClock);
+        }
+
+        function ensureShowcaseClockRunning() {
+            if (!showcaseVisible || showcasePaused || document.hidden) return;
+            if (showcaseRafId !== null) return;
+            showcaseLastTs = 0;
+            showcaseRafId = requestAnimationFrame(tickShowcaseClock);
+        }
+
+        function restartShowcaseTimer() {
+            slideElapsedMs = 0;
+            renderShowcaseProgress();
+            ensureShowcaseClockRunning();
+        }
+
+        function applyShowcaseText(idx, slide) {
+            if (showcaseRegion) showcaseRegion.innerText = slide.region;
+            if (showcaseCounter) showcaseCounter.innerText = `${String(idx + 1).padStart(2, "0")} / 06`;
+            if (showcaseTitle) showcaseTitle.innerText = slide.genre;
+            if (showcaseDesc) {
+                showcaseDesc.innerHTML = slide.paragraphs
+                    .map((p) => `<p>${p}</p>`)
+                    .join("");
+            }
+            if (btnShowcaseArticle) {
+                btnShowcaseArticle.href = slide.articleUrl;
+                btnShowcaseArticle.title = `Mở bài viết về ${slide.genre} trong thẻ mới`;
+            }
+            if (showcaseArticleLabel) {
+                showcaseArticleLabel.innerText = slide.articleLabel;
+            }
+            if (showcaseCues) {
+                showcaseCues.innerHTML = slide.cues
+                    .map(
+                        ([k, v]) =>
+                            `<span class="showcase-cue-chip"><strong>${k}:</strong> ${v}</span>`,
+                    )
+                    .join("");
+            }
+        }
+
+        let hasInitializedShowcase = false;
+        function goToShowcaseSlide(nextIdx) {
+            const idx = ((nextIdx % HERITAGE_SLIDES.length) + HERITAGE_SLIDES.length) % HERITAGE_SLIDES.length;
+            const changed = idx !== showcaseIdx;
+            showcaseIdx = idx;
+            const slide = HERITAGE_SLIDES[idx];
+
+            showcaseTabs.forEach((tab, i) => {
+                const isMatch = i === idx;
+                tab.classList.toggle("active", isMatch);
+                tab.setAttribute("aria-selected", isMatch ? "true" : "false");
+            });
+            slideElapsedMs = 0;
+            renderShowcaseProgress();
+
+            showcaseImgs.forEach((img, i) => {
+                img.classList.toggle("active", i === idx);
+            });
+
+            if (showcaseCopyFadeTimer) {
+                clearTimeout(showcaseCopyFadeTimer);
+                showcaseCopyFadeTimer = null;
+            }
+
+            if (hasInitializedShowcase && changed && showcaseCopyEl) {
+                showcaseCopyEl.classList.add("is-fading");
+                showcaseCopyFadeTimer = setTimeout(() => {
+                    applyShowcaseText(idx, slide);
+                    showcaseCopyEl.classList.remove("is-fading");
+                }, 170);
+            } else {
+                applyShowcaseText(idx, slide);
+            }
+            hasInitializedShowcase = true;
+
+            if (typeof window.setHeritageAmbientGenre === "function") {
+                window.setHeritageAmbientGenre(idx);
+            }
+        }
+
+        // 8c. Biểu đồ Hình thái Âm học Di sản ở cột trái (Canvas 60fps — 6 cấu trúc sóng khác biệt rõ rệt, chuyển pha mượt 1.8s không giật)
+        (function initHeritageAmbientArtwork() {
+            const canvas = document.getElementById("heritage-ambient-canvas");
+            const stage = canvas ? canvas.parentElement : null;
+            const headerRow = document.querySelector("#empty-left-artwork .artwork-header-row");
+            const metricsRow = document.getElementById("artwork-metrics-row");
+            const liveDot = document.getElementById("artwork-live-dot");
+            const captionTitle = document.getElementById("artwork-caption-title");
+            const captionMotif = document.getElementById("artwork-caption-motif");
+            const amAmpVal = document.getElementById("am-amp-val");
+            const amFreqVal = document.getElementById("am-freq-val");
+            const amRhythmVal = document.getElementById("am-rhythm-val");
+            if (!canvas || !stage) return;
+
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+
+            const AMBIENT_PROFILES = [
+                {
+                    genre: "Ca trù",
+                    motif: "Nhịp phách & dây đàn đáy",
+                    rgb: [200, 75, 49],
+                    secondary: [138, 92, 54],
+                    ampLabel: "Gọn, nảy sắc",
+                    freqLabel: "Thưa, tách bạch",
+                    rhythmLabel: "Phách đôi điểm nhịp",
+                    beatSec: 2.6,
+                },
+                {
+                    genre: "Cải lương",
+                    motif: "Hơi Vọng cổ & phím lõm",
+                    rgb: [186, 125, 36],
+                    secondary: [158, 72, 46],
+                    ampLabel: "Rộng, ngân sâu",
+                    freqLabel: "Trầm ấm, trải dài",
+                    rhythmLabel: "Lơi nhịp tự do",
+                    beatSec: 3.8,
+                },
+                {
+                    genre: "Chèo",
+                    motif: "Trống đế & làn điệu cổ",
+                    rgb: [43, 88, 140],
+                    secondary: [188, 122, 48],
+                    ampLabel: "Trung bình, linh hoạt",
+                    freqLabel: "Sáng, nhiều đỉnh nhỏ",
+                    rhythmLabel: "Đảo phách rộn ràng",
+                    beatSec: 1.9,
+                },
+                {
+                    genre: "Chầu văn",
+                    motif: "Đàn nguyệt & nhịp hầu văn",
+                    rgb: [122, 59, 105],
+                    secondary: [196, 138, 45],
+                    ampLabel: "Mạnh, cao trào",
+                    freqLabel: "Dày, giàu hòa âm",
+                    rhythmLabel: "Dồn dập tăng tiến",
+                    beatSec: 1.45,
+                },
+                {
+                    genre: "Quan họ",
+                    motif: "Đối đáp vang–rền–nền–nảy",
+                    rgb: [30, 107, 91],
+                    secondary: [164, 124, 58],
+                    ampLabel: "Cân đối hai bè",
+                    freqLabel: "Mượt, giao hòa",
+                    rhythmLabel: "Đối đáp luân phiên",
+                    beatSec: 3.1,
+                },
+                {
+                    genre: "Hát xẩm",
+                    motif: "Đàn nhị & nhịp sênh tiền",
+                    rgb: [122, 86, 56],
+                    secondary: [176, 86, 52],
+                    ampLabel: "Mộc, vừa phải",
+                    freqLabel: "Kéo dây bất đối xứng",
+                    rhythmLabel: "Sênh tiền đều đặn",
+                    beatSec: 2.2,
+                },
+            ];
+
+            let width = 480;
+            let height = 220;
+            let dpr = Math.min(window.devicePixelRatio || 1, 2);
+            let rafId = null;
+            let isActive = true;
+
+            // Cross-fade mượt tuyệt đối giữa trạng thái sóng trước (fromIdx) và sau (toIdx) trong 1.8s
+            let fromIdx = 0;
+            let toIdx = 0;
+            let morphT = 1;
+            const MORPH_DURATION_SEC = 1.85;
+            let textFadeTimer = null;
+
+            const pointer = { x: 0.5, y: 0.5, active: false, energy: 0 };
+            const ripples = [];
+            let elapsed = 0;
+            let lastTs = 0;
+            let beatAccum = 0;
+
+            const prefersReduced =
+                window.matchMedia &&
+                window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            function easeInOutCubic(x) {
+                return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+            }
+
+            function lerp(a, b, t) {
+                return a + (b - a) * t;
+            }
+
+            // 6 hàm hình thái sóng âm riêng biệt theo đặc trưng âm học thật của từng thể loại
+            function evalGenreWave(genreIdx, strandIdx, u, t, h) {
+                const env = Math.pow(Math.sin(u * Math.PI), 1.25);
+                const sOff = strandIdx * 0.85;
+
+                switch (genreIdx) {
+                    case 0: {
+                        // Ca trù: Tĩnh tại, thưa nét, thỉnh thoảng bật cụm xung phách & đàn đáy gọn sắc
+                        const pulsePos1 = (t * 0.22 + 0.18 + strandIdx * 0.04) % 1;
+                        const pulsePos2 = (pulsePos1 + 0.09) % 1; // phách đôi đặc trưng
+                        const d1 = Math.abs(u - pulsePos1);
+                        const d2 = Math.abs(u - pulsePos2);
+                        const burst1 = Math.exp(-d1 * d1 * 260) * Math.sin((u - pulsePos1) * 75);
+                        const burst2 = Math.exp(-d2 * d2 * 320) * Math.sin((u - pulsePos2) * 90) * 0.72;
+                        const basePluck = Math.sin(u * Math.PI * 3.2 - t * 0.9 + sOff) * 0.16;
+                        const ampScale = strandIdx === 0 ? 1 : 0.55 - strandIdx * 0.08;
+                        return (basePluck + (burst1 + burst2) * 0.95) * h * 0.22 * ampScale * env;
+                    }
+                    case 1: {
+                        // Cải lương: Vọng cổ ngân dài, biên độ lớn, bước sóng rộng và rung chậm sâu lắng
+                        const slowArc = Math.sin(u * Math.PI * 2.2 - t * 0.65 + sOff * 0.55);
+                        const vibrato = Math.sin(u * Math.PI * 14 - t * 2.6 + sOff) * 0.11;
+                        const swell = 0.72 + 0.28 * Math.sin(t * 0.55 + strandIdx);
+                        const ampScale = strandIdx === 0 ? 1 : 0.68 - strandIdx * 0.11;
+                        return (slowArc * 0.88 + vibrato) * swell * h * 0.27 * ampScale * env;
+                    }
+                    case 2: {
+                        // Chèo: Trống đế & làn điệu dân gian rộn ràng — cụm sóng nảy đảo phách sinh động
+                        const packet = 0.55 + 0.45 * Math.sin(u * Math.PI * 5.0 - t * 2.4 + sOff * 0.5);
+                        const bounce =
+                            Math.sin(u * Math.PI * 9.0 - t * 2.8 + sOff) * 0.62 +
+                            Math.cos(u * Math.PI * 15.0 + t * 1.9 - sOff) * 0.34;
+                        const ampScale = strandIdx === 0 ? 1 : 0.65 - strandIdx * 0.1;
+                        return bounce * packet * h * 0.21 * ampScale * env;
+                    }
+                    case 3: {
+                        // Chầu văn: Dày đặc, tần số cao, hòa âm giàu năng lượng dồn dập
+                        const carrier =
+                            Math.sin(u * Math.PI * 15.5 - t * 3.6 + sOff) * 0.52 +
+                            Math.sin(u * Math.PI * 23.0 - t * 4.4 - sOff) * 0.31 +
+                            Math.sin(u * Math.PI * 6.5 + t * 2.2) * 0.35;
+                        const cadence = 0.68 + 0.32 * Math.sin(t * 3.2 - u * 4.5);
+                        const ampScale = strandIdx === 0 ? 1 : 0.72 - strandIdx * 0.1;
+                        return carrier * cadence * h * 0.24 * ampScale * env;
+                    }
+                    case 4: {
+                        // Quan họ: Hai bè đối đáp tách rõ (bè trên liền chị, bè dưới liền anh) đan quyện uyển chuyển
+                        const isUpper = strandIdx % 2 === 0;
+                        const voiceOffset = (isUpper ? -1 : 1) * h * 0.12 * env * (0.65 + 0.35 * Math.sin(t * 0.8 + u * 3.0));
+                        const flowDir = isUpper ? -1 : 1;
+                        const melody =
+                            Math.sin(u * Math.PI * 4.2 + flowDir * t * 1.15 + sOff * 0.6) * 0.7 +
+                            Math.sin(u * Math.PI * 7.8 + flowDir * t * 1.65) * 0.25;
+                        const ampScale = strandIdx < 2 ? 0.92 : 0.45;
+                        return voiceOffset + melody * h * 0.13 * ampScale * env;
+                    }
+                    case 5:
+                    default: {
+                        // Hát xẩm: Tiếng đàn nhị kéo dây mộc mạc (dạng sóng bất đối xứng tự sự + nhịp sênh tiền đều)
+                        const k = u * Math.PI * 6.8 - t * 1.65 + sOff * 0.7;
+                        const bowed =
+                            Math.sin(k) * 0.62 +
+                            Math.sin(k * 2) * 0.28 +
+                            Math.sin(k * 3) * 0.12;
+                        const tick = Math.pow(Math.max(0, Math.sin(u * Math.PI * 8.0 - t * 2.2)), 8) * 0.35;
+                        const ampScale = strandIdx === 0 ? 1 : 0.62 - strandIdx * 0.1;
+                        return (bowed + tick) * h * 0.19 * ampScale * env;
+                    }
+                }
+            }
+
+            function resizeCanvas() {
+                const rect = stage.getBoundingClientRect();
+                if (!rect.width || !rect.height) return;
+                width = Math.max(240, Math.round(rect.width));
+                height = Math.max(180, Math.round(rect.height));
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                canvas.width = Math.round(width * dpr);
+                canvas.height = Math.round(height * dpr);
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                if (prefersReduced) drawFrame(0.016);
+            }
+
+            if (typeof ResizeObserver === "function") {
+                const ro = new ResizeObserver(() => resizeCanvas());
+                ro.observe(stage);
+            } else {
+                window.addEventListener("resize", resizeCanvas);
+            }
+
+            stage.addEventListener("mousemove", (e) => {
+                const rect = stage.getBoundingClientRect();
+                if (!rect.width || !rect.height) return;
+                pointer.x = (e.clientX - rect.left) / rect.width;
+                pointer.y = (e.clientY - rect.top) / rect.height;
+                pointer.active = true;
+            });
+            stage.addEventListener("mouseleave", () => {
+                pointer.active = false;
+            });
+
+            function spawnBeatRipple() {
+                ripples.push({
+                    x: width * 0.5,
+                    y: height * 0.5,
+                    age: 0,
+                    maxAge: 3.0,
+                    maxR: Math.min(width, height) * 0.44,
+                });
+                if (ripples.length > 4) ripples.shift();
+            }
+
+            function drawFrame(dt) {
+                elapsed += dt;
+                if (morphT < 1) {
+                    morphT = Math.min(1, morphT + dt / MORPH_DURATION_SEC);
+                }
+                const w = easeInOutCubic(morphT);
+
+                const pFrom = AMBIENT_PROFILES[fromIdx] || AMBIENT_PROFILES[0];
+                const pTo = AMBIENT_PROFILES[toIdx] || AMBIENT_PROFILES[0];
+
+                const rInt = Math.round(lerp(pFrom.rgb[0], pTo.rgb[0], w));
+                const gInt = Math.round(lerp(pFrom.rgb[1], pTo.rgb[1], w));
+                const bInt = Math.round(lerp(pFrom.rgb[2], pTo.rgb[2], w));
+                const srInt = Math.round(lerp(pFrom.secondary[0], pTo.secondary[0], w));
+                const sgInt = Math.round(lerp(pFrom.secondary[1], pTo.secondary[1], w));
+                const sbInt = Math.round(lerp(pFrom.secondary[2], pTo.secondary[2], w));
+
+                pointer.energy += ((pointer.active ? 1 : 0) - pointer.energy) * Math.min(1, dt * 3.5);
+
+                const beatPeriod = lerp(pFrom.beatSec, pTo.beatSec, w);
+                beatAccum += dt;
+                if (beatAccum >= beatPeriod) {
+                    beatAccum = 0;
+                    spawnBeatRipple();
+                }
+
+                const cx = width * 0.5;
+                const cy = height * 0.5;
+                const minDim = Math.min(width, height);
+
+                ctx.clearRect(0, 0, width, height);
+
+                // 1. Trục hoành mảnh làm mốc biên độ (giúp người xem cảm nhận rõ độ lớn dao động)
+                ctx.beginPath();
+                ctx.moveTo(16, cy);
+                ctx.lineTo(width - 16, cy);
+                ctx.strokeStyle = "rgba(20, 20, 19, 0.075)";
+                ctx.lineWidth = 1;
+                ctx.setLineDash([2, 4]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                // 2. Vòng đồng tâm Đông Sơn rất mảnh xoay cực chậm ở nền
+                ctx.save();
+                ctx.translate(cx, cy);
+                const outerR = minDim * 0.38;
+                const innerR = minDim * 0.21;
+
+                ctx.save();
+                ctx.rotate(elapsed * 0.045);
+                ctx.strokeStyle = `rgba(${rInt}, ${gInt}, ${bInt}, 0.12)`;
+                ctx.lineWidth = 1;
+                ctx.setLineDash([3, 7]);
+                ctx.beginPath();
+                ctx.arc(0, 0, outerR, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.restore();
+
+                ctx.beginPath();
+                ctx.arc(0, 0, innerR, 0, Math.PI * 2);
+                ctx.strokeStyle = "rgba(20, 20, 19, 0.055)";
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.restore();
+
+                // 3. Vòng sóng nhịp phách lan tỏa nhẹ
+                for (let i = ripples.length - 1; i >= 0; i--) {
+                    const rp = ripples[i];
+                    rp.age += dt;
+                    if (rp.age >= rp.maxAge) {
+                        ripples.splice(i, 1);
+                        continue;
+                    }
+                    const prog = rp.age / rp.maxAge;
+                    const eased = 1 - Math.pow(1 - prog, 2.2);
+                    const rad = 8 + eased * rp.maxR;
+                    const alpha = (1 - prog) * 0.2;
+                    ctx.beginPath();
+                    ctx.arc(rp.x, rp.y, rad, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(${rInt}, ${gInt}, ${bInt}, ${alpha.toFixed(3)})`;
+                    ctx.lineWidth = 1.1;
+                    ctx.stroke();
+                }
+
+                // 4. 4 dải sóng âm học đặc trưng — cross-fade toán học yFrom*(1-w) + yTo*w (KHÔNG GIẬT)
+                const strands = [
+                    { lw: 2.0, alpha: 0.82, fill: true, useSec: false },
+                    { lw: 1.4, alpha: 0.48, fill: false, useSec: true },
+                    { lw: 1.05, alpha: 0.28, fill: false, useSec: false },
+                    { lw: 0.9, alpha: 0.2, fill: false, useSec: true },
+                ];
+
+                const steps = Math.max(100, Math.floor(width / 4));
+                const hoverY = (pointer.y - 0.5) * 18 * pointer.energy;
+
+                strands.forEach((s, sIdx) => {
+                    ctx.beginPath();
+                    for (let i = 0; i <= steps; i++) {
+                        const u = i / steps;
+                        const x = u * width;
+                        const distPtr = Math.abs(u - pointer.x);
+                        const ptrBoost = 1 + Math.exp(-distPtr * distPtr * 18) * 0.24 * pointer.energy;
+
+                        const yFrom = evalGenreWave(fromIdx, sIdx, u, elapsed, height);
+                        const yTo = evalGenreWave(toIdx, sIdx, u, elapsed, height);
+                        const yVal = lerp(yFrom, yTo, w) * ptrBoost;
+                        const y = cy + hoverY * (0.45 - sIdx * 0.08) + yVal;
+
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+
+                    const cr = s.useSec ? srInt : rInt;
+                    const cg = s.useSec ? sgInt : gInt;
+                    const cb = s.useSec ? sbInt : bInt;
+                    ctx.strokeStyle = `rgba(${cr}, ${cg}, ${cb}, ${s.alpha.toFixed(3)})`;
+                    ctx.lineWidth = s.lw;
+                    ctx.stroke();
+
+                    if (s.fill) {
+                        ctx.lineTo(width, cy);
+                        ctx.lineTo(0, cy);
+                        ctx.closePath();
+                        const grad = ctx.createLinearGradient(0, cy - height * 0.32, 0, cy + height * 0.32);
+                        grad.addColorStop(0, `rgba(${rInt}, ${gInt}, ${bInt}, 0.09)`);
+                        grad.addColorStop(0.5, `rgba(${rInt}, ${gInt}, ${bInt}, 0.02)`);
+                        grad.addColorStop(1, `rgba(${srInt}, ${sgInt}, ${sbInt}, 0.08)`);
+                        ctx.fillStyle = grad;
+                        ctx.fill();
+                    }
+                });
+            }
+
+            function tick(ts) {
+                if (!isActive || document.hidden) {
+                    rafId = null;
+                    return;
+                }
+                const dt = lastTs ? Math.min(0.05, (ts - lastTs) / 1000) : 0.016;
+                lastTs = ts;
+                drawFrame(dt);
+                rafId = requestAnimationFrame(tick);
+            }
+
+            function startLoop() {
+                if (prefersReduced) {
+                    resizeCanvas();
+                    drawFrame(0.016);
+                    return;
+                }
+                if (rafId !== null || !isActive || document.hidden) return;
+                lastTs = 0;
+                rafId = requestAnimationFrame(tick);
+            }
+
+            function stopLoop() {
+                if (rafId !== null) {
+                    cancelAnimationFrame(rafId);
+                    rafId = null;
+                }
+            }
+
+            document.addEventListener("visibilitychange", () => {
+                if (document.hidden) stopLoop();
+                else if (isActive) startLoop();
+            });
+
+            function applyAmbientText(prof) {
+                if (liveDot) {
+                    liveDot.style.backgroundColor = `rgb(${prof.rgb[0]}, ${prof.rgb[1]}, ${prof.rgb[2]})`;
+                }
+                if (captionTitle) {
+                    captionTitle.innerText = `Hình thái âm học · ${prof.genre}`;
+                }
+                if (captionMotif) {
+                    captionMotif.innerText = prof.motif;
+                }
+                if (amAmpVal) amAmpVal.innerText = prof.ampLabel;
+                if (amFreqVal) amFreqVal.innerText = prof.freqLabel;
+                if (amRhythmVal) amRhythmVal.innerText = prof.rhythmLabel;
+            }
+
+            let hasInitializedAmbient = false;
+            window.setHeritageAmbientGenre = (idx) => {
+                const safeIdx = ((idx % AMBIENT_PROFILES.length) + AMBIENT_PROFILES.length) % AMBIENT_PROFILES.length;
+                const prof = AMBIENT_PROFILES[safeIdx];
+
+                if (safeIdx !== toIdx) {
+                    // Bắt đầu cross-fade mượt từ trạng thái hiện tại sang thể loại mới
+                    fromIdx = toIdx;
+                    toIdx = safeIdx;
+                    morphT = 0;
+                }
+
+                if (textFadeTimer) {
+                    clearTimeout(textFadeTimer);
+                    textFadeTimer = null;
+                }
+                if (hasInitializedAmbient) {
+                    if (headerRow) headerRow.classList.add("is-fading");
+                    if (metricsRow) metricsRow.classList.add("is-fading");
+                    textFadeTimer = setTimeout(() => {
+                        applyAmbientText(prof);
+                        if (headerRow) headerRow.classList.remove("is-fading");
+                        if (metricsRow) metricsRow.classList.remove("is-fading");
+                    }, 180);
+                } else {
+                    applyAmbientText(prof);
+                }
+                hasInitializedAmbient = true;
+
+                if (prefersReduced) {
+                    morphT = 1;
+                    drawFrame(0.016);
+                }
+            };
+
+            window.setHeritageAmbientActive = (active) => {
+                isActive = Boolean(active);
+                if (isActive) {
+                    requestAnimationFrame(() => {
+                        resizeCanvas();
+                        startLoop();
+                    });
+                } else {
+                    stopLoop();
+                }
+            };
+
+            resizeCanvas();
+            startLoop();
+        })();
+
+        window.setHeritageShowcaseActive = (isActive) => {
+            showcaseVisible = Boolean(isActive);
+            if (showcaseVisible) {
+                goToShowcaseSlide(showcaseIdx);
+                restartShowcaseTimer();
+            } else {
+                stopShowcaseClock();
+            }
+        };
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                stopShowcaseClock();
+            } else if (showcaseVisible && !showcasePaused) {
+                ensureShowcaseClockRunning();
+            }
+        });
+
+        showcaseTabs.forEach((tab) => {
+            tab.addEventListener("click", () => {
+                const idx = parseInt(tab.getAttribute("data-slide-idx") || "0", 10);
+                goToShowcaseSlide(idx);
+                restartShowcaseTimer();
+            });
+        });
+
+        if (btnShowcasePrev) {
+            btnShowcasePrev.addEventListener("click", () => {
+                goToShowcaseSlide(showcaseIdx - 1);
+                restartShowcaseTimer();
+            });
+        }
+        if (btnShowcaseNext) {
+            btnShowcaseNext.addEventListener("click", () => {
+                goToShowcaseSlide(showcaseIdx + 1);
+                restartShowcaseTimer();
+            });
+        }
+
+        if (showcaseRoot) {
+            showcaseRoot.addEventListener("mouseenter", () => {
+                showcasePaused = true;
+                showcaseRoot.classList.add("is-paused");
+                stopShowcaseClock();
+            });
+            showcaseRoot.addEventListener("mouseleave", () => {
+                showcasePaused = false;
+                showcaseRoot.classList.remove("is-paused");
+                // Tiếp tục chạy từ đúng vị trí thanh tiến trình đã dừng (không bị lệch/kẹt ở 100%)
+                ensureShowcaseClockRunning();
+            });
+        }
+
+        // Khởi chạy slideshow khi mở trang ở trạng thái khởi đầu
+        goToShowcaseSlide(0);
+        restartShowcaseTimer();
 
         // 9. Sự kiện chuyển Tab nhanh ngay trong Header của Slide Drawer (.drawer-quick-btn)
         document.querySelectorAll(".drawer-quick-btn").forEach((btn) => {

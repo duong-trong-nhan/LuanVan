@@ -96,10 +96,10 @@ async def list_sample_files():
         {
             "genre": "Ca trù",
             "title": "Tây Hồ Hoài Cổ (Đào nương, Phách & Đàn đáy)",
-            "file_path": "dataset/video/catru/catru_tayhohoaico_03.mp4",
+            "file_path": "dataset/video/catru/catru_tayhohoaico_02.mp4",
             "mode": "video",
-            "duration": "01:24",
-            "size": "4.0 MB",
+            "duration": "01:07",
+            "size": "2.9 MB",
             "color": "#C84B31"
         },
         {
@@ -122,11 +122,11 @@ async def list_sample_files():
         },
         {
             "genre": "Chầu văn",
-            "title": "Văn Quán Quê Tôi (Hát Văn Hầu Đồng, Khăn chầu)",
-            "file_path": "dataset/video/chauvan/chauvan_vanquanquetoi.mp4",
+            "title": "Hát Văn Hầu Đồng (Đàn nguyệt, Khăn chầu & Điện thờ)",
+            "file_path": "dataset/video/chauvan/chauvan_01.mp4",
             "mode": "video",
-            "duration": "08:26",
-            "size": "42.5 MB",
+            "duration": "01:06",
+            "size": "12.1 MB",
             "color": "#8C3B88"
         },
         {
@@ -140,11 +140,11 @@ async def list_sample_files():
         },
         {
             "genre": "Hát xẩm",
-            "title": "Anh Đừng Yêu Em (Đàn nhị, Chiếu xẩm phố cổ)",
-            "file_path": "dataset/video/xam/xam_anhdungyeu.mp4",
+            "title": "Quyết Trì Tu Thân (Đàn nhị & Sênh tiền)",
+            "file_path": "dataset/video/xam/xam_quyettrituthan.mp4",
             "mode": "video",
-            "duration": "07:24",
-            "size": "26.5 MB",
+            "duration": "02:40",
+            "size": "8.3 MB",
             "color": "#7A6248"
         }
     ]
@@ -332,43 +332,85 @@ async def stream_media_file(path: str, request: Request):
 @app.post("/api/analyze_url")
 async def analyze_url_video(req: UrlAnalyzeRequest):
     """
-    Tải và phân tích video từ YouTube hoặc liên kết URL trực tiếp bằng yt-dlp.
+    Tải và phân tích video từ YouTube hoặc liên kết URL trực tiếp bằng yt-dlp (hỗ trợ JS runtime Node).
     """
     raw_url = req.url.strip()
     if not raw_url:
         raise HTTPException(status_code=400, detail="Vui lòng cung cấp URL video hợp lệ")
 
+    import asyncio
+    import shutil
+    import subprocess
     import yt_dlp
     import uuid
     import re
 
-    # Làm sạch URL YouTube: Loại bỏ các tham số playlist thừa (&list=..., &index=..., &start_radio=...)
-    match = re.search(r'(?:v=|\/)([0-9A-Za-z_-]{11})', raw_url)
-    clean_url = f"https://www.youtube.com/watch?v={match.group(1)}" if match else raw_url
+    # Chỉ chuẩn hóa ID khi đúng là đường dẫn YouTube / youtu.be (tránh làm hỏng URL video trực tiếp)
+    yt_match = re.search(
+        r'(?:youtube\.com/(?:watch\?(?:.*&)?v=|shorts/|embed/|live/)|youtu\.be/)([0-9A-Za-z_-]{11})',
+        raw_url,
+        flags=re.IGNORECASE,
+    )
+    clean_url = f"https://www.youtube.com/watch?v={yt_match.group(1)}" if yt_match else raw_url
 
     file_id = f"yt_{uuid.uuid4().hex[:8]}"
     out_template = str(TEMP_DIR / f"{file_id}.%(ext)s")
 
     ydl_opts = {
-        'format': 'bestvideo[height<=480][vcodec^=avc1]+bestaudio[acodec^=mp4a]/bestvideo[height<=480]+bestaudio/best[height<=480][ext=mp4]/best',
+        # Ưu tiên luồng MP4 360p đơn (có sẵn cả hình + tiếng, nhẹ gấp 3-4 lần 480p DASH và không cần ghép file),
+        # vừa đủ sắc nét cho trình phát & thừa chuẩn 224x224 của Visual CBM ConvNeXt-Tiny.
+        'format': 'best[height<=360][ext=mp4]/bestvideo[height<=360][vcodec^=avc1]+bestaudio[acodec^=mp4a]/best[height<=480][ext=mp4]/best[height<=480]/best',
         'outtmpl': out_template,
         'quiet': True,
         'no_warnings': True,
         'noplaylist': True,
         'merge_output_format': 'mp4',
+        'concurrent_fragment_downloads': 4,
         'max_filesize': 150 * 1024 * 1024,
+        'socket_timeout': 25,
+        'retries': 3,
     }
+    if shutil.which("node"):
+        ydl_opts['js_runtimes'] = {'node': {}}
 
-    try:
+    def _download_and_analyze():
         title = "Video từ URL"
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        # Kiểm tra nhanh thời lượng trước; nếu video dài > 5 phút chỉ tải 180s đầu để tránh chờ lâu / timeout
+        probe_opts = {k: v for k, v in ydl_opts.items() if k != 'outtmpl'}
+        est_duration = 0.0
+        try:
+            with yt_dlp.YoutubeDL(probe_opts) as ydl_probe:
+                meta = ydl_probe.extract_info(clean_url, download=False)
+                if meta:
+                    title = meta.get('title', title)
+                    est_duration = float(meta.get('duration') or 0.0)
+        except Exception:
+            est_duration = 0.0
+
+        dl_opts = dict(ydl_opts)
+        if est_duration > 300.0:
+            try:
+                from yt_dlp.utils import download_range_func
+                dl_opts['download_ranges'] = download_range_func(None, [(0, 180)])
+                dl_opts['force_keyframes_at_cuts'] = True
+            except Exception:
+                pass
+
+        with yt_dlp.YoutubeDL(dl_opts) as ydl:
             info = ydl.extract_info(clean_url, download=True)
             if info:
-                title = info.get('title', 'Video từ URL')
+                title = info.get('title', title)
             filename = ydl.prepare_filename(info) if info else None
             saved_path = Path(filename) if filename else None
+            if saved_path and not saved_path.exists():
+                mp4_alt = saved_path.with_suffix(".mp4")
+                if mp4_alt.exists():
+                    saved_path = mp4_alt
             if not saved_path or not saved_path.exists():
-                candidates = [p for p in TEMP_DIR.glob(f"{file_id}.*") if not p.name.endswith(".part")]
+                candidates = [
+                    p for p in TEMP_DIR.glob(f"{file_id}.*")
+                    if not p.name.endswith(".part") and not p.name.endswith(".ytdl")
+                ]
                 candidates.sort(key=lambda p: p.stat().st_size if p.exists() else 0, reverse=True)
                 if candidates:
                     saved_path = candidates[0]
@@ -376,11 +418,36 @@ async def analyze_url_video(req: UrlAnalyzeRequest):
         if not saved_path or not saved_path.exists():
             raise FileNotFoundError("Không thể lưu tệp video từ URL")
 
-        # Phân tích qua engine
-        result = inference_engine.analyze(saved_path, mode="video")
-        result["media_url"] = f"/api/media/temp/{saved_path.name}"
-        result["file_name"] = title
+        # Nếu video YouTube dài quá 10 phút, tự động cắt 180s đầu tiên để phân tích nhanh thay vì lỗi
+        dur = 0.0
+        try:
+            probe = subprocess.check_output(
+                ['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', str(saved_path)],
+                stderr=subprocess.DEVNULL
+            ).decode().strip()
+            dur = float(probe)
+        except Exception:
+            dur = 0.0
 
+        analyze_path = saved_path
+        if dur > 595.0:
+            trimmed_path = TEMP_DIR / f"{file_id}_trim180.mp4"
+            subprocess.run(
+                ['ffmpeg', '-y', '-ss', '0', '-i', str(saved_path), '-t', '180', '-c', 'copy', str(trimmed_path)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False,
+            )
+            if trimmed_path.exists() and trimmed_path.stat().st_size > 10000:
+                analyze_path = trimmed_path
+
+        result = inference_engine.analyze(analyze_path, mode="video")
+        result["media_url"] = f"/api/media/temp/{analyze_path.name}"
+        result["file_name"] = title
+        return result
+
+    try:
+        result = await asyncio.to_thread(_download_and_analyze)
         return JSONResponse(content=result)
     except Exception as e:
         import traceback

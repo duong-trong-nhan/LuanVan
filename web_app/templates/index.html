@@ -17,11 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <!-- Swiss Editorial Light Mode Stylesheet -->
-  <link rel="stylesheet" href="/static/css/index.css?v=3.25">
-
-  <!-- Three.js WebGL & OrbitControls -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <link rel="stylesheet" href="/static/css/index.css?v=3.37">
 
   <!-- GSAP Animation Engine -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -36,9 +32,9 @@
       <div class="header-logo-wrap" title="HERA">
         <img src="/static/img/hera_logo.png?v=3.24" alt="HERA Logo" class="header-brand-logo" />
       </div>
-      <div class="brand-meta" title="HERA: An Intelligent and Explainable Multimodal AI System for Intangible Cultural Heritage Analysis">
-        <h1>Hệ thống trí tuệ nhân tạo đa phương thức thông minh và có khả năng giải thích trong phân tích di sản văn hóa phi vật thể</h1>
-        <p>Explainable Multimodal AI for Intangible Cultural Heritage</p>
+      <div class="brand-meta" title="HERA: Hệ thống trí tuệ nhân tạo đa phương thức thông minh và có khả năng giải thích trong phân tích di sản văn hóa phi vật thể">
+        <h1>HERA</h1>
+        <p>Phân tích &amp; Giải thích Di sản Âm nhạc Đa phương thức</p>
       </div>
     </div>
     <div class="header-right-tools">
@@ -64,7 +60,7 @@
     <!-- ======================================================================
          TỔNG QUAN PHÂN TÍCH (Video đầu vào + Kết quả nhận diện & Phân đoạn)
          ====================================================================== -->
-    <div class="overview-grid" id="sec-overview" data-section-id="sec-overview">
+    <div class="overview-grid is-empty-state" id="sec-overview" data-section-id="sec-overview">
         <!-- CỘT TRÁI: Media Input & Thanh tiến trình phân đoạn nhanh -->
         <div class="overview-media-col">
           <div class="card-panel" id="input-main-card">
@@ -82,23 +78,30 @@
 
             <!-- Tab 1: Unified Media (Tự động nhận diện Video hoặc Audio) -->
             <div class="tab-content active" id="tab-media">
-              <input type="file" id="media-file-input" accept="video/mp4,video/quicktime,video/x-msvideo,video/webm,audio/wav,audio/mpeg,audio/flac,audio/ogg,audio/mp4,audio/aac" style="display: none;" />
+              <input type="file" id="media-file-input" aria-label="Chọn tệp Video hoặc Âm thanh để phân tích" accept="video/mp4,video/quicktime,video/x-msvideo,video/webm,audio/wav,audio/mpeg,audio/flac,audio/ogg,audio/mp4,audio/aac" style="display: none;" />
               <div class="dropzone-box" id="media-dropzone">
-                <img src="/static/img/heritage_empty_state.svg" alt="Di sản đa phương thức" class="heritage-empty-hero-img" />
-                <div class="dropzone-text">
-                  <h4>Kéo thả tệp Video hoặc Âm thanh hoặc bấm để tải lên</h4>
-                  <p>Hỗ trợ Video (.mp4, .avi, .mov) &amp; Âm thanh (.wav, .mp3, .flac) • Tối đa 200 MB, thời lượng dưới 10 phút • Tự động nhận diện &amp; phân tích</p>
+                <div class="dropzone-emblem" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 15V4" />
+                    <path d="M8 8l4-4 4 4" />
+                    <path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15" />
+                  </svg>
                 </div>
+                <div class="dropzone-text">
+                  <h4>Kéo thả tệp Video hoặc Âm thanh vào đây</h4>
+                  <p>MP4, MOV, AVI, WAV, MP3, FLAC · Tối đa 200 MB · dưới 10 phút</p>
+                </div>
+                <span class="dropzone-browse-pill">Chọn tệp từ máy tính</span>
               </div>
 
               <!-- Trình phát Video (hiển thị khi nạp tệp video) -->
               <div class="player-container" id="video-player-container" style="display: none;">
                 <div class="player-action-bar">
-                  <div style="display: flex; align-items: center; gap: 8px; overflow: hidden; max-width: 70%;">
+                  <div style="display: flex; align-items: center; gap: 8px; overflow: hidden; flex: 1; min-width: 0; margin-right: 10px;">
                     <span class="player-file-name" id="video-file-name"><i class="fa-solid fa-film"></i> Video biểu diễn</span>
                     <span class="player-aspect-badge" id="video-aspect-badge">Tự nhiên</span>
                   </div>
-                  <button class="btn-change-file" id="btn-change-video" type="button" title="Thay đổi tệp khác">
+                  <button class="btn-change-file" id="btn-change-video" type="button" title="Thay đổi tệp khác" style="flex-shrink: 0;">
                     <i class="fa-solid fa-arrow-rotate-right"></i> Thay đổi tệp
                   </button>
                 </div>
@@ -113,6 +116,9 @@
                     <i class="fa-solid fa-arrow-rotate-right"></i> Thay đổi tệp
                   </button>
                 </div>
+                <div class="acoustic-strip-wrap" aria-hidden="true">
+                  <canvas id="audio-spectrum-canvas" height="44"></canvas>
+                </div>
                 <audio id="main-audio-player" controls preload="metadata"></audio>
               </div>
             </div>
@@ -123,6 +129,9 @@
                 <div class="mic-timer-ring" id="mic-timer-ring">
                   <span class="mic-timer-val" id="mic-timer">00:00</span>
                   <span class="mic-timer-label">Thời gian</span>
+                </div>
+                <div class="acoustic-strip-wrap mic-strip" aria-hidden="true">
+                  <canvas id="mic-spectrum-canvas" height="40"></canvas>
                 </div>
                 <div class="mic-controls">
                   <button class="btn-primary" id="mic-record-btn" type="button">
@@ -143,7 +152,7 @@
               <div class="url-input-panel" id="url-input-box">
                 <div class="url-input-group">
                   <i class="fa-brands fa-youtube" style="color: #E74C3C; font-size: 18px;"></i>
-                  <input type="url" id="url-video-input" placeholder="Dán liên kết YouTube hoặc URL video trực tiếp (https://...)" />
+                  <input type="url" id="url-video-input" aria-label="Liên kết YouTube hoặc URL video trực tiếp" placeholder="Dán liên kết YouTube hoặc URL video trực tiếp (https://...)" />
                   <button class="btn-primary" id="btn-analyze-url" type="button" style="padding: 7px 16px; font-size: 12px; white-space: nowrap;">
                     Phân tích
                   </button>
@@ -164,13 +173,41 @@
             </div>
           </div>
 
-          <!-- Card 2: Bằng chứng đa phương thức (Multimodal Evidence - Nằm ngay dưới Video) -->
-          <div class="card-panel multimodal-workspace-card" id="sec-multimodal">
+          <!-- Tác phẩm sóng âm & nhịp phách động ở cột trái khi chưa nạp tệp (đồng bộ theo thể loại slideshow bên phải) -->
+          <section class="card-panel empty-left-artwork" id="empty-left-artwork" aria-label="Biểu đồ hình thái sóng âm đặc trưng theo thể loại">
+            <div class="artwork-header-row">
+              <div class="artwork-caption-left">
+                <span class="artwork-live-dot" id="artwork-live-dot" aria-hidden="true"></span>
+                <span class="artwork-caption-title" id="artwork-caption-title">Hình thái âm học · Ca trù</span>
+              </div>
+              <span class="artwork-caption-motif" id="artwork-caption-motif">Nhịp phách &amp; dây đàn đáy</span>
+            </div>
+            <div class="artwork-canvas-stage">
+              <canvas id="heritage-ambient-canvas" aria-hidden="true"></canvas>
+            </div>
+            <div class="artwork-metrics-row" id="artwork-metrics-row">
+              <div class="artwork-metric-cell">
+                <span class="am-label">Biên độ</span>
+                <span class="am-val" id="am-amp-val">Gọn, nảy sắc</span>
+              </div>
+              <div class="artwork-metric-cell">
+                <span class="am-label">Mật độ phổ</span>
+                <span class="am-val" id="am-freq-val">Thưa, tách bạch</span>
+              </div>
+              <div class="artwork-metric-cell">
+                <span class="am-label">Cấu trúc nhịp</span>
+                <span class="am-val" id="am-rhythm-val">Phách đôi điểm nhịp</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Card 2: Bằng chứng đa phương thức (chỉ hiển thị khi đã có kết quả phân tích) -->
+          <div class="card-panel multimodal-workspace-card" id="sec-multimodal" style="display: none;">
             <!-- Thanh Header: Tiêu đề bên trái & Menu drop list chuyển tab bên phải -->
             <div class="mm-tabs-header">
               <div class="mm-header-title-wrap">
-                <span class="card-title">
-                  Phân đoạn Dự đoán Thời gian (Chunk 3–5s)
+                <span class="card-title" id="mm-chunk-title">
+                  Phân đoạn Dự đoán Thời gian
                 </span>
               </div>
 
@@ -220,7 +257,7 @@
                   <div class="mm-subcard">
                     <div class="mm-subcard-head">
                       <h4>7 Trục Đặc trưng Âm học Chuẩn MPEG-7</h4>
-                      <span class="mm-subcard-hint">Giá trị chuẩn hóa [0, 100%] &amp; Nhãn mờ</span>
+                      <span class="mm-subcard-hint" id="mpeg7-scope-label">Trung bình toàn tư liệu • Giá trị chuẩn hóa [0, 100%]</span>
                     </div>
                     <div class="radar-bars-list" id="radar-bars-container">
                       <div class="mm-empty-placeholder">Chưa có dữ liệu đặc trưng âm học. Hãy phân tích một mẫu để xem 7 trục MPEG-7.</div>
@@ -276,26 +313,93 @@
           </div>
         </div>
 
-        <!-- CỘT PHẢI: Nhận diện & Lời giải thích khoa học (XAI) với Quả cầu 3D tương tác nền -->
+        <!-- CỘT PHẢI: Trạng thái khởi đầu (Mục lục 6 di sản) hoặc Kết quả nhận diện & XAI -->
         <div class="overview-verdict-col">
 
-          <!-- Quả Cầu 3D Phản hồi Âm thanh Nền (Ambient 3D Audio-Reactive Sphere Backdrop) -->
-          <div class="ambient-sphere-backdrop" id="ambient-sphere-backdrop">
-            <div id="wave-canvas-container"></div>
-            <div class="ambient-sphere-meta">
-              <span class="wave-meta-tag" id="wave-meta-tag">
-                <span id="wave-mode-title">Quả cầu 3D phản hồi âm thanh</span>
-              </span>
-              <div class="wave-vu-indicator">
-                <div class="vu-bar" id="vu-bass" style="height: 6px;"></div>
-                <div class="vu-bar" id="vu-mid" style="height: 10px;"></div>
-                <div class="vu-bar" id="vu-treble" style="height: 8px;"></div>
+          <!-- Trạng thái khởi đầu: Slideshow Triển lãm 6 Thể loại Di sản (ẩn ngay khi có kết quả) -->
+          <section class="card-panel empty-heritage-guide heritage-showcase" id="empty-heritage-guide" aria-label="Giới thiệu 6 thể loại di sản âm nhạc Việt Nam">
+            <!-- Thanh chỉ mục 6 thể loại (thay cho chấm tròn) -->
+            <div class="showcase-tabs-bar" id="showcase-tabs-bar" role="tablist" aria-label="Chọn thể loại di sản để xem giới thiệu">
+              <button type="button" class="showcase-tab active" role="tab" aria-selected="true" data-slide-idx="0" data-genre="Ca trù">
+                <span class="st-dot" style="background-color: var(--genre-catru);"></span>
+                <span>Ca trù</span>
+                <span class="st-progress"></span>
+              </button>
+              <button type="button" class="showcase-tab" role="tab" aria-selected="false" data-slide-idx="1" data-genre="Cải lương">
+                <span class="st-dot" style="background-color: var(--genre-cailuong);"></span>
+                <span>Cải lương</span>
+                <span class="st-progress"></span>
+              </button>
+              <button type="button" class="showcase-tab" role="tab" aria-selected="false" data-slide-idx="2" data-genre="Chèo">
+                <span class="st-dot" style="background-color: var(--genre-cheo);"></span>
+                <span>Chèo</span>
+                <span class="st-progress"></span>
+              </button>
+              <button type="button" class="showcase-tab" role="tab" aria-selected="false" data-slide-idx="3" data-genre="Chầu văn">
+                <span class="st-dot" style="background-color: var(--genre-chauvan);"></span>
+                <span>Chầu văn</span>
+                <span class="st-progress"></span>
+              </button>
+              <button type="button" class="showcase-tab" role="tab" aria-selected="false" data-slide-idx="4" data-genre="Quan họ">
+                <span class="st-dot" style="background-color: var(--genre-quanho);"></span>
+                <span>Quan họ</span>
+                <span class="st-progress"></span>
+              </button>
+              <button type="button" class="showcase-tab" role="tab" aria-selected="false" data-slide-idx="5" data-genre="Hát xẩm">
+                <span class="st-dot" style="background-color: var(--genre-xam);"></span>
+                <span>Hát xẩm</span>
+                <span class="st-progress"></span>
+              </button>
+            </div>
+
+            <!-- Khung ảnh tư liệu biểu diễn thực tế (16:9 crossfade dịu nhẹ) -->
+            <div class="showcase-stage" id="showcase-stage">
+              <img src="/static/img/heritage/catru.jpg" alt="Biểu diễn Ca trù với đào nương, phách và đàn đáy" class="showcase-img active" data-slide-idx="0" />
+              <img src="/static/img/heritage/cailuong.jpg" alt="Biểu diễn nghệ thuật sân khấu Cải lương" class="showcase-img" data-slide-idx="1" loading="lazy" />
+              <img src="/static/img/heritage/cheo.jpg" alt="Chiếu Chèo sân đình truyền thống Bắc Bộ" class="showcase-img" data-slide-idx="2" loading="lazy" />
+              <img src="/static/img/heritage/chauvan.jpg" alt="Nghi lễ diễn xướng Chầu văn hầu đồng" class="showcase-img" data-slide-idx="3" loading="lazy" />
+              <img src="/static/img/heritage/quanho.jpg" alt="Liền anh liền chị hát Quan họ Bắc Ninh trên thuyền rồng" class="showcase-img" data-slide-idx="4" loading="lazy" />
+              <img src="/static/img/heritage/xam.jpg" alt="Chiếu Hát xẩm truyền thống với đàn nhị và đàn bầu" class="showcase-img" data-slide-idx="5" loading="lazy" />
+
+              <div class="showcase-stage-scrim"></div>
+              <span class="showcase-region-badge" id="showcase-region-badge">Bắc Bộ · Di sản UNESCO (2009)</span>
+
+              <button type="button" class="showcase-nav-btn prev" id="showcase-prev-btn" aria-label="Thể loại trước">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+              <button type="button" class="showcase-nav-btn next" id="showcase-next-btn" aria-label="Thể loại tiếp theo">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+
+            <!-- Phần giới thiệu biên tập ngay dưới ảnh (chữ rõ nét, đầy đặn + liên kết bài báo chính thống) -->
+            <div class="showcase-copy">
+              <div class="showcase-title-row">
+                <div class="showcase-title-left">
+                  <span class="showcase-counter" id="showcase-counter">01 / 06</span>
+                  <h2 class="showcase-genre-title" id="showcase-genre-title">Ca trù</h2>
+                </div>
+                <a class="btn-showcase-article" id="btn-showcase-article" href="https://vienamnhac.vn/di-san/ca-tru/bai-viet/vai-net-ve-ca-tru-quang-binh" target="_blank" rel="noopener noreferrer">
+                  <span id="showcase-article-label">Đọc tư liệu · Viện Âm nhạc</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+
+              <div class="showcase-desc-wrap" id="showcase-desc">
+                <p>Ca trù (còn gọi là hát ả đào, hát cửa đình) là nghệ thuật hát thơ thính phòng bác học vùng Bắc Bộ và Bắc Trung Bộ, được UNESCO ghi danh Di sản Văn hóa Phi vật thể cần bảo vệ khẩn cấp năm 2009.</p>
+                <p>Đội hình kinh điển gồm ba thành phần: đào nương vừa hát theo kỹ thuật ém hơi, đổ hột nảy hạt vừa gõ phách tre; kép đàn đệm đàn đáy cần dài; và quan viên cầm roi điểm tiếng trống chầu thưởng thức câu hát.</p>
+              </div>
+
+              <div class="showcase-cues-row" id="showcase-cues-row">
+                <span class="showcase-cue-chip"><strong>Âm học:</strong> Nảy hạt, ém hơi, nhịp phách giòn</span>
+                <span class="showcase-cue-chip"><strong>Nhạc cụ:</strong> Đàn đáy, bàn phách, trống chầu</span>
+                <span class="showcase-cue-chip"><strong>Không gian:</strong> Hát cửa đình &amp; thính phòng</span>
               </div>
             </div>
-          </div>
+          </section>
 
-          <!-- Card 1: Khối Kết quả Nhận diện (Verdict) -->
-          <div class="card-panel glass-card" id="verdict-main-card">
+          <!-- Card 1: Khối Kết quả Nhận diện (Verdict — nền giấy sạch sắc nét, chỉ hiện khi có kết quả) -->
+          <div class="card-panel" id="verdict-main-card" style="display: none;">
             <div class="card-body">
               <div class="verdict-hero">
                 <div class="verdict-left">
@@ -364,7 +468,7 @@
           </div>
 
           <!-- Card 2: Khung Lời Lý giải Tổng hợp Đa phương thức Khoa học (XAI) -->
-          <div class="card-panel xai-narrative-card" id="xai-card">
+          <div class="card-panel xai-narrative-card" id="xai-card" style="display: none;">
             <div class="card-header">
               <span class="card-title">Lời giải thích kết quả phân tích (XAI)</span>
               <span class="tag-badge">Cơ sở suy luận</span>
@@ -385,13 +489,25 @@
               <div class="xai-body-text" id="xai-body-text">
                 Hãy tải lên video/audio, chọn mẫu thử nhanh hoặc thu âm trực tiếp để hệ thống thực hiện phân tích đa phương thức và sinh lời giải thích rõ ràng.
               </div>
-              <div class="xai-citations-box" id="xai-citations-box">
-                <h5>Tài liệu &amp; Nguồn kiểm chứng chuẩn hóa</h5>
-                <ul class="citation-list" id="xai-citations-list">
-                  <li class="citation-item">Hồ sơ Di sản Văn hóa Phi vật thể UNESCO</li>
-                  <li class="citation-item">Trung tâm Nghiên cứu Di sản Văn hóa Phi vật thể Châu Á - Thái Bình Dương (ICHCAP)</li>
-                  <li class="citation-item">Viện Âm nhạc Việt Nam</li>
-                </ul>
+
+              <!-- Dải lối tắt phân tích chuyên sâu (Khu vực 3–6) ngay chân thẻ XAI -->
+              <div class="xai-deepdive-footer" id="xai-deepdive-footer">
+                <span class="deepdive-label">Phân tích chuyên sâu</span>
+                <div class="deepdive-links-row">
+                  <button type="button" class="xai-deepdive-link" data-open-drawer="sec-concept-graph">
+                    <span>Đồ thị 5 tầng</span>
+                  </button>
+                  <button type="button" class="xai-deepdive-link" data-open-drawer="sec-rule-explorer">
+                    <span>Hệ luật mờ</span>
+                  </button>
+                  <button type="button" class="xai-deepdive-link" data-open-drawer="sec-explanation-explorer">
+                    <span>Đối chiếu What-If</span>
+                  </button>
+                  <button type="button" class="xai-deepdive-link is-primary" data-open-drawer="sec-summary">
+                    <span>Báo cáo &amp; nguồn (<span id="xai-summary-cit-count">3</span>)</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -404,7 +520,7 @@
        Slide-Over Drawer for Deep-Dive Analysis Tools (Giao diện 1 màn hình)
        ======================================================================== -->
   <div class="drawer-backdrop" id="drawer-backdrop"></div>
-  <aside class="slide-drawer" id="slide-drawer" aria-hidden="true" role="dialog" aria-label="Bảng công cụ phân tích chuyên sâu">
+  <aside class="slide-drawer" id="slide-drawer" aria-hidden="true" inert role="dialog" aria-label="Bảng công cụ phân tích chuyên sâu">
     <div class="drawer-header">
       <div class="drawer-header-left">
         <span class="drawer-step-badge" id="drawer-step-badge">KHU VỰC 3</span>
@@ -581,9 +697,8 @@
       <section class="drawer-pane workspace-section" id="sec-rule-explorer" data-pane="sec-rule-explorer" data-section-id="sec-rule-explorer">
         <div class="drawer-pane-header">
           <div class="drawer-pane-header-left">
-            <span class="tag-badge vermilion" id="rule-explorer-badge">Khu vực 04 • Luật suy luận</span>
             <span class="card-subtitle-note" style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">
-              Hệ luật suy luận tượng trưng (Neuro-Symbolic) từ mô hình học máy
+              Hệ luật suy luận tượng trưng (Neuro-Symbolic) kích hoạt từ mô hình học máy
             </span>
           </div>
           <span class="tag-badge" id="rule-explorer-count-badge">0 luật kích hoạt</span>
@@ -889,83 +1004,61 @@
         </div>
       </section>
 
-      <!-- PANE 6: BÁO CÁO TỔNG KẾT (EXECUTIVE SUMMARY) -->
+      <!-- PANE 6: BÁO CÁO TỔNG KẾT (EDITORIAL MONOGRAPH SUMMARY) -->
       <section class="drawer-pane workspace-section" id="sec-summary" data-pane="sec-summary" data-section-id="sec-summary">
-        <div class="drawer-pane-header">
-          <div class="drawer-pane-header-left">
-            <span class="tag-badge indigo" id="summary-header-badge">Khu vực 06 • Báo cáo tổng kết</span>
-            <span class="card-subtitle-note" style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">
-              Tổng hợp kết quả phán quyết và nguồn tri thức kiểm chứng
-            </span>
-          </div>
-          <span class="tag-badge jade">Cơ sở suy luận chuẩn hóa</span>
-        </div>
-
-        <div class="summary-workspace-grid">
-          <!-- Cột Trái: Lời giải thích tổng hợp & Accordion Nguồn trích dẫn -->
-          <div class="summary-narrative-col">
-            <div class="summary-block-label">Diễn giải chi tiết kết quả phân tích:</div>
-            <div class="xai-body-text summary-narrative-box" id="summary-xai-body-text">
-              Hãy tải lên video/audio hoặc thu âm trực tiếp để hệ thống thực hiện phân tích và sinh lời giải thích rõ ràng.
+        <div class="summary-editorial-sheet">
+          <!-- Tầng 1: Dải thông số tóm tắt ngang gọn nhẹ (Quiet Metadata Ledger) -->
+          <div class="summary-ledger-strip" id="summary-key-findings" aria-label="Tóm tắt các phát hiện chính">
+            <div class="ledger-cell">
+              <span class="ledger-label">Phán quyết</span>
+              <strong class="ledger-val" id="takeaway-verdict-val">Chưa có dữ liệu</strong>
+              <span class="ledger-sub" id="takeaway-verdict-sub">Độ tin cậy: --%</span>
             </div>
-
-            <!-- Accordion cho Tài liệu & Nguồn kiểm chứng chuẩn hóa -->
-            <div class="summary-accordion" id="citations-accordion">
-              <button type="button" class="summary-accordion-trigger" id="btn-toggle-citations" aria-expanded="true">
-                <span>Tài liệu &amp; Nguồn kiểm chứng chuẩn hóa</span>
-                <i class="fa-solid fa-chevron-up accordion-arrow" id="citations-acc-icon"></i>
-              </button>
-              <div class="summary-accordion-content summary-accordion-body open" id="citations-accordion-body">
-                <ul class="citation-list" id="summary-citations-list">
-                  <li class="citation-item">Hồ sơ Di sản Văn hóa Phi vật thể UNESCO</li>
-                  <li class="citation-item">Trung tâm Nghiên cứu Di sản Văn hóa Phi vật thể Châu Á - Thái Bình Dương (ICHCAP)</li>
-                  <li class="citation-item">Viện Âm nhạc Việt Nam</li>
-                </ul>
-              </div>
+            <div class="ledger-cell">
+              <span class="ledger-label">Đa phương thức</span>
+              <strong class="ledger-val" id="takeaway-modality-val">--</strong>
+              <span class="ledger-sub" id="takeaway-modality-sub">Âm thanh &amp; Thị giác</span>
+            </div>
+            <div class="ledger-cell">
+              <span class="ledger-label">Hệ luật kích hoạt</span>
+              <strong class="ledger-val" id="takeaway-rule-val">--</strong>
+              <span class="ledger-sub" id="takeaway-rule-sub">Chưa kích hoạt luật</span>
+            </div>
+            <div class="ledger-cell">
+              <span class="ledger-label">Biên đối chứng</span>
+              <strong class="ledger-val" id="takeaway-disc-val">--</strong>
+              <span class="ledger-sub" id="takeaway-disc-sub">Đối sánh thể loại hạng 2</span>
             </div>
           </div>
 
-          <!-- Cột Phải: Các phát hiện quan trọng (Key Findings Cards) -->
-          <div class="summary-takeaways-col">
-            <div class="summary-block-label">Các phát hiện quan trọng (Key Findings):</div>
-            <div class="summary-takeaways-grid" id="summary-key-findings">
-              <div class="takeaway-card">
-                <div class="takeaway-icon">01</div>
-                <div class="takeaway-meta">
-                  <span class="takeaway-label">Phán quyết &amp; Độ tin cậy</span>
-                  <strong class="takeaway-val" id="takeaway-verdict-val">Chưa có dữ liệu</strong>
-                  <span class="takeaway-sub" id="takeaway-verdict-sub">Đang chờ phân tích mẫu đầu vào</span>
-                </div>
-              </div>
-
-              <div class="takeaway-card">
-                <div class="takeaway-icon jade">02</div>
-                <div class="takeaway-meta">
-                  <span class="takeaway-label">Sự đồng thuận Đa phương thức</span>
-                  <strong class="takeaway-val" id="takeaway-modality-val">--</strong>
-                  <span class="takeaway-sub" id="takeaway-modality-sub">Kết hợp nhánh Âm thanh &amp; Thị giác</span>
-                </div>
-              </div>
-
-              <div class="takeaway-card">
-                <div class="takeaway-icon amber">03</div>
-                <div class="takeaway-meta">
-                  <span class="takeaway-label">Khái niệm &amp; Luật suy luận cốt lõi</span>
-                  <strong class="takeaway-val" id="takeaway-rule-val">--</strong>
-                  <span class="takeaway-sub" id="takeaway-rule-sub">Chưa kích hoạt luật suy luận</span>
-                </div>
-              </div>
-
-              <div class="takeaway-card">
-                <div class="takeaway-icon indigo">04</div>
-                <div class="takeaway-meta">
-                  <span class="takeaway-label">Đặc trưng phân biệt quyết định</span>
-                  <strong class="takeaway-val" id="takeaway-disc-val">--</strong>
-                  <span class="takeaway-sub" id="takeaway-disc-sub">Đối sánh với thể loại hạng 2</span>
-                </div>
-              </div>
+          <!-- Tầng 2 (Trọng tâm chính ~75%+ diện tích): Bản diễn giải kết quả phân tích thoáng, dễ đọc -->
+          <article class="summary-reading-article">
+            <header class="summary-article-head">
+              <span class="summary-article-kicker">Bản diễn giải kết quả phân tích</span>
+              <h3 class="summary-article-title" id="summary-xai-headline">Chưa có báo cáo phân tích</h3>
+            </header>
+            <div class="summary-narrative-prose" id="summary-xai-body-text">
+              Hãy tải lên video/audio, chọn mẫu thử nhanh hoặc thu âm trực tiếp để hệ thống thực hiện phân tích đa phương thức và sinh bản diễn giải chi tiết.
             </div>
-          </div>
+          </article>
+
+          <!-- Tầng 3: Nguồn kiểm chứng học thuật dạng phụ lục thu gọn mặc định ở cuối trang -->
+          <footer class="summary-footnote-accordion" id="citations-accordion">
+            <button type="button" class="summary-footnote-trigger" id="btn-toggle-citations" aria-expanded="false">
+              <span class="footnote-trigger-left">
+                <span>Tài liệu &amp; nguồn kiểm chứng chuẩn hóa</span>
+                <span class="footnote-count-badge" id="summary-citations-count">3</span>
+              </span>
+              <i class="fa-solid fa-chevron-down accordion-arrow" id="citations-acc-icon"></i>
+            </button>
+            <div class="summary-footnote-body" id="citations-accordion-body">
+              <ol class="summary-footnote-list" id="summary-citations-list">
+                <li class="citation-item">Hồ sơ Di sản Văn hóa Phi vật thể UNESCO</li>
+                <li class="citation-item">Trung tâm Nghiên cứu Di sản Văn hóa Phi vật thể Châu Á - Thái Bình Dương (ICHCAP)</li>
+                <li class="citation-item">Viện Âm nhạc Việt Nam</li>
+              </ol>
+            </div>
+          </footer>
         </div>
       </section>
     </div>
@@ -995,7 +1088,7 @@
 
       <div class="edge-panel-list">
         <!-- Mục 3: Đồ thị Concept–Rule -->
-        <button type="button" class="edge-nav-card dock-edge-tab tab-theme-jade" data-open-drawer="sec-concept-graph" title="Khu vực 3: Đồ thị Concept–Rule (Mạng liên kết 3D & 5 tầng DAG)">
+        <button type="button" class="edge-nav-card dock-edge-tab tab-theme-jade" data-open-drawer="sec-concept-graph" title="Khu vực 3: Đồ thị Concept–Rule (Bản đồ suy luận 5 tầng DAG)">
           <span class="card-indicator"></span>
           <div class="card-icon-box">
             <i class="fa-solid fa-diagram-project"></i>
@@ -1005,13 +1098,13 @@
               <span class="card-num">03</span>
               <span class="card-title">Đồ thị Concept–Rule</span>
             </div>
-            <span class="card-sub">Mạng liên kết 3D &amp; 5 tầng DAG</span>
+            <span class="card-sub">Bản đồ suy luận 5 tầng DAG</span>
           </div>
           <i class="fa-solid fa-chevron-right card-arrow"></i>
         </button>
 
         <!-- Mục 4: Khám phá luật suy luận -->
-        <button type="button" class="edge-nav-card dock-edge-tab tab-theme-vermilion" data-open-drawer="sec-rule-explorer" title="Khu vực 4: Khám phá luật suy luận (Mệnh đề mờ & Trích xuất CN2)">
+        <button type="button" class="edge-nav-card dock-edge-tab tab-theme-vermilion" data-open-drawer="sec-rule-explorer" title="Khu vực 4: Khám phá luật suy luận (Luật mờ liên tục &amp; Visual RIPPER)">
           <span class="card-indicator"></span>
           <div class="card-icon-box">
             <i class="fa-solid fa-code-branch"></i>
@@ -1021,7 +1114,7 @@
               <span class="card-num">04</span>
               <span class="card-title">Khám phá luật suy luận</span>
             </div>
-            <span class="card-sub">Mệnh đề mờ &amp; Trích xuất CN2</span>
+            <span class="card-sub">Luật mờ liên tục &amp; Visual RIPPER</span>
           </div>
           <i class="fa-solid fa-chevron-right card-arrow"></i>
         </button>
@@ -1066,22 +1159,60 @@
   </aside>
 
   <!-- ========================================================================
-       Loading Overlay & Feedback Toast
+       Loading Overlay (Frameless Full-Canvas Editorial — Không khung vuông)
        ======================================================================== -->
-  <div class="loading-overlay" id="loading-overlay">
-    <div class="loading-crest-wrap">
-      <img src="/static/img/chim_lac_loading.svg" alt="Chim Lạc Đông Sơn" class="loading-crest-svg" />
-    </div>
-    <div class="loading-text-content">
-      <div class="loading-phase-pill">
-        <span class="loading-phase-dot"></span>
-        <span class="loading-phase-label">HỆ THỐNG HERA</span>
+  <div class="loading-overlay" id="loading-overlay" role="status" aria-live="polite">
+    <!-- Dải đầu trang mở sát lề trên -->
+    <div class="loading-top-bar">
+      <div class="loading-brand-mark">
+        <img src="/static/img/hera_logo.png?v=3.24" alt="HERA" class="loading-brand-img" />
+        <span class="loading-brand-label">HERA · Lưu trữ &amp; Phân tích Di sản</span>
       </div>
-      <h3 class="loading-title">Đang xử lý phân tích dữ liệu...</h3>
-      <p class="loading-desc">Trích xuất đặc trưng đa phương thức &amp; kích hoạt luật suy luận bản sắc</p>
+      <span class="loading-elapsed" id="loading-elapsed-timer">00:00</span>
     </div>
-    <div class="loading-progress-bar">
-      <div class="loading-progress-indeterminate"></div>
+
+    <!-- Vùng trung tâm thoáng mở trực tiếp trên nền giấy, không đóng khung -->
+    <div class="loading-open-stage">
+      <div class="loading-copy-block">
+        <span class="loading-kicker">Đang xử lý tư liệu đa phương thức</span>
+        <h3 class="loading-title">Đang xử lý phân tích tư liệu...</h3>
+        <p class="loading-desc">Trích xuất đặc trưng âm học, khung hình biểu diễn và đối chiếu hệ luật di sản.</p>
+      </div>
+
+      <!-- Đường dây đàn / sóng âm mảnh mở rộng theo chiều ngang -->
+      <div class="loading-acoustic-horizon" aria-hidden="true">
+        <svg class="loading-wave-svg" viewBox="0 0 720 76" preserveAspectRatio="none">
+          <line class="horizon-axis" x1="0" y1="38" x2="720" y2="38" />
+          <path class="wave-thread wave-ink" d="M 0 38 Q 90 12, 180 38 T 360 38 T 540 38 T 720 38" />
+          <path class="wave-thread wave-vermilion" d="M 0 38 Q 60 60, 120 38 T 240 38 T 360 38 T 480 38 T 600 38 T 720 38" />
+          <path class="wave-thread wave-ghost" d="M 0 38 Q 120 22, 240 38 T 480 38 T 720 38" />
+        </svg>
+      </div>
+
+      <!-- Thanh tiến trình mảnh và 3 cột mốc dàn ngang thoáng -->
+      <div class="loading-progress-rail">
+        <div class="loading-rule-track">
+          <div class="loading-rule-fill" id="loading-progress-fill"></div>
+        </div>
+        <ol class="loading-steps-list">
+          <li class="loading-step-item is-active">
+            <span class="step-idx">01</span>
+            <span class="step-text">Giải mã âm thanh &amp; lấy mẫu khung hình</span>
+          </li>
+          <li class="loading-step-item">
+            <span class="step-idx">02</span>
+            <span class="step-text">7 trục MPEG-7, tổ hợp 4 họ &amp; thị giác CBM</span>
+          </li>
+          <li class="loading-step-item">
+            <span class="step-idx">03</span>
+            <span class="step-text">Đối chiếu hệ luật mờ &amp; bản diễn giải</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="loading-bottom-caption">
+      Tổ hợp 4 họ Audio Neuro-Symbolic &amp; ConvNeXt-Tiny CBM · HERA
     </div>
   </div>
 
@@ -1101,46 +1232,46 @@
       </div>
       <div class="modal-body">
         <div class="methodology-grid">
-          <!-- Card 1: Kiến trúc mô hình -->
+          <!-- Card 1: Kiến trúc đa phương thức -->
           <div class="methodology-card">
             <div class="methodology-card-head">
               <i class="fa-solid fa-diagram-project" style="color: var(--accent-vermilion); font-size: 16px;"></i>
-              <h4>Kiến trúc Neuro-Symbolic CBM</h4>
+              <h4>Tổ hợp Đa phương thức Neuro-Symbolic</h4>
             </div>
-            <p>Hệ thống xây dựng theo mô hình <strong>Concept Bottleneck Model (CBM)</strong> 2 tầng: Tầng 1 ánh xạ tín hiệu sang không gian khái niệm trung gian có thể giải thích được; Tầng 2 ánh xạ khái niệm sang thể loại di sản qua hệ luật tượng trưng rõ ràng.</p>
+            <p>Hợp nhất muộn giữa <strong>Tổ hợp 4 họ Audio Neuro-Symbolic (M2a, M3c, M4d, M5c)</strong> chiếm 70% trọng số và <strong>Nhánh Thị giác ConvNeXt-Tiny CBM</strong> (25 khái niệm nhạc cụ, trang phục, không gian diễn xướng) chiếm 30% trọng số.</p>
           </div>
 
-          <!-- Card 2: Đặc trưng âm thanh chuẩn MPEG-7 -->
+          <!-- Card 2: 7 Trục âm học MPEG-7 -->
           <div class="methodology-card">
             <div class="methodology-card-head">
               <i class="fa-solid fa-wave-square" style="color: var(--accent-jade); font-size: 16px;"></i>
-              <h4>7 Trục Âm học Chuẩn MPEG-7</h4>
+              <h4>7 Trục Ngữ nghĩa Âm học MPEG-7</h4>
             </div>
-            <p>Trích xuất chuẩn hóa gồm: Audio Spectrum Envelope, Audio Spectrum Centroid, Audio Spectrum Spread, Audio Spectrum Flatness, Spectral Sharpness, Harmonic Ratio và Fundamental Frequency kết hợp phân đoạn thời gian 3–5 giây.</p>
+            <p>Chiếu tín hiệu lên 7 trục giải thích: <strong>Energy</strong> (Năng lượng), <strong>Harmony</strong> (Hòa âm), <strong>Pitch</strong> (Cao độ F0), <strong>Spectral</strong> (Phổ tần), <strong>Tempo</strong> (Tiết tấu), <strong>Timbre</strong> (Màu âm) và <strong>Vibrato</strong> (Rung/luyến láy) qua hàm thuộc mờ GMM.</p>
           </div>
 
           <!-- Card 3: Khai phá luật tượng trưng -->
           <div class="methodology-card">
             <div class="methodology-card-head">
               <i class="fa-solid fa-scale-balanced" style="color: var(--accent-amber); font-size: 16px;"></i>
-              <h4>Hệ luật giải thích (DT / RF / RIPPER / CN2)</h4>
+              <h4>Hệ luật Mờ &amp; Cầu nối UNESCO/ICHCAP</h4>
             </div>
-            <p>Quy tắc quyết định được khai phá từ các thuật toán học máy tượng trưng: Decision Tree (DT), Random Forest với hàm thuộc mờ Gaussian, RIPPER (Repeated Incremental Pruning) và CN2 Rule Induction.</p>
+            <p>Kết hợp 60 luật mờ liên tục (Decision Tree / Random Forest khả vi) cùng bộ luật thị giác Visual RIPPER, phiên dịch sang khái niệm chuẩn hóa từ hồ sơ UNESCO, ICHCAP và Viện Âm nhạc Việt Nam.</p>
           </div>
 
-          <!-- Card 4: Thử nghiệm giả định & Hiệu năng -->
+          <!-- Card 4: Đối chứng & Phản sự thực -->
           <div class="methodology-card">
             <div class="methodology-card-head">
               <i class="fa-solid fa-flask-vial" style="color: var(--accent-indigo); font-size: 16px;"></i>
-              <h4>Thử nghiệm giả định &amp; Tối ưu 60 FPS</h4>
+              <h4>Giải thích Đối chứng &amp; Can thiệp CBM</h4>
             </div>
-            <p>Cơ chế Phản sự thực (Counterfactuals) cho phép mô phỏng điều kiện biên để lật ngược quyết định. Đồ họa không gian 3D WebGL và mô phỏng sóng âm Three.js + GSAP vận hành mượt mà ở tần số 60 FPS.</p>
+            <p>Cung cấp bảng đối sánh song song giữa thể loại dự đoán và thể loại đối chứng, bản đồ bằng chứng 5 tầng DAG, cùng cơ chế thử nghiệm giả định What-If cho phép bật/tắt khái niệm theo thời gian thực.</p>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <span class="modal-footer-note"><i class="fa-solid fa-book-bookmark"></i> HERA: Hệ thống trí tuệ nhân tạo đa phương thức thông minh và có khả năng giải thích trong phân tích di sản văn hóa phi vật thể</span>
-        <button class="btn-primary" id="btn-close-methodology-footer" type="button" style="padding: 6px 18px; font-size: 12px;">Đã hiểu</button>
+        <span class="modal-footer-note"><i class="fa-solid fa-book-bookmark"></i> HERA — Hệ thống trí tuệ nhân tạo đa phương thức có khả năng giải thích cho di sản văn hóa phi vật thể</span>
+        <button class="btn-primary" id="btn-close-methodology-footer" type="button" style="padding: 7px 20px; font-size: 12px; white-space: nowrap; flex-shrink: 0;">Đã hiểu</button>
       </div>
     </div>
   </div>
@@ -1234,8 +1365,8 @@
             <div class="trim-range-wrap" id="trim-range-container">
               <div class="trim-track-bg"></div>
               <div class="trim-range-highlight" id="trim-range-highlight"></div>
-              <input type="range" class="trim-range-input slider-start" id="trim-slider-start" min="0" max="100" step="0.5" value="0">
-              <input type="range" class="trim-range-input slider-end" id="trim-slider-end" min="0" max="100" step="0.5" value="100">
+              <input type="range" class="trim-range-input slider-start" id="trim-slider-start" aria-label="Thời điểm bắt đầu đoạn cắt" min="0" max="100" step="0.5" value="0">
+              <input type="range" class="trim-range-input slider-end" id="trim-slider-end" aria-label="Thời điểm kết thúc đoạn cắt" min="0" max="100" step="0.5" value="100">
             </div>
 
             <!-- Tinh chỉnh thời gian chính xác -->
@@ -1285,9 +1416,8 @@
   </div>
 
   <!-- Scripts -->
-  <script src="/static/js/audio_wave.js?v=3.23"></script>
-  <script src="/static/js/graph3d.js?v=3.23"></script>
-  <script src="/static/js/audio_recorder.js?v=3.23"></script>
-  <script src="/static/js/app.js?v=3.23"></script>
+  <script src="/static/js/audio_wave.js?v=3.38"></script>
+  <script src="/static/js/audio_recorder.js?v=3.38"></script>
+  <script src="/static/js/app.js?v=3.38"></script>
 </body>
 </html>

@@ -224,6 +224,56 @@ GENRE_COLORS = {
 # 7 trục âm học MPEG-7
 AXES_NAMES = ['Energy', 'Harmony', 'Pitch', 'Spectral', 'Tempo', 'Timbre', 'Vibrato']
 
+# Từ điển chuẩn hóa nhãn tiếng Việt hiển thị trên giao diện (không lộ snake_case / không dấu)
+VISUAL_CUE_VI_LABELS = dict(getattr(p7, 'VISUAL_CONCEPT_VI_LABELS', {}))
+
+ASPECT_VI_LABELS = {
+    'nhac_cu': 'Nhạc cụ',
+    'ky_thuat_thanh_nhac': 'Kỹ thuật thanh nhạc',
+    'ky_thuat_hat': 'Kỹ thuật hát',
+    'giai_dieu_hoi_dieu': 'Giai điệu & hơi điệu',
+    'giai_dieu': 'Giai điệu',
+    'tiet_tau_nhip': 'Tiết tấu & nhịp',
+    'tiet_tau': 'Tiết tấu',
+    'cau_truc_bieu_dien': 'Cấu trúc biểu diễn',
+    'hoa_am': 'Hòa âm',
+    'am_hoc': 'Đặc trưng âm học',
+    'khong_gian_doi_hinh': 'Không gian & đội hình',
+    'nhac_cu_dao_cu': 'Nhạc cụ & đạo cụ',
+    'trang_phuc_hoa_trang': 'Trang phục & hóa trang',
+    'dong_tac_dien_xuat': 'Động tác & diễn xuất',
+    'thi_giac': 'Đặc trưng thị giác',
+    'dac_trung': 'Đặc trưng di sản'
+}
+
+EVIDENCE_LEVEL_VI_LABELS = {
+    'direct_audio': 'Âm học trực tiếp',
+    'audio_plus_context': 'Âm thanh & ngữ cảnh',
+    'single_frame': 'Khung hình đơn',
+    'video_sequence': 'Chuỗi khung hình'
+}
+
+
+def format_visual_cue_vi(cue: str) -> str:
+    if not cue:
+        return ''
+    key = str(cue).strip()
+    return VISUAL_CUE_VI_LABELS.get(key, key.replace('_', ' ').capitalize())
+
+
+def format_aspect_vi(aspect: str) -> str:
+    if not aspect:
+        return 'Đặc trưng'
+    key = str(aspect).strip().lower()
+    return ASPECT_VI_LABELS.get(key, key.replace('_', ' ').capitalize())
+
+
+def format_evidence_level_vi(level: str) -> str:
+    if not level:
+        return 'Khái niệm CBM'
+    key = str(level).strip().lower()
+    return EVIDENCE_LEVEL_VI_LABELS.get(key, key.replace('_', ' ').title())
+
 # Thang đo chuẩn hóa Min-Max từ tập dữ liệu huấn luyện (dùng cho GMM và Random Forest Continuous)
 FEATURE_MIN_MAX = {
     'energy_mean': (0.0, 0.5051),
@@ -1222,13 +1272,16 @@ class HeritageInferenceEngine:
             if cbm_vis_probs:
                 vis_probs_map = cbm_vis_probs
 
-        if is_video and not detected_visual_cues and visual_frame is not None:
-            # Fallback sang heuristic pixel nếu CBM chưa tìm thấy
+        if is_video and not detected_visual_cues and visual_frame is not None and getattr(self, 'visual_cbm_model', None) is None:
+            # Chỉ fallback sang heuristic pixel nếu mô hình Visual CBM chưa được nạp
             detected_visual_cues = self._detect_visual_cues_from_frame(visual_frame)
 
-        if is_video and detected_visual_cues:
-            # Nếu chưa có vis_probs_map từ CBM RF, tính qua prop matching
-            if max(vis_probs_map.values()) - min(vis_probs_map.values()) < 0.05:
+        # Chỉ hợp nhất nhánh Thị giác (30%) khi thực sự phát hiện được ít nhất 1 yếu tố thị giác di sản dương tính
+        # (loại trừ nhãn âm tính 'khong_nhac_cu' đứng một mình — tránh video nói chuyện/vlog trên YouTube kích hoạt nhầm nhánh Thị giác).
+        pos_visual_cues = [c for c in detected_visual_cues if c != 'khong_nhac_cu']
+        if is_video and pos_visual_cues:
+            # Nếu chưa có vis_probs_map từ CBM RF, tính qua prop matching khi có cues
+            if detected_visual_cues and (max(vis_probs_map.values()) - min(vis_probs_map.values()) < 0.05):
                 vis_scores = {g: 1.0 for g in GENRES}
                 for cue in detected_visual_cues:
                     for g, props in self.genre_visual_props.items():
@@ -1240,7 +1293,7 @@ class HeritageInferenceEngine:
                 p_vis = exp_v / np.sum(exp_v)
                 vis_probs_map = {g: float(p_vis[i]) for i, g in enumerate(GENRES)}
 
-            # Dung hợp muộn Multimodal Late Fusion tối ưu (70% Audio Ensemble + 30% Visual CBM, đạt 14/14 = 100% Zero-Leakage Acc, LogLoss = 0.2881)
+            # Dung hợp muộn Multimodal Late Fusion tối ưu (70% Audio Ensemble + 30% Visual CBM)
             for g in GENRES:
                 final_probs_dict[g] = 0.70 * audio_probs_map[g] + 0.30 * vis_probs_map.get(g, 0.16)
         else:
@@ -1379,8 +1432,9 @@ class HeritageInferenceEngine:
         audio_pred = max(audio_probs_map.keys(), key=lambda k: audio_probs_map[k])
         audio_conf = float(audio_probs_map[audio_pred])
 
-        has_visual = bool(is_video and (cbm_cues or detected_visual_cues))
+        has_visual = bool(is_video and pos_visual_cues)
         visual_modal = None
+        detected_visual_cues_vi = [format_visual_cue_vi(c) for c in detected_visual_cues]
         if has_visual:
             vis_pred = max(vis_probs_map.keys(), key=lambda k: vis_probs_map[k])
             vis_conf = float(vis_probs_map[vis_pred])
@@ -1388,20 +1442,29 @@ class HeritageInferenceEngine:
                 'prediction': vis_pred,
                 'confidence': round(vis_conf * 100, 1),
                 'probs': {g: round(float(vis_probs_map[g]) * 100, 1) for g in GENRES},
-                'cues': detected_visual_cues
+                'cues': detected_visual_cues_vi,
+                'raw_cues': detected_visual_cues
             }
+
+        audio_model_note = (
+            "4 họ Audio Neuro-Symbolic (M2a–M5c)"
+            if getattr(self, 'audio_cnn_type', None) == 'ENSEMBLE_4FAM_NEUROSYMBOLIC'
+            else "Mạng phân loại âm thanh đa tầng + Hệ luật mờ liên tục"
+        )
 
         modalities = {
             'audio': {
                 'prediction': audio_pred,
                 'confidence': round(audio_conf * 100, 1),
-                'probs': {g: round(float(audio_probs_map[g]) * 100, 1) for g in GENRES}
+                'probs': {g: round(float(audio_probs_map[g]) * 100, 1) for g in GENRES},
+                'notes': audio_model_note
             },
             'visual': visual_modal,
             'fused': {
                 'prediction': pred_genre,
                 'confidence': round(confidence * 100, 1),
-                'probs': {g: round(float(probs_dict[g]) * 100, 1) for g in GENRES}
+                'probs': {g: round(float(probs_dict[g]) * 100, 1) for g in GENRES},
+                'method': "Hợp nhất đa phương thức (70% Âm thanh + 30% Thị giác)" if has_visual else "Suy luận nhánh Âm thanh + Hệ luật mờ"
             }
         }
 
@@ -1429,7 +1492,7 @@ class HeritageInferenceEngine:
         crisp_axes: Dict[str, str],
         visual_cues: List[str],
         is_video: bool
-    ) -> str:
+    ) -> Dict[str, Any]:
         pred = chunk_pred['prediction']
         conf = round(chunk_pred['confidence'] * 100, 1)
         mods = chunk_pred.get('modalities', {})
@@ -1440,20 +1503,36 @@ class HeritageInferenceEngine:
         energy_val = crisp_axes.get('Energy', 'Vừa')
         vibrato_val = crisp_axes.get('Vibrato', 'Vừa')
         tempo_val = crisp_axes.get('Tempo', 'Vừa')
+        timbre_val = crisp_axes.get('Timbre', 'Trung bình')
 
-        audio_text = (
-            f"Nhánh âm thanh phân loại **{a_mod.get('prediction', pred)}** "
-            f"({a_mod.get('confidence', conf)}%) căn cứ theo đặc tính âm học: "
-            f"Pitch {pitch_val}, Energy {energy_val}, Vibrato {vibrato_val}, Tempo {tempo_val}."
-        )
+        parts = [
+            f"**Nhận diện phân đoạn [{time_label}]:** Tín hiệu nghiêng về thể loại **{pred}** với độ tin cậy **{conf}%**.",
+            (
+                f"**Đặc trưng Âm học:** Nhánh âm thanh dự đoán **{a_mod.get('prediction', pred)}** ({a_mod.get('confidence', conf)}%) "
+                f"với hồ sơ 7 trục nổi bật: Cao độ (Pitch) *{pitch_val}*, Năng lượng (Energy) *{energy_val}*, "
+                f"Màu âm (Timbre) *{timbre_val}*, Độ rung/luyến (Vibrato) *{vibrato_val}*, Tiết tấu (Tempo) *{tempo_val}*."
+            )
+        ]
 
-        if is_video and v_mod and visual_cues:
-            cues_str = ", ".join(visual_cues)
-            vis_text = f"Nhánh thị giác nhận diện thực thể/đạo cụ: **{cues_str}**, phân loại **{v_mod.get('prediction', pred)}** ({v_mod.get('confidence', conf)}%)."
-            fused_text = f"Hợp nhất đa phương thức xác nhận thể loại **{pred}** với độ tin cậy **{conf}%**."
-            return f"{audio_text} {vis_text} {fused_text}"
-        else:
-            return f"{audio_text} Độ tin cậy hợp nhất phân đoạn đạt **{conf}%** khẳng định thể loại **{pred}**."
+        if is_video and v_mod:
+            cues_vi = [format_visual_cue_vi(c) for c in visual_cues] if visual_cues else []
+            v_pred = v_mod.get('prediction', pred)
+            v_conf = v_mod.get('confidence', conf)
+            if cues_vi:
+                cues_str = ", ".join(cues_vi)
+                parts.append(
+                    f"**Bằng chứng Thị giác:** Khung hình ghi nhận **{cues_str}**, "
+                    f"nhánh thị giác nhận diện **{v_pred}** ({v_conf}%)."
+                )
+            else:
+                parts.append(
+                    f"**Bằng chứng Thị giác:** Nhánh thị giác nhận diện bối cảnh **{v_pred}** ({v_conf}%)."
+                )
+
+        return {
+            'headline': f"Diễn giải phân đoạn {time_label} — {pred} ({conf}%)",
+            'narrative': "\n\n".join(parts)
+        }
 
     def _build_timeline_series(self, chunks_info: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         series = []
@@ -1593,6 +1672,7 @@ class HeritageInferenceEngine:
         avg_aud_conf = round(sum(c.get('modalities', {}).get('audio', {}).get('confidence', avg_conf) for c in group) / len(group), 1)
 
         visual_mod = None
+        all_vis_cues_vi = [format_visual_cue_vi(c) for c in all_vis_cues]
         if has_visual:
             vis_preds = [c.get('modalities', {}).get('visual', {}).get('prediction', pred_genre) for c in group if c.get('modalities', {}).get('visual')]
             dominant_vis_pred = max(set(vis_preds), key=vis_preds.count) if vis_preds else pred_genre
@@ -1601,30 +1681,43 @@ class HeritageInferenceEngine:
             visual_mod = {
                 'prediction': dominant_vis_pred,
                 'confidence': avg_vis_conf,
-                'cues': all_vis_cues
+                'cues': all_vis_cues_vi,
+                'raw_cues': all_vis_cues
             }
+
+        audio_model_note = (
+            "4 họ Audio Neuro-Symbolic (M2a–M5c)"
+            if getattr(self, 'audio_cnn_type', None) == 'ENSEMBLE_4FAM_NEUROSYMBOLIC'
+            else "Mạng phân loại âm thanh đa tầng + Hệ luật mờ liên tục"
+        )
 
         modalities = {
             'audio': {
                 'prediction': dominant_aud_pred,
-                'confidence': avg_aud_conf
+                'confidence': avg_aud_conf,
+                'notes': audio_model_note
             },
             'visual': visual_mod,
             'fused': {
                 'prediction': pred_genre,
-                'confidence': avg_conf
+                'confidence': avg_conf,
+                'method': "Hợp nhất đa phương thức (70% Âm thanh + 30% Thị giác)" if visual_mod else "Suy luận nhánh Âm thanh + Hệ luật mờ"
             }
         }
 
         chunk_noun = f"{len(group)} phân đoạn liên tiếp ({dur}s)"
-        cues_desc = f" với sự hiện diện đồng nhất của {', '.join(all_vis_cues)}" if all_vis_cues else ""
-        explanation = (
-            f"Vùng thời gian [{time_label}] gồm {chunk_noun} duy trì đặc tính âm nhạc {pred_genre} ổn định "
-            f"(độ tin cậy bình quân {avg_conf}%){cues_desc}. "
-            f"Nhánh âm thanh đạt {avg_aud_conf}% ({dominant_aud_pred})"
-            + (f", nhánh hình ảnh đạt {avg_vis_conf}% ({dominant_vis_pred})" if visual_mod else "")
-            + f", các chỉ số 7 trục MPEG-7 dao động trong ngưỡng đồng nhất."
+        cues_desc = f" với sự hiện diện đồng nhất của **{', '.join(all_vis_cues_vi)}**" if all_vis_cues_vi else ""
+        explanation_narrative = (
+            f"**Vùng thời gian [{time_label}]:** Gồm {chunk_noun} duy trì đặc tính âm nhạc **{pred_genre}** ổn định "
+            f"(độ tin cậy bình quân **{avg_conf}%**){cues_desc}.\n\n"
+            f"**Phân tách phương thức:** Nhánh âm thanh đạt **{avg_aud_conf}%** ({dominant_aud_pred})"
+            + (f", nhánh hình ảnh đạt **{avg_vis_conf}%** ({dominant_vis_pred})" if visual_mod else "")
+            + ", các chỉ số 7 trục MPEG-7 dao động trong ngưỡng đồng nhất."
         )
+        explanation = {
+            'headline': f"Diễn giải vùng gộp {time_label} — {pred_genre} ({avg_conf}%)",
+            'narrative': explanation_narrative
+        }
 
         return {
             'segment_id': f"seg_{seg_idx}",
@@ -1637,12 +1730,14 @@ class HeritageInferenceEngine:
             'chunk_indices': [c['chunk_index'] for c in group],
             'prediction': pred_genre,
             'confidence': avg_conf,
+            'genre_color': GENRE_COLORS.get(pred_genre, '#C84B31'),
             'probs': avg_probs,
             'radar': avg_radar,
             'crisp_axes': crisp_axes,
             'keyframe_img': keyframe_img,
             'spectrogram_img': spec_img,
             'visual_cues': all_vis_cues,
+            'visual_cues_display': all_vis_cues_vi,
             'active_audio_concepts': all_aud_concepts,
             'active_visual_concepts': all_vis_concepts,
             'modalities': modalities,
@@ -1733,6 +1828,26 @@ class HeritageInferenceEngine:
             audio_data = np.zeros(sr * 6, dtype=np.float32)
 
         duration_total = len(audio_data) / sr
+
+        # Đánh giá năng lượng & độ phẳng phổ (Spectral Flatness) để chặn khoảng lặng / tạp âm quạt phòng
+        try:
+            audio_rms_overall = float(np.sqrt(np.mean(np.square(audio_data, dtype=np.float64)))) if len(audio_data) > 0 else 0.0
+            audio_peak_overall = float(np.max(np.abs(audio_data))) if len(audio_data) > 0 else 0.0
+            _frame_rms = librosa.feature.rms(y=audio_data, frame_length=1024, hop_length=512)[0]
+            audio_active_ratio = float(np.mean(_frame_rms > 0.012)) if len(_frame_rms) > 0 else 0.0
+            audio_rms_std = float(np.std(_frame_rms)) if len(_frame_rms) > 0 else 0.0
+            _flatness = librosa.feature.spectral_flatness(y=audio_data)[0]
+            audio_spec_flatness = float(np.mean(_flatness)) if len(_flatness) > 0 else 0.0
+        except Exception:
+            audio_rms_overall, audio_peak_overall, audio_active_ratio, audio_rms_std, audio_spec_flatness = 0.05, 0.2, 0.5, 0.02, 0.01
+
+        is_silent_audio = (
+            (audio_rms_overall < 0.012)
+            or (audio_peak_overall < 0.06)
+            or (audio_active_ratio < 0.10 and audio_rms_std < 0.006)
+            or (audio_rms_overall < 0.03 and audio_rms_std < 0.004)
+            or (audio_spec_flatness > 0.075 and audio_rms_std < 0.018)
+        )
 
         # Giới hạn thời lượng tối đa cho phép: 10 phút (600 giây)
         MAX_DURATION_SECONDS = 600.0
@@ -1878,6 +1993,7 @@ class HeritageInferenceEngine:
                 'timestamp': time_label,
                 'prediction': chunk_pred['prediction'],
                 'confidence': round(chunk_pred['confidence'] * 100, 1),
+                'genre_color': GENRE_COLORS.get(chunk_pred['prediction'], '#C84B31'),
                 'probs': chunk_pred['probs'],
                 'modalities': chunk_pred.get('modalities', {}),
                 'explanation': chunk_exp,
@@ -1886,6 +2002,7 @@ class HeritageInferenceEngine:
                 'spectrogram_img': spec_img_b64,
                 'keyframe_img': keyframe_b64,
                 'visual_cues': vis_cues,
+                'visual_cues_display': [format_visual_cue_vi(c) for c in vis_cues],
                 'real_rules': chunk_pred.get('real_matched_rules', []),
                 'active_audio_concepts': [c['concept_id'] for c in chunk_pred['audio_concepts']],
                 'active_visual_concepts': [c['concept_id'] for c in chunk_pred['visual_concepts']]
@@ -1920,57 +2037,126 @@ class HeritageInferenceEngine:
                         if r_txt and r not in all_real_rules:
                             all_real_rules.append(r)
 
-        # Thu thập các cues thị giác thực sự phát hiện được (chỉ tính trong phân đoạn có tín hiệu thị giác)
+        # Thu thập các cues thị giác di sản dương tính (loại trừ 'khong_nhac_cu' đứng một mình)
         all_detected_cues = []
+        pos_vis_chunks = 0
         for cp in chunks_info:
             c_vis = cp.get('modalities', {}).get('visual')
-            if c_vis and float(c_vis.get('confidence', 0.0)) >= 30.0:
-                for cue in cp.get('visual_cues', []):
-                    if cue and cue not in all_detected_cues:
+            cp_pos_cues = [cue for cue in cp.get('visual_cues', []) if cue and cue != 'khong_nhac_cu']
+            if c_vis and float(c_vis.get('confidence', 0.0)) >= 30.0 and cp_pos_cues:
+                pos_vis_chunks += 1
+                for cue in cp_pos_cues:
+                    if cue not in all_detected_cues:
                         all_detected_cues.append(cue)
 
+        n_chunks_total = max(1, len(chunks_info))
+        pos_vis_chunk_ratio = pos_vis_chunks / n_chunks_total
+        chunk_consistency = sum(1 for cp in chunks_info if cp.get('prediction') == top1_g) / n_chunks_total
+
         # ---------------------------------------------------------------------
-        # ĐÁNH GIÁ 3 ĐIỀU KIỆN NHẬN DIỆN THỂ LOẠI KHÁC (OUT-OF-DISTRIBUTION / UNKNOWN)
+        # ĐÁNH GIÁ CỔNG KIỂM SOÁT NGOẠI LAI (OUT-OF-DISTRIBUTION / UNKNOWN GATE)
+        # Hiệu chuẩn theo thực nghiệm đối chứng ID vs OOD:
+        # - Video di sản thật: pos_vis_chunk_ratio >= 0.25 (thường 80%-100%), P_max >= 0.519, margin >= 0.272, H_norm <= 0.745
+        # - Video phi âm nhạc / YouTube vlog / thoại / công nghệ: pos_vis_chunk_ratio == 0 (hoặc <= 0.15 nhiễu 1 frame),
+        #   xác suất âm học phân tán hoặc tính nhất quán phân đoạn (chunk_consistency) thấp.
         # ---------------------------------------------------------------------
-        # Điều kiện 1: Độ bất định thống kê cao:
-        # P_max < 0.30 (gần mức ngẫu nhiên 16.7%) HOẶC (P_max < 0.40 kèm margin < 0.15 khi phân phối phẳng)
-        cond1_uncertainty = (top1_p < 0.30) or (top1_p < 0.40 and prob_margin < 0.15)
+        probs_vals = [max(1e-12, float(fused_probs[g])) for g in GENRES]
+        sum_pv = sum(probs_vals) or 1.0
+        probs_norm = [v / sum_pv for v in probs_vals]
+        shannon_h = -sum(v * math.log(v) for v in probs_norm)
+        norm_entropy = shannon_h / math.log(len(GENRES))
+
+        # Điều kiện 1: Độ bất định thống kê cao
+        cond1_uncertainty = (
+            (top1_p < 0.45)
+            or (top1_p < 0.52 and prob_margin < 0.18)
+            or (norm_entropy >= 0.76 and top1_p < 0.58)
+        )
 
         # Điều kiện 2: Không có bất kỳ luật mờ chuyên gia di sản thực tế nào được kích hoạt
         cond2_no_symbolic_rules = (len(all_real_rules) == 0)
 
-        # Điều kiện 3: Không phát hiện được thực thể di sản (nhạc cụ, trang phục)
+        # Điều kiện 3: Không phát hiện được thực thể thị giác di sản dương tính (nhạc cụ, trang phục, sân khấu truyền thống)
         cond3_no_heritage_cues = (len(all_detected_cues) == 0) if is_video else cond2_no_symbolic_rules
+        cond3_sparse_visual = (pos_vis_chunk_ratio <= 0.15) if is_video else False
 
-        # Nhận diện ngoại lai khi thỏa mãn đồng thời cả 3 điều kiện
-        is_ood = cond1_uncertainty and cond2_no_symbolic_rules and cond3_no_heritage_cues
+        ood_reason = None
+        if (not is_video and is_silent_audio) or (is_video and is_silent_audio and cond3_no_heritage_cues):
+            is_ood = True
+            ood_reason = "silent_audio"
+        elif is_video:
+            # 1) Hoàn toàn không có nhạc cụ/trang phục/bối cảnh di sản trên mọi khung hình -> chỉ cho qua nếu âm học áp đảo tuyệt đối (vd: video ảnh bìa tĩnh phát nhạc cổ truyền chuẩn)
+            no_vis_ood = cond3_no_heritage_cues and (
+                top1_p < 0.80 or prob_margin < 0.45 or norm_entropy >= 0.50 or chunk_consistency < 0.65
+            )
+            # 2) Nhiễu thị giác lác đác (<= 15% phân đoạn) kèm âm học chưa đủ chắc chắn
+            sparse_vis_ood = cond3_sparse_visual and (
+                top1_p < 0.65 or prob_margin < 0.28 or norm_entropy >= 0.65 or chunk_consistency < 0.50
+            )
+            is_ood = (
+                no_vis_ood
+                or sparse_vis_ood
+                or (top1_p < 0.45)
+                or (top1_p < 0.52 and prob_margin < 0.18)
+                or (cond1_uncertainty and cond2_no_symbolic_rules)
+            )
+        else:
+            is_ood = (
+                (cond1_uncertainty and cond2_no_symbolic_rules)
+                or (top1_p < 0.50)
+                or (top1_p < 0.60 and prob_margin < 0.20)
+                or (norm_entropy >= 0.72 and top1_p < 0.62)
+                or (chunk_consistency < 0.40 and top1_p < 0.65)
+            )
 
         if is_ood:
             final_genre = "Thể loại khác / Không đủ dữ liệu xác định"
-            final_confidence = float(top1_p)
+            final_confidence = 0.0 if ood_reason == "silent_audio" else float(top1_p)
             final_audio_concepts = []
             final_visual_concepts = []
             active_concepts_list = []
-            unique_rules = [{
-                'rule_text': "Statistical_Uncertainty == 'Cao' AND Symbolic_Heritage_Evidence == 'None'",
-                'consequent': final_genre,
-                'confidence': final_confidence,
-                'support': 0,
-                'score': 0.0
-            }]
-            translated_rules = [{
-                'rule_text': unique_rules[0]['rule_text'],
-                'consequent': final_genre,
-                'confidence': float(final_confidence),
-                'support': 0,
-                'score': 0.0,
-                'summary_text': "Không thỏa mãn các tiêu chuẩn nhận diện của 6 thể loại di sản văn hóa phi vật thể",
-                'clauses': [
-                    f"Độ bất định xác suất thống kê cao (Top 1 chỉ đạt {final_confidence * 100:.1f}%, độ chênh lệch biên {prob_margin * 100:.1f}% không đáng kể)",
-                    "Không có luật mờ chuyên gia nào về đặc tính âm học (Pitch, Energy, Timbre, Vibrato) được kích hoạt",
-                    "Không phát hiện được nhạc cụ truyền thống hoặc trang phục diễn xướng di sản" if is_video else "Không có tín hiệu âm sắc hoặc tiết tấu cổ truyền hỗ trợ"
-                ]
-            }]
+            if ood_reason == "silent_audio":
+                unique_rules = [{
+                    'rule_text': f"Audio_RMS == {audio_rms_overall:.4f} (Im lặng / Nhiễu nền) AND Signal_Activity == 'None'",
+                    'consequent': final_genre,
+                    'confidence': 0.0,
+                    'support': 0,
+                    'score': 0.0
+                }]
+                translated_rules = [{
+                    'rule_text': unique_rules[0]['rule_text'],
+                    'consequent': final_genre,
+                    'confidence': 0.0,
+                    'support': 0,
+                    'score': 0.0,
+                    'summary_text': "Tín hiệu âm thanh quá nhỏ hoặc chủ yếu là khoảng lặng / tạp âm nền, không đủ dữ kiện để nhận diện thể loại",
+                    'clauses': [
+                        f"Năng lượng âm thanh trung bình rất thấp (RMS = {audio_rms_overall:.4f}, đỉnh biên độ = {audio_peak_overall:.3f}, tỷ lệ khung có tiếng = {audio_active_ratio * 100:.1f}%)",
+                        "Không phát hiện giọng hát hoặc nhạc cụ cổ truyền vượt ngưỡng nhiễu nền",
+                        "Hệ thống từ chối gán ép thể loại để đảm bảo độ tin cậy khoa học"
+                    ]
+                }]
+            else:
+                unique_rules = [{
+                    'rule_text': "Statistical_Uncertainty == 'Cao' AND Symbolic_Heritage_Evidence == 'None'",
+                    'consequent': final_genre,
+                    'confidence': final_confidence,
+                    'support': 0,
+                    'score': 0.0
+                }]
+                translated_rules = [{
+                    'rule_text': unique_rules[0]['rule_text'],
+                    'consequent': final_genre,
+                    'confidence': float(final_confidence),
+                    'support': 0,
+                    'score': 0.0,
+                    'summary_text': "Không thỏa mãn các tiêu chuẩn nhận diện của 6 thể loại di sản văn hóa phi vật thể",
+                    'clauses': [
+                        f"Độ bất định xác suất thống kê cao (Top 1 đạt {final_confidence * 100:.1f}%, biên {prob_margin * 100:.1f}%, Entropy chuẩn hóa {norm_entropy:.2f})",
+                        "Không có luật mờ chuyên gia nào về đặc tính âm học (Pitch, Energy, Timbre, Vibrato) được kích hoạt" if cond2_no_symbolic_rules else "Bằng chứng luật âm học yếu và thiếu đồng thuận đa phương thức",
+                        "Không phát hiện được nhạc cụ truyền thống hoặc trang phục diễn xướng di sản" if (is_video and cond3_no_heritage_cues) else "Không đủ tín hiệu đặc trưng cổ truyền để xác định"
+                    ]
+                }]
         else:
             # 5. Lọc top concept & top rules cho toàn thể
             final_audio_concepts = [c for c in aggregated_concepts.values() if c['type'] == 'audio']
@@ -2140,6 +2326,80 @@ class HeritageInferenceEngine:
                     'clauses': t_info['clause_explanations']
                 })
 
+        # Bổ sung nhãn tiếng Việt cho danh sách active_concepts_list
+        for c in active_concepts_list:
+            c['aspect_label'] = format_aspect_vi(c.get('aspect', ''))
+            c['evidence_level_label'] = format_evidence_level_vi(c.get('evidence_level', ''))
+
+        # Tính 7 trục MPEG-7 trung bình toàn video (khớp 100% với Đồ thị bằng chứng Khu vực 3)
+        overall_radar = {}
+        overall_crisp_axes = {}
+        for ax in AXES_NAMES:
+            vals = [float(c.get('radar', {}).get(ax, 0.5)) for c in chunks_info]
+            overall_radar[ax] = round(float(np.mean(vals)), 3) if vals else 0.5
+            lvl_counts = {}
+            for c in chunks_info:
+                lvl = c.get('crisp_axes', {}).get(ax, '')
+                if lvl:
+                    lvl_counts[lvl] = lvl_counts.get(lvl, 0) + 1
+            overall_crisp_axes[ax] = max(lvl_counts.keys(), key=lambda k: lvl_counts[k]) if lvl_counts else 'Vừa'
+
+        # Đánh giá kết quả tổng thể theo từng phương thức (Overall Modalities) trước khi sinh diễn giải XAI
+        has_vis_mod = any(c.get('modalities', {}).get('visual') is not None for c in chunks_info)
+
+        aud_prob_sums = {g: 0.0 for g in GENRES}
+        for c in chunks_info:
+            c_aud_probs = c.get('modalities', {}).get('audio', {}).get('probs', {})
+            for g in GENRES:
+                aud_prob_sums[g] += c_aud_probs.get(g, 0.0)
+        n_chunks = max(len(chunks_info), 1)
+        avg_aud_probs = {g: round(aud_prob_sums[g] / n_chunks, 1) for g in GENRES}
+        dom_aud = max(avg_aud_probs.keys(), key=lambda k: avg_aud_probs[k])
+        avg_aud_conf = avg_aud_probs[dom_aud]
+
+        overall_vis_mod = None
+        all_vis_cues = []
+        if has_vis_mod:
+            vis_prob_sums = {g: 0.0 for g in GENRES}
+            n_vis = 0
+            for c in chunks_info:
+                if c.get('modalities', {}).get('visual'):
+                    c_vis_probs = c['modalities']['visual'].get('probs', {})
+                    for g in GENRES:
+                        vis_prob_sums[g] += c_vis_probs.get(g, 0.0)
+                    n_vis += 1
+            n_vis = max(n_vis, 1)
+            avg_vis_probs = {g: round(vis_prob_sums[g] / n_vis, 1) for g in GENRES}
+            dom_vis = max(avg_vis_probs.keys(), key=lambda k: avg_vis_probs[k])
+            avg_vis_conf = avg_vis_probs[dom_vis]
+
+            for c in chunks_info:
+                for cue in c.get('visual_cues', []):
+                    if cue not in all_vis_cues:
+                        all_vis_cues.append(cue)
+            all_vis_cues_vi = [format_visual_cue_vi(c) for c in all_vis_cues[:4]]
+            overall_vis_mod = {
+                'prediction': dom_vis,
+                'confidence': avg_vis_conf,
+                'cues': all_vis_cues_vi,
+                'raw_cues': all_vis_cues[:4],
+                'notes': f"Nhận diện thị giác {dom_vis} từ {len(all_vis_cues)} yếu tố hình ảnh đặc trưng"
+            }
+
+        overall_modalities = {
+            'audio': {
+                'prediction': dom_aud,
+                'confidence': avg_aud_conf,
+                'notes': "4 họ Audio Neuro-Symbolic (M2a–M5c)" if getattr(self, 'audio_cnn_type', None) == 'ENSEMBLE_4FAM_NEUROSYMBOLIC' else "Mạng phân loại âm thanh đa tầng + Hệ luật mờ liên tục"
+            },
+            'visual': overall_vis_mod,
+            'fused': {
+                'prediction': final_genre,
+                'confidence': round(final_confidence * 100, 1),
+                'method': "Hợp nhất đa phương thức (70% Âm thanh + 30% Thị giác) + 60 Luật mờ Khả vi" if has_vis_mod else "Tổ hợp 4 họ Audio Neuro-Symbolic + 60 Luật mờ Khả vi"
+            }
+        }
+
         # 7. Sinh lời giải thích tự nhiên hoàn chỉnh (Natural Language XAI)
         nl_explanation = self._build_segment_aware_explanation(
             genre=final_genre,
@@ -2148,7 +2408,15 @@ class HeritageInferenceEngine:
             duration=duration_total,
             chunks=chunks_info,
             audio_concepts=final_audio_concepts[:4],
-            visual_concepts=final_visual_concepts[:4]
+            visual_concepts=final_visual_concepts[:4],
+            overall_modalities=overall_modalities,
+            detected_visual_cues=all_vis_cues,
+            ood_reason=ood_reason,
+            audio_signal_stats={
+                'rms': audio_rms_overall,
+                'peak': audio_peak_overall,
+                'active_ratio': audio_active_ratio,
+            }
         )
 
         # 8. Xây dựng đồ thị ngữ nghĩa 3 tầng trong không gian 3D
@@ -2184,61 +2452,6 @@ class HeritageInferenceEngine:
         merged_segments = self._group_similar_chunks(chunks_info)
         timeline_series = self._build_timeline_series(chunks_info)
 
-        # 11. Đánh giá kết quả tổng thể theo từng phương thức (Overall Modalities)
-        has_vis_mod = any(c.get('modalities', {}).get('visual') is not None for c in chunks_info)
-
-        # Tính xác suất trung bình và nhãn chiếm ưu thế trên nhánh Audio
-        aud_prob_sums = {g: 0.0 for g in GENRES}
-        for c in chunks_info:
-            c_aud_probs = c.get('modalities', {}).get('audio', {}).get('probs', {})
-            for g in GENRES:
-                aud_prob_sums[g] += c_aud_probs.get(g, 0.0)
-        n_chunks = max(len(chunks_info), 1)
-        avg_aud_probs = {g: round(aud_prob_sums[g] / n_chunks, 1) for g in GENRES}
-        dom_aud = max(avg_aud_probs.keys(), key=lambda k: avg_aud_probs[k])
-        avg_aud_conf = avg_aud_probs[dom_aud]
-
-        overall_vis_mod = None
-        if has_vis_mod:
-            vis_prob_sums = {g: 0.0 for g in GENRES}
-            n_vis = 0
-            for c in chunks_info:
-                if c.get('modalities', {}).get('visual'):
-                    c_vis_probs = c['modalities']['visual'].get('probs', {})
-                    for g in GENRES:
-                        vis_prob_sums[g] += c_vis_probs.get(g, 0.0)
-                    n_vis += 1
-            n_vis = max(n_vis, 1)
-            avg_vis_probs = {g: round(vis_prob_sums[g] / n_vis, 1) for g in GENRES}
-            dom_vis = max(avg_vis_probs.keys(), key=lambda k: avg_vis_probs[k])
-            avg_vis_conf = avg_vis_probs[dom_vis]
-
-            all_vis_cues = []
-            for c in chunks_info:
-                for cue in c.get('visual_cues', []):
-                    if cue not in all_vis_cues:
-                        all_vis_cues.append(cue)
-            overall_vis_mod = {
-                'prediction': dom_vis,
-                'confidence': avg_vis_conf,
-                'cues': all_vis_cues[:4],
-                'notes': f"Nhận diện thị giác {dom_vis} từ {len(all_vis_cues)} đối tượng đặc trưng"
-            }
-
-        overall_modalities = {
-            'audio': {
-                'prediction': dom_aud,
-                'confidence': avg_aud_conf,
-                'notes': "Tổ hợp 4 họ kiến trúc Neuro-Symbolic Audio (M2a + M3c + M4d + M5c)" if getattr(self, 'audio_cnn_type', None) == 'ENSEMBLE_4FAM_NEUROSYMBOLIC' else "Phân loại âm thanh CNN (EXP-13) + RF liên tục"
-            },
-            'visual': overall_vis_mod,
-            'fused': {
-                'prediction': final_genre,
-                'confidence': round(final_confidence * 100, 1),
-                'method': "Multimodal Late Fusion (0.70 Audio Ensemble + 0.30 Visual CBM) + 60 Luật mờ Khả vi"
-            }
-        }
-
         return {
             'status': 'success',
             'file_name': path.name,
@@ -2249,6 +2462,8 @@ class HeritageInferenceEngine:
             'genre_color': GENRE_COLORS.get(final_genre, '#C84B31'),
             'probs': {g: round(fused_probs[g] * 100, 1) for g in GENRES},
             'modalities': overall_modalities,
+            'overall_radar': overall_radar,
+            'overall_crisp_axes': overall_crisp_axes,
             'chunks': chunks_info,
             'merged_segments': merged_segments,
             'timeline_series': timeline_series,
@@ -2396,30 +2611,8 @@ class HeritageInferenceEngine:
                     'level_map': {}
                 }
 
-        # Nhãn tiếng Việt cho các visual cues
-        VISUAL_CUE_VI_NAMES = {
-            'dan_day': 'Đàn đáy cần dài (dan_day)',
-            'ban_phach_trong_chau': 'Bàn phách tre & Trống chầu (ban_phach_trong_chau)',
-            'ao_thao_khan_nhieu_ao_the': 'Áo thao, khăn nhiễu & áo the (ao_thao_khan_nhieu_ao_the)',
-            'doi_hinh_3_nguoi_ca_tru': 'Đội hình 3 người Ca trù: Đào nương, Kép đàn, Quan viên (doi_hinh_3_nguoi_ca_tru)',
-            'trong_cheo_mo_quat_giay': 'Trống Chèo, mõ & quạt giấy (trong_cheo_mo_quat_giay)',
-            'ao_tu_than_yem_dao': 'Áo tứ thân & yếm đào (ao_tu_than_yem_dao)',
-            'trang_phuc_he_cheo': 'Trang phục & hóa trang hề Chèo (trang_phuc_he_cheo)',
-            'chieu_cheo_san_dinh': 'Không gian chiếu Chèo sân đình (chieu_cheo_san_dinh)',
-            'guitar_phim_lom': 'Đàn guitar phím lõm (guitar_phim_lom)',
-            'dan_kim_dan_nguyet': 'Đàn kìm / Đàn nguyệt (dan_kim_dan_nguyet)',
-            'co_trang_mao_giap_dinh_hat': 'Phục trang cổ trang, mão giáp đính hạt (co_trang_mao_giap_dinh_hat)',
-            'san_khau_kich_hat': 'Không gian sân khấu kịch hát (san_khau_kich_hat)',
-            'dao_cu_hau_dong_kiem_cung_mam': 'Đạo cụ nghi lễ hầu đồng: kiếm, cung, mâm lễ (dao_cu_hau_dong_kiem_cung_mam)',
-            'khan_chau_ao_ngu_hau_dong': 'Khăn chầu áo ngự hầu đồng (khan_chau_ao_ngu_hau_dong)',
-            'dien_tho_hau_dong': 'Không gian điện thờ hầu đồng (dien_tho_hau_dong)',
-            'non_quai_thao_khan_mo_qua_ao_mo_ba': 'Nón quai thao, khăn mỏ quạ & áo mớ ba (non_quai_thao_khan_mo_qua_ao_mo_ba)',
-            'doi_dap_nam_nu_quan_ho': 'Đội hình hát đối đáp nam nữ (doi_dap_nam_nu_quan_ho)',
-            'dan_co_dan_nhi': 'Đàn cò / Đàn nhị (dan_co_dan_nhi)',
-            'senh_tien_trong_manh': 'Sênh tiền & trống mảnh (senh_tien_trong_manh)',
-            'chieu_xam_duong_pho_cho': 'Chiếu Xẩm đường phố / chợ (chieu_xam_duong_pho_cho)',
-            'ao_nau_kinh_den_mu_cat': 'Áo nâu, kính đen & mũ cát (ao_nau_kinh_den_mu_cat)'
-        }
+        # Nhãn tiếng Việt cho các visual cues (thuần tiếng Việt, không kèm mã snake_case thừa)
+        VISUAL_CUE_VI_NAMES = dict(VISUAL_CUE_VI_LABELS)
 
         # Phân nhóm visual cues theo tiêu chí cho từng thể loại
         GENRE_CRITERION_VISUAL_CUES = {
@@ -3124,22 +3317,56 @@ class HeritageInferenceEngine:
         duration: float,
         chunks: List[Dict[str, Any]],
         audio_concepts: List[Dict[str, Any]],
-        visual_concepts: List[Dict[str, Any]]
+        visual_concepts: List[Dict[str, Any]],
+        overall_modalities: Optional[Dict[str, Any]] = None,
+        detected_visual_cues: Optional[List[str]] = None,
+        ood_reason: Optional[str] = None,
+        audio_signal_stats: Optional[Dict[str, float]] = None
     ) -> Dict[str, Any]:
         """
-        Sinh diễn giải XAI sắc bén, nhấn mạnh trực tiếp lý do phân lớp (Âm học & Thị giác then chốt),
-        không dài dòng, loại bỏ hoàn toàn các thẻ [Nguồn:...] xen kẽ, đưa tài liệu tham khảo về cuối.
+        Sinh diễn giải XAI chuẩn mực, điều chỉnh sắc thái theo độ tin cậy và mức độ đồng thuận
+        Âm thanh – Thị giác thực tế, không phóng đại kết luận khi bằng chứng phân tán.
         """
         import re
-        conf_pct = f"{confidence * 100:.1f}%"
+        conf_val = float(confidence * 100.0) if confidence <= 1.0 else float(confidence)
+        conf_pct = f"{conf_val:.1f}%"
         is_video = (mode == "video")
+        detected_visual_cues = detected_visual_cues or []
+        overall_modalities = overall_modalities or {}
+        audio_signal_stats = audio_signal_stats or {}
 
         def clean_text(txt: str) -> str:
             cleaned = re.sub(r'\[\s*(?:Nguồn|Source)[^\]]*\]|\(\s*(?:Nguồn|Source)[^\)]*\)', '', txt, flags=re.IGNORECASE)
-            return re.sub(r'\s+', ' ', cleaned).strip()
+            cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+            # Tránh khẳng định cứng số lượng 3 người khi khung hình chỉ thấy 2 nghệ nhân (đào nương & kép đàn)
+            if "đội hình biểu diễn điển hình gồm ba thành phần" in cleaned.lower():
+                cleaned = "Bố cục biểu diễn Ca trù truyền thống (đào nương hát gõ phách cùng kép đàn đáy trong không gian thính phòng)."
+            return cleaned
 
-        # Xử lý trường hợp Thể loại khác / Không đủ dữ liệu xác định (Out-of-Distribution)
+        # Xử lý trường hợp Thể loại khác / Không đủ dữ liệu xác định (Out-of-Distribution hoặc Im lặng)
         if "thể loại khác" in genre.lower() or "không đủ dữ liệu" in genre.lower() or "chưa xác định" in genre.lower():
+            if ood_reason == "silent_audio":
+                rms_v = float(audio_signal_stats.get('rms', 0.0))
+                peak_v = float(audio_signal_stats.get('peak', 0.0))
+                act_v = float(audio_signal_stats.get('active_ratio', 0.0)) * 100.0
+                narrative = (
+                    f"**Kết quả Nhận diện:** Bản ghi được xếp vào nhóm **{genre.upper()}** "
+                    f"(không đủ tín hiệu âm thanh đầu vào để phân loại).\n\n"
+                    f"**Căn cứ kiểm tra Tín hiệu Đầu vào:**\n"
+                    f"• **Năng lượng âm thanh quá thấp / chủ yếu là khoảng lặng:** Trong suốt {duration:.1f}s ghi nhận, biên độ hiệu dụng trung bình chỉ đạt RMS = {rms_v:.4f} (đỉnh biên độ {peak_v:.3f}, chỉ {act_v:.1f}% khung vượt ngưỡng nhiễu nền).\n"
+                    f"• **Thiếu nguồn âm biểu diễn:** Không phát hiện giọng hát hoặc nhạc cụ cổ truyền rõ nét nên các mô hình âm học không có đủ dữ kiện để suy luận.\n\n"
+                    f"**Gợi ý:** Vui lòng kiểm tra micro, đưa nguồn âm đến gần hơn hoặc phát rõ một đoạn trích diễn xướng (khuyến nghị 6–15 giây) rồi thử lại."
+                )
+                return {
+                    'headline': f"Kết luận: {genre}",
+                    'structured_points': {
+                        'audio': [f"Tín hiệu âm thanh quá nhỏ hoặc chủ yếu là khoảng lặng / tạp âm nền (RMS = {rms_v:.4f})."],
+                        'visual': []
+                    },
+                    'citations': ["Cổng kiểm tra Năng lượng Tín hiệu & Ngoại lai (Silence / OOD Gate)"],
+                    'narrative': narrative
+                }
+
             narrative = (
                 f"**Kết quả Nhận diện:** Tệp đầu vào được xếp vào nhóm **{genre.upper()}** "
                 f"(Độ bất định cao, không thỏa mãn các điều kiện nhận diện của 6 thể loại di sản hỗ trợ).\n\n"
@@ -3155,11 +3382,12 @@ class HeritageInferenceEngine:
                 f"**Kết luận:** Hệ thống bảo lưu kết quả và không gán ép vào 6 thể loại truyền thống nhằm đảm bảo tính an toàn và minh bạch khoa học."
             )
             return {
+                'headline': f"Kết luận: {genre} ({conf_pct})",
                 'structured_points': {
                     'audio': ["Không phát hiện đặc trưng âm học khớp với 6 thể loại truyền thống."],
                     'visual': ["Không phát hiện nhạc cụ hoặc trang phục diễn xướng truyền thống."] if is_video else []
                 },
-                'sources': ["Hệ thống Luật Chuyên gia & CBM Out-Of-Distribution Gate"],
+                'citations': ["Hệ thống Luật Chuyên gia & Cổng kiểm soát Ngoại lai (OOD Gate)"],
                 'narrative': narrative
             }
 
@@ -3169,7 +3397,7 @@ class HeritageInferenceEngine:
             peak_chunks = chunks[:2]
         timestamps_summary = ", ".join([c['timestamp'] for c in peak_chunks[:3]])
 
-        # 1. Trích xuất bằng chứng Âm học then chốt (chọn tối đa 3 câu đắt giá nhất)
+        # 1. Trích xuất bằng chứng Âm học then chốt (tối đa 3 câu)
         audio_points = []
         collected_sources = []
         for ac in audio_concepts:
@@ -3182,10 +3410,25 @@ class HeritageInferenceEngine:
                 if s_clean and s_clean not in collected_sources:
                     collected_sources.append(s_clean)
 
-        # 2. Trích xuất bằng chứng Thị giác then chốt (chọn tối đa 3 đối tượng văn hóa)
+        # 2. Trích xuất bằng chứng Thị giác bám sát thực tế khung hình phát hiện được
         visual_points = []
         if is_video:
-            for vc in visual_concepts:
+            # Ưu tiên các khái niệm thị giác thực sự tương ứng với detected_visual_cues
+            grounded_cids = set()
+            if detected_visual_cues and hasattr(self, 'cbm_cue_to_concepts'):
+                for cue in detected_visual_cues:
+                    for cid in self.cbm_cue_to_concepts.get(cue, []):
+                        grounded_cids.add(cid)
+
+            prioritized_vc = [vc for vc in visual_concepts if vc.get('concept_id') in grounded_cids] if grounded_cids else list(visual_concepts)
+            if not prioritized_vc:
+                prioritized_vc = list(visual_concepts)[:2]
+
+            if detected_visual_cues:
+                cues_vi_str = ", ".join([format_visual_cue_vi(c) for c in detected_visual_cues[:4]])
+                visual_points.append(f"Đối tượng nhận diện trực tiếp trên khung hình: {cues_vi_str}.")
+
+            for vc in prioritized_vc[:2]:
                 c_text = clean_text(vc.get('concept_sentence', ''))
                 if c_text:
                     ts_str = f"[{', '.join(vc['timestamps'][:2])}]" if vc.get('timestamps') else ""
@@ -3195,30 +3438,62 @@ class HeritageInferenceEngine:
                     if s_clean and s_clean not in collected_sources:
                         collected_sources.append(s_clean)
 
-        # 3. Tổng hợp Diễn giải Sắc bén & Nhấn mạnh Lí do (Structured & Concise)
+        # 3. Tổng hợp Diễn giải chuẩn sắc thái theo mức độ tin cậy & đồng thuận
         narrative_parts = []
-        narrative_parts.append(
-            f"**Xác nhận Thể loại:** Hệ thống khẳng định di sản thuộc thể loại **{genre.upper()}** "
-            f"với độ tin cậy **{conf_pct}** (tổng thời lượng {duration:.1f}s, tín hiệu khớp luật cao nhất tại {timestamps_summary})."
-        )
+        if conf_val >= 80.0:
+            opening_lead = (
+                f"**Kết luận Thể loại:** Hệ thống xác định tư liệu thuộc thể loại **{genre.upper()}** "
+                f"với độ tin cậy cao (**{conf_pct}**, tổng thời lượng {duration:.1f}s; tín hiệu nổi bật nhất tại {timestamps_summary})."
+            )
+        elif conf_val >= 60.0:
+            opening_lead = (
+                f"**Kết luận Thể loại:** Hệ thống nhận diện tư liệu nghiêng về thể loại **{genre.upper()}** "
+                f"với độ tin cậy khá (**{conf_pct}**, tổng thời lượng {duration:.1f}s; tín hiệu rõ nhất tại {timestamps_summary})."
+            )
+        else:
+            opening_lead = (
+                f"**Nhận định Bước đầu:** Tư liệu nghiêng về thể loại **{genre.upper()}** ở mức độ tin cậy trung bình (**{conf_pct}**, "
+                f"tổng thời lượng {duration:.1f}s; nổi bật nhất tại {timestamps_summary}). Nên đối chiếu thêm các phân đoạn và bảng phân tích đối chứng."
+            )
+        narrative_parts.append(opening_lead)
 
         if audio_points:
             narrative_parts.append(
-                f"**Lí do Âm học then chốt:**\n" + "\n".join([f"• {p}" for p in audio_points[:3]])
+                f"**Lý do Âm học then chốt:**\n" + "\n".join([f"• {p}" for p in audio_points[:3]])
             )
 
         if is_video and visual_points:
             narrative_parts.append(
-                f"**Lí do Thị giác & Không gian diễn xướng:**\n" + "\n".join([f"• {p}" for p in visual_points[:3]])
+                f"**Lý do Thị giác & Không gian diễn xướng:**\n" + "\n".join([f"• {p}" for p in visual_points[:3]])
             )
-            narrative_parts.append(
-                "**Đồng quy Đa phương thức:** Tuyến tín hiệu âm thanh và hình ảnh thị giác (đạo cụ, nhạc cụ, trang phục) "
-                "khớp đồng quy chặt chẽ, loại bỏ hoàn toàn các phỏng đoán sai lệch."
-            )
+
+        # Câu kết đồng quy đa phương thức bám sát số liệu thực tế của 2 nhánh
+        aud_mod = overall_modalities.get('audio') or {}
+        vis_mod = overall_modalities.get('visual')
+        aud_pred = aud_mod.get('prediction', genre)
+        aud_conf = float(aud_mod.get('confidence', conf_val))
+
+        if is_video and vis_mod:
+            vis_pred = vis_mod.get('prediction', genre)
+            vis_conf = float(vis_mod.get('confidence', conf_val))
+            if aud_pred == vis_pred == genre and vis_conf >= 70.0 and conf_val >= 75.0:
+                narrative_parts.append(
+                    f"**Đồng quy Đa phương thức:** Nhánh âm thanh ({aud_conf:.1f}%) và nhánh thị giác ({vis_conf:.1f}%) "
+                    f"cùng đồng thuận cao cho thể loại {genre}, củng cố vững chắc cho kết quả phân tích."
+                )
+            elif aud_pred == vis_pred == genre:
+                narrative_parts.append(
+                    f"**Đánh giá Đa phương thức:** Cả nhánh âm thanh ({aud_conf:.1f}%) và nhánh thị giác ({vis_conf:.1f}%) "
+                    f"cùng hướng về {genre}; trong đó tín hiệu âm thanh đóng vai trò dẫn dắt chính do bằng chứng hình ảnh còn phân tán ở một số khung hình."
+                )
+            else:
+                narrative_parts.append(
+                    f"**Cân bằng Đa phương thức:** Nhánh âm thanh dự đoán {aud_pred} ({aud_conf:.1f}%) trong khi nhánh thị giác nghiêng về {vis_pred} ({vis_conf:.1f}%); "
+                    f"kết quả cuối cùng được tổng hợp theo tỷ trọng 70% Âm thanh + 30% Thị giác."
+                )
         else:
             narrative_parts.append(
-                "**Căn cứ Luật giải thích:** Tập hợp đặc trưng âm thanh thỏa mãn hệ luật phân cấp, "
-                "khẳng định dấu ấn âm sắc đặc thù của thể loại."
+                f"**Căn cứ Luật giải thích:** Tập hợp đặc trưng âm học và hệ luật mờ thống nhất ủng hộ dấu ấn âm sắc đặc thù của thể loại {genre}."
             )
 
         full_narrative = "\n\n".join(narrative_parts)
@@ -3231,7 +3506,7 @@ class HeritageInferenceEngine:
         ]
 
         extra_citations = [
-            s for s in collected_sources 
+            s for s in collected_sources
             if s and not any(k in s for k in ["UNESCO", "ICHCAP", "Viện Âm nhạc", "Trần Quang Hải"])
         ]
 
@@ -3451,7 +3726,7 @@ class HeritageInferenceEngine:
             'modality': 'audio',
             'icon': 'fa-headphones',
             'badge': 'WAV 16kHz',
-            'value': f'{len(chunks)} chunk (3-5s)' if chunks else 'Âm thanh chuẩn',
+            'value': f'{len(chunks)} phân đoạn' if chunks else 'Âm thanh chuẩn',
             'raw_score': 1.0,
             'description': f'Chuỗi tín hiệu sóng âm trích xuất từ tệp "{file_name}". Lấy mẫu tần số 16,000 Hz, kênh mono chuẩn hóa và chia đoạn liên tục.',
             'timestamps': [dur_str],
@@ -3533,7 +3808,7 @@ class HeritageInferenceEngine:
                 'label': 'Trích xuất đặc trưng'
             })
 
-        # 1.1b. Nhánh Mạng Audio CNN Champion (EXP-13 EfficientNet-B0 Mel+CQT)
+        # 1.1b. Nhánh Tổ hợp 4 Họ Kiến trúc Audio Neuro-Symbolic (M2a + M3c + M4d + M5c)
         cnn_timestamps = []
         if chunks:
             cnn_confs = [c.get('modalities', {}).get('audio', {}).get('probs', {}).get(genre, 0.0) for c in chunks]
@@ -3542,19 +3817,24 @@ class HeritageInferenceEngine:
         if not cnn_timestamps and chunks:
             cnn_timestamps = [chunks[0]['timestamp']]
 
+        is_4fam = getattr(self, 'audio_cnn_type', None) == 'ENSEMBLE_4FAM_NEUROSYMBOLIC'
         nodes.append({
             'id': 'node_feat_audio_cnn',
-            'name': 'Audio CNN (Mel+CQT)',
+            'name': 'Tổ hợp Audio 4 Họ' if is_4fam else 'Audio CNN (Mel+CQT)',
             'layer': 1,
             'category': 'feature',
             'modality': 'audio',
             'icon': 'fa-brain-circuit',
-            'badge': 'EXP-13 89.3%',
-            'value': 'Biểu diễn âm học sâu (Deep Audio)',
-            'raw_score': 0.893,
-            'description': 'Mô hình Audio CNN vô địch (EXP-13 Mel-Spectrogram + CQT 2-channel trên kiến trúc EfficientNet-B0) trích xuất đặc trưng âm học tầng sâu, chiếm 55% trọng số nhánh âm thanh.',
+            'badge': 'M2a–M5c' if is_4fam else 'Mel+CQT',
+            'value': 'M2a + M3c + M4d + M5c' if is_4fam else 'Biểu diễn âm học sâu',
+            'raw_score': 0.948 if is_4fam else 0.893,
+            'description': (
+                'Tổ hợp 4 họ kiến trúc Neuro-Symbolic Audio (M2a, M3c, M4d, M5c) trích xuất đồng thời phổ Mel+CQT và không gian 27 khái niệm mờ, giữ 70% trọng số trong hợp nhất đa phương thức.'
+                if is_4fam else
+                'Mô hình Audio CNN trích xuất biểu diễn phổ tần sâu (Mel-Spectrogram + CQT), kết hợp với hệ luật mờ liên tục.'
+            ),
             'timestamps': cnn_timestamps,
-            'source_evidence': 'Audio CNN Champion: EXP-13 (Mel+CQT 2-channel, Acc 89.31%, Macro F1 89.19%)'
+            'source_evidence': 'Tổ hợp 4 Họ Audio Neuro-Symbolic (M2a, M3c, M4d, M5c)' if is_4fam else 'Audio CNN + Fuzzy Rules'
         })
         links.append({
             'source': 'node_input_audio',
@@ -3579,20 +3859,21 @@ class HeritageInferenceEngine:
             if not vis_timestamps and chunks:
                 vis_timestamps = [chunks[0]['timestamp']]
 
-            cues_display = ", ".join(all_vis_cues[:4]) if all_vis_cues else "Đặc trưng bối cảnh & phong thái biểu diễn"
+            all_vis_cues_vi = [format_visual_cue_vi(c) for c in all_vis_cues]
+            cues_display = ", ".join(all_vis_cues_vi[:4]) if all_vis_cues_vi else "Đặc trưng bối cảnh & phong thái biểu diễn"
             nodes.append({
                 'id': 'node_feat_visual',
-                'name': 'Keyframes & Cues Thị giác',
+                'name': 'Keyframes & Thị giác',
                 'layer': 1,
                 'category': 'feature',
                 'modality': 'visual',
                 'icon': 'fa-camera',
-                'badge': f'{len(all_vis_cues)} đối tượng' if all_vis_cues else 'Khung hình',
+                'badge': f'{len(all_vis_cues_vi)} đối tượng' if all_vis_cues_vi else 'Khung hình',
                 'value': cues_display,
                 'raw_score': 0.90,
-                'description': f'Trích xuất đặc trưng không gian từ chuỗi khung hình qua mạng ConvNeXt-Tiny. Nhận diện các đối tượng đạo cụ, trang phục: {cues_display}.',
+                'description': f'Trích xuất đặc trưng không gian từ chuỗi khung hình qua mạng ConvNeXt-Tiny CBM. Nhận diện các đối tượng đạo cụ, trang phục: {cues_display}.',
                 'timestamps': vis_timestamps,
-                'source_evidence': 'ConvNeXt-Tiny Spatial Visual Embeddings'
+                'source_evidence': 'ConvNeXt-Tiny Visual CBM (25 Khái niệm thị giác)'
             })
 
             # Liên kết từ Đầu vào Video -> Đặc trưng Thị giác
@@ -3612,6 +3893,8 @@ class HeritageInferenceEngine:
             cid = c.get('concept_id', '')
             c_type = c.get('type', 'audio')
             aspect = c.get('aspect', 'dac_trung')
+            aspect_vi = c.get('aspect_label') or format_aspect_vi(aspect)
+            ev_vi = c.get('evidence_level_label') or format_evidence_level_vi(c.get('evidence_level', ''))
             c_score = float(c.get('score', 0.88))
             c_node_id = f"node_concept_{cid}"
             concept_nodes_map[cid] = c_node_id
@@ -3619,13 +3902,13 @@ class HeritageInferenceEngine:
             nodes.append({
                 'id': c_node_id,
                 'concept_id': cid,
-                'name': f'[{cid}] {aspect.replace("_", " ").title()}',
+                'name': aspect_vi,
                 'layer': 2,
                 'category': 'concept',
                 'modality': c_type,
                 'icon': 'fa-wave-square' if c_type == 'audio' else 'fa-eye',
-                'badge': c.get('evidence_level', 'CBM Concept').replace('_', ' ').title(),
-                'value': f'{round(c_score * 100, 1)}%',
+                'badge': cid,
+                'value': f'{ev_vi} • {round(c_score * 100, 1)}%',
                 'raw_score': round(c_score, 3),
                 'enabled': c.get('enabled', True),
                 'description': c.get('concept_sentence', ''),
@@ -3763,6 +4046,12 @@ class HeritageInferenceEngine:
                         if rid not in n['used_in_rules']:
                             n['used_in_rules'].append(rid)
 
+            # Rút gọn mô tả luật bằng nhãn tiếng Việt sạch (thay thế snake_case trên node SVG)
+            r_display_val = r_text
+            for k_raw, v_lbl in VISUAL_CUE_VI_LABELS.items():
+                if k_raw in r_display_val:
+                    r_display_val = r_display_val.replace(f"{k_raw} == 1", v_lbl).replace(f"{k_raw} == 0", f"Không {v_lbl}").replace(k_raw, v_lbl)
+
             nodes.append({
                 'id': rid,
                 'name': f'Luật suy luận #{idx + 1}',
@@ -3771,7 +4060,7 @@ class HeritageInferenceEngine:
                 'modality': 'fused',
                 'icon': 'fa-code-branch',
                 'badge': f'Tin cậy {conf_pct_str}',
-                'value': f'IF {r_text[:38]}...' if len(r_text) > 38 else f'IF {r_text}',
+                'value': f'{r_display_val[:38]}...' if len(r_display_val) > 38 else r_display_val,
                 'raw_score': round(r_conf if r_conf <= 1.0 else r_conf / 100.0, 3),
                 'rule_text': r_text,
                 'consequent': r_consequent,

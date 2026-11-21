@@ -31,15 +31,13 @@ class LiveAudioRecorder {
     if (this.isRecording) return;
 
     try {
-      // Cấu hình chất lượng cao cho âm nhạc & thanh nhạc di sản:
-      // Bật autoGainControl để phần cứng/hệ điều hành tự tối ưu mức thu âm lượng mic,
-      // loại bỏ việc âm thanh thu vào bị quá nhỏ khi hát hoặc phát nhạc cụ.
+      // Tắt autoGainControl để không khuếch đại khoảng lặng/tạp âm phòng thành nhiễu lớn
       this.mediaStream = await navigator.mediaDevices.getUserMedia({
         audio: {
           channelCount: 1,
           echoCancellation: false,
           noiseSuppression: false,
-          autoGainControl: true
+          autoGainControl: false
         }
       });
 
@@ -138,18 +136,21 @@ class LiveAudioRecorder {
       offset += chunk.length;
     }
 
-    // Tự động chuẩn hóa và khuếch đại âm lượng (Gain Boost & Peak Normalization):
-    // Khắc phục triệt để tình trạng tiếng mic thu vào bị nhỏ khi phát lại.
+    // Chỉ chuẩn hóa âm lượng khi bản ghi thực sự có tín hiệu âm thanh rõ (tránh khuếch đại khoảng lặng/nhiễu nền)
     let maxAbs = 0;
+    let sumSq = 0;
     for (let i = 0; i < mergedBuffer.length; i++) {
-      const absVal = Math.abs(mergedBuffer[i]);
+      const v = mergedBuffer[i];
+      const absVal = Math.abs(v);
       if (absVal > maxAbs) maxAbs = absVal;
+      sumSq += v * v;
     }
+    const rawRms = mergedBuffer.length > 0 ? Math.sqrt(sumSq / mergedBuffer.length) : 0;
 
-    if (maxAbs > 0.005) {
-      // Đưa biên độ đỉnh về mức tiêu chuẩn 0.88 (-1.1 dBFS), khuếch đại tối đa đến 4.5 lần
-      const targetPeak = 0.88;
-      const gainMultiplier = Math.min(targetPeak / maxAbs, 4.5);
+    if (rawRms >= 0.014 && maxAbs >= 0.05) {
+      // Đưa biên độ đỉnh về mức tiêu chuẩn 0.85, khuếch đại tối đa đến 3.5 lần
+      const targetPeak = 0.85;
+      const gainMultiplier = Math.min(targetPeak / maxAbs, 3.5);
       for (let i = 0; i < mergedBuffer.length; i++) {
         mergedBuffer[i] = Math.max(-1.0, Math.min(1.0, mergedBuffer[i] * gainMultiplier));
       }
